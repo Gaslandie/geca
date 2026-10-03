@@ -15,7 +15,8 @@ import { Container, Icon } from "./ui";
 import { BrandLogo } from "./BrandLogo";
 
 export function Header({ locale }: { locale: Locale }) {
-  const pathname = usePathname();
+  // Pages utilise des URL terminées par / ; garder la sélection du menu exacte.
+  const pathname = usePathname().replace(/\/$/, "") || "/";
   return (
     <HeaderNavigation key={pathname} locale={locale} pathname={pathname} />
   );
@@ -29,7 +30,7 @@ function HeaderNavigation({
   pathname: string;
 }) {
   const text = interfaceText[locale];
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLButtonElement>(null);
@@ -40,27 +41,38 @@ function HeaderNavigation({
   );
 
   useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    const inner = header.querySelector<HTMLElement>(".header-inner");
+    const updateMeasurements = () => {
+      header.style.setProperty("--header-height", `${header.offsetHeight}px`);
+      if (inner) {
+        const gutter = inner.getBoundingClientRect().left - header.getBoundingClientRect().left;
+        header.style.setProperty("--navigation-gutter", `${gutter}px`);
+      }
+    };
+    updateMeasurements();
+    const observer = new ResizeObserver(updateMeasurements);
+    observer.observe(header);
+    if (inner) observer.observe(inner);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     function handleOutside(event: PointerEvent) {
       if (!headerRef.current?.contains(event.target as Node)) {
         setOpenGroup(null);
-        setMobileOpen(false);
+        setMenuOpen(false);
       }
     }
-    function handleResize() {
-      if (window.matchMedia("(min-width: 1200px)").matches)
-        setMobileOpen(false);
-      setOpenGroup(null);
-    }
     document.addEventListener("pointerdown", handleOutside);
-    window.addEventListener("resize", handleResize);
     return () => {
       document.removeEventListener("pointerdown", handleOutside);
-      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   function close() {
-    setMobileOpen(false);
+    setMenuOpen(false);
     setOpenGroup(null);
   }
 
@@ -68,14 +80,17 @@ function HeaderNavigation({
     <header
       ref={headerRef}
       className="site-header"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) close();
+      }}
       onKeyDown={(event) => {
         if (event.key !== "Escape") return;
         if (openGroup) {
           groupRefs.current[openGroup]?.focus();
           setOpenGroup(null);
-        } else if (mobileOpen) {
+        } else if (menuOpen) {
           menuRef.current?.focus();
-          setMobileOpen(false);
+          setMenuOpen(false);
         }
       }}
     >
@@ -88,11 +103,63 @@ function HeaderNavigation({
         >
           <BrandLogo preload />
         </Link>
+
+        <div className="header-actions">
+          <Link
+            className="donate-link"
+            href={href(locale, "nous-soutenir")}
+            onClick={close}
+          >
+            {text.donate}
+          </Link>
+          <Link
+            href={href(locale, "recherche")}
+            className="search-link"
+            aria-label={text.search}
+            onClick={close}
+          >
+            <Icon name="search" />
+          </Link>
+        </div>
+        <button
+          ref={menuRef}
+          className="menu-toggle"
+          aria-expanded={menuOpen}
+          aria-controls="main-navigation"
+          aria-label={menuOpen ? text.close : text.menu}
+          onClick={() => {
+            setMenuOpen(!menuOpen);
+            setOpenGroup(null);
+          }}
+        >
+          <Icon name={menuOpen ? "close" : "menu"} />
+        </button>
         <nav
           id="main-navigation"
           aria-label={text.mainNav}
-          className={`main-nav ${mobileOpen ? "is-open" : ""}`}
+          className={`main-nav ${menuOpen ? "is-open" : ""}`}
         >
+          <div className="language-switch" role="group" aria-label={text.language}>
+            <Link
+              href={locale === "fr" ? pathname : translatedPath}
+              lang="fr"
+              hrefLang="fr"
+              aria-current={locale === "fr" ? "page" : undefined}
+              onClick={close}
+            >
+              FR
+            </Link>
+            <span aria-hidden="true">/</span>
+            <Link
+              href={locale === "en" ? pathname : translatedPath}
+              lang="en"
+              hrefLang="en"
+              aria-current={locale === "en" ? "page" : undefined}
+              onClick={close}
+            >
+              EN
+            </Link>
+          </div>
           <ul>
             {navigation.map((item) => {
               const isActive = item.path
@@ -127,7 +194,7 @@ function HeaderNavigation({
                         }
                       >
                         {item[locale]}
-                        <Icon name="chevron" />
+                        <Icon name="chevron" className="nav-chevron" />
                       </button>
                       <ul
                         id={`nav-${item.path}`}
@@ -150,7 +217,6 @@ function HeaderNavigation({
                                 }
                               >
                                 {route[locale]}
-                                <Icon name="arrow" />
                               </Link>
                             </li>
                           );
@@ -170,90 +236,7 @@ function HeaderNavigation({
               );
             })}
           </ul>
-          <div className="mobile-utilities">
-            <div className="language-switch" aria-label={text.language}>
-              <Link
-                href={locale === "fr" ? pathname : translatedPath}
-                lang="fr"
-                hrefLang="fr"
-                aria-current={locale === "fr" ? "page" : undefined}
-                onClick={close}
-              >
-                FR
-              </Link>
-              <span aria-hidden="true">/</span>
-              <Link
-                href={locale === "en" ? pathname : translatedPath}
-                lang="en"
-                hrefLang="en"
-                aria-current={locale === "en" ? "page" : undefined}
-                onClick={close}
-              >
-                EN
-              </Link>
-            </div>
-            <Link
-              href={href(locale, "recherche")}
-              className="mobile-search"
-              onClick={close}
-            >
-              <Icon name="search" />
-              {text.search}
-            </Link>
-          </div>
         </nav>
-        <div className="header-actions">
-          <div
-            className="language-switch desktop-utility"
-            aria-label={text.language}
-          >
-            <Link
-              href={locale === "fr" ? pathname : translatedPath}
-              lang="fr"
-              hrefLang="fr"
-              aria-current={locale === "fr" ? "page" : undefined}
-            >
-              FR
-            </Link>
-            <span aria-hidden="true">/</span>
-            <Link
-              href={locale === "en" ? pathname : translatedPath}
-              lang="en"
-              hrefLang="en"
-              aria-current={locale === "en" ? "page" : undefined}
-            >
-              EN
-            </Link>
-          </div>
-          <Link
-            className="search-link desktop-utility"
-            href={href(locale, "recherche")}
-            aria-label={text.search}
-          >
-            <Icon name="search" />
-          </Link>
-          <Link
-            className="donate-link"
-            href={href(locale, "nous-soutenir")}
-            onClick={close}
-          >
-            {text.donate}
-            <Icon name="arrow" />
-          </Link>
-          <button
-            ref={menuRef}
-            className="menu-toggle"
-            aria-expanded={mobileOpen}
-            aria-controls="main-navigation"
-            aria-label={mobileOpen ? text.close : text.menu}
-            onClick={() => {
-              setMobileOpen(!mobileOpen);
-              setOpenGroup(null);
-            }}
-          >
-            <Icon name={mobileOpen ? "close" : "menu"} />
-          </button>
-        </div>
       </Container>
     </header>
   );

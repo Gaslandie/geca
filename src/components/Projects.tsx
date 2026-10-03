@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { homeContent, href, projects, type Project } from "@/content/site";
-import { Button, Icon, PhotoPlaceholder } from "./ui";
+import { Button, PhotoPlaceholder } from "./ui";
 
 export function ProjectCard({ project }: { project: Project }) {
   const text = homeContent.projects;
@@ -20,7 +20,6 @@ export function ProjectCard({ project }: { project: Project }) {
       <div className="project-body">
         <p className="project-meta">
           <span>
-            <Icon name="pin" />
             {project.zone}
           </span>
           <span>{project.period}</span>
@@ -31,7 +30,7 @@ export function ProjectCard({ project }: { project: Project }) {
           {text.partner} <strong>{project.partner}</strong>
         </p>
         <Button
-          href={href("fr", `projets/${project.slug}`)}
+          href={`${href("fr", "projets")}#projet-${project.slug}`}
           variant="text"
           aria-label={`${text.view} : ${project.title}`}
         >

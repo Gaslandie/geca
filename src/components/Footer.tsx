@@ -7,7 +7,7 @@ import {
   routes,
   type Locale,
 } from "@/content/site";
-import { Container, Icon } from "./ui";
+import { Container } from "./ui";
 import { BrandLogo } from "./BrandLogo";
 
 export function Footer({ locale }: { locale: Locale }) {
@@ -56,7 +56,6 @@ export function Footer({ locale }: { locale: Locale }) {
               href={href(locale, "contact")}
             >
               {text.contact}
-              <Icon name="arrow" />
             </Link>
           </div>
         </div>
@@ -66,6 +65,7 @@ export function Footer({ locale }: { locale: Locale }) {
             {text.rights}
           </p>
           <ul>{links(footerLinks.legal)}</ul>
+          <p className="footer-credit">{text.footerCredit}</p>
         </div>
       </Container>
     </footer>

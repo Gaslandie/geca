@@ -1,5 +1,5 @@
 import { href, identity, interfaceText, type Locale } from "@/content/site";
-import { Button, Container, Icon } from "./ui";
+import { Button, Container } from "./ui";
 
 export function UnderConstruction({
   locale,
@@ -18,9 +18,6 @@ export function UnderConstruction({
           {title}
         </p>
         <div className="construction-body">
-          <div className="construction-icon" aria-hidden="true">
-            <Icon name="sprout" />
-          </div>
           <p className="eyebrow">
             {text.label} · {title}
           </p>

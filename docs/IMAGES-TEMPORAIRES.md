@@ -1,5 +1,7 @@
 # Images temporaires — 3 octobre 2026
 
+**Mise à jour du même jour :** les six photos des domaines sur l’accueil et la page Domaines d’intervention ont été remplacées par les images définitives fournies par Gassama. Association exacte et provenance dans `docs/IMAGES-DOMAINES.md`. Le tableau ci-dessous conserve l’historique des sources temporaires ; il ne décrit plus les images actuelles des domaines. Les fichiers temporaires restent conservés, notamment pour leurs autres usages.
+
 Gassama a demandé des images provenant d’Internet, avec une étiquette « Image temporaire ». Cette instruction remplace la restriction initiale aux emplacements vides pour la maquette locale.
 
 ## Sources et auteurs
@@ -8,7 +10,7 @@ Les six pages de photographie ont été consultées et indiquent une utilisation
 
 | Fichier local                          | Auteur et page source                                                                                                                                             | Emplacement                             | Dimensions  |
 | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ----------- |
-| `public/images/temporary/forest.jpg`   | [Krystal Ng — Dense palm fronds in tropical forest](https://unsplash.com/photos/dense-palm-fronds-in-tropical-forest-O07o2Cd_vX0)                                 | Restauration des écosystèmes, projet Kounounkan | 1600 × 2400 |
+| `public/images/temporary/forest.jpg`   | [Krystal Ng — Dense palm fronds in tropical forest](https://unsplash.com/photos/dense-palm-fronds-in-tropical-forest-O07o2Cd_vX0)                                 | Hero en haut à droite, restauration des écosystèmes, projet Kounounkan | 1600 × 2400 |
 | `public/images/temporary/planting.jpg` | [Jonathan Kemper — Gloved hands planting seedling in soil](https://unsplash.com/photos/gloved-hands-planting-seedling-in-soil-CbZh3kaPxrE)                        | Éducation environnementale, appui social et protection de la nature | 1400 × 2100 |
 | `public/images/temporary/fields.jpg`   | [Bernd Dittrich — Aerial view of green and brown agricultural fields](https://unsplash.com/photos/aerial-view-of-green-and-brown-agricultural-fields-3vgvdshL0_0) | Agroécologie, planification climatique, PROTEMO | 1400 × 1007 |
 | `public/images/temporary/climate.jpg` | [Dan Meyers — Cracked surface with plants growing on it](https://unsplash.com/photos/a-picture-of-a-cracked-surface-with-plants-growing-on-it-yW9YbBc4YJA) | Climat & résilience | 1200 × 900 |
@@ -40,3 +42,11 @@ Créés : les trois JPEG ci-dessus et ce document. Modifiés : `src/content/site
 `npm run lint`, `npm run typecheck` et `npm run build` réussissent. Les neuf tests de `npm run test:e2e` passent. Le chargement réel des photos visibles et la présence des étiquettes sont contrôlés à 320, 375, 768, 1024 et 1440 px. Aucun débordement horizontal ni violation des règles d’accessibilité automatique contrôlées n’est détecté. Les cas refusés, dont une image distante non autorisée, restent vérifiés ; aucune protection n’a été désactivée.
 
 La capture du premier écran à 1440 px a été examinée après l’ajout. Les photos restent des illustrations temporaires ; aucune localisation ni appartenance à GECA n’est affirmée. Les limites et l’alerte de développement déjà documentées dans `docs/VERIFICATIONS.md` restent valables. Aucun commit, push ou déploiement.
+
+## Réutilisation sur la page contact — 3 octobre 2026
+
+`fields.jpg` illustre la colonne d'accueil de la page contact ; `forest.jpg` forme le bandeau panoramique final. Sources et licence Unsplash du tableau ci-dessus conservées. Aucun téléchargement supplémentaire. Étiquette « Image temporaire » sur les deux photos ; descriptions alternatives FR/EN précisant leur rôle d'illustration, sans localisation guinéenne ni action GECA attribuée.
+
+## Nouvelle disposition de Notre impact — 3 octobre 2026
+
+Gassama confirme de garder provisoirement `impact-forest.jpg` avec « Image temporaire » dans la nouvelle composition : photo continue derrière le message et les trois cartes. Auteur, licence et description du tableau conservés. Cette image n'est pas présentée comme une photographie de terrain GECA. Aucun nouveau fichier ni téléchargement.

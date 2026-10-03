@@ -3,8 +3,12 @@ import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { SiteMotion } from "@/components/SiteMotion";
 import { identity, interfaceText, isLocale, locales } from "@/content/site";
 import "../globals.css";
+import { assetPath } from "@/lib/assets";
+
+export const dynamicParams = false;
 
 const sans = localFont({
   src: "../fonts/DMSans.ttf",
@@ -27,8 +31,9 @@ export const metadata: Metadata = {
   description:
     "GECA, ONG guinéenne créée en 2016, agit pour la restauration des écosystèmes, la résilience climatique et le développement communautaire.",
   applicationName: identity.name,
-  robots: { index: false, follow: false }, // Maquette locale, pas le site final.
-  icons: { icon: "/icon.svg" },
+  robots: { index: false, follow: false }, // Maquette de présentation, pas le site final.
+  referrer: "strict-origin-when-cross-origin",
+  icons: { icon: assetPath("/icon.svg") },
 };
 
 export function generateStaticParams() {
@@ -46,6 +51,11 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
   return (
     <html lang={locale} className={`${sans.variable} ${display.variable}`}>
+      {process.env.GECA_GITHUB_PAGES === "true" && (
+        <head>
+          <meta httpEquiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'none'" />
+        </head>
+      )}
       <body>
         <a className="skip-link" href="#main-content">
           {interfaceText[locale].skip}
@@ -53,6 +63,7 @@ export default async function LocaleLayout({
         <Header locale={locale} />
         {children}
         <Footer locale={locale} />
+        <SiteMotion />
       </body>
     </html>
   );

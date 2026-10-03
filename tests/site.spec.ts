@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { locales, routes } from "../src/content/site";
+import { aboutContent, contactContent, homeContent, interventionContent, locales, portfolioContent, routes } from "../src/content/site";
 
 test("routes connues FR / EN, langues et titres", async ({ request }) => {
   for (const locale of locales) {
@@ -10,7 +10,18 @@ test("routes connues FR / EN, langues et titres", async ({ request }) => {
       const html = await response.text();
       expect(html).toContain(`lang="${locale}"`);
       expect(html).toContain("<title>");
-      if (path || locale === "en")
+      if (path === "contact") {
+        expect(html).toContain(contactContent[locale].title);
+        expect(html).toContain(contactContent[locale].form.demo);
+      } else if (path === "a-propos") {
+        expect(html).toContain(aboutContent[locale].title);
+        expect(html).toContain("RENASCEDD");
+      } else if (path === "a-propos/domaines-intervention") {
+        expect(html).toContain(interventionContent[locale].title);
+      } else if (path === "projets") {
+        expect(html).toContain(portfolioContent[locale].catalogTitle);
+        expect(html).toContain(portfolioContent[locale].notice);
+      } else if (path || locale === "en")
         expect(html).toContain(
           locale === "fr"
             ? "Cette rubrique est en préparation."
@@ -49,7 +60,7 @@ test("accès refusés et protections de la maquette", async ({ request }) => {
   expect(image.status()).toBe(400);
 });
 
-for (const width of [320, 375, 670, 767, 768, 970, 1024, 1440]) {
+for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
   test(`écran ${width}px : débordement, menus, filtres, accessibilité`, async ({
     page,
   }) => {
@@ -60,9 +71,15 @@ for (const width of [320, 375, 670, 767, 768, 970, 1024, 1440]) {
     page.on("request", (request) => requests.push(request.url()));
     await page.goto("/fr");
     await page.evaluate(() => document.fonts.ready);
+    // Mesurer la disposition finale après le zoom d'arrivée, testé séparément.
+    await page.locator(".hero-grid").evaluate(async (element) => {
+      await Promise.all(element.getAnimations().map((animation) => animation.finished.catch(() => {})));
+    });
     const domains = page.locator(".domains .domain");
     await expect(domains).toHaveCount(6);
     for (const [index, domain] of (await domains.all()).entries()) {
+      expect(await domain.locator("img").evaluate((image: HTMLImageElement) => new URL(image.src).searchParams.get("url"))).toBe(`/images/domaines/${homeContent.domains.items[index].id}.jpg`);
+      await expect(domain.locator(".temporary-image-label")).toHaveCount(0);
       const photo = await domain.locator(".domain-photo").boundingBox();
       const text = await domain.locator(".domain-content").boundingBox();
       expect(photo).not.toBeNull();
@@ -79,20 +96,61 @@ for (const width of [320, 375, 670, 767, 768, 970, 1024, 1440]) {
         }
       }
       const link = domain.getByRole("link");
-      await expect(link).toHaveAttribute("href", "/fr/a-propos/domaines-intervention");
+      await expect(link).toHaveAttribute("href", `/fr/a-propos/domaines-intervention#${homeContent.domains.items[index].id}`);
       expect((await link.boundingBox())?.height).toBeGreaterThanOrEqual(44);
     }
     await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
     const visual = await page.locator(".hero-visual").boundingBox();
     const message = await page.locator(".hero-content").boundingBox();
+    const frame = (await page.locator(".header-inner").boundingBox())!;
+    const logo = (await page.locator(".site-header .brand").boundingBox())!;
+    const menuBox = (await page.locator(".menu-toggle").boundingBox())!;
+    expect(frame.x).toBeCloseTo(logo.x, 0);
+    expect(frame.x + frame.width).toBeCloseTo(menuBox.x + menuBox.width, 0);
+    for (const section of await page.locator("#main-content > section:not(.hero), #main-content .container, .site-footer .container").all()) {
+      const box = (await section.boundingBox())!;
+      expect(box.x).toBeCloseTo(frame.x, 0);
+      expect(box.width).toBeCloseTo(frame.width, 0);
+    }
+    // Le fond garde le cadre commun ; son contenu reste à distance des bords.
+    for (const container of await page.locator("#main-content .container").all()) {
+      const box = (await container.boundingBox())!;
+      for (const child of await container.locator(":scope > *").all()) {
+        const content = (await child.boundingBox())!;
+        expect(content.x - box.x).toBeGreaterThanOrEqual(19.5);
+        expect(box.x + box.width - content.x - content.width).toBeGreaterThanOrEqual(19.5);
+      }
+    }
+    for (const section of await page.locator(".hero, .site-footer").all()) {
+      const box = (await section.boundingBox())!;
+      expect(box.x).toBe(0);
+      expect(box.width).toBe(width);
+    }
     expect(visual).not.toBeNull();
     expect(message).not.toBeNull();
     if (visual && message) {
       expect(visual.x).toBe(0);
-      expect(visual.width).toBe(width);
-      expect(message.y).toBeGreaterThan(visual.y);
-      expect(message.y + message.height).toBeLessThan(visual.y + visual.height);
-      expect(Math.abs(message.x + message.width / 2 - width / 2)).toBeLessThan(1);
+      expect(visual.width).toBeCloseTo(width < 768 ? width : width * 0.65, 0);
+      expect(message.x).toBe(0);
+      expect(message.width).toBeCloseTo(width < 768 ? width : width * 0.8, 0);
+      const caption = (await page.locator(".hero-caption").boundingBox())!;
+      const actionPanel = (await page.locator(".hero-actions").boundingBox())!;
+      const photo = (await page.locator(".hero-photo").boundingBox())!;
+      expect(visual.y).toBeCloseTo(caption.y, 0);
+      expect(visual.height).toBeCloseTo(caption.height, 0);
+      if (width >= 768) {
+        expect(photo.y).toBeCloseTo(message.y, 0);
+        expect(photo.x).toBeCloseTo(message.x + message.width, 0);
+        expect(photo.width).toBeCloseTo(width * 0.2, 0);
+        expect(caption.y).toBeCloseTo(message.y + message.height, 0);
+        expect(actionPanel.y).toBeCloseTo(caption.y, 0);
+        expect(caption.width).toBeCloseTo(width * 0.65, 0);
+        expect(actionPanel.x).toBeCloseTo(caption.x + caption.width, 0);
+      } else {
+        expect(photo.y).toBeCloseTo(message.y + message.height, 0);
+        expect(caption.y).toBeCloseTo(photo.y + photo.height, 0);
+        expect(actionPanel.y).toBeCloseTo(caption.y + caption.height, 0);
+      }
     }
     await expect(page.locator("#hero-title")).toHaveText(
       "AGIR POUR UN AVENIR DURABLE",
@@ -113,9 +171,35 @@ for (const width of [320, 375, 670, 767, 768, 970, 1024, 1440]) {
       ),
     ).toBe(true);
     const menu = page.getByRole("button", { name: "Menu", exact: true });
-    if (width < 1200) await menu.click();
+    await expect(menu).toBeVisible();
+    const search = page.locator(".header-actions .search-link");
+    await expect(search).toHaveAccessibleName("Rechercher");
+    await expect(search.locator("svg")).toHaveCount(1);
+    await expect(menu.locator("svg")).toHaveCount(1);
+    await expect(page.locator(".hero-actions .hero-action-arrow")).toBeVisible();
+    await expect(page.locator(".domain svg, .project-card svg, .stat svg, .news-card svg")).toHaveCount(0);
+    await expect(search).toHaveAttribute("href", "/fr/recherche");
+    await expect(page.locator("#main-navigation a[href='/fr/recherche']")).toHaveCount(0);
+    const searchBox = (await search.boundingBox())!;
+    const donateBox = (await page.locator(".donate-link").boundingBox())!;
+    const language = page.locator("#main-navigation .language-switch");
+    await expect(page.locator(".header-actions .language-switch")).toHaveCount(0);
+    await expect(language).toBeHidden();
+    expect(searchBox.x).toBeGreaterThanOrEqual(donateBox.x + donateBox.width + 5);
+    const menuBarBox = (await menu.boundingBox())!;
+    expect(menuBarBox.x).toBeGreaterThanOrEqual(searchBox.x + searchBox.width + 7);
+    const brandBox = (await page.locator(".site-header .brand").boundingBox())!;
+    expect(searchBox.y + searchBox.height / 2).toBeCloseTo(donateBox.y + donateBox.height / 2, 0);
+    expect(searchBox.y + searchBox.height / 2).toBeCloseTo(brandBox.y + brandBox.height / 2, 0);
+    expect(menuBarBox.y + menuBarBox.height / 2).toBeCloseTo(brandBox.y + brandBox.height / 2, 0);
+    await expect(page.locator(".donate-link")).toHaveText("Faire un don");
+    await expect(page.locator(".hero-introduction")).toContainText("En Guinée, nous agissons avec les communautés");
+    await expect(page.getByRole("navigation", { name: "Navigation principale" })).toBeHidden();
+    await menu.click();
     const nav = page.getByRole("navigation", { name: "Navigation principale" });
     await expect(nav).toBeVisible();
+    await expect(language.getByRole("link", { name: "FR", exact: true })).toBeVisible();
+    await expect(language.getByRole("link", { name: "EN", exact: true })).toBeVisible();
     // Une même hiérarchie typographique doit rester commune à toutes les sections.
     const typography = await page.evaluate(() => {
       const headings = [...document.querySelectorAll("main h2")].map((element) => {
@@ -142,7 +226,8 @@ for (const width of [320, 375, 670, 767, 768, 970, 1024, 1440]) {
         });
       }),
     );
-    expect(sectionHeaders).toHaveLength(7);
+    // Impact suit désormais la référence avec titre à gauche et cartes à droite.
+    expect(sectionHeaders).toHaveLength(6);
     expect(sectionHeaders.every(Boolean)).toBe(true);
     const partnerCards = await page.locator(".partner-list li").evaluateAll((cards) =>
       cards.map((card) => {
@@ -162,7 +247,6 @@ for (const width of [320, 375, 670, 767, 768, 970, 1024, 1440]) {
     ).toBe(true);
     for (const group of [
       "À propos",
-      "Projets & programmes",
       "Actualités",
       "Ressources",
     ]) {
@@ -222,12 +306,16 @@ for (const width of [320, 375, 670, 767, 768, 970, 1024, 1440]) {
       .analyze();
     expect(results.violations).toEqual([]);
     const illustrations = page.locator(".photo-placeholder.has-photo");
-    await expect(illustrations).toHaveCount(12);
+    await expect(illustrations).toHaveCount(13);
     for (const illustration of await illustrations.all()) {
       await illustration.scrollIntoViewIfNeeded();
-      await expect(
-        illustration.getByText("Image temporaire", { exact: true }),
-      ).toBeVisible();
+      if (await illustration.evaluate((element) => element.classList.contains("domain-photo"))) {
+        await expect(illustration.locator(".temporary-image-label")).toHaveCount(0);
+      } else {
+        await expect(
+          illustration.getByText("Image temporaire", { exact: true }),
+        ).toBeVisible();
+      }
       await expect
         .poll(() =>
           illustration
@@ -256,7 +344,7 @@ for (const width of [320, 375, 670, 767, 768, 970, 1024, 1440]) {
     });
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({ path: `test-results/hero-${width}.png` });
-    await page.goto("/en/projets/kounounkan");
+    await page.goto("/en/projets");
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
@@ -291,7 +379,7 @@ test("texte agrandi à 200 % : contenus et navigation restent dans le cadre", as
     await page.goto("/fr");
     await page.evaluate(() => document.fonts.ready);
     await page.addStyleTag({ content: ":root { font-size: 200%; }" });
-    if (width < 1200) await page.getByRole("button", { name: "Menu", exact: true }).click();
+    await page.getByRole("button", { name: "Menu", exact: true }).click();
     const nav = page.getByRole("navigation", { name: "Navigation principale" });
     await expect(nav).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -324,17 +412,20 @@ test("clavier, langue anglaise et mouvements réduits", async ({ page }) => {
   expect(await page.evaluate(() => document.activeElement?.id)).toBe(
     "main-content",
   );
-  await page.goto("/fr/projets/en-cours");
+  await page.goto("/fr/projets");
+  await page.getByRole("button", { name: "Menu", exact: true }).click();
   await page
-    .locator(".desktop-utility")
+    .locator("#main-navigation .language-switch")
     .getByRole("link", { name: "EN", exact: true })
     .click();
-  await expect(page).toHaveURL("/en/projets/en-cours");
+  await expect(page).toHaveURL("/en/projets");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   const results = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
     .analyze();
   expect(results.violations).toEqual([]);
+  await page.locator(".site-header .brand").click();
+  await expect(page).toHaveURL("/en");
   await page.getByRole("link", { name: "Visit the French homepage" }).click();
   await expect(page).toHaveURL("/fr");
 });
@@ -350,9 +441,12 @@ test("vidéo locale : lecture sans son, pause au clavier et mouvements réduits"
     element.muted && element.loop && element.playsInline && element.videoWidth === 1920,
   )).toBe(true);
   const pause = page.getByRole("button", { name: "Mettre la vidéo en pause" });
+  await expect(pause).toHaveText("");
+  await expect(pause.locator("svg")).toHaveCount(1);
   await pause.focus();
   await page.keyboard.press("Enter");
   await expect.poll(() => video.evaluate((element: HTMLVideoElement) => element.paused)).toBe(true);
+  await expect(page.getByRole("button", { name: "Lire la vidéo" })).toHaveText("");
   const stoppedAt = await video.evaluate((element: HTMLVideoElement) => element.currentTime);
   await page.locator(".hero-actions a").first().focus();
   expect(await video.evaluate((element: HTMLVideoElement) => element.currentTime)).toBe(stoppedAt);
@@ -382,7 +476,7 @@ test("vidéo indisponible : image de secours et deux liens utilisables", async (
   ]) {
     await page.locator(".hero-actions").getByRole("link", { name: label }).click();
     await expect(page).toHaveURL(path);
-    await page.getByRole("link", { name: "Retour à l’accueil" }).click();
+    await page.locator(".site-header .brand").click();
   }
 });
 
@@ -430,4 +524,34 @@ test("sans JavaScript : image chargée, message et liens présents", async ({ br
   await expect(page.locator(".hero-visual video")).not.toHaveAttribute("src");
   await expect(page.locator(".hero-video-toggle")).toBeHidden();
   await context.close();
+});
+
+
+test("hamburger sur ordinateur : clavier, fermeture, redimensionnement et langue", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/fr");
+  const nav = page.getByRole("navigation", { name: "Navigation principale" });
+  const menu = page.locator(".menu-toggle");
+  await expect(nav).toBeHidden();
+  await menu.focus();
+  await page.keyboard.press("Enter");
+  await expect(menu).toHaveAttribute("aria-expanded", "true");
+  await page.keyboard.press("Tab");
+  await expect(nav.getByRole("link", { name: "FR", exact: true })).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(nav).toBeHidden();
+  await expect(menu).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(page.locator(".hero-video-toggle")).toBeFocused();
+  await menu.click();
+  await page.setViewportSize({ width: 375, height: 900 });
+  await expect(nav).toBeVisible();
+  // Le titre est maintenant couvert par le panneau : cliquer la page visible.
+  const panel = (await nav.boundingBox())!;
+  await page.mouse.click(10, panel.y + panel.height + 10);
+  await expect(nav).toBeHidden();
+  await menu.click();
+  await page.locator("#main-navigation .language-switch").getByRole("link", { name: "EN", exact: true }).click();
+  await expect(page).toHaveURL("/en");
+  await expect(menu).toHaveAttribute("aria-expanded", "false");
 });

@@ -7,6 +7,7 @@ export default defineConfig([
   ...fixupConfigRules([...nextVitals, ...nextTs]),
   globalIgnores([
     ".next/**",
+    "out/**",
     "test-results/**",
     "playwright-report/**",
     "next-env.d.ts",

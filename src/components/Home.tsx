@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { homeContent as content, href, identity } from "@/content/site";
+import { assetPath } from "@/lib/assets";
+import { homeContent as content, href } from "@/content/site";
 import {
   Button,
   Container,
@@ -14,21 +15,36 @@ import { HeroVideo } from "./HeroVideo";
 
 export function Home() {
   return (
-    <main id="main-content" tabIndex={-1}>
+    <main id="main-content" tabIndex={-1} className="home-page">
       <section className="hero" aria-labelledby="hero-title">
-        <HeroVideo {...content.hero.video} />
-        <noscript>
-          <style>{".hero-video-toggle { display: none; }"}</style>
-        </noscript>
-        <Container className="hero-grid">
+        <div className="hero-grid">
           <div className="hero-content">
             <p className="eyebrow">{content.hero.label}</p>
             <h1 id="hero-title">
-              <span className="hero-title-band">{content.hero.title}</span>{" "}
-              <span className="hero-title-band">{content.hero.titleSecondLine}</span>
+              <span className="hero-title-line">{content.hero.title}</span>{" "}
+              <span className="hero-title-line">{content.hero.titleSecondLine}</span>
             </h1>
-            <p className="hero-description">{content.hero.description}</p>
-            <div className="hero-actions">
+          </div>
+          <PhotoPlaceholder
+            label={content.hero.label}
+            photo={content.hero.photo}
+            className="hero-photo"
+            sizes="(max-width: 767px) 100vw, 20vw"
+            priority
+          />
+          <div className="hero-caption">
+            <HeroVideo {...content.hero.video} />
+            <noscript>
+              <style>{".hero-video-toggle { display: none; }"}</style>
+            </noscript>
+            <div className="hero-copy">
+              <p className="hero-description">{content.hero.description}</p>
+              <p className="hero-introduction">{content.hero.introduction}</p>
+            </div>
+          </div>
+          <div className="hero-actions">
+            <Icon name="arrow-down-right" className="hero-action-arrow" />
+            <div className="hero-action-links">
               <Button href={href("fr", "projets")}>
                 {content.hero.primary}
               </Button>
@@ -37,33 +53,29 @@ export function Home() {
               </Button>
             </div>
           </div>
-        </Container>
+        </div>
       </section>
 
       <section className="about section" aria-labelledby="about-title">
-        <Container>
+        <Container className="about-content">
           <div className="section-heading">
             <div>
               <p className="eyebrow">{content.about.label}</p>
               <h2 id="about-title">{content.about.title}</h2>
-              <p className="section-description">{content.about.description}</p>
+              <p className="section-description">
+                {content.about.description.split(/(Global EcoAction \(GECA\)|RENASCEDD)/).map((part, index) =>
+                  index % 2 === 1 ? <strong key={index}>{part}</strong> : part,
+                )}
+              </p>
             </div>
             <Button href={href("fr", "a-propos")} variant="text">
               {content.about.cta}
             </Button>
           </div>
-          <div className="about-aside">
-            <p className="eyebrow">{content.about.sideLabel}</p>
-            <p className="about-statement">{content.about.sideText}</p>
-            <div className="about-since">
-              <span>{identity.since}</span>
-              <p>{content.about.since}</p>
-            </div>
-          </div>
         </Container>
       </section>
 
-      <section className="domains section" aria-label={content.domains.label}>
+      <section className="domains section section--tinted" aria-label={content.domains.label}>
         <Container>
           <SectionHeading
             label={content.domains.label}
@@ -83,7 +95,7 @@ export function Home() {
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                   <Link
-                    href={href("fr", "a-propos/domaines-intervention")}
+                    href={`${href("fr", "a-propos/domaines-intervention")}#${item.id}`}
                     className="domain-link"
                     aria-label={`${content.domains.cta} : ${item.title}`}
                   >
@@ -97,35 +109,33 @@ export function Home() {
       </section>
 
       <section className="impact" aria-labelledby="impact-title">
-        <div className="impact-banner">
-          <PhotoPlaceholder
-            label={content.impact.label}
-            photo={content.impact.photo}
-            className="impact-photo"
-            sizes="100vw"
-          />
-          <Container className="impact-heading section-heading">
-            <div>
-              <p className="eyebrow">{content.impact.label}</p>
-              <h2 id="impact-title">
-                <span>{content.impact.title}</span>{" "}
-                <span>{content.impact.titleSecondLine}</span>
-              </h2>
-              <p className="impact-description section-description">{content.impact.description}</p>
-            </div>
-          </Container>
-        </div>
-        <Container className="impact-results">
-          <div className="stats-grid">
-            {content.impact.stats.map((stat) => (
-              <StatCard key={stat.value} {...stat} />
-            ))}
+        <PhotoPlaceholder
+          label={content.impact.label}
+          photo={content.impact.photo}
+          className="impact-photo"
+          sizes="100vw"
+        />
+        <Container className="impact-layout">
+          <div className="impact-heading">
+            <p className="eyebrow">{content.impact.label}</p>
+            <h2 id="impact-title">
+              <span>{content.impact.title}</span>{" "}
+              <span>{content.impact.titleSecondLine}</span>
+            </h2>
+            <p className="impact-description">{content.impact.description}</p>
           </div>
-          <p className="impact-note">{content.impact.note}</p>
+          <div className="impact-results">
+            <div className="stats-grid">
+              {content.impact.stats.map((stat) => (
+                <StatCard key={stat.value} {...stat} />
+              ))}
+            </div>
+            <p className="impact-note">{content.impact.note}</p>
+          </div>
         </Container>
       </section>
 
-      <section className="projects section" aria-label={content.projects.label}>
+      <section className="projects section section--tinted" aria-label={content.projects.label}>
         <Container>
           <SectionHeading
             label={content.projects.label}
@@ -167,7 +177,7 @@ export function Home() {
         </Container>
       </section>
 
-      <section className="news section" aria-labelledby="news-title">
+      <section className="news section section--tinted" aria-labelledby="news-title">
         <Container>
           <div className="news-heading section-heading">
             <div>
@@ -177,7 +187,6 @@ export function Home() {
             </div>
             <Link href={href("fr", "actualites")} className="news-all-link">
               {content.news.cta}
-              <span className="news-arrow"><Icon name="arrow" /></span>
             </Link>
           </div>
           <div className="news-grid">
@@ -190,21 +199,21 @@ export function Home() {
                     className="news-photo"
                     sizes="(max-width: 599px) 100vw, (max-width: 1023px) 50vw, (max-width: 1535px) 33vw, 470px"
                   />
-                  <p className="news-badge"><Icon name={item.icon} />{item.category}</p>
+                  <p className="news-badge">{item.category}</p>
                 </div>
                 <div className="news-card-content">
                   <h3><Link href={href("fr", item.path)}>{item.title}</Link></h3>
                   <p>{item.description}</p>
                   <div className="news-card-footer">
                     <span className="draft-label">
-                      <Icon name="document" />{content.news.placeholderLabel}
+                      {content.news.placeholderLabel}
                     </span>
                     <Link
                       href={href("fr", item.path)}
-                      className="news-arrow"
+                      className="news-card-link"
                       aria-label={`Découvrir les actualités : ${item.title}`}
                     >
-                      <Icon name="arrow" />
+                      Découvrir
                     </Link>
                   </div>
                 </div>
@@ -218,8 +227,8 @@ export function Home() {
                 sizes="(max-width: 1023px) 100vw, (max-width: 1535px) 33vw, 470px"
               />
               <div className="event-content">
-                <p className="news-badge event-badge"><Icon name="calendar" />{content.news.event.label}</p>
-                <p className="event-date"><Icon name="calendar" />{content.news.event.date}</p>
+                <p className="news-badge event-badge">{content.news.event.label}</p>
+                <p className="event-date">{content.news.event.date}</p>
                 <h3 id="event-title">{content.news.event.title}</h3>
                 <p className="event-description">{content.news.event.description}</p>
                 <Button href={href("fr", "evenements")}>{content.news.event.cta}</Button>
@@ -244,7 +253,7 @@ export function Home() {
             {content.partners.items.map((partner) => (
               <li key={partner.name}>
                 <Image
-                  src={partner.logo.src}
+                  src={assetPath(partner.logo.src)}
                   alt={partner.logo.alt}
                   width={partner.logo.width}
                   height={partner.logo.height}

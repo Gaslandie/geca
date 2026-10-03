@@ -1,19 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Icon } from "./ui";
+import { assetPath } from "@/lib/assets";
 
 export function HeroVideo({
   src,
   poster,
   pause,
-  pauseShort,
   play,
 }: {
   src: string;
   poster: string;
   pause: string;
-  pauseShort: string;
   play: string;
+  pauseLabel: string;
+  playLabel: string;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const manuallyPaused = useRef(false);
@@ -35,7 +37,7 @@ export function HeroVideo({
         return;
       }
       // La source n'est chargée qu'après avoir vérifié les préférences.
-      if (!video.getAttribute("src")) video.src = src;
+      if (!video.getAttribute("src")) video.src = assetPath(src);
       void video.play().catch(() => {
         // Le navigateur peut refuser la lecture automatique. Le bouton reste utilisable.
       });
@@ -57,7 +59,7 @@ export function HeroVideo({
       return;
     }
     manuallyPaused.current = false;
-    if (!video.getAttribute("src")) video.src = src;
+    if (!video.getAttribute("src")) video.src = assetPath(src);
     void video.play().catch(() => {
       // Garder l'image et les liens accessibles si la lecture n'est pas possible.
     });
@@ -68,11 +70,11 @@ export function HeroVideo({
       <div
         className="hero-visual"
         aria-hidden="true"
-        style={{ backgroundImage: `url("${poster}")` }}
+        style={{ backgroundImage: `url("${assetPath(poster)}")` }}
       >
         <video
           ref={videoRef}
-          poster={poster}
+          poster={assetPath(poster)}
           width={1920}
           height={1080}
           muted
@@ -97,8 +99,7 @@ export function HeroVideo({
           onClick={togglePlayback}
           aria-label={playing ? pause : play}
         >
-          <span aria-hidden="true">{playing ? "Ⅱ" : "▶"}</span>
-          {playing ? pauseShort : play}
+          <Icon name={playing ? "pause" : "play"} />
         </button>
       )}
     </>
