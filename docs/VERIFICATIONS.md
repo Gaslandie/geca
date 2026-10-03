@@ -1,5 +1,19 @@
 # Vérifications GECA — 3 octobre 2026
 
+## Médias allégés — 3 octobre 2026
+
+- Benchmark avant adaptation documenté dans `BENCHMARK.md` ; poids et méthode dans `PERFORMANCE-MEDIAS.md`.
+- Lint, TypeScript, compilation Pages et compilation locale finale : réussis. Export de 39 pages Next (36 routes FR/EN, entrée et pages techniques).
+- Suite locale complète : 69 contrôles réussis ; un contrôle attendait encore une erreur 400 pour l’ancienne API d’image. La nouvelle configuration supprime cette API, qui répond 404. Le test conserve le refus et vérifie désormais quatre sources : externe, adresse locale privée, fichier privé et ancien JPEG public.
+- Après ajout des tailles mobiles 320/480 et reconstruction finale : 9 contrôles locaux ciblés réussis, dont ce contrôle d’accès, trois tailles d’écran, vidéo/pause, échec vidéo, lecture automatique refusée, économie de données et image sans JavaScript.
+- Export final : 7 contrôles réussis. Toutes les routes FR/EN et leurs ressources, clavier/langue, photos/vidéo à 375 et 1 440 px, accessibilité, contact sans JavaScript, refus des fichiers privés/envois, absence d’appels externes, choix de taille et même variante forêt réutilisée entre accueil et Contact. Chaque version de 640 px pèse moins de 120 Ko ; vidéo sous 1,5 Mo.
+- 122 variantes WebP décodées : pas d’EXIF/XMP/IPTC. Les 21 originaux image et la vidéo originale sont conservés octet pour octet (comparaison SHA-256 avec HEAD), hors de `public` et de `out`.
+- Vues examinées : premier écran mobile/ordinateur, À propos ordinateur et Contact mobile. Photos, logos, mentions temporaires et disposition restent lisibles. Tests de disposition, zoom 200 %, clavier et axe conservés.
+- Serveur compilé final redémarré uniquement après confirmation de son appartenance à GECA, limité à `127.0.0.1:3000`. `/fr` répond 200, utilise les variantes et charge ses styles ; en-têtes protecteurs conservés.
+- Audit des dépendances d’exécution : aucune alerte. Cinq entrées préexistantes de l’audit complet concernent `braces` dans les outils ESLint, sans code ajouté à l’export ; limite restante détaillée dans `PERFORMANCE-MEDIAS.md`.
+- Mesure de poids sur Chrome (densité 1, après défilement, vidéo exclue mais affiche incluse) : accueil mobile 274 888 octets contre 5 086 517 pour les mêmes originaux, réduction de 94,6 %. Ordinateur : 470 212 octets, réduction de 90,8 %. Pas de délai sur un réseau réel promis.
+
+
 ## Barre mobile, boutons, cartes et publication autorisée — 3 octobre 2026
 
 Demande actuelle : une seule rangée mobile (logo, « Faire un don » complet, loupe, hamburger), FR/EN dans le menu ; boutons harmonisés ; pulsation immédiate du don ; animations et transitions sur toutes les cartes ; commit et push de l’ensemble pour GitHub Pages. Les pages déjà préparées, les images et leurs sources sont conservées. Aucun contenu factuel GECA ajouté.

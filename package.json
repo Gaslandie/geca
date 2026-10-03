@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "NEXT_TELEMETRY_DISABLED=1 next dev --hostname 127.0.0.1",
     "build": "NEXT_TELEMETRY_DISABLED=1 next build",
+    "optimize:images": "node scripts/optimize-images.mjs",
     "build:pages": "GECA_GITHUB_PAGES=true NEXT_TELEMETRY_DISABLED=1 next build && node scripts/finalize-pages.mjs",
     "preview:pages": "node scripts/preview-pages.mjs",
     "test:pages": "playwright test --config playwright.pages.config.ts",
@@ -28,6 +29,7 @@
     "@types/react-dom": "^19",
     "eslint": "10.12.0",
     "eslint-config-next": "16.3.8",
+    "sharp": "0.35.5",
     "tailwindcss": "4.3.3",
     "typescript": "^5"
   }

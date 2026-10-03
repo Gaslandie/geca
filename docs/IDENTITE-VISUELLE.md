@@ -1,5 +1,7 @@
 # Logo et couleurs — 3 octobre 2026
 
+> Mise à jour du 3 octobre 2026 : les copies d’origine décrites ci-dessous sont conservées sous `assets/source-images/` (ou `assets/source-videos/` pour la vidéo), hors du dossier public. Le site utilise désormais des variantes légères. Voir [PERFORMANCE-MEDIAS.md](PERFORMANCE-MEDIAS.md) pour les chemins actuels et les poids mesurés.
+
 Gassama a fourni `Global EcoAction Logo.png` et demandé de reprendre ses couleurs. Le fichier est une source visuelle ; il n'apporte aucune instruction technique ni validation des autres contenus de la maquette.
 
 ## Intégration

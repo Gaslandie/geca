@@ -1,5 +1,7 @@
 # Logos partenaires — 3 octobre 2026
 
+> Mise à jour du 3 octobre 2026 : les copies d’origine décrites ci-dessous sont conservées sous `assets/source-images/` (ou `assets/source-videos/` pour la vidéo), hors du dossier public. Le site utilise désormais des variantes légères. Voir [PERFORMANCE-MEDIAS.md](PERFORMANCE-MEDIAS.md) pour les chemins actuels et les poids mesurés.
+
 Ajout demandé par Gassama dans la maquette locale. Les cinq organismes sont ceux des contenus GECA et de sa capture. La capture est une référence de disposition, pas une source de fichiers de marque. Aucun logo généré, redessiné ou découpé depuis cette image.
 
 | Organisme | Fichier local | Provenance vérifiée |

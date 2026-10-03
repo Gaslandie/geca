@@ -11,8 +11,12 @@ const config: NextConfig = {
   basePath,
   env: { NEXT_PUBLIC_BASE_PATH: basePath },
   poweredByHeader: false,
-  // Aucun hôte distant autorisé pour les images. Photos GECA locales seulement.
-  images: { remotePatterns: [], dangerouslyAllowLocalIP: false, unoptimized: githubPages },
+  // Mêmes petits fichiers locaux sur Pages et en local, sans traitement à la demande.
+  images: {
+    remotePatterns: [], dangerouslyAllowLocalIP: false,
+    loader: "custom", loaderFile: "./src/lib/image-loader.ts",
+    deviceSizes: [320, 480, 640, 960, 1280, 1600], imageSizes: [192],
+  },
   // Pages ne permet pas de définir ces en-têtes HTTP. Le serveur local les conserve.
   ...(!githubPages ? { async headers() {
     return [

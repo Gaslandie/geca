@@ -1,0 +1,532 @@
+{
+  "/images/brand/global-ecoaction-logo.png": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-brand-global-ecoaction-logo-192-cd2266d242f9.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-brand-global-ecoaction-logo-320-2b56b496d5b9.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-brand-global-ecoaction-logo-480-b66078754669.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-brand-global-ecoaction-logo-640-1872f1aa791a.webp"
+    }
+  ],
+  "/images/domaines/agroecologie.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-domaines-agroecologie-192-ce348bf2bb46.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-domaines-agroecologie-320-6e355fcb6041.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-domaines-agroecologie-480-c80b06ea9057.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-domaines-agroecologie-640-2f154ad77b8e.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-domaines-agroecologie-960-00e44df0cecc.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-domaines-agroecologie-1280-d3c9ac317d1b.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-domaines-agroecologie-1600-41caa153cfef.webp"
+    }
+  ],
+  "/images/domaines/climat-resilience.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-domaines-climat-resilience-192-5c9b9ca552c5.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-domaines-climat-resilience-320-d8227ffeccfb.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-domaines-climat-resilience-480-ff6eedc7d11d.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-domaines-climat-resilience-640-ba49eab39886.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-domaines-climat-resilience-960-70464048a18b.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-domaines-climat-resilience-1280-ada0af7785d2.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-domaines-climat-resilience-1600-0eff337a6293.webp"
+    }
+  ],
+  "/images/domaines/education-environnementale.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-domaines-education-environnementale-192-d3d15dd4f0c3.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-domaines-education-environnementale-320-31943917c227.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-domaines-education-environnementale-480-a71826d03bb0.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-domaines-education-environnementale-640-105ac167bcdd.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-domaines-education-environnementale-960-132f0d1c32e8.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-domaines-education-environnementale-1280-c77c48d2870e.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-domaines-education-environnementale-1600-4d81f079a797.webp"
+    }
+  ],
+  "/images/domaines/gouvernance-communautes.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-domaines-gouvernance-communautes-192-77328a4e8b89.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-domaines-gouvernance-communautes-320-291f3a91e3bb.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-domaines-gouvernance-communautes-480-393d61be5363.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-domaines-gouvernance-communautes-640-6a1fed4f21d9.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-domaines-gouvernance-communautes-960-eb37b7ab495c.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-domaines-gouvernance-communautes-1280-bb7193c78be8.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-domaines-gouvernance-communautes-1600-47330b0956cf.webp"
+    }
+  ],
+  "/images/domaines/ressources-naturelles.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-domaines-ressources-naturelles-192-96e022d663e8.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-domaines-ressources-naturelles-320-d555acf721b1.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-domaines-ressources-naturelles-480-067f68c97357.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-domaines-ressources-naturelles-640-17c4dbc63550.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-domaines-ressources-naturelles-960-35a4b009f319.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-domaines-ressources-naturelles-1280-717b045f37eb.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-domaines-ressources-naturelles-1600-bff141f4a08f.webp"
+    }
+  ],
+  "/images/domaines/restauration-ecosystemes.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-domaines-restauration-ecosystemes-192-a811d6628181.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-domaines-restauration-ecosystemes-320-2c6779575a9a.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-domaines-restauration-ecosystemes-480-183fc51a185d.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-domaines-restauration-ecosystemes-640-763bd09e081f.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-domaines-restauration-ecosystemes-960-2d1547b423c0.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-domaines-restauration-ecosystemes-1280-eb184989047c.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-domaines-restauration-ecosystemes-1600-ac23746294a7.webp"
+    }
+  ],
+  "/images/partners/alcoa-foundation.png": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-partners-alcoa-foundation-192-79c07e3c79c7.webp"
+    },
+    {
+      "width": 266,
+      "src": "/images/optimized/images-partners-alcoa-foundation-266-405400eb4f25.webp"
+    }
+  ],
+  "/images/partners/ambassade-france.png": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-partners-ambassade-france-192-7882ea0cb559.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-partners-ambassade-france-320-d9a77bc7f6e1.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-partners-ambassade-france-480-72704d58dce5.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-partners-ambassade-france-640-94a1813a096c.webp"
+    }
+  ],
+  "/images/partners/anafic.png": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-partners-anafic-192-491debf1ab56.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-partners-anafic-320-8a100d318270.webp"
+    },
+    {
+      "width": 384,
+      "src": "/images/optimized/images-partners-anafic-384-ada5fa9f6e76.webp"
+    }
+  ],
+  "/images/partners/banque-mondiale.png": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-partners-banque-mondiale-192-69d3b51bd628.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-partners-banque-mondiale-320-9251530ab62a.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-partners-banque-mondiale-480-719c4bb7c548.webp"
+    },
+    {
+      "width": 486,
+      "src": "/images/optimized/images-partners-banque-mondiale-486-1a16e128a63c.webp"
+    }
+  ],
+  "/images/partners/reforestaction.png": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-partners-reforestaction-192-3496f9730b80.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-partners-reforestaction-320-c9f0cd200277.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-partners-reforestaction-480-a48eafa69d20.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-partners-reforestaction-640-239c2968d67d.webp"
+    }
+  ],
+  "/images/temporary/climate.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-temporary-climate-192-be11d750d787.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-temporary-climate-320-83fa2d595bef.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-temporary-climate-480-07ae42a6ff94.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-temporary-climate-640-bd3f799cab31.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-temporary-climate-960-a1c144837ff0.webp"
+    },
+    {
+      "width": 1200,
+      "src": "/images/optimized/images-temporary-climate-1200-cc56e1607d40.webp"
+    }
+  ],
+  "/images/temporary/community.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-temporary-community-192-4a880f1ce391.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-temporary-community-320-6c0c67b78a64.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-temporary-community-480-8db853f621e0.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-temporary-community-640-942d533af63f.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-temporary-community-960-aa6339e0c92a.webp"
+    },
+    {
+      "width": 1200,
+      "src": "/images/optimized/images-temporary-community-1200-925e617baf24.webp"
+    }
+  ],
+  "/images/temporary/event-leaf.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-temporary-event-leaf-192-b01a6dcfac76.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-temporary-event-leaf-320-c42a1f1d9a6b.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-temporary-event-leaf-480-887447dccab4.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-temporary-event-leaf-640-bf787dad85c3.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-temporary-event-leaf-960-9b2d51769025.webp"
+    },
+    {
+      "width": 1200,
+      "src": "/images/optimized/images-temporary-event-leaf-1200-01ab886f514c.webp"
+    }
+  ],
+  "/images/temporary/fields.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-temporary-fields-192-4a5d5d7089ce.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-temporary-fields-320-72df77bd16ec.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-temporary-fields-480-6ab692cbac8c.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-temporary-fields-640-17cfb55771db.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-temporary-fields-960-a6bff9b73ee9.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-temporary-fields-1280-0b19fcd52d08.webp"
+    },
+    {
+      "width": 1400,
+      "src": "/images/optimized/images-temporary-fields-1400-9a5da35af229.webp"
+    }
+  ],
+  "/images/temporary/forest.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-temporary-forest-192-4a2fb268046a.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-temporary-forest-320-57380252d811.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-temporary-forest-480-6bda59069005.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-temporary-forest-640-575c959307c1.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-temporary-forest-960-2d6d3b404abd.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-temporary-forest-1280-6d2c03fe6731.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-temporary-forest-1600-4f78b6c22dfe.webp"
+    }
+  ],
+  "/images/temporary/impact-forest.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-temporary-impact-forest-192-ae3313aa9a0e.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-temporary-impact-forest-320-26627a800260.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-temporary-impact-forest-480-b952cf080f72.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-temporary-impact-forest-640-e5e331c30194.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-temporary-impact-forest-960-066c43cf06fb.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-temporary-impact-forest-1280-997676ba1107.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-temporary-impact-forest-1600-97de91257f4f.webp"
+    }
+  ],
+  "/images/temporary/planting.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-temporary-planting-192-dacae4672661.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-temporary-planting-320-0bf56af49534.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-temporary-planting-480-c33ff854b7c0.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-temporary-planting-640-72fb407d0c18.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-temporary-planting-960-2ee1bece6e0d.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-temporary-planting-1280-a0b244c94485.webp"
+    },
+    {
+      "width": 1400,
+      "src": "/images/optimized/images-temporary-planting-1400-329485e1e75b.webp"
+    }
+  ],
+  "/images/temporary/water.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-temporary-water-192-d932cd6bd000.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-temporary-water-320-550cb174dc52.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-temporary-water-480-8ce78f70c7ed.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-temporary-water-640-3c270b98831e.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-temporary-water-960-707cf8dd4c88.webp"
+    },
+    {
+      "width": 1200,
+      "src": "/images/optimized/images-temporary-water-1200-62ec1bfca8f8.webp"
+    }
+  ],
+  "/videos/geca-forest-poster.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/videos-geca-forest-poster-192-7b110f36628c.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/videos-geca-forest-poster-320-9d5aaf193246.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/videos-geca-forest-poster-480-97006d093b0a.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/videos-geca-forest-poster-640-4d2ab5ba343f.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/videos-geca-forest-poster-960-3904e8dfb2c5.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/videos-geca-forest-poster-1280-f7a9433e1a45.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/videos-geca-forest-poster-1600-40183d5ef5b1.webp"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Images temporaires — 3 octobre 2026
 
+> Mise à jour du 3 octobre 2026 : les copies d’origine décrites ci-dessous sont conservées sous `assets/source-images/` (ou `assets/source-videos/` pour la vidéo), hors du dossier public. Le site utilise désormais des variantes légères. Voir [PERFORMANCE-MEDIAS.md](PERFORMANCE-MEDIAS.md) pour les chemins actuels et les poids mesurés.
+
 **Mise à jour du même jour :** les six photos des domaines sur l’accueil et la page Domaines d’intervention ont été remplacées par les images définitives fournies par Gassama. Association exacte et provenance dans `docs/IMAGES-DOMAINES.md`. Le tableau ci-dessous conserve l’historique des sources temporaires ; il ne décrit plus les images actuelles des domaines. Les fichiers temporaires restent conservés, notamment pour leurs autres usages.
 
 Gassama a demandé des images provenant d’Internet, avec une étiquette « Image temporaire ». Cette instruction remplace la restriction initiale aux emplacements vides pour la maquette locale.

@@ -16,7 +16,7 @@ test("export : toutes les pages FR/EN, ressources et entrée du site", async ({ 
       expect(html).toContain("form-action &#x27;none&#x27;");
       for (const match of html.matchAll(/(?:src|href|poster)="(\/[^"?#]*)(?:[?#][^"]*)?"/g)) {
         expect(match[1], url).toMatch(/^\/geca\//);
-        if (/\.(css|js|woff2|svg|jpg|png|mp4)$/.test(match[1])) assets.add(match[1]);
+        if (/\.(css|js|woff2|svg|jpg|png|webp|mp4)$/.test(match[1])) assets.add(match[1]);
       }
     }
   }
@@ -50,7 +50,7 @@ for (const width of [375, 1440]) {
     }
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({ path: `test-results/pages-home-${width}.png`, animations: "disabled" });
-    await expect(page.locator(".hero-visual video")).toHaveAttribute("poster", "/geca/videos/geca-forest-poster.jpg");
+    await expect(page.locator(".hero-visual video")).toHaveAttribute("poster", /\/geca\/images\/optimized\/videos-geca-forest-poster-960-[a-f0-9]+\.webp$/);
     await expect(page.locator(".hero-visual video")).toHaveAttribute("src", "/geca/videos/geca-forest.mp4");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.locator(".hero-actions a").first().click();

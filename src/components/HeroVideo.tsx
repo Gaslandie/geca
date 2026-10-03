@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "./ui";
 import { assetPath } from "@/lib/assets";
+import localImageLoader from "@/lib/image-loader";
 
 export function HeroVideo({
   src,
@@ -22,6 +23,7 @@ export function HeroVideo({
   const [playing, setPlaying] = useState(false);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
+  const lightPoster = localImageLoader({ src: poster, width: 960 });
 
   useEffect(() => {
     const video = videoRef.current;
@@ -70,13 +72,13 @@ export function HeroVideo({
       <div
         className="hero-visual"
         aria-hidden="true"
-        style={{ backgroundImage: `url("${assetPath(poster)}")` }}
+        style={{ backgroundImage: `url("${lightPoster}")` }}
       >
         <video
           ref={videoRef}
-          poster={assetPath(poster)}
-          width={1920}
-          height={1080}
+          poster={lightPoster}
+          width={1280}
+          height={720}
           muted
           loop
           playsInline

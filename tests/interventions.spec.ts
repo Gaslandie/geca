@@ -33,7 +33,7 @@ for (const width of [320, 375, 768, 1440, 1920]) {
       const photo = page.locator(`#${area.id} .intervention-photo`);
       await photo.scrollIntoViewIfNeeded();
       await expect(photo.locator(".temporary-image-label")).toHaveCount(0);
-      expect(await photo.locator("img").evaluate((image: HTMLImageElement) => new URL(image.src).searchParams.get("url"))).toBe(`/images/domaines/${area.id}.jpg`);
+      expect(await photo.locator("img").evaluate((image: HTMLImageElement) => new URL(image.currentSrc || image.src).pathname)).toMatch(new RegExp(`/images/optimized/images-domaines-${area.id}-\\d+-[a-f0-9]+\\.webp$`));
       await expect.poll(() => photo.locator("img").evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
     }
     expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()).violations).toEqual([]);
@@ -83,7 +83,7 @@ test("domaines : contenu et navigation sans JavaScript, FR et EN", async ({ brow
       await photo.scrollIntoViewIfNeeded();
       await expect(photo.locator(".temporary-image-label")).toHaveCount(0);
       await expect(photo.locator("img")).toHaveAttribute("alt", domain.photo.alt);
-      expect(await photo.locator("img").evaluate((image: HTMLImageElement) => new URL(image.src).searchParams.get("url"))).toBe(`/images/domaines/${domain.id}.jpg`);
+      expect(await photo.locator("img").evaluate((image: HTMLImageElement) => new URL(image.currentSrc || image.src).pathname)).toMatch(new RegExp(`/images/optimized/images-domaines-${domain.id}-\\d+-[a-f0-9]+\\.webp$`));
       await expect.poll(() => photo.locator("img").evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
     }
     const area = getInterventionAreas(locale)[5];

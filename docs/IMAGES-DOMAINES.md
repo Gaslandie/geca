@@ -1,5 +1,7 @@
 # Images définitives des domaines — 3 octobre 2026
 
+> Mise à jour du 3 octobre 2026 : les copies d’origine décrites ci-dessous sont conservées sous `assets/source-images/` (ou `assets/source-videos/` pour la vidéo), hors du dossier public. Le site utilise désormais des variantes légères. Voir [PERFORMANCE-MEDIAS.md](PERFORMANCE-MEDIAS.md) pour les chemins actuels et les poids mesurés.
+
 Gassama fournit ces six images depuis `/home/mohamed-gassama/Downloads/imageGeca/domaineDinterventions` et confirme qu’elles ne sont pas provisoires. Association basée exclusivement sur les noms des fichiers, sans inspection visuelle, conformément à sa demande. Aucun auteur, licence, lieu ou événement GECA n’est déduit du nom ou des métadonnées.
 
 | Domaine | Fichier fourni | Copie utilisée dans `public/images/domaines/` |

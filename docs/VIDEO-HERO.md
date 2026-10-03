@@ -1,5 +1,7 @@
 # Vidéo du premier écran — 3 octobre 2026
 
+> Mise à jour du 3 octobre 2026 : les copies d’origine décrites ci-dessous sont conservées sous `assets/source-images/` (ou `assets/source-videos/` pour la vidéo), hors du dossier public. Le site utilise désormais des variantes légères. Voir [PERFORMANCE-MEDIAS.md](PERFORMANCE-MEDIAS.md) pour les chemins actuels et les poids mesurés.
+
 Source fournie et autorisée pour la maquette locale par Gassama : `/home/mohamed-gassama/Downloads/Green Minimalist Environment Landscape Video.mp4`.
 
 La copie utilisée est `public/videos/geca-forest.mp4`. Elle est identique au fichier source, vérifiée par SHA-256 ; le fichier de Downloads n'a pas été modifié. Le navigateur sert uniquement la copie publique, sans accès au dossier Downloads. Aucun autre fichier de ce dossier n'est exposé.

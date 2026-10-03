@@ -54,10 +54,11 @@ test("accès refusés et protections de la maquette", async ({ request }) => {
   expect(response.headers()["x-content-type-options"]).toBe("nosniff");
   expect(response.headers()["x-robots-tag"]).toBe("noindex, nofollow");
   expect(response.headers()["x-powered-by"]).toBeUndefined();
-  const image = await request.get(
-    "/_next/image?url=https%3A%2F%2Fexample.com%2Fimage.jpg&w=640&q=75",
-  );
-  expect(image.status()).toBe(400);
+  // Les variantes préparées suppriment l’API de traitement à la demande.
+  for (const source of ["https://example.com/image.jpg", "http://127.0.0.1/private", "/.env", "/images/temporary/forest.jpg"]) {
+    const image = await request.get(`/_next/image?url=${encodeURIComponent(source)}&w=640&q=75`);
+    expect(image.status()).toBe(404);
+  }
 });
 
 for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
@@ -78,7 +79,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     const domains = page.locator(".domains .domain");
     await expect(domains).toHaveCount(6);
     for (const [index, domain] of (await domains.all()).entries()) {
-      expect(await domain.locator("img").evaluate((image: HTMLImageElement) => new URL(image.src).searchParams.get("url"))).toBe(`/images/domaines/${homeContent.domains.items[index].id}.jpg`);
+      expect(await domain.locator("img").evaluate((image: HTMLImageElement) => new URL(image.currentSrc || image.src).pathname)).toMatch(new RegExp(`/images/optimized/images-domaines-${homeContent.domains.items[index].id}-\\d+-[a-f0-9]+\\.webp$`));
       await expect(domain.locator(".temporary-image-label")).toHaveCount(0);
       const photo = await domain.locator(".domain-photo").boundingBox();
       const text = await domain.locator(".domain-content").boundingBox();
@@ -438,7 +439,7 @@ test("vidéo locale : lecture sans son, pause au clavier et mouvements réduits"
     element.readyState >= 2 && !element.paused && element.currentTime > 0,
   )).toBe(true);
   expect(await video.evaluate((element: HTMLVideoElement) =>
-    element.muted && element.loop && element.playsInline && element.videoWidth === 1920,
+    element.muted && element.loop && element.playsInline && element.videoWidth === 1280,
   )).toBe(true);
   const pause = page.getByRole("button", { name: "Mettre la vidéo en pause" });
   await expect(pause).toHaveText("");
@@ -469,7 +470,7 @@ test("vidéo indisponible : image de secours et deux liens utilisables", async (
   await expect(page.locator(".hero-visual video")).toHaveAttribute("data-ready", "false");
   expect(await page.locator(".hero-visual").evaluate((element) =>
     getComputedStyle(element).backgroundImage,
-  )).toContain("geca-forest-poster.jpg");
+  )).toMatch(/geca-forest-poster-960-[a-f0-9]+\.webp/);
   for (const [label, path] of [
     ["Découvrir nos projets", "/fr/projets"],
     ["Devenir partenaire", "/fr/devenir-partenaire"],
@@ -507,7 +508,7 @@ test("lecture automatique refusée : image fixe et commande de lecture", async (
   )).toBe(true);
   expect(await page.locator(".hero-visual").evaluate(
     (element) => getComputedStyle(element).backgroundImage,
-  )).toContain("geca-forest-poster.jpg");
+  )).toMatch(/geca-forest-poster-960-[a-f0-9]+\.webp/);
   await expect(page.locator(".hero-actions a")).toHaveCount(2);
 });
 
@@ -515,7 +516,7 @@ test("sans JavaScript : image chargée, message et liens présents", async ({ br
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   const posterLoaded = page.waitForResponse((response) =>
-    response.url().endsWith("/videos/geca-forest-poster.jpg") && response.status() === 200,
+    /geca-forest-poster-960-[a-f0-9]+\.webp$/.test(response.url()) && response.status() === 200,
   );
   await page.goto("http://127.0.0.1:3000/fr");
   await posterLoaded;
