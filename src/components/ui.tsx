@@ -100,6 +100,23 @@ export function Icon({
         )))}
       </>
     ),
+    leaf: (
+      <>
+        <path d="M20 3C10 2 4 7 4 13a6 6 0 0 0 6 6c6 0 10-6 10-16Z" />
+        <path d="M3 21 16 8M8 16v-5m0 5h5" />
+      </>
+    ),
+    graduation: (
+      <>
+        <path d="m2 8 10-5 10 5-10 5L2 8ZM6 10v7l6 3 6-3v-7M22 8v8" />
+      </>
+    ),
+    document: (
+      <>
+        <rect x="5" y="2" width="14" height="20" rx="2" />
+        <path d="M9 6h6M9 10h6M9 14h6M9 18h3" />
+      </>
+    ),
     frame: (
       <>
         <path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5" />

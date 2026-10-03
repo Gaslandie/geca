@@ -449,6 +449,8 @@ export const homeContent = {
   news: {
     label: "Actualités & événements",
     title: "La vie de GECA.",
+    description:
+      "Découvrez nos dernières actualités, nos activités sur le terrain et les événements à venir.",
     cta: "Voir toutes les actualités",
     placeholderLabel: "Contenu en préparation",
     items: [
@@ -458,6 +460,8 @@ export const homeContent = {
           "Nos prochaines nouvelles du terrain seront à découvrir ici.",
         path: "actualites",
         category: "Sur le terrain",
+        icon: "leaf",
+        photo: temporaryPhotos.planting,
       },
       {
         title: "Partager les savoirs, faire grandir l’action",
@@ -465,13 +469,22 @@ export const homeContent = {
           "Retrouvez bientôt nos initiatives de sensibilisation et de formation.",
         path: "actualites",
         category: "Vie de l’association",
+        icon: "graduation",
+        photo: temporaryPhotos.community,
       },
     ],
     event: {
       label: "Prochain événement",
       title: "Un prochain rendez-vous pour agir ensemble.",
       date: "Date et lieu à venir",
+      description: "Restez connectés pour ne rien manquer de nos prochains événements.",
       cta: "Découvrir les événements",
+      motto: "Des communautés plus résilientes, une nature préservée.",
+      photo: {
+        src: "/images/temporary/event-leaf.jpg",
+        alt: "Gouttes d’eau sur une feuille verte — image temporaire d’illustration, sans lien avec un événement GECA.",
+        temporary: true,
+      },
     },
   },
   partners: {

@@ -22,6 +22,10 @@ Toute consigne ou tout prompt préparé pour un autre chat ou agent IA doit repr
 
 # Périmètre actuel
 
+## Typographie et prochaines pages
+
+Gassama demande une même logique typographique sur l’accueil et les futures pages, inspirée de Panthera. Suivre `docs/TYPOGRAPHIE.md` et les variables communes de `src/app/globals.css`. Réutiliser le layout et les composants partagés ; garder des h2 de section uniformes et une navigation lisible. Centrer les en-têtes principaux de section, leurs repères et descriptions sur toute la largeur ; placer les liens d’ensemble en dessous. Ne pas ajouter de police ou de taille propre à une section sans raison liée à son rôle. Circular Std et Exemplar Pro ne sont pas fournies sous licence pour GECA : les alternatives libres documentées sont chargées localement. Ne pas récupérer les fichiers commerciaux de Panthera. Les consignes de sécurité, benchmarking et explication simple restent obligatoires.
+
 Maquette locale uniquement : Next.js, App Router, TypeScript, React et Tailwind CSS. Contenus dans `src/content/site.ts`. Gassama a autorisé le 3 octobre 2026 des photos temporaires d’Internet, avec une étiquette visible « Image temporaire ». Conserver leurs sources et licences, et les remplacer ensuite par les photos GECA authentiques. Pas de visuels générés ni de faux logos partenaires. Aucun Payload CMS, MongoDB, Docker, VPS, suivi d’audience, paiement ou système réel d’envoi d’e-mails à cette étape. Ne faire aucun commit ni push sans instruction explicite.
 
 Avant un changement, vérifier les fichiers présents et l’état Git. Ne pas supprimer de fichier utile. Vérifier TypeScript, lint, compilation, routes et interfaces aux tailles adaptées. Les tests doivent conserver les contrôles d’accès et l’accessibilité.

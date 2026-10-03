@@ -116,6 +116,45 @@ for (const width of [320, 375, 670, 767, 768, 970, 1024, 1440]) {
     if (width < 1200) await menu.click();
     const nav = page.getByRole("navigation", { name: "Navigation principale" });
     await expect(nav).toBeVisible();
+    // Une même hiérarchie typographique doit rester commune à toutes les sections.
+    const typography = await page.evaluate(() => {
+      const headings = [...document.querySelectorAll("main h2")].map((element) => {
+        const style = getComputedStyle(element);
+        return [style.fontFamily, style.fontSize, style.fontWeight, style.lineHeight].join("|");
+      });
+      const menuLink = document.querySelector(".nav-item > a")!;
+      return {
+        headings: [...new Set(headings)],
+        navigationSize: parseFloat(getComputedStyle(menuLink).fontSize),
+        fontsLoaded: [...document.fonts].some((font) => font.status === "loaded"),
+      };
+    });
+    expect(typography.headings).toHaveLength(1);
+    expect(typography.navigationSize).toBeGreaterThanOrEqual(18);
+    expect(typography.fontsLoaded).toBe(true);
+    const sectionHeaders = await page.locator(".section-heading").evaluateAll((headers) =>
+      headers.map((header) => {
+        const section = header.closest("section")!.getBoundingClientRect();
+        return [...header.querySelectorAll("h2, .eyebrow, .section-description")].every((element) => {
+          const box = element.getBoundingClientRect();
+          return getComputedStyle(element).textAlign === "center" &&
+            Math.abs(box.x + box.width / 2 - (section.x + section.width / 2)) < 1;
+        });
+      }),
+    );
+    expect(sectionHeaders).toHaveLength(7);
+    expect(sectionHeaders.every(Boolean)).toBe(true);
+    const partnerCards = await page.locator(".partner-list li").evaluateAll((cards) =>
+      cards.map((card) => {
+        const box = card.getBoundingClientRect();
+        return { width: box.width, height: box.height };
+      }),
+    );
+    expect(partnerCards).toHaveLength(5);
+    for (const card of partnerCards) {
+      expect(Math.abs(card.width - partnerCards[0].width)).toBeLessThan(1);
+      expect(Math.abs(card.height - partnerCards[0].height)).toBeLessThan(1);
+    }
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
@@ -183,7 +222,7 @@ for (const width of [320, 375, 670, 767, 768, 970, 1024, 1440]) {
       .analyze();
     expect(results.violations).toEqual([]);
     const illustrations = page.locator(".photo-placeholder.has-photo");
-    await expect(illustrations).toHaveCount(9);
+    await expect(illustrations).toHaveCount(12);
     for (const illustration of await illustrations.all()) {
       await illustration.scrollIntoViewIfNeeded();
       await expect(
@@ -201,6 +240,9 @@ for (const width of [320, 375, 670, 767, 768, 970, 1024, 1440]) {
         .toBe(true);
     }
     if ([375, 768, 1440].includes(width)) {
+      await page.locator(".news").screenshot({
+        path: `test-results/news-${width}.png`,
+      });
       await page.locator(".impact").screenshot({
         path: `test-results/impact-${width}.png`,
       });
@@ -240,6 +282,25 @@ test("tous les liens internes de l’accueil répondent", async ({
     ]);
   for (const link of links)
     expect((await request.get(link)).status(), link).toBe(200);
+});
+
+test("texte agrandi à 200 % : contenus et navigation restent dans le cadre", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  for (const width of [320, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/fr");
+    await page.evaluate(() => document.fonts.ready);
+    await page.addStyleTag({ content: ":root { font-size: 200%; }" });
+    if (width < 1200) await page.getByRole("button", { name: "Menu", exact: true }).click();
+    const nav = page.getByRole("navigation", { name: "Navigation principale" });
+    await expect(nav).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await nav.getByRole("button", { name: "À propos", exact: true }).click();
+    await expect(nav.getByRole("link", { name: "Équipe", exact: true })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await expect(page.locator(".hero-actions .button-primary")).toBeVisible();
+    await expect(page.locator(".hero-actions .button-secondary")).toBeVisible();
+  }
 });
 
 test("clavier, langue anglaise et mouvements réduits", async ({ page }) => {

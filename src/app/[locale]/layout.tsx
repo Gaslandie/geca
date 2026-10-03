@@ -7,14 +7,14 @@ import { identity, interfaceText, isLocale, locales } from "@/content/site";
 import "../globals.css";
 
 const sans = localFont({
-  src: "../fonts/UbuntuSans.ttf",
+  src: "../fonts/DMSans.ttf",
   variable: "--font-sans",
   display: "swap",
   weight: "100 900",
 });
-const serif = localFont({
-  src: "../fonts/NotoSerif.ttf",
-  variable: "--font-serif",
+const display = localFont({
+  src: "../fonts/DMSerifDisplay.ttf",
+  variable: "--font-display",
   display: "swap",
   weight: "400",
 });
@@ -45,7 +45,7 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   return (
-    <html lang={locale} className={`${sans.variable} ${serif.variable}`}>
+    <html lang={locale} className={`${sans.variable} ${display.variable}`}>
       <body>
         <a className="skip-link" href="#main-content">
           {interfaceText[locale].skip}

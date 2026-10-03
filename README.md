@@ -49,6 +49,10 @@ Le message transmis par le client pour l’accueil a été intégré le 3 octobr
 
 Le logo transmis le même jour est conservé sans modification dans `public/images/brand/global-ecoaction-logo.png`. Le vert `#026a2a` et le jaune doré `#ebad0e` sont relevés dans ce fichier ; les variantes sombres gardent les petits textes lisibles. Voir `docs/IDENTITE-VISUELLE.md`.
 
+## Garder la même présentation sur les prochaines pages
+
+Suivre [la typographie commune](docs/TYPOGRAPHIE.md). Les titres, paragraphes, cartes et boutons partagent une échelle de tailles dans `src/app/globals.css`. Le layout FR/EN charge les mêmes polices locales. Réutiliser `Container`, `SectionHeading` et `Button`, avec un `h1` par page et des `h2` uniformes pour les sections.
+
 ## Ajouter les vraies photos
 
 Placer les photographies GECA autorisées dans `public/images/`. Dans les données correspondantes, remplacer la photo temporaire (ou `photo: undefined` pour les emplacements encore vides) par :
@@ -60,7 +64,7 @@ photo: {
 }
 ```
 
-Les cinq logos partenaires sont maintenant intégrés à la demande de Gassama, depuis des fichiers authentifiés servis dans `public/images/partners/`. Le champ `logo` renseigne aussi leurs dimensions réelles. Sources et limites : `docs/LOGOS-PARTENAIRES.md`. `next/image` intervient uniquement lorsqu’un fichier local a été renseigné. À la demande de Gassama, sept photos gratuites Unsplash sont conservées pour illustrer les domaines, les projets et le bandeau d’impact. Elles sont conservées dans `public/images/temporary/` et affichent « Image temporaire ». Leurs sources sont dans `docs/IMAGES-TEMPORAIRES.md`. Aucun visuel n’a été généré. Les polices déjà présentes sur la machine sont incluses avec leurs licences et chargées par `next/font/local`. Le navigateur n’a donc pas besoin de contacter Google Fonts ou Unsplash.
+Les cinq logos partenaires sont maintenant intégrés à la demande de Gassama, depuis des fichiers authentifiés servis dans `public/images/partners/`. Le champ `logo` renseigne aussi leurs dimensions réelles. Sources et limites : `docs/LOGOS-PARTENAIRES.md`. `next/image` intervient uniquement lorsqu’un fichier local a été renseigné. À la demande de Gassama, huit photos gratuites Unsplash sont conservées pour illustrer les domaines, les projets, le bandeau d’impact et les actualités et événements. Elles sont conservées dans `public/images/temporary/` et affichent « Image temporaire ». Leurs sources sont dans `docs/IMAGES-TEMPORAIRES.md`. Aucun visuel n’a été généré. Les polices libres DM Sans et DM Serif Display proviennent du dépôt officiel Google Fonts, sont incluses avec leurs licences et chargées par `next/font/local`. Le navigateur n’a donc pas besoin de contacter Google Fonts ou Unsplash.
 
 Le premier écran utilise maintenant la vidéo fournie par Gassama et une image extraite de cette vidéo. Les photos temporaires restent dans les projets et illustrent les six domaines d'intervention, qui n'affichent plus d'icônes ni de numérotation. Sur téléphone, chaque photo précède son texte. À partir de 768 px, les domaines forment des lignes avec photo et texte côte à côte, en alternant leurs positions. Leur champ `temporary: true` déclenche l’étiquette. Lors du remplacement par une vraie photo GECA, retirer ce champ et renseigner son vrai texte alternatif. Les portraits d’équipe restent des emplacements vides jusqu’à réception des photos des membres.
 

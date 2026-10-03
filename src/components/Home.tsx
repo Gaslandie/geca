@@ -24,10 +24,8 @@ export function Home() {
           <div className="hero-content">
             <p className="eyebrow">{content.hero.label}</p>
             <h1 id="hero-title">
-              {content.hero.title}
-              {" "}
-              <br />
-              {content.hero.titleSecondLine}
+              <span className="hero-title-band">{content.hero.title}</span>{" "}
+              <span className="hero-title-band">{content.hero.titleSecondLine}</span>
             </h1>
             <p className="hero-description">{content.hero.description}</p>
             <div className="hero-actions">
@@ -43,11 +41,13 @@ export function Home() {
       </section>
 
       <section className="about section" aria-labelledby="about-title">
-        <Container className="about-grid">
-          <div>
-            <p className="eyebrow">{content.about.label}</p>
-            <h2 id="about-title">{content.about.title}</h2>
-            <p className="body-copy">{content.about.description}</p>
+        <Container>
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">{content.about.label}</p>
+              <h2 id="about-title">{content.about.title}</h2>
+              <p className="section-description">{content.about.description}</p>
+            </div>
             <Button href={href("fr", "a-propos")} variant="text">
               {content.about.cta}
             </Button>
@@ -104,15 +104,15 @@ export function Home() {
             className="impact-photo"
             sizes="100vw"
           />
-          <Container className="impact-heading">
+          <Container className="impact-heading section-heading">
             <div>
               <p className="eyebrow">{content.impact.label}</p>
               <h2 id="impact-title">
                 <span>{content.impact.title}</span>{" "}
                 <span>{content.impact.titleSecondLine}</span>
               </h2>
+              <p className="impact-description section-description">{content.impact.description}</p>
             </div>
-            <p className="impact-description">{content.impact.description}</p>
           </Container>
         </div>
         <Container className="impact-results">
@@ -167,47 +167,78 @@ export function Home() {
         </Container>
       </section>
 
-      <section className="news section" aria-label={content.news.label}>
+      <section className="news section" aria-labelledby="news-title">
         <Container>
-          <SectionHeading label={content.news.label} title={content.news.title}>
-            <Button href={href("fr", "actualites")} variant="text">
+          <div className="news-heading section-heading">
+            <div>
+              <p className="eyebrow">{content.news.label}</p>
+              <h2 id="news-title">{content.news.title}</h2>
+              <p className="section-description">{content.news.description}</p>
+            </div>
+            <Link href={href("fr", "actualites")} className="news-all-link">
               {content.news.cta}
-            </Button>
-          </SectionHeading>
+              <span className="news-arrow"><Icon name="arrow" /></span>
+            </Link>
+          </div>
           <div className="news-grid">
             {content.news.items.map((item) => (
               <article key={item.title} className="news-card">
-                <p className="eyebrow">{item.category}</p>
-                <h3>
-                  <Link href={href("fr", item.path)}>
-                    {item.title}
-                    <Icon name="arrow" />
-                  </Link>
-                </h3>
-                <p>{item.description}</p>
-                <span className="draft-label">
-                  {content.news.placeholderLabel}
-                </span>
+                <div className="news-visual">
+                  <PhotoPlaceholder
+                    label={item.category}
+                    photo={item.photo}
+                    className="news-photo"
+                    sizes="(max-width: 599px) 100vw, (max-width: 1023px) 50vw, (max-width: 1535px) 33vw, 470px"
+                  />
+                  <p className="news-badge"><Icon name={item.icon} />{item.category}</p>
+                </div>
+                <div className="news-card-content">
+                  <h3><Link href={href("fr", item.path)}>{item.title}</Link></h3>
+                  <p>{item.description}</p>
+                  <div className="news-card-footer">
+                    <span className="draft-label">
+                      <Icon name="document" />{content.news.placeholderLabel}
+                    </span>
+                    <Link
+                      href={href("fr", item.path)}
+                      className="news-arrow"
+                      aria-label={`Découvrir les actualités : ${item.title}`}
+                    >
+                      <Icon name="arrow" />
+                    </Link>
+                  </div>
+                </div>
               </article>
             ))}
-            <aside className="event-card">
-              <p className="eyebrow">{content.news.event.label}</p>
-              <p className="event-date">{content.news.event.date}</p>
-              <h3>{content.news.event.title}</h3>
-              <Button href={href("fr", "evenements")} variant="text">
-                {content.news.event.cta}
-              </Button>
+            <aside className="event-card" aria-labelledby="event-title">
+              <PhotoPlaceholder
+                label={content.news.event.label}
+                photo={content.news.event.photo}
+                className="event-photo"
+                sizes="(max-width: 1023px) 100vw, (max-width: 1535px) 33vw, 470px"
+              />
+              <div className="event-content">
+                <p className="news-badge event-badge"><Icon name="calendar" />{content.news.event.label}</p>
+                <p className="event-date"><Icon name="calendar" />{content.news.event.date}</p>
+                <h3 id="event-title">{content.news.event.title}</h3>
+                <p className="event-description">{content.news.event.description}</p>
+                <Button href={href("fr", "evenements")}>{content.news.event.cta}</Button>
+                <p className="event-motto">{content.news.event.motto}</p>
+              </div>
             </aside>
           </div>
         </Container>
       </section>
 
       <section className="partners section" aria-labelledby="partners-title">
+        <div className="partners-foliage" aria-hidden="true"><span /><span /><span /></div>
         <Container>
-          <div className="partners-heading">
-            <p className="eyebrow">{content.partners.label}</p>
-            <h2 id="partners-title">{content.partners.title}</h2>
-            <p>{content.partners.description}</p>
+          <div className="partners-heading section-heading">
+            <div>
+              <p className="eyebrow">{content.partners.label}</p>
+              <h2 id="partners-title">{content.partners.title}</h2>
+              <p className="section-description">{content.partners.description}</p>
+            </div>
           </div>
           <ul className="partner-list">
             {content.partners.items.map((partner) => (
