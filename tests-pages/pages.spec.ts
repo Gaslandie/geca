@@ -28,7 +28,7 @@ test("export : toutes les pages FR/EN, ressources et entrée du site", async ({ 
 });
 
 test("export : adresses inconnues, fichiers privés et envoi refusés", async ({ request }) => {
-  for (const path of ["fr/inconnue/", "fr/projets/inconnu/", "es/", "es/contact/", ".env", ".git/config", "src/content/site.ts", "api/contact", "api/payments", "_next/image?url=https://example.com/image.jpg&w=640&q=75"]) {
+  for (const path of ["fr/inconnue/", "fr/projets/inconnu/", "fr/a-propos/equipe/", "fr/ressources/", "en/ressources/", "fr/reseaux/", "fr/partenaires/", "docs/TEXTES-AUTHENTIQUES-CLIENT.md", "es/", "es/contact/", ".env", ".git/config", "src/content/site.ts", "api/contact", "api/payments", "_next/image?url=https://example.com/image.jpg&w=640&q=75"]) {
     expect((await request.get(`/geca/${path}`)).status(), path).toBe(404);
   }
   expect((await request.post("/geca/fr/contact/", { data: { email: "demo@example.com" } })).status()).toBe(405);
@@ -40,6 +40,10 @@ for (const width of [375, 1440]) {
   test(`export : images, vidéo, navigation et langues à ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     const errors: string[] = [];
+    const mediaRequests: string[] = [];
+    page.on("request", (request) => {
+      if (/geca-forest(\.mp4|-poster)/.test(request.url())) mediaRequests.push(request.url());
+    });
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto("/geca/fr/");
     await page.evaluate(() => document.fonts.ready);
@@ -50,8 +54,16 @@ for (const width of [375, 1440]) {
     }
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({ path: `test-results/pages-home-${width}.png`, animations: "disabled" });
-    await expect(page.locator(".hero-visual video")).toHaveAttribute("poster", /\/geca\/images\/optimized\/videos-geca-forest-poster-960-[a-f0-9]+\.webp$/);
-    await expect(page.locator(".hero-visual video")).toHaveAttribute("src", "/geca/videos/geca-forest.mp4");
+    await expect(page.locator(".hero-photo img")).toHaveAttribute("src", /\/geca\/images\/optimized\/images-hero-plantation-\d+-[a-f0-9]+\.webp$/);
+    if (width >= 768) {
+      await expect(page.locator(".hero-visual video")).toHaveAttribute("poster", /\/geca\/images\/optimized\/videos-geca-forest-poster-960-[a-f0-9]+\.webp$/);
+      await expect(page.locator(".hero-visual video")).toHaveAttribute("src", "/geca/videos/geca-forest.mp4");
+    } else {
+      await expect(page.locator(".hero-visual video")).not.toHaveAttribute("poster");
+      await expect(page.locator(".hero-visual video")).not.toHaveAttribute("src");
+      await expect(page.locator(".hero-video-toggle")).toBeHidden();
+      expect(mediaRequests).toEqual([]);
+    }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.locator(".hero-actions a").first().click();
     await expect(page).toHaveURL(/\/geca\/fr\/projets\/$/);
@@ -71,6 +83,25 @@ for (const width of [375, 1440]) {
     await page.screenshot({ path: `test-results/pages-contact-${width}.png`, fullPage: true });
   });
 }
+
+test("export : recherche superposée et liens préfixés FR/EN", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  for (const locale of locales) {
+    await page.goto(`/geca/${locale}/`);
+    await page.getByRole("button", { name: locale === "fr" ? "Rechercher" : "Search", exact: true }).click();
+    await expect(page).toHaveURL(new RegExp(`/geca/${locale}/$`));
+    const dialog = page.getByRole("dialog");
+    const input = dialog.getByRole("searchbox");
+    await expect(input).toBeFocused();
+    await input.fill("PROTEMO");
+    await expect(dialog.locator(".search-results a").first()).toHaveAttribute("href", `/geca/${locale}/projets/#projet-protemo`);
+    await input.press("Enter");
+    await expect(page).toHaveURL(new RegExp(`/geca/${locale}/projets/#projet-protemo$`));
+    await expect(page.locator("#projet-protemo")).toBeInViewport();
+    await expect(dialog).not.toBeVisible();
+  }
+});
 
 test("export : entrée et contact utilisables sans JavaScript", async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });

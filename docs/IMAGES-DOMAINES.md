@@ -18,3 +18,7 @@ Usage : les six domaines de l’accueil français et la page Domaines d’interv
 Les six fichiers sont des JPEG valides, décodés avec Sharp déjà installé. Copies proportionnelles limitées à 1920 px, sans recadrage ni agrandissement ; qualité JPEG 88. Métadonnées EXIF, XMP et IPTC absentes des copies publiques. Originaux inchangés dans le dossier fourni. Poids total des copies : 1 477 707 octets, contre 60 156 786 octets pour les originaux (environ 97,5 % de réduction). Le composant `next/image` conserve les tailles réservées et le chargement différé existants.
 
 Les textes alternatifs nomment le domaine, en français ou anglais, sans inventer une description de la scène. Aucun badge « Image temporaire » pour ces six copies. Aucun téléchargement externe, nouvelle dépendance, compte ou collecte.
+
+## Réutilisation autorisée — 4 octobre 2026
+
+Gassama autorise explicitement la réutilisation des images existantes jusqu’à sa demande de changement. La photo `gouvernance-communautes.jpg` illustre aussi « Appui aux communautés affectées » ; `agroecologie.jpg` illustre aussi « Revenus et résilience socio-économique ». Les variantes optimisées existantes sont réutilisées, sans copie supplémentaire. Aucun lieu, personne, événement ou résultat n’est attribué à ces images. Cette permission remplace l’ancienne restriction de substitution entre domaines. L’illustration temporaire de l’impact conserve son étiquette et sa source.

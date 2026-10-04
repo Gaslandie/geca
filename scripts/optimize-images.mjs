@@ -16,7 +16,7 @@ for (const relative of (await readdir(root, { recursive: true })).sort()) {
   if (!info.isFile() || info.size > 20_000_000) throw new Error(`Source invalide : ${relative}`);
   const input = await readFile(source);
   const metadata = await sharp(input, { limitInputPixels: 40_000_000 }).metadata();
-  const logo = relative.endsWith(".png");
+  const logo = /images[\/\\](brand|partners)[\/\\]/.test(relative);
   const maxWidth = Math.min(metadata.width, logo ? 640 : 1600);
   const widths = [...new Set([192, 320, 480, 640, 960, 1280, 1600].filter((width) => width < maxWidth).concat(maxWidth))];
   const variants = [];

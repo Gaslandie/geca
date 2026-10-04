@@ -3,16 +3,29 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
+// Règle commune, y compris pour les futurs corps de carte et blocs data-reveal.
 // Le HTML reste visible : ces effets n'ajoutent aucune condition d'accès.
 const targets = [
+  "[data-reveal]:not([data-reveal='off'])", ".hero-grid", ".card-content",
   ".section-heading", ".impact-heading", ".stat", ".domain",
-  ".project-card", ".portfolio-project", ".team-member", ".news-card", ".event-card",
+  ".project-card", ".portfolio-project", ".news-card", ".event-card",
   ".partner-list li", ".cta-grid > div", ".contact-copy",
   ".contact-form", ".contact-details-grid > div",
   ".about-since", ".about-conviction", ".about-purpose-card",
   ".about-steps li", ".about-domain-grid li",
-  ".intervention-nav li", ".intervention-detail", ".construction-body",
+  ".intervention-detail", ".construction-body",
+  ".partnership-strength-card",
+  ".mission-value-card",
+  ".mission-figure", ".mission-prose", ".about-prose",
+  ".photo-placeholder:not(.impact-photo, .contact-photo)",
+  ".impact-achievements > li", ".portfolio-experience-list > li",
+  ".project-toolbar", ".portfolio-notice", ".portfolio-count",
+  ".mission-actions", ".partnership-actions", ".portfolio-closing-actions",
+  ".about-closing-actions",
 ].join(",");
+const selector = `main :is(${targets}), .site-footer .footer-grid > *, .site-footer .footer-bottom`;
+const revealFrames = [{ transform: "translateY(12px)" }, { transform: "translateY(0)" }];
+const revealTiming = { duration: 480, easing: "cubic-bezier(.2,.65,.3,1)" };
 
 export function SiteMotion() {
   const pathname = usePathname();
@@ -24,6 +37,7 @@ export function SiteMotion() {
       connection?: EventTarget & { saveData?: boolean };
     }).connection;
     const finished = new WeakSet<Element>();
+    const observed = new Set<Element>();
     const running = new Map<Element, Animation>();
     let observer: IntersectionObserver | null = null;
     let mutations: MutationObserver | null = null;
@@ -35,42 +49,53 @@ export function SiteMotion() {
       mutations = null;
       running.forEach((animation) => animation.cancel());
       running.clear();
+      observed.clear();
     };
     const start = () => {
       stop();
       if (preference.matches || connection?.saveData) return;
-      const hero = document.querySelector("main .hero-grid");
-      if (hero && !finished.has(hero)) {
-        finished.add(hero);
-        const bounds = hero.getBoundingClientRect();
-        if (bounds.top < innerHeight && bounds.bottom > 0 && !hero.contains(document.activeElement)) {
-          const animation = hero.animate([
-            { transform: "scale(1.045)" },
-            { transform: "scale(1)" },
-          ], { duration: 1100, easing: "cubic-bezier(.2,.65,.3,1)" });
-          running.set(hero, animation);
-          animation.onfinish = () => running.delete(hero);
-        }
-      }
       observer = new IntersectionObserver((entries) => {
         for (const entry of entries) {
-          if (!entry.isIntersecting || finished.has(entry.target)) continue;
+          if (!entry.isIntersecting || !entry.target.isConnected || finished.has(entry.target)) continue;
           const target = entry.target;
           finished.add(target);
           observer?.unobserve(target);
+          observed.delete(target);
           if (target.contains(document.activeElement)) continue;
-          const animation = target.animate([
-            { transform: "translateY(12px)" },
-            { transform: "translateY(0)" },
-          ], { duration: 480, easing: "cubic-bezier(.2,.65,.3,1)" });
+          const animation = target.animate(revealFrames, revealTiming);
           running.set(target, animation);
           animation.onfinish = () => running.delete(target);
         }
       }, { rootMargin: "0px 0px -24px 0px", threshold: 0 });
       const observeTargets = () => {
-        document.querySelectorAll(`main :is(${targets})`).forEach((target) => {
-          if (!finished.has(target)) observer?.observe(target);
-        });
+        const candidates = new Set([...document.querySelectorAll(selector)].filter((target) =>
+          !target.closest('[data-reveal="off"]'),
+        ));
+        const eligible = new Set([...candidates].filter((target) => {
+          // Une carte (photo et texte) se déplace ensemble, sans double mouvement.
+          for (let parent = target.parentElement; parent; parent = parent.parentElement) {
+            if (candidates.has(parent)) return false;
+          }
+          return true;
+        }));
+        for (const target of observed) {
+          if (!eligible.has(target)) {
+            observer?.unobserve(target);
+            observed.delete(target);
+          }
+        }
+        for (const [target, animation] of running) {
+          if (!eligible.has(target)) {
+            animation.cancel();
+            running.delete(target);
+          }
+        }
+        for (const target of eligible) {
+          if (!finished.has(target) && !observed.has(target)) {
+            observer?.observe(target);
+            observed.add(target);
+          }
+        }
       };
       observeTargets();
       const main = document.querySelector("main");

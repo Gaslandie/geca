@@ -24,7 +24,7 @@ export function About({ locale }: { locale: Locale }) {
         </Container>
         <div className="about-intro-band">
           <PhotoPlaceholder label={text.photoLabel} photo={text.photo} className="about-landscape" priority sizes="(max-width: 767px) 100vw, (min-width: 1600px) 922px, 62vw" />
-          <div className="about-since">
+          <div className="about-since card-content">
             <p className="eyebrow">{text.sinceLabel}</p>
             <p className="about-year">{identity.since}</p>
             <p>{text.sinceDescription}</p>
@@ -40,10 +40,18 @@ export function About({ locale }: { locale: Locale }) {
             <div className="about-prose">
               {text.history.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
-            <aside className="about-conviction" aria-label={text.history.convictionLabel}>
+            <aside className="about-conviction card-content" aria-label={text.history.convictionLabel}>
               <p className="eyebrow">{text.history.convictionLabel}</p>
               <p>{text.history.conviction}</p>
             </aside>
+          </div>
+          <div className="about-purpose-grid about-identity-details">
+            {text.history.details.map((detail) => (
+              <article className="about-conviction card-content" key={detail.title}>
+                <h3 className="eyebrow">{detail.title}</h3>
+                <p>{detail.description}</p>
+              </article>
+            ))}
           </div>
         </Container>
       </section>
@@ -52,16 +60,21 @@ export function About({ locale }: { locale: Locale }) {
         <Container>
           <SectionHeading label={text.purpose.label} title={text.purpose.title} description={text.purpose.description} />
           <div className="about-purpose-grid">
-            <article className="about-purpose-card">
+            <article className="about-purpose-card card-content">
               <p className="eyebrow">{text.purpose.missionLabel}</p>
               <h3>{text.purpose.missionTitle}</h3>
               <p>{text.purpose.mission}</p>
             </article>
-            <article className="about-purpose-card about-purpose-card--vision">
+            <article className="about-purpose-card about-purpose-card--vision card-content">
               <p className="eyebrow">{text.purpose.visionLabel}</p>
               <h3>{text.purpose.visionTitle}</h3>
               <p>{text.purpose.vision}</p>
             </article>
+          </div>
+          <div className="mission-actions">
+            <Button href={href(locale, "a-propos/mission-vision-valeurs")} variant="text">
+              {locale === "fr" ? "Mission, vision et valeurs" : "Mission, vision and values"}
+            </Button>
           </div>
         </Container>
       </section>
@@ -73,7 +86,7 @@ export function About({ locale }: { locale: Locale }) {
             <PhotoPlaceholder label={text.approach.photoLabel} photo={text.approach.photo} className="about-method-photo" />
             <ol className="about-steps">
               {text.approach.items.map((item, index) => (
-                <li key={item.title}>
+                <li className="card-content" key={item.title}>
                   <span className="about-step-number" aria-hidden="true">0{index + 1}</span>
                   <div><h3>{item.title}</h3><p>{item.description}</p></div>
                 </li>
@@ -88,7 +101,7 @@ export function About({ locale }: { locale: Locale }) {
           <SectionHeading label={text.domains.label} title={text.domains.title} description={text.domains.description} />
           <ul className="about-domain-grid">
             {text.domains.items.map((item) => (
-              <li key={item.title}>
+              <li className="card-content" key={item.title}>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
               </li>

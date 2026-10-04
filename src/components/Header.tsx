@@ -13,21 +13,25 @@ import {
 } from "@/content/site";
 import { Container, Icon } from "./ui";
 import { BrandLogo } from "./BrandLogo";
+import { SiteSearch } from "./SiteSearch";
+import type { SearchDocument } from "@/lib/search";
 
-export function Header({ locale }: { locale: Locale }) {
+export function Header({ locale, searchDocuments }: { locale: Locale; searchDocuments: SearchDocument[] }) {
   // Pages utilise des URL terminées par / ; garder la sélection du menu exacte.
   const pathname = usePathname().replace(/\/$/, "") || "/";
   return (
-    <HeaderNavigation key={pathname} locale={locale} pathname={pathname} />
+    <HeaderNavigation key={pathname} locale={locale} pathname={pathname} searchDocuments={searchDocuments} />
   );
 }
 
 function HeaderNavigation({
   locale,
   pathname,
+  searchDocuments,
 }: {
   locale: Locale;
   pathname: string;
+  searchDocuments: SearchDocument[];
 }) {
   const text = interfaceText[locale];
   const [menuOpen, setMenuOpen] = useState(false);
@@ -112,14 +116,7 @@ function HeaderNavigation({
           >
             {text.donate}
           </Link>
-          <Link
-            href={href(locale, "recherche")}
-            className="search-link"
-            aria-label={text.search}
-            onClick={close}
-          >
-            <Icon name="search" />
-          </Link>
+          <SiteSearch locale={locale} documents={searchDocuments} onOpen={close} />
         </div>
         <button
           ref={menuRef}

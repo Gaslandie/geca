@@ -18,28 +18,30 @@ export function Home() {
     <main id="main-content" tabIndex={-1} className="home-page">
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-grid">
-          <div className="hero-content">
-            <p className="eyebrow">{content.hero.label}</p>
-            <h1 id="hero-title">
-              <span className="hero-title-line">{content.hero.title}</span>{" "}
-              <span className="hero-title-line">{content.hero.titleSecondLine}</span>
-            </h1>
-          </div>
-          <PhotoPlaceholder
-            label={content.hero.label}
-            photo={content.hero.photo}
-            className="hero-photo"
-            sizes="(max-width: 767px) 100vw, 20vw"
-            priority
-          />
-          <div className="hero-caption">
-            <HeroVideo {...content.hero.video} />
-            <noscript>
-              <style>{".hero-video-toggle { display: none; }"}</style>
-            </noscript>
-            <div className="hero-copy">
-              <p className="hero-description">{content.hero.description}</p>
-              <p className="hero-introduction">{content.hero.introduction}</p>
+          <div className="hero-message">
+            <div className="hero-content">
+              <p className="eyebrow">{content.hero.label}</p>
+              <h1 id="hero-title">
+                <span className="hero-title-line">{content.hero.title}</span>{" "}
+                <span className="hero-title-line">{content.hero.titleSecondLine}</span>
+              </h1>
+            </div>
+            <PhotoPlaceholder
+              label={content.hero.label}
+              photo={content.hero.photo}
+              className="hero-photo"
+              sizes="(max-width: 767px) 100vw, 35vw"
+              priority
+            />
+            <div className="hero-caption">
+              <HeroVideo {...content.hero.video} />
+              <noscript>
+                <style>{".hero-video-toggle { display: none; }"}</style>
+              </noscript>
+              <div className="hero-copy">
+                <p className="hero-description">{content.hero.description}</p>
+                <p className="hero-introduction">{content.hero.introduction}</p>
+              </div>
             </div>
           </div>
           <div className="hero-actions">
@@ -84,14 +86,14 @@ export function Home() {
           />
           <div className="domains-grid">
             {content.domains.items.map((item) => (
-              <article className="domain" key={item.title}>
-                <PhotoPlaceholder
+              <article className={`domain${item.photo ? "" : " domain--text"}`} key={item.id}>
+                {item.photo && <PhotoPlaceholder
                   label={item.title}
                   photo={item.photo}
                   className="domain-photo"
                   sizes="(max-width: 767px) 100vw, (max-width: 1335px) 50vw, 620px"
-                />
-                <div className="domain-content">
+                />}
+                <div className="domain-content card-content">
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                   <Link
@@ -115,22 +117,31 @@ export function Home() {
           className="impact-photo"
           sizes="100vw"
         />
-        <Container className="impact-layout">
-          <div className="impact-heading">
-            <p className="eyebrow">{content.impact.label}</p>
-            <h2 id="impact-title">
-              <span>{content.impact.title}</span>{" "}
-              <span>{content.impact.titleSecondLine}</span>
-            </h2>
-            <p className="impact-description">{content.impact.description}</p>
-          </div>
-          <div className="impact-results">
-            <div className="stats-grid">
-              {content.impact.stats.map((stat) => (
-                <StatCard key={stat.value} {...stat} />
-              ))}
+        <Container>
+          <div className="impact-heading section-heading">
+            <div>
+              <p className="eyebrow">{content.impact.label}</p>
+              <h2 id="impact-title">
+                <span>{content.impact.title}</span>{" "}
+                <span>{content.impact.titleSecondLine}</span>
+              </h2>
             </div>
-            <p className="impact-note">{content.impact.note}</p>
+          </div>
+          <div className="impact-layout">
+            <div className="impact-copy">
+              <ul className="impact-achievements">
+                {content.impact.achievements.map((achievement) => (
+                  <li key={achievement}>{achievement}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="impact-results">
+              <div className="stats-grid">
+                {content.impact.stats.map((stat) => (
+                  <StatCard key={stat.value} {...stat} />
+                ))}
+              </div>
+            </div>
           </div>
         </Container>
       </section>
@@ -147,33 +158,6 @@ export function Home() {
             </Button>
           </SectionHeading>
           <Projects />
-        </Container>
-      </section>
-
-      <section className="team section" aria-label={content.team.label}>
-        <Container>
-          <SectionHeading
-            label={content.team.label}
-            title={content.team.title}
-            description={content.team.description}
-          >
-            <Button href={href("fr", "equipe")} variant="text">
-              {content.team.cta}
-            </Button>
-          </SectionHeading>
-          <div className="team-grid">
-            {content.team.members.map((member) => (
-              <div className="team-member" key={member.id}>
-                <PhotoPlaceholder
-                  label={content.team.photoLabel}
-                  photo={member.photo}
-                  className="team-photo"
-                />
-                <h3>{member.name}</h3>
-                <p>{member.role}</p>
-              </div>
-            ))}
-          </div>
         </Container>
       </section>
 
@@ -201,7 +185,7 @@ export function Home() {
                   />
                   <p className="news-badge">{item.category}</p>
                 </div>
-                <div className="news-card-content">
+                <div className="news-card-content card-content">
                   <h3><Link href={href("fr", item.path)}>{item.title}</Link></h3>
                   <p>{item.description}</p>
                   <div className="news-card-footer">
@@ -226,7 +210,7 @@ export function Home() {
                 className="event-photo"
                 sizes="(max-width: 1023px) 100vw, (max-width: 1535px) 33vw, 470px"
               />
-              <div className="event-content">
+              <div className="event-content card-content">
                 <p className="news-badge event-badge">{content.news.event.label}</p>
                 <p className="event-date">{content.news.event.date}</p>
                 <h3 id="event-title">{content.news.event.title}</h3>
@@ -251,7 +235,7 @@ export function Home() {
           </div>
           <ul className="partner-list">
             {content.partners.items.map((partner) => (
-              <li key={partner.name}>
+              <li className="card-content" key={partner.name}>
                 <Image
                   src={assetPath(partner.logo.src)}
                   alt={partner.logo.alt}
@@ -268,7 +252,7 @@ export function Home() {
 
       <section className="cta-section" aria-label={content.cta.label}>
         <Container className="cta-grid">
-          <div className="partner-cta">
+          <div className="partner-cta card-content">
             <p className="eyebrow">{content.cta.label}</p>
             <h2>{content.cta.partnerTitle}</h2>
             <p>{content.cta.partnerText}</p>
@@ -276,7 +260,7 @@ export function Home() {
               {content.cta.partnerButton}
             </Button>
           </div>
-          <div className="support-cta">
+          <div className="support-cta card-content">
             <h3>{content.cta.supportTitle}</h3>
             <p>{content.cta.supportText}</p>
             <Button href={href("fr", "nous-soutenir")} variant="text">

@@ -1,5 +1,16 @@
 # Images temporaires — 3 octobre 2026
 
+## Mission, vision et valeurs — photos africaines du 4 octobre 2026
+
+Gassama demande des illustrations en ligne situées en Afrique. Deux photos ont été examinées puis téléchargées depuis Wikimedia Commons. Elles n’illustrent pas des activités GECA. Le lieu et les licences proviennent des pages de fichiers consultées le 4 octobre 2026. À sa demande ultérieure du même jour, les légendes sous les photos sont retirées ; auteurs, titres, sources, licences et transformations sont regroupés dans `/fr/mentions-legales#credits-photo` et son équivalent EN, accessibles par « Crédits photo » dans le pied de page. Les photos gardent leur étiquette « Image temporaire » et leur description alternative.
+
+| Copie source locale | Photo et lieu documenté | Auteur | Source et licence |
+| --- | --- | --- | --- |
+| `assets/source-images/images/mission/plantation-kenya.jpg` | Rachel the tireless tree planter, Kenya photo 2 ; Kenya, 20 mars 2017. Groupe réuni autour de jeunes plants. | Caroletravis | [Fichier Commons](https://commons.wikimedia.org/wiki/File:Rachel_the_tireless_tree_planter,_Kenya_photo_2.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
+| `assets/source-images/images/mission/fouta-djallon.jpg` | Fouta Djallon (14604732032) ; Fouta-Djallon, Guinée, 9 juillet 2013. Paysage de collines. | Maarten van der Bent | [Fichier Commons](https://commons.wikimedia.org/wiki/File:Fouta_Djallon_(14604732032).jpg), [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0/) |
+
+Originaux JPEG : respectivement 4 895 718 et 2 023 215 octets, 3264 × 2448 px chacun. Dérivés redimensionnés et compressés en WebP, éventuel recadrage par CSS, sans retouche de contenu. Chaque dérivé reste sous la licence CC BY-SA de sa source, comme les crédits l’indiquent. Aucun lien de téléchargement avec paramètre de suivi n’est servi au navigateur. Sept variantes par photo (192 à 1600 px) dans le registre fermé. À 640 px : 72 430 et 44 734 octets ; à 1600 px : 472 164 et 236 674 octets. Absence de métadonnées EXIF/XMP vérifiée sur ces variantes. Les originaux restent hors du dossier public.
+
 > Mise à jour du 3 octobre 2026 : les copies d’origine décrites ci-dessous sont conservées sous `assets/source-images/` (ou `assets/source-videos/` pour la vidéo), hors du dossier public. Le site utilise désormais des variantes légères. Voir [PERFORMANCE-MEDIAS.md](PERFORMANCE-MEDIAS.md) pour les chemins actuels et les poids mesurés.
 
 **Mise à jour du même jour :** les six photos des domaines sur l’accueil et la page Domaines d’intervention ont été remplacées par les images définitives fournies par Gassama. Association exacte et provenance dans `docs/IMAGES-DOMAINES.md`. Le tableau ci-dessous conserve l’historique des sources temporaires ; il ne décrit plus les images actuelles des domaines. Les fichiers temporaires restent conservés, notamment pour leurs autres usages.
@@ -52,3 +63,9 @@ La capture du premier écran à 1440 px a été examinée après l’ajout. Les 
 ## Nouvelle disposition de Notre impact — 3 octobre 2026
 
 Gassama confirme de garder provisoirement `impact-forest.jpg` avec « Image temporaire » dans la nouvelle composition : photo continue derrière le message et les trois cartes. Auteur, licence et description du tableau conservés. Cette image n'est pas présentée comme une photographie de terrain GECA. Aucun nouveau fichier ni téléchargement.
+
+## Remplacement de la photo du hero — 4 octobre 2026
+
+Gassama choisit explicitement `Screenshot From 2026-10-04 19-28-41.png` depuis son dossier Screenshots. Copie exacte conservée dans `assets/source-images/images/hero/plantation.png`, 993 398 octets, 918 × 676 px ; variantes publiques WebP sous `public/images/optimized/`, sans métadonnées privées. Texte alternatif descriptif : « Une main plante un jeune arbre dans la terre. » Aucun lieu ni action GECA déduit. La mention « Image temporaire » de l’ancienne photo est retirée pour ce remplacement explicitement fourni. Source originale, auteur et licence non communiqués : à confirmer. L’ancienne photo de forêt et ses crédits sont conservés pour les autres usages et l’historique. La vidéo sur ordinateur garde sa source et son affiche existantes.
+
+Mesure du 4 octobre : cinq largeurs préparées (192, 320, 480, 640, 918 px). Plus grande variante : 41 314 octets contre 993 398 octets pour la capture, soit environ 95,8 % de réduction. Contrôle Sharp : 918 × 676 px, aucune métadonnée EXIF, XMP ou ICC dans cette variante.

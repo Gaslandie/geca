@@ -37,7 +37,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
   }
 
   return (
-    <div className="contact-form-panel">
+    <div className="contact-form-panel card-content">
       <form
         className="contact-form"
         aria-label={text.title}
@@ -86,7 +86,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         </fieldset>
         <noscript><p className="contact-form-note">{text.noScript}</p></noscript>
         {preview && (
-          <div ref={previewRef} tabIndex={-1} className="contact-preview" role="region" aria-label={text.preview}>
+          <div ref={previewRef} tabIndex={-1} className="contact-preview card-content" role="region" aria-label={text.preview}>
             <p className="contact-preview-title">{text.preview}</p>
             <p role="status">{text.notSent}</p>
             <dl>

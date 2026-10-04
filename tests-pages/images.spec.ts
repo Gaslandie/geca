@@ -33,7 +33,7 @@ test("export : taille selon l’écran, photos réutilisées, aucun original té
   expect(selected[0]).not.toBe(selected[1]);
   await page.setViewportSize({ width: 375, height: 900 });
   await page.goto("/geca/fr/");
-  const forestPhoto = page.locator(".hero-photo img");
+  const forestPhoto = page.locator(".projects .project-card img").first();
   await forestPhoto.scrollIntoViewIfNeeded();
   await expect.poll(() => forestPhoto.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
   const firstSrc = await forestPhoto.evaluate((img: HTMLImageElement) => img.currentSrc);
@@ -44,7 +44,7 @@ test("export : taille selon l’écran, photos réutilisées, aucun original té
   expect(await contactPhoto.evaluate((img: HTMLImageElement) => img.currentSrc)).toBe(firstSrc);
   expect(requests.every((url) => url.startsWith("http://127.0.0.1:3100/"))).toBe(true);
   expect(requests.filter((url) => /\.(jpg|png)(\?|$)/.test(url))).toEqual([]);
-  for (const path of ["assets/source-images/images/temporary/forest.jpg", "assets/source-videos/geca-forest.mp4", "images/temporary/forest.jpg"]) {
+  for (const path of ["assets/source-images/images/temporary/forest.jpg", "assets/source-images/images/hero/plantation.png", "images/hero/plantation.png", "assets/source-videos/geca-forest.mp4", "images/temporary/forest.jpg"]) {
     expect((await request.get(`/geca/${path}`)).status()).toBe(404);
   }
 });

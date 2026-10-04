@@ -29,15 +29,15 @@ export function Contact({ locale }: { locale: Locale }) {
 
       <section className="contact-details" aria-label={text.details}>
         <Container className="contact-details-grid">
-          <div>
+          <div className="card-content">
             <p className="contact-detail-label">{text.visit}</p>
-            <address>{identity.address}</address>
+            <address>{identity.address[locale]}</address>
           </div>
-          <div>
+          <div className="card-content">
             <p className="contact-detail-label">{text.call}</p>
             <a href={identity.phoneHref}>{identity.phone}</a>
           </div>
-          <div>
+          <div className="card-content">
             <p className="contact-detail-label">{text.write}</p>
             <a href={`mailto:${identity.email}`}>{identity.email}</a>
           </div>

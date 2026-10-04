@@ -1,5 +1,7 @@
 # Message du client pour l’accueil — 3 octobre 2026
 
+Depuis le 4 octobre 2026, [TEXTES-AUTHENTIQUES-CLIENT.md](TEXTES-AUTHENTIQUES-CLIENT.md) est la référence prioritaire pour les nouveaux textes authentiques et leurs révisions. Il conserve les informations d’identité ci-dessous et les huit domaines d’expertise reçus ensuite. Le présent document reste l’historique du contenu d’accueil et de ses adaptations ; ses formulations éditoriales ne sont pas toutes des citations du client. Les descriptions antérieures des six domaines sont remplacées par les huit phrases reçues.
+
 Source fournie par Gassama : `/home/mohamed-gassama/Downloads/MESSAGE POUR LA PAGE D'ACCUEIL.docx`. Le document original a été lu sans être modifié. Il contient un titre, deux paragraphes et une signature ; aucune instruction technique, aucun chiffre d’impact, aucune liste de projets ou de membres de l’équipe. Il est utilisé comme source de contenu dans le périmètre de la maquette.
 
 Actualisation du 3 octobre 2026 : Gassama a ensuite demandé dans le chat un premier écran avec sa vidéo et moins de texte. Cette instruction remplace le titre et l'introduction ci-dessous uniquement pour le premier écran. Le nouveau texte est « GLOBAL ECOACTION · GUINÉE », « AGIR POUR / UN AVENIR DURABLE », puis « Restaurer les écosystèmes · Renforcer les communautés », avec les liens « Découvrir nos projets » et « Devenir partenaire ». Les autres sections gardent la répartition du document client. La carte latérale et le repère Conakry du premier écran sont retirés. Voir `docs/VIDEO-HERO.md`.
@@ -63,3 +65,21 @@ Il s’agit de reformulations éditoriales et de priorités proposées à relire
 Cette demande remplace l’organisation précédente : aucune sous-page de projets, ni listes séparées « En cours / Réalisés », ni fiches individuelles. Les quatre projets restent sur `/fr/projets` et `/en/projets`. Les liens de l’accueil ciblent leurs ancres `#projet-{slug}`.
 
 Règle confirmée par Gassama et enregistrée dans `AGENTS.md` et `CLAUDE.md` : développer uniquement les informations de l’accueil, sans inventer de texte factuel, information ou promesse. Les références servent au design, pas aux faits GECA. Pour cette page, les titres et paragraphes français sont repris directement de `homeContent.projects`, `homeContent.hero.description` et `homeContent.cta`. Les trois axes et paragraphes supplémentaires de la précédente version ont été retirés. Descriptions, statuts, lieux, périodes et partenaires proviennent du même tableau `projects` utilisé par l’accueil, sans ajout ni déduction. Les versions anglaises traduisent ce contenu sans information supplémentaire. Les mentions de validation des données et les photos temporaires restent présentes.
+
+## Précisions fournies dans le chat — 4 octobre 2026
+
+Gassama fournit les informations suivantes, qui remplacent les mentions antérieures lorsqu’elles sont moins précises ou contradictoires :
+
+- **Création et identité :** organisation créée le 14 décembre 2016. Depuis le 26 août 2026, RENASCEDD a adopté la nouvelle dénomination Global EcoAction (GECA), sans changement de mission, d’objectifs ni de continuité opérationnelle.
+- **Implantation :** siège à Kissosso, commune de Matoto, Conakry, République de Guinée. L’organisation intervient dans plusieurs régions naturelles et préfectures du pays.
+- **Capacités :** équipe administrative et de terrain disposant de compétences en sociologie, ingénierie environnementale et agroforesterie, complétée au besoin par des consultants spécialisés.
+
+Répartition : date complète dans la présentation d’accueil et l’introduction À propos ; identité et continuité dans Notre histoire ; implantation et capacités dans deux encadrés de cette même section, en FR/EN. La description de l’équipe sur l’accueil reprend les capacités. L’adresse de Kissosso remplace l’ancienne adresse de Sangoyah Marché dans les coordonnées partagées, Contact et les pieds de page. Les mentions antérieures de ce document restent un historique, pas l’adresse actuelle. Le repère annuel 2016 reste pertinent. Aucun nom de région, préfecture, membre, consultant ou effectif n’est ajouté. Traduction anglaise fidèle, sans fait supplémentaire.
+
+## Résultats authentiques — 4 octobre 2026
+
+Le nouveau message du client, conservé dans `TEXTES-AUTHENTIQUES-CLIENT.md`, fournit désormais les quatre chiffres d’impact et les trois réalisations. La mention historique de chiffres provisoires ne s’applique plus à ces éléments reçus. Les autres contenus en attente ne sont pas validés par cet envoi. Les chiffres sont ceux du client, sans audit indépendant ni résultat extrapolé.
+
+## Sélection de références récentes — 4 octobre 2026
+
+Sept références reçues et archivées dans `TEXTES-AUTHENTIQUES-CLIENT.md`, avec la correction de Gassama : 35 000 arbres en 2019, total 550 000, titre du reboisement corrigé. Les quatre titres et objets antérieurs de la maquette sont remplacés par le texte client ; les trois références supplémentaires sont ajoutées au catalogue unique FR/EN. Les périodes et partenaires reçus sont repris. Les statuts antérieurs restent à confirmer, aucun statut n’est ajouté aux trois nouvelles références.

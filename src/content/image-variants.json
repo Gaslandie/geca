@@ -197,6 +197,88 @@
       "src": "/images/optimized/images-domaines-restauration-ecosystemes-1600-ac23746294a7.webp"
     }
   ],
+  "/images/hero/plantation.png": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-hero-plantation-192-890bc9d7f88c.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-hero-plantation-320-38236e722e31.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-hero-plantation-480-019cd7970ff0.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-hero-plantation-640-867ee446382e.webp"
+    },
+    {
+      "width": 918,
+      "src": "/images/optimized/images-hero-plantation-918-0ad13b0f9e03.webp"
+    }
+  ],
+  "/images/mission/fouta-djallon.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-mission-fouta-djallon-192-8a331d9daf55.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-mission-fouta-djallon-320-8bb600ebf4a2.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-mission-fouta-djallon-480-1f3f22aac3b5.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-mission-fouta-djallon-640-24d2adeb3e8e.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-mission-fouta-djallon-960-1c089d6a89bb.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-mission-fouta-djallon-1280-1659006ace62.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-mission-fouta-djallon-1600-cee0930b2220.webp"
+    }
+  ],
+  "/images/mission/plantation-kenya.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-mission-plantation-kenya-192-bb0b4c739168.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-mission-plantation-kenya-320-83716a50a4a2.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-mission-plantation-kenya-480-a1cf3edb453e.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-mission-plantation-kenya-640-8eda35eab26a.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-mission-plantation-kenya-960-f0371c05a2c0.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-mission-plantation-kenya-1280-669c06424eb6.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-mission-plantation-kenya-1600-5553de6fb4bc.webp"
+    }
+  ],
   "/images/partners/alcoa-foundation.png": [
     {
       "width": 192,

@@ -7,6 +7,7 @@ import { SiteMotion } from "@/components/SiteMotion";
 import { identity, interfaceText, isLocale, locales } from "@/content/site";
 import "../globals.css";
 import { assetPath } from "@/lib/assets";
+import { getSearchDocuments } from "@/content/search";
 
 export const dynamicParams = false;
 
@@ -21,6 +22,13 @@ const display = localFont({
   variable: "--font-display",
   display: "swap",
   weight: "400",
+});
+const hero = localFont({
+  src: "../fonts/UbuntuSans.ttf",
+  variable: "--font-hero",
+  display: "swap",
+  weight: "100 800",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -50,7 +58,7 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   return (
-    <html lang={locale} className={`${sans.variable} ${display.variable}`}>
+    <html lang={locale} className={`${sans.variable} ${display.variable} ${hero.variable}`}>
       {process.env.GECA_GITHUB_PAGES === "true" && (
         <head>
           <meta httpEquiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'none'" />
@@ -60,7 +68,7 @@ export default async function LocaleLayout({
         <a className="skip-link" href="#main-content">
           {interfaceText[locale].skip}
         </a>
-        <Header locale={locale} />
+        <Header locale={locale} searchDocuments={getSearchDocuments(locale)} />
         {children}
         <Footer locale={locale} />
         <SiteMotion />

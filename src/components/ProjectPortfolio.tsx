@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { getPortfolioProjects, href, interfaceText, portfolioContent, type Locale } from "@/content/site";
+import { getPortfolioProjects, href, interfaceText, portfolioContent, territorialExperience, type Locale } from "@/content/site";
 import { Button, Container, PhotoPlaceholder, SectionHeading } from "./ui";
 
 export function ProjectPortfolio({ locale }: { locale: Locale }) {
   const text = portfolioContent[locale];
   const projects = getPortfolioProjects(locale);
+  const experience = territorialExperience[locale];
 
   return (
     <main id="main-content" className="portfolio-page" tabIndex={-1}>
@@ -33,8 +34,8 @@ export function ProjectPortfolio({ locale }: { locale: Locale }) {
           <div className="portfolio-list">
             {projects.map((project, index) => <article id={`projet-${project.slug}`} tabIndex={-1} className={`portfolio-project${index % 2 ? " portfolio-project--reverse" : ""}`} key={project.slug} aria-labelledby={`title-${project.slug}`}>
               <PhotoPlaceholder className="portfolio-photo" label={text.photo} photo={project.photo} priority={index === 0} sizes="(max-width: 767px) 100vw, (min-width: 1600px) 595px, 42vw" />
-              <div className="portfolio-project-body">
-                <span className={`portfolio-status portfolio-status--${project.status}`}><span aria-hidden="true" />{text.statuses[project.status]}</span>
+              <div className="portfolio-project-body card-content">
+                {project.status && <span className={`portfolio-status portfolio-status--${project.status}`}><span aria-hidden="true" />{text.statuses[project.status]}</span>}
                 <h3 id={`title-${project.slug}`}>{project.title}</h3>
                 <p className="portfolio-objective-label">{text.objective}</p>
                 <p className="portfolio-description">{project.description}</p>
@@ -46,6 +47,15 @@ export function ProjectPortfolio({ locale }: { locale: Locale }) {
               </div>
             </article>)}
           </div>
+        </Container>
+      </section>
+
+      <section id="experience-kounounkan-moussayah" className="section portfolio-experience" aria-label={experience.title} tabIndex={-1}>
+        <Container>
+          <SectionHeading label={experience.label} title={experience.title} description={experience.introduction} />
+          <ul className="portfolio-experience-list">
+            {experience.achievements.map((achievement) => <li key={achievement}>{achievement}</li>)}
+          </ul>
         </Container>
       </section>
 

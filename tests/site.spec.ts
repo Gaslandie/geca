@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { aboutContent, contactContent, homeContent, interventionContent, locales, portfolioContent, routes } from "../src/content/site";
+import { aboutContent, contactContent, homeContent, interventionContent, locales, missionVisionContent, partnershipContent, portfolioContent, routes } from "../src/content/site";
 
 test("routes connues FR / EN, langues et titres", async ({ request }) => {
   for (const locale of locales) {
@@ -18,9 +18,15 @@ test("routes connues FR / EN, langues et titres", async ({ request }) => {
         expect(html).toContain("RENASCEDD");
       } else if (path === "a-propos/domaines-intervention") {
         expect(html).toContain(interventionContent[locale].title);
+      } else if (path === "a-propos/mission-vision-valeurs") {
+        expect(html).toContain(missionVisionContent[locale].title);
+        expect(html).toContain(missionVisionContent[locale].mission.summary);
       } else if (path === "projets") {
         expect(html).toContain(portfolioContent[locale].catalogTitle);
         expect(html).toContain(portfolioContent[locale].notice);
+      } else if (path === "devenir-partenaire") {
+        expect(html).toContain(partnershipContent[locale].strengthsTitle);
+        expect(html).toContain(partnershipContent[locale].positioning);
       } else if (path || locale === "en")
         expect(html).toContain(
           locale === "fr"
@@ -37,6 +43,16 @@ test("routes connues FR / EN, langues et titres", async ({ request }) => {
 test("accès refusés et protections de la maquette", async ({ request }) => {
   for (const path of [
     "/fr/inconnue",
+    "/fr/equipe",
+    "/en/equipe",
+    "/fr/ressources",
+    "/en/ressources",
+    "/fr/reseaux",
+    "/en/reseaux",
+    "/fr/partenaires",
+    "/en/partenaires",
+    "/fr/ressources/publications",
+    "/en/ressources/documents",
     "/fr/projets/inconnu",
     "/es",
     "/es/contact",
@@ -72,29 +88,37 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     page.on("request", (request) => requests.push(request.url()));
     await page.goto("/fr");
     await page.evaluate(() => document.fonts.ready);
-    // Mesurer la disposition finale après le zoom d'arrivée, testé séparément.
+    // Mesurer la disposition finale après l'apparition commune, testée séparément.
     await page.locator(".hero-grid").evaluate(async (element) => {
       await Promise.all(element.getAnimations().map((animation) => animation.finished.catch(() => {})));
     });
     const domains = page.locator(".domains .domain");
-    await expect(domains).toHaveCount(6);
+    await expect(domains).toHaveCount(8);
     for (const [index, domain] of (await domains.all()).entries()) {
-      expect(await domain.locator("img").evaluate((image: HTMLImageElement) => new URL(image.currentSrc || image.src).pathname)).toMatch(new RegExp(`/images/optimized/images-domaines-${homeContent.domains.items[index].id}-\\d+-[a-f0-9]+\\.webp$`));
-      await expect(domain.locator(".temporary-image-label")).toHaveCount(0);
-      const photo = await domain.locator(".domain-photo").boundingBox();
-      const text = await domain.locator(".domain-content").boundingBox();
-      expect(photo).not.toBeNull();
-      expect(text).not.toBeNull();
-      if (photo && text) {
-        if (width < 768) {
-          expect(text.y).toBeGreaterThanOrEqual(photo.y + photo.height - 1);
-          expect(Math.abs(text.width - photo.width)).toBeLessThan(1);
-        } else {
-          expect(Math.abs(text.y - photo.y)).toBeLessThan(1);
-          expect(Math.abs(text.width - photo.width)).toBeLessThan(1);
-          expect(Math.abs(text.height - photo.height)).toBeLessThan(1);
-          expect(index % 2 === 0 ? text.x < photo.x : photo.x < text.x).toBe(true);
+      const area = homeContent.domains.items[index];
+      await expect(domain.locator(".domain-content > p")).toHaveText(area.description);
+      if (area.photo) {
+        expect(await domain.locator("img").evaluate((image: HTMLImageElement) => new URL(image.currentSrc || image.src).pathname)).toMatch(new RegExp(`/images/optimized/images-domaines-${area.photo.src.split("/").pop()!.replace(/\.jpg$/, "")}-\\d+-[a-f0-9]+\\.webp$`));
+        await expect(domain.locator(".temporary-image-label")).toHaveCount(0);
+        const photo = await domain.locator(".domain-photo").boundingBox();
+        const text = await domain.locator(".domain-content").boundingBox();
+        expect(photo).not.toBeNull();
+        expect(text).not.toBeNull();
+        if (photo && text) {
+          if (width < 768) {
+            expect(text.y).toBeGreaterThanOrEqual(photo.y + photo.height - 1);
+            expect(Math.abs(text.width - photo.width)).toBeLessThan(1);
+          } else {
+            expect(Math.abs(text.y - photo.y)).toBeLessThan(1);
+            expect(Math.abs(text.width - photo.width)).toBeLessThan(1);
+            expect(Math.abs(text.height - photo.height)).toBeLessThan(1);
+            expect(index % 2 === 0 ? text.x < photo.x : photo.x < text.x).toBe(true);
+          }
         }
+      } else {
+        await expect(domain.locator("img")).toHaveCount(0);
+        const copy = (await domain.locator(".domain-content").boundingBox())!;
+        expect(copy.width).toBeCloseTo((await domain.boundingBox())!.width, 0);
       }
       const link = domain.getByRole("link");
       await expect(link).toHaveAttribute("href", `/fr/a-propos/domaines-intervention#${homeContent.domains.items[index].id}`);
@@ -127,30 +151,38 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       expect(box.x).toBe(0);
       expect(box.width).toBe(width);
     }
-    expect(visual).not.toBeNull();
+    if (width >= 768) expect(visual).not.toBeNull();
+    else expect(visual).toBeNull();
     expect(message).not.toBeNull();
-    if (visual && message) {
-      expect(visual.x).toBe(0);
-      expect(visual.width).toBeCloseTo(width < 768 ? width : width * 0.65, 0);
+    await expect(page.locator(".hero-photo img")).toHaveAttribute("alt", homeContent.hero.photo.alt);
+    await expect(page.locator(".hero-photo .temporary-image-label")).toHaveCount(0);
+    expect(await page.locator(".hero-photo img").evaluate((img: HTMLImageElement) => new URL(img.currentSrc).pathname)).toMatch(/images-hero-plantation-\d+-[a-f0-9]+\.webp$/);
+    if (message) {
       expect(message.x).toBe(0);
-      expect(message.width).toBeCloseTo(width < 768 ? width : width * 0.8, 0);
+      expect(message.width).toBeCloseTo(width < 768 ? width : width * 0.65, 0);
       const caption = (await page.locator(".hero-caption").boundingBox())!;
       const actionPanel = (await page.locator(".hero-actions").boundingBox())!;
       const photo = (await page.locator(".hero-photo").boundingBox())!;
-      expect(visual.y).toBeCloseTo(caption.y, 0);
-      expect(visual.height).toBeCloseTo(caption.height, 0);
       if (width >= 768) {
+        expect(visual!.x).toBe(0);
+        expect(visual!.width).toBeCloseTo(width * 0.65, 0);
+        expect(visual!.y).toBeCloseTo(caption.y, 0);
+        expect(visual!.height).toBeCloseTo(caption.height, 0);
         expect(photo.y).toBeCloseTo(message.y, 0);
         expect(photo.x).toBeCloseTo(message.x + message.width, 0);
-        expect(photo.width).toBeCloseTo(width * 0.2, 0);
+        expect(photo.width).toBeCloseTo(actionPanel.width, 0);
+        expect(photo.x).toBeCloseTo(actionPanel.x, 0);
         expect(caption.y).toBeCloseTo(message.y + message.height, 0);
         expect(actionPanel.y).toBeCloseTo(caption.y, 0);
         expect(caption.width).toBeCloseTo(width * 0.65, 0);
         expect(actionPanel.x).toBeCloseTo(caption.x + caption.width, 0);
       } else {
-        expect(photo.y).toBeCloseTo(message.y + message.height, 0);
-        expect(caption.y).toBeCloseTo(photo.y + photo.height, 0);
-        expect(actionPanel.y).toBeCloseTo(caption.y + caption.height, 0);
+        expect(await page.locator("#hero-title").evaluate((title) => getComputedStyle(title).textAlign)).toBe("center");
+        expect(await page.locator(".hero-content .eyebrow").evaluate((label) => getComputedStyle(label).color)).toBe("rgb(255, 224, 138)");
+        expect(photo.y).toBeCloseTo(message.y, 0);
+        expect(caption.y).toBeCloseTo(message.y + message.height, 0);
+        expect(photo.height).toBeCloseTo(message.height + caption.height, 0);
+        expect(actionPanel.y).toBeCloseTo(photo.y + photo.height, 0);
       }
     }
     await expect(page.locator("#hero-title")).toHaveText(
@@ -162,7 +194,14 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       const box = await action.boundingBox();
       expect(box?.height).toBeGreaterThanOrEqual(44);
     }
-    await page.getByRole("button", { name: "Mettre la vidéo en pause" }).click();
+    if (width >= 768) {
+      await page.getByRole("button", { name: "Mettre la vidéo en pause" }).click();
+    } else {
+      await expect(page.locator(".hero-video-toggle")).toBeHidden();
+      await expect(page.locator(".hero-visual video")).not.toHaveAttribute("src");
+      await expect(page.locator(".hero-visual video")).not.toHaveAttribute("poster");
+      expect(requests.filter((url) => /geca-forest(\.mp4|-poster)/.test(url))).toEqual([]);
+    }
     await expect.poll(() => page.locator(".hero-visual video").evaluate(
       (video: HTMLVideoElement) => video.paused,
     )).toBe(true);
@@ -179,7 +218,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     await expect(menu.locator("svg")).toHaveCount(1);
     await expect(page.locator(".hero-actions .hero-action-arrow")).toBeVisible();
     await expect(page.locator(".domain svg, .project-card svg, .stat svg, .news-card svg")).toHaveCount(0);
-    await expect(search).toHaveAttribute("href", "/fr/recherche");
+    await expect(search).toHaveAttribute("aria-haspopup", "dialog");
     await expect(page.locator("#main-navigation a[href='/fr/recherche']")).toHaveCount(0);
     const searchBox = (await search.boundingBox())!;
     const donateBox = (await page.locator(".donate-link").boundingBox())!;
@@ -222,13 +261,18 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
         const section = header.closest("section")!.getBoundingClientRect();
         return [...header.querySelectorAll("h2, .eyebrow, .section-description")].every((element) => {
           const box = element.getBoundingClientRect();
-          return getComputedStyle(element).textAlign === "center" &&
+          const style = getComputedStyle(element);
+          // Gassama demande une description justifiée dans « Notre organisation ».
+          const justified = element.matches(".about-content .section-description");
+          return style.textAlign === (justified ? "justify" : "center") &&
+            (!justified || style.textAlignLast === "start") &&
             Math.abs(box.x + box.width / 2 - (section.x + section.width / 2)) < 1;
         });
       }),
     );
-    // Impact suit désormais la référence avec titre à gauche et cartes à droite.
+    // Tous les en-têtes de section, y compris Impact, sont centrés.
     expect(sectionHeaders).toHaveLength(6);
+    await expect(page.locator(".team, .team-member, a[href$='/equipe']")).toHaveCount(0);
     expect(sectionHeaders.every(Boolean)).toBe(true);
     const partnerCards = await page.locator(".partner-list li").evaluateAll((cards) =>
       cards.map((card) => {
@@ -249,7 +293,6 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     for (const group of [
       "À propos",
       "Actualités",
-      "Ressources",
     ]) {
       const trigger = nav.getByRole("button", { name: group, exact: true });
       await trigger.click();
@@ -267,24 +310,24 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     if (width < 1200) {
       const about = nav.getByRole("button", { name: "À propos", exact: true });
       await about.click();
-      await nav.getByRole("link", { name: "Équipe", exact: true }).click();
-      await expect(page).toHaveURL("/fr/equipe");
+      await nav.getByRole("link", { name: "Mission, vision et valeurs", exact: true }).click();
+      await expect(page).toHaveURL("/fr/a-propos/mission-vision-valeurs");
       await expect(nav).toBeHidden();
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-        "Cette rubrique est en préparation.",
+        missionVisionContent.fr.title,
       );
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
         ),
       ).toBe(true);
-      await page.getByRole("link", { name: "Retour à l’accueil" }).click();
+      await page.locator(".contact-breadcrumb").getByRole("link", { name: "Accueil", exact: true }).click();
     } else {
       await nav
-        .getByRole("button", { name: "Ressources", exact: true })
+        .getByRole("button", { name: "Actualités", exact: true })
         .click();
-      await nav.getByRole("link", { name: "Partenaires", exact: true }).click();
-      await expect(page).toHaveURL("/fr/partenaires");
+      await nav.getByRole("link", { name: "Événements", exact: true }).click();
+      await expect(page).toHaveURL("/fr/evenements");
       await page.getByRole("link", { name: "Retour à l’accueil" }).click();
     }
     const filter = page.getByRole("group", { name: "Filtrer les projets" });
@@ -292,7 +335,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     await filter.getByRole("button", { name: "Réalisés" }).click();
     await expect(
       page.getByRole("heading", {
-        name: "Projet de Territoire de Moussayah — PROTEMO",
+        name: "Projet de Territoire de Moussayah - PROTEMO",
       }),
     ).toBeVisible();
     await expect(page.locator(".project-card")).toHaveCount(2);
@@ -307,10 +350,10 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       .analyze();
     expect(results.violations).toEqual([]);
     const illustrations = page.locator(".photo-placeholder.has-photo");
-    await expect(illustrations).toHaveCount(13);
+    await expect(illustrations).toHaveCount(15);
     for (const illustration of await illustrations.all()) {
       await illustration.scrollIntoViewIfNeeded();
-      if (await illustration.evaluate((element) => element.classList.contains("domain-photo"))) {
+      if (await illustration.evaluate((element) => element.matches(".domain-photo, .hero-photo"))) {
         await expect(illustration.locator(".temporary-image-label")).toHaveCount(0);
       } else {
         await expect(
@@ -385,7 +428,7 @@ test("texte agrandi à 200 % : contenus et navigation restent dans le cadre", as
     await expect(nav).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await nav.getByRole("button", { name: "À propos", exact: true }).click();
-    await expect(nav.getByRole("link", { name: "Équipe", exact: true })).toBeVisible();
+    await expect(nav.getByRole("link", { name: "Domaines d’expertise", exact: true })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await expect(page.locator(".hero-actions .button-primary")).toBeVisible();
     await expect(page.locator(".hero-actions .button-secondary")).toBeVisible();
@@ -455,6 +498,15 @@ test("vidéo locale : lecture sans son, pause au clavier et mouvements réduits"
   await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.paused)).toBe(true);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect.poll(() => video.evaluate((element: HTMLVideoElement) => element.paused)).toBe(true);
+  await page.setViewportSize({ width: 375, height: 900 });
+  await expect(video).not.toHaveAttribute("src");
+  await expect(video).not.toHaveAttribute("poster");
+  await expect(page.locator(".hero-video-toggle")).toBeHidden();
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await expect(page.locator(".hero-video-toggle")).toBeVisible();
+  await expect(video).not.toHaveAttribute("src");
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.paused)).toBe(true);
   const media = await request.get("/videos/geca-forest.mp4", {
     headers: { Range: "bytes=0-63" },
   });
@@ -513,18 +565,26 @@ test("lecture automatique refusée : image fixe et commande de lecture", async (
 });
 
 test("sans JavaScript : image chargée, message et liens présents", async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false });
-  const page = await context.newPage();
-  const posterLoaded = page.waitForResponse((response) =>
-    /geca-forest-poster-960-[a-f0-9]+\.webp$/.test(response.url()) && response.status() === 200,
-  );
-  await page.goto("http://127.0.0.1:3000/fr");
-  await posterLoaded;
-  await expect(page.locator("#hero-title")).toBeVisible();
-  await expect(page.locator(".hero-actions a")).toHaveCount(2);
-  await expect(page.locator(".hero-visual video")).not.toHaveAttribute("src");
-  await expect(page.locator(".hero-video-toggle")).toBeHidden();
-  await context.close();
+  for (const width of [375, 1440]) {
+    const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width, height: 900 } });
+    const page = await context.newPage();
+    const mediaRequests: string[] = [];
+    page.on("request", (request) => {
+      if (/geca-forest(\.mp4|-poster)/.test(request.url())) mediaRequests.push(request.url());
+    });
+    const imageLoaded = page.waitForResponse((response) =>
+      /images-hero-plantation-\d+-[a-f0-9]+\.webp$/.test(response.url()) && response.status() === 200,
+    );
+    await page.goto("http://127.0.0.1:3000/fr");
+    await imageLoaded;
+    await expect(page.locator("#hero-title")).toBeVisible();
+    await expect(page.locator(".hero-actions a")).toHaveCount(2);
+    await expect(page.locator(".hero-visual video")).not.toHaveAttribute("src");
+    await expect(page.locator(".hero-video-toggle")).toBeHidden();
+    if (width < 768) expect(mediaRequests).toEqual([]);
+    else expect(mediaRequests.some((url) => /geca-forest-poster-960-[a-f0-9]+\.webp$/.test(url))).toBe(true);
+    await context.close();
+  }
 });
 
 

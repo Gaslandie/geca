@@ -1,12 +1,15 @@
+import type { ReactNode } from "react";
 import { href, identity, interfaceText, type Locale } from "@/content/site";
 import { Button, Container } from "./ui";
 
 export function UnderConstruction({
   locale,
   title,
+  children,
 }: {
   locale: Locale;
   title: string;
+  children?: ReactNode;
 }) {
   const text = interfaceText[locale].construction;
   return (
@@ -30,6 +33,7 @@ export function UnderConstruction({
             </Button>
           </div>
         </div>
+        {children}
       </Container>
     </main>
   );

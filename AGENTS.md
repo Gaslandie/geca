@@ -40,6 +40,8 @@ Gassama demande maintenant un lien GitHub Pages pour montrer la maquette au clie
 
 ## Contenu sans invention — confirmé le 3 octobre 2026
 
+Précision prioritaire du 4 octobre 2026 : lire `docs/TEXTES-AUTHENTIQUES-CLIENT.md` avant toute rédaction ou modification de contenu. Ce fichier conserve les textes authentiques transmis par le client via Gassama ; ils priment sur les formulations de la maquette. Les reprendre en priorité, avec seulement des corrections d’orthographe, de petites reformulations ou des développements fidèles sans fait nouveau. Ne modifier le fond du texte source que sur demande du client relayée par Gassama. Ajouter chaque nouveau texte et sa date à cette référence, puis actualiser les rubriques concernées et les traductions dans `src/content/site.ts`. Documenter les révisions du client. Les nouveaux textes authentiques étendent le contenu autorisé au-delà de l’accueil initial. Les références de benchmarking n’apportent jamais de faits GECA. Transmettre aussi cette règle à tout autre agent, avec les exigences permanentes de sécurité, benchmarking et français simple.
+
 Gassama exige de ne pas inventer de texte factuel ou d’information sur GECA. Les pages développent uniquement les informations déjà présentes sur la page d’accueil et dans ses données partagées. Toute reformulation doit conserver le sens et ne pas ajouter de promesse, priorité, action, résultat, chiffre, date, partenaire ou programme non fourni. Si une information manque, la laisser à confirmer ; ne pas la compléter par supposition. Les références de benchmarking servent à l’organisation et au design, jamais à créer des faits GECA. Cette règle s’applique aussi aux traductions et aux consignes préparées pour un autre agent.
 
 Projets & programmes doit rester une seule page `/fr/projets` et `/en/projets`, sans sous-page par statut ni fiche de projet. Les liens de l’accueil peuvent viser des ancres sur cette page.
@@ -47,3 +49,67 @@ Projets & programmes doit rester une seule page `/fr/projets` et `/en/projets`, 
 ## Barre mobile et effets — demande du 3 octobre 2026
 
 La demande actuelle remplace les dispositions précédentes : une seule ligne sur mobile avec logo, « Faire un don » complet, recherche puis hamburger ; l’unique FR/EN est dans le menu sur tous les écrans. Garder page courante, clavier, Échap, noms accessibles, panneau superposé et défilement interne. À 200 %, permettre au texte du don de se répartir à l’intérieur du bouton sans débordement. Boutons partagés harmonisés ; don animé immédiatement par trois pulsations de 1,5 seconde, puis arrêt. Toutes les cartes ont une apparition ponctuelle et des transitions de relief. Respecter mouvements réduits, contenu visible sans effets, économie de données pour les apparitions et annulation au focus. Pas de nouvelle donnée GECA ni de service réel. Gassama autorise explicitement le commit et le push de l’ensemble pour publier cet aperçu GitHub Pages.
+
+## Hero — demande du 4 octobre 2026
+
+La photo fournie par Gassama (`Screenshot From 2026-10-04 19-28-41.png`) remplace la photo temporaire du hero. Copie source dans `assets/source-images/images/hero/plantation.png`, variantes publiques locales dans le registre fermé. Avant 768 px : titre, repère et mission sur une seule photo assombrie, textes blancs et repère jaune clair, aucun chargement vidéo ou affiche. Le titre et les textes sont centrés ; la flèche et les deux boutons restent dans le bloc vert séparé sous la photo. À partir de 768 px : nouvelle photo à droite, vidéo et commande accessible conservées. Le grand titre utilise Ubuntu Sans locale, poids 600 et taille commune ; les autres titres gardent leurs polices. Le don conserve trois pulsations de 1,5 seconde, désormais avec un halo plus visible, puis arrêt. Respecter mouvement réduit et arrêt au focus/survol. Source originale et licence de la capture non fournies, à confirmer ; aucune attribution GECA inventée.
+
+## Paragraphes justifiés — demande du 4 octobre 2026
+
+Justifier uniquement les deux paragraphes du hero (« Restaurer les écosystèmes · Renforcer les communautés » et la mission commençant par « En Guinée »), ainsi que la présentation « Notre organisation ». Garder la dernière ligne à gauche et la coupure automatique des mots selon la langue. Cette précision remplace le centrage de ces seuls paragraphes ; les titres, repères, contenus et autres descriptions restent inchangés.
+
+## Identité et implantation — précisions du 4 octobre 2026
+
+Les faits fournis par Gassama dans le chat complètent désormais la source de contenu : création le 14 décembre 2016 ; adoption du nom Global EcoAction (GECA) par RENASCEDD le 26 août 2026, sans changement de mission, d’objectifs ni de continuité opérationnelle. Siège à Kissosso, commune de Matoto, Conakry, République de Guinée (remplace Sangoyah Marché). Intervention dans plusieurs régions naturelles et préfectures, sans liste fournie. Équipe administrative et de terrain compétente en sociologie, ingénierie environnementale et agroforesterie, complétée au besoin par des consultants spécialisés. Réutiliser les données communes de `src/content/site.ts`, y compris pour les traductions. Ne pas inventer d’effectif, de nom ou de lieu supplémentaire.
+
+## Résultats et illustrations — 4 octobre 2026
+
+Les résultats authentiques sont archivés dans `docs/TEXTES-AUTHENTIQUES-CLIENT.md` : 35 000 arbres plantés en 2019 (correction confirmée ensuite par Gassama), 365 000 en 2020, 150 000 en 2021, 84 collectivités accompagnées ; trois réalisations associées dont 40 hectares restaurés en 2021-2022 et accompagnement de collectivités de Kindia et Boké. Reprendre les libellés et détails fournis, sans total extrapolé ni effectif d’emplois inventé. Ces textes remplacent les repères provisoires de la section Impact. Gassama autorise l’utilisation et la réutilisation des images disponibles jusqu’à une demande de remplacement. Conserver sources, licences et étiquettes temporaires existantes ; ne pas attribuer une image réutilisée à une réalisation précise.
+
+## Références récentes — 4 octobre 2026
+
+Les sept références du client et leurs quatre colonnes sont archivées dans `docs/TEXTES-AUTHENTIQUES-CLIENT.md`. Après clarification, Gassama confirme 35 000 arbres en 2019, 550 000 au total et le titre « Reboisement communautaire de 550 000 arbres ». Cette correction remplace le 35 100 initial dans les données actuelles et le titre initial de 150 000 ; les versions reçues restent archivées. Reprendre les objets complets et traductions fidèles. Les trois nouvelles références n’ont pas de statut fourni : ne pas les classer en cours ou réalisées à partir des dates. Conserver la page unique Projets & programmes et les ancres, sans fiches ou sous-pages nouvelles. 11th HOUR PROJECT est nommé comme partenaire/bailleur de la référence CODEC, sans inventer de logo.
+
+## Centrage et espaces communs — règle prioritaire du 4 octobre 2026
+
+Tous les titres et sous-titres des sections et des cartes sont centrés, sur l’accueil et toutes les pages présentes et futures, FR/EN compris. Cette demande remplace les anciennes exceptions d’alignement à gauche, notamment Impact et le titre du hero sur ordinateur. Les en-têtes de section utilisent `SectionHeading` sur toute la largeur disponible avant les colonnes. Les titres internes de carte restent centrés dans leur carte. Le court sous-titre du hero est désormais centré ; son long paragraphe de mission et la présentation de l’organisation gardent la justification demandée.
+
+Utiliser `.card-content` sur le corps textuel de chaque carte (sur la carte elle-même si elle n’a pas d’image), jamais deux fois sur le même corps. Padding commun `--card-padding` (20–32 px), espace des grilles `--card-gap` (20–32 px), séparation entre sections `--section-gap` (24–48 px), marge entre en-tête et contenu `--heading-gap` (28 px). Les sections ordinaires et bandeaux suivent `--section-padding` (52–80 px). Les valeurs s’adaptent à la largeur, pas au survol. Aucune carte ne change padding, marge, bordure en épaisseur ou dimensions au survol/focus. Préserver les transitions d’ombre/couleur, noms accessibles, clavier et préférences de mouvement. Les légendes de photos et commandes gardent leur rôle propre. Voir les règles communes à la fin de `globals.css` et `docs/TYPOGRAPHIE.md` ; vérifier alignement, padding et stabilité au survol lors des futures évolutions. Aucun changement factuel de contenu autorisé par cette tâche.
+
+## Rubrique Équipe retirée — 4 octobre 2026
+
+Gassama demande de retirer « Les femmes et les hommes de GECA » : le client ne dispose pas des photos et informations des membres et ne confirme pas le maintien de la rubrique. Retirer le bloc et les liens Équipe ; ne pas les réintroduire sans nouvelle demande. Les capacités administratives et de terrain fournies par le client restent sur À propos et dans la référence authentique.
+
+## Mission, vision et valeurs validées — 4 octobre 2026
+
+Gassama valide la synthèse proposée à partir des textes client et demande la page dédiée, son développement fidèle et des photos africaines en ligne. Les formulations et développements sont archivés dans `docs/TEXTES-AUTHENTIQUES-CLIENT.md`, avec leur origine éditoriale et la validation de Gassama distinctes des textes initiaux du client. Utiliser `missionVisionContent` pour la page FR/EN et les résumés À propos. Photos africaines temporaires de Commons : conserver crédits visibles, liens sources/licences CC BY-SA et distinction avec les activités GECA ; voir `docs/IMAGES-TEMPORAIRES.md`.
+
+## Défilement uniforme — règle prioritaire du 4 octobre 2026
+
+Toutes les pages présentes et futures FR/EN utilisent `SiteMotion` du layout partagé : apparition unique de 12 px vers 0, durée 480 ms, courbe `cubic-bezier(.2,.65,.3,1)`. Cette règle remplace le zoom particulier du hero. En-têtes, cartes, photos autonomes, textes, réalisations et pied de page suivent le même mouvement. `.section-heading`, `.card-content` et les photos partagées sont reconnus ; ajouter `data-reveal` aux nouveaux blocs de texte autonomes. Ne pas cumuler l’animation d’un parent et de ses enfants ; `data-reveal="off"` exclut un bloc du ciblage. Conserver les fonds photographiques fixes.
+
+Ne pas cacher le contenu en CSS ni réduire son contraste. Respecter mouvement réduit, économie de données, absence de JavaScript/API et annulation au focus. Nettoyer les observateurs et animations aux changements de page ou retraits de cartes. Pas de bibliothèque supplémentaire ni d’écouteur permanent sur `scroll`. Les transitions de survol et les trois pulsations du don conservent leurs réglages distincts, car elles répondent à d’autres interactions.
+
+## Photos et paragraphes des valeurs — 4 octobre 2026
+
+Gassama demande de retirer les légendes sous les deux photos Mission/Vision. Les crédits sont désormais regroupés dans les mentions légales, ancre `credits-photo`, avec lien dédié dans le pied de page FR/EN ; garder auteurs, sources, licences et transformations accessibles à cet endroit. Les paragraphes explicatifs des cinq valeurs (`.mission-value-detail`) sont justifiés, dernière ligne alignée au début ; leurs titres et sous-titres restent centrés. Ne pas modifier les textes.
+
+## Page Domaines — 4 octobre 2026
+
+Remplacer le sommaire des huit domaines par une introduction justifiée avec la même barre dégradée que la présentation de l’accueil. Garder les huit sections illustrées et leurs ancres ; retirer les liens « Revenir aux domaines ». Chaque description garde la phrase authentique, complétée par le développement éditorial demandé et archivé dans `docs/TEXTES-AUTHENTIQUES-CLIENT.md`. L’accueil et À propos gardent leurs descriptions courtes. Appliquer aussi à la version EN, sans ajout factuel.
+
+## Rubrique Ressources suspendue — 4 octobre 2026
+
+Le client, via Gassama, ne souhaite pas la rubrique pour le moment. Retirer le groupe Ressources du menu, les pages Publications & documents (`ressources`), Réseaux (`reseaux`) et Partenaires (`partenaires`), qui étaient ses sous-entrées, ainsi que leurs liens du pied de page, en FR/EN. Ces routes sortent du registre fermé et répondent 404 ; ne pas les réintroduire sans nouvelle demande. Les données authentiques sur les partenaires et leurs logos de l’accueil sont conservés, de même que Devenir partenaire et Nous soutenir.
+
+## Photo du hero sur grand écran — 4 octobre 2026
+
+Dans le hero à deux colonnes (dès 768 px), la photo supérieure doit avoir le même bord gauche et la même largeur que le panneau flèche/actions inférieur : 35 % à droite, 65 % à gauche. Cette demande remplace l’ancienne photo à 20 %. Conserver la composition mobile et le chargement adapté de l’image (`sizes`).
+
+## Référence personnelle des bonnes pratiques — 4 octobre 2026
+
+Gassama demande le fichier `/home/mohamed-gassama/Desktop/BONNES-PRATIQUES-SITES-WEB.md`, à transmettre au début des futurs projets. Il contient les pratiques validées et peut évoluer avec un agent. Proposer chaque nouvelle pratique à Gassama avant de l’y ajouter ; attendre son accord explicite. Un accord pour l’appliquer à GECA n’autorise pas automatiquement son inscription dans cette référence. La première pratique autorisée concerne l’uniformité des cartes, titres/sous-titres centrés, paragraphes longs de quatre à cinq lignes sur mobile justifiés et règles communes déjà convenues. Distinguer préférences de présentation et recommandations générales d’accessibilité. Ne jamais modifier ce fichier à l’insu de Gassama.
+
+## Recherche superposée — 4 octobre 2026
+
+La loupe ouvre un panneau modal au-dessus de la page, avec arrière-plan flouté et résultats au fil de la saisie. Indexer seulement les contenus publics et les routes actives, depuis les données partagées. Ne pas envoyer, journaliser ou conserver les recherches. Conserver fermeture, focus, clavier, noms accessibles, langues et adaptation mobile. Pas de moteur externe, d’IA distante ou de dépendance supplémentaire pour cette maquette statique. Après proposition séparée, Gassama a explicitement accepté l’ajout de BP-02 « Recherche superposée accessible » à la référence du Bureau le 4 octobre 2026. Toute prochaine pratique nécessite son propre accord.

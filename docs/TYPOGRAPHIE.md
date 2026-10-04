@@ -1,5 +1,25 @@
 # Typographie commune GECA — 3 octobre 2026
 
+
+## Règle actuelle prioritaire — 4 octobre 2026
+
+Défilement : `SiteMotion` est commun à toutes les pages FR/EN. Tous les blocs ciblés utilisent une apparition unique de 12 px vers 0 sur 480 ms, avec la même courbe. Le hero suit désormais cette règle, sans zoom particulier. Les en-têtes, cartes et photos partagés sont détectés automatiquement ; ajouter `data-reveal` pour les nouveaux blocs autonomes de texte. Ne pas ajouter un autre effet à une section qui contient déjà des blocs animés. Aucun masquage ni variation d’opacité ; mouvement réduit, économie de données, focus clavier et fonctionnement sans JavaScript préservés. Les survols gardent leurs transitions courtes distinctes du défilement.
+
+Cette règle remplace les anciens alignements particuliers décrits plus bas, notamment le titre Impact à gauche. Les sections datées ci-dessous conservent l’historique des choix ; en cas de contradiction, appliquer cette règle.
+
+- Titres de page, section et carte centrés sur toutes les pages FR/EN, ainsi que repères et sous-titres. `SectionHeading` occupe la largeur disponible avant les colonnes. Les titres de cartes sont centrés dans le corps de leur carte.
+- Réutiliser la classe `.card-content` pour chaque corps de carte : photos hors de ce corps, ou classe directement sur une carte uniquement textuelle. Un seul niveau de padding. Les futures sous-lignes peuvent utiliser `.card-subtitle` ; les titres natifs `h1` à `h6` sont centrés par défaut dans `main`.
+- Padding commun : `--card-padding`, de 20 à 32 px. Espacement des grilles : `--card-gap`, de 20 à 32 px. Les cartes d’information, chiffres, projets, équipe, actualités, domaines, coordonnées, sommaires et appels à l’action suivent les mêmes valeurs.
+- Marges entre sections et avant le pied de page : `--section-gap`, de 24 à 48 px. En-tête vers contenu : `--heading-gap`, 28 px. Espace vertical des sections ordinaires et bandeaux : `--section-padding`, de 52 à 80 px. Les compositions contenant des photos ou le formulaire utilisent les mêmes corps et cadres sans doubler les espaces.
+- Survol et focus : dimensions, marges et padding identiques au repos. Les effets changent uniquement l’ombre, la couleur ou le recadrage interne d’une image ; les préférences de mouvements réduits restent actives.
+- Le court sous-titre du hero est centré. Le paragraphe long de mission et la présentation « Notre organisation » restent justifiés, comme demandé auparavant. Les paragraphes longs hors cartes, labels de saisie et textes de listes gardent leur rôle de lecture ; ne pas les transformer en titres.
+- La carte événement réserve sous son corps la place de la mention de photo temporaire, pour éviter un chevauchement. Cette légende n’ajoute pas un deuxième padding de carte.
+- Les informations du catalogue de projets occupent deux rangées à toutes les tailles : territoire et période côte à côte, puis partenaire/bailleur sur toute la largeur. Laisser les valeurs longues revenir à la ligne dans leur cellule.
+- Avant 768 px, centrer tout le pied de page partagé : logo, textes, rubriques, liens, coordonnées et mentions finales.
+
+Les règles sont partagées dans `src/app/globals.css`, avec les variables au début du fichier et les sélecteurs communs à la fin. Les contrôles de régression sont dans `tests/design-rules.spec.ts`. Lire également les exigences permanentes de sécurité, de benchmarking et de français simple dans `AGENTS.md`.
+
+
 ## Icônes — préférence du 3 octobre 2026
 
 Gassama précise : les cartes restent sans pictogrammes encombrants. Les commandes retrouvent leurs icônes utiles : hamburger/croix, loupe, chevrons de sous-menu et pause/lecture vidéo, avec noms accessibles et états clavier conservés. Rétablir aussi la grande flèche dorée du hero vers les deux boutons. Cette précision remplace la consigne précédente de retrait total. Sur petit écran, Don conserve le nom accessible complet « Faire un don ». Conserver photos, logos et typographie commune.
@@ -106,3 +126,11 @@ Une seule page, sans sous-menu ni filtres par route. Introduction, catalogue des
 ## Barre mobile et effets — demande du 3 octobre 2026
 
 La demande actuelle remplace les dispositions précédentes : une seule ligne sur mobile avec logo, « Faire un don » complet, recherche puis hamburger ; l’unique FR/EN est dans le menu sur tous les écrans. Garder page courante, clavier, Échap, noms accessibles, panneau superposé et défilement interne. À 200 %, permettre au texte du don de se répartir à l’intérieur du bouton sans débordement. Boutons partagés harmonisés ; don animé immédiatement par trois pulsations de 1,5 seconde, puis arrêt. Toutes les cartes ont une apparition ponctuelle et des transitions de relief. Respecter mouvements réduits, contenu visible sans effets, économie de données pour les apparitions et annulation au focus. Pas de nouvelle donnée GECA ni de service réel. Gassama autorise explicitement le commit et le push de l’ensemble pour publier cet aperçu GitHub Pages.
+
+## Hero — demande du 4 octobre 2026
+
+Le seul grand titre « AGIR POUR UN AVENIR DURABLE » utilise Ubuntu Sans locale, poids 600, via `--font-hero` dans le layout partagé. Le fichier déjà présent et sa licence restent dans `src/app/fonts/`. Les tailles communes et les autres polices sont conservées. Avant 768 px, titre et repère sont centrés ; au-dessus, ils restent à gauche. La photo fournie remplace celle du hero sur tous les écrans. Sur mobile, elle est le seul média du hero, recadrée derrière le titre et la mission avec un voile sombre. Le titre et les textes sont blancs et centrés ; le repère est jaune clair (`--gold-light`). La flèche et les deux liens restent dans un bloc vert séparé sous la photo. La vidéo et sa commande sont réservées aux écrans de 768 px ou plus. Le don reçoit un halo doré plus visible pendant les trois pulsations existantes (4,5 s au total), avec arrêt au focus, au survol et en mouvements réduits.
+
+## Paragraphes justifiés — demande du 4 octobre 2026
+
+Les deux paragraphes du hero et le paragraphe de présentation sous « Notre organisation » sont justifiés : lignes alignées sur les deux bords, dernière ligne à gauche. La coupure automatique des mots suit la langue française du document et les capacités du navigateur. Cette précision remplace le centrage pour ces trois paragraphes seulement ; les titres et les repères conservent leurs alignements existants. Ne pas étendre cette règle à toutes les descriptions du site.

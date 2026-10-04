@@ -10,11 +10,30 @@ export const identity = {
   shortName: "GECA",
   formerName: "RENASCEDD",
   since: "2016",
-  address: "Sangoyah Marché, Matoto — Conakry, Guinée",
+  foundedOn: { fr: "14 décembre 2016", en: "14 December 2016" },
+  renamedOn: { fr: "26 août 2026", en: "26 August 2026" },
+  address: {
+    fr: "Kissosso, commune de Matoto, Conakry, République de Guinée",
+    en: "Kissosso, municipality of Matoto, Conakry, Republic of Guinea",
+  },
   phone: "+224 628 40 03 87",
   phoneHref: "tel:+224628400387",
   email: "ong.geca@gmail.com",
 };
+
+// Précisions fournies par Gassama dans le chat du 4 octobre 2026.
+export const organizationFacts = {
+  fr: {
+    creation: `Notre organisation a été créée le ${identity.foundedOn.fr}. Depuis le ${identity.renamedOn.fr}, RENASCEDD a adopté la nouvelle dénomination Global EcoAction (GECA), sans changement de mission, d’objectifs ni de continuité opérationnelle.`,
+    location: `Son siège est à ${identity.address.fr}. L’organisation intervient dans plusieurs régions naturelles et préfectures du pays.`,
+    capacities: "Notre équipe administrative et de terrain dispose de compétences en sociologie, ingénierie environnementale et agroforesterie. Elle est complétée au besoin par des consultants spécialisés.",
+  },
+  en: {
+    creation: `Our organisation was founded on ${identity.foundedOn.en}. On ${identity.renamedOn.en}, RENASCEDD adopted the new name Global EcoAction (GECA), with no change to its mission or objectives and no interruption to its operations.`,
+    location: `Its headquarters are in ${identity.address.en}. The organisation works in several natural regions and prefectures of the country.`,
+    capacities: "Our administrative and field team has expertise in sociology, environmental engineering and agroforestry. It is supplemented by specialised consultants as needed.",
+  },
+} as const;
 
 // Registre fermé : une URL inconnue ne devient jamais une rubrique valide.
 export const routes = [
@@ -26,20 +45,12 @@ export const routes = [
   },
   {
     path: "a-propos/domaines-intervention",
-    fr: "Domaines d’intervention",
-    en: "Our focus areas",
+    fr: "Domaines d’expertise",
+    en: "Areas of expertise",
   },
-  { path: "equipe", fr: "Équipe", en: "Our team" },
   { path: "projets", fr: "Projets & programmes", en: "Projects & programmes" },
   { path: "actualites", fr: "Actualités", en: "News" },
   { path: "evenements", fr: "Événements", en: "Events" },
-  {
-    path: "ressources",
-    fr: "Publications & documents",
-    en: "Publications & documents",
-  },
-  { path: "reseaux", fr: "Réseaux", en: "Networks" },
-  { path: "partenaires", fr: "Partenaires", en: "Partners" },
   { path: "nous-soutenir", fr: "Nous soutenir", en: "Support us" },
   {
     path: "devenir-partenaire",
@@ -73,7 +84,6 @@ export const navigation: readonly NavItem[] = [
       "a-propos",
       "a-propos/mission-vision-valeurs",
       "a-propos/domaines-intervention",
-      "equipe",
     ],
   },
   {
@@ -86,12 +96,6 @@ export const navigation: readonly NavItem[] = [
     en: "News",
     path: "actualites",
     children: ["actualites", "evenements"],
-  },
-  {
-    fr: "Ressources",
-    en: "Resources",
-    path: "ressources",
-    children: ["ressources", "reseaux", "partenaires"],
   },
   { fr: "Contact", en: "Contact", path: "contact" },
 ];
@@ -197,6 +201,76 @@ const interventionPhotos = {
     alt: "Image du domaine Gouvernance & communautés.",
   },
 } satisfies Record<string, LocalPhoto>;
+
+// Source prioritaire : docs/TEXTES-AUTHENTIQUES-CLIENT.md, reçu le 4 octobre 2026.
+// Les descriptions françaises reprennent les huit phrases intégrales du client.
+// Les titres sont des repères courts ; l’anglais est une traduction fidèle.
+const expertiseAreas: readonly {
+  id: string;
+  photo?: LocalPhoto;
+  fr: { title: string; description: string; detail: string };
+  en: { title: string; description: string; detail: string };
+}[] = [
+  {
+    id: "ressources-naturelles",
+    photo: interventionPhotos["ressources-naturelles"],
+    fr: { title: "Gestion durable des ressources naturelles", description: "Gestion durable des ressources naturelles : forêts, sols et eau.", detail: "Notre action associe la préservation des forêts, la restauration des terres dégradées et la protection des ressources en eau. Elle s’appuie sur l’implication des communautés et la gouvernance locale pour relier la protection des écosystèmes à l’amélioration des conditions de vie." },
+    en: { title: "Sustainable natural resource management", description: "Sustainable management of natural resources: forests, soils and water.", detail: "Our work combines forest conservation, the restoration of degraded land and the protection of water resources. It draws on community involvement and local governance to connect ecosystem protection with improved living conditions." },
+  },
+  {
+    id: "restauration-ecosystemes",
+    photo: interventionPhotos["restauration-ecosystemes"],
+    fr: { title: "Restauration des écosystèmes", description: "Restauration des écosystèmes et reboisement communautaire.", detail: "Nous associons les communautés à la restauration des sites dégradés et à la mise en place de pépinières. Le reboisement contribue à lutter contre l’érosion, à protéger les ressources en eau et à renforcer la biodiversité, tout en étant lié à des activités génératrices de revenus." },
+    en: { title: "Ecosystem restoration", description: "Ecosystem restoration and community reforestation.", detail: "We involve communities in restoring degraded sites and establishing nurseries. Reforestation helps combat erosion, protect water resources and strengthen biodiversity, while being linked to income-generating activities." },
+  },
+  {
+    id: "climat-resilience",
+    photo: interventionPhotos["climat-resilience"],
+    fr: { title: "Changement climatique", description: "Adaptation et atténuation des effets du changement climatique à l’échelle locale.", detail: "Nous relions la restauration écologique et les pratiques agricoles adaptées au climat au renforcement des capacités locales. La sensibilisation, la formation et le suivi accompagnent aussi l’intégration du changement climatique et de l’inclusion sociale dans les Plans de Développement Local." },
+    en: { title: "Climate change", description: "Adaptation to and mitigation of the effects of climate change at the local level.", detail: "We connect ecological restoration and climate-adapted farming practices with local capacity building. Awareness raising, training and monitoring also support the integration of climate change and social inclusion into Local Development Plans." },
+  },
+  {
+    id: "agroecologie",
+    photo: interventionPhotos["agroecologie"],
+    fr: { title: "Agroécologie et agriculture durable", description: "Agroécologie, agriculture durable et accompagnement des producteurs.", detail: "Nous accompagnons les producteurs et les groupements dans des pratiques agricoles durables et adaptées au climat. Notre expérience comprend l’agroforesterie, le maraîchage et la production de plants fruitiers, en lien avec l’amélioration des conditions économiques et de la sécurité alimentaire." },
+    en: { title: "Agroecology and sustainable agriculture", description: "Agroecology, sustainable agriculture and support for producers.", detail: "We support producers and groups in sustainable, climate-adapted farming practices. Our experience includes agroforestry, market gardening and fruit seedling production, linked to improved economic conditions and food security." },
+  },
+  {
+    id: "education-environnementale",
+    photo: interventionPhotos["education-environnementale"],
+    fr: { title: "Éducation environnementale", description: "Éducation environnementale, sensibilisation et formation communautaire.", detail: "Nous associons l’éducation environnementale au renforcement des capacités des communautés et des acteurs locaux. Les actions de sensibilisation et de formation portent notamment sur le changement climatique et l’inclusion sociale, en lien avec la participation aux décisions et à la planification locale." },
+    en: { title: "Environmental education", description: "Environmental education, awareness raising and community training.", detail: "We combine environmental education with capacity building for communities and local stakeholders. Awareness raising and training address climate change and social inclusion in particular, alongside participation in local decision-making and planning." },
+  },
+  {
+    id: "gouvernance-communautes",
+    photo: interventionPhotos["gouvernance-communautes"],
+    fr: { title: "Gouvernance environnementale", description: "Gouvernance environnementale, concertation territoriale et médiation entre acteurs.", detail: "Notre approche participative favorise le dialogue entre communautés, autorités locales et partenaires. L’expérience de PROTEMO comprend un cadre de concertation, une cartographie des acteurs et une charte du territoire, pour articuler préservation des ressources naturelles et développement local." },
+    en: { title: "Environmental governance", description: "Environmental governance, territorial consultation and mediation between stakeholders.", detail: "Our participatory approach encourages dialogue between communities, local authorities and partners. Our PROTEMO experience includes a consultation framework, stakeholder mapping and a territorial charter to connect natural resource conservation with local development." },
+  },
+  {
+    id: "appui-communautes",
+    photo: { ...interventionPhotos["gouvernance-communautes"], alt: "Illustration réutilisée pour le domaine Appui aux communautés affectées." },
+    fr: { title: "Appui aux communautés affectées", description: "Appui aux communautés affectées par les projets miniers et de développement, notamment sur les droits, la gestion foncière et la prévention des conflits.", detail: "Nous contribuons à renforcer la participation citoyenne et la défense des droits des communautés, notamment au sein du CODEC. Notre expérience comprend également un appui financier et technique aux femmes agricultrices affectées par l’exploitation minière, associé à une agriculture adaptée au climat." },
+    en: { title: "Support for affected communities", description: "Support for communities affected by mining and development projects, particularly regarding rights, land management and conflict prevention.", detail: "We help strengthen civic participation and the defence of community rights, notably within CODEC. Our experience also includes financial and technical support for women farmers affected by mining, combined with climate-adapted agriculture." },
+  },
+  {
+    id: "revenus-resilience",
+    photo: { ...interventionPhotos.agroecologie, alt: "Illustration réutilisée pour le domaine Revenus et résilience socio-économique." },
+    fr: { title: "Revenus et résilience socio-économique", description: "Développement d’activités génératrices de revenus et renforcement de la résilience socio-économique.", detail: "Nous relions la restauration écologique au développement d’activités économiques locales. L’accompagnement comprend la structuration des groupements et l’appui technique aux activités génératrices de revenus, avec une expérience du maraîchage, des pépinières à vocation économique et du stockage des productions agricoles." },
+    en: { title: "Income and socio-economic resilience", description: "Development of income-generating activities and strengthening of socio-economic resilience.", detail: "We connect ecological restoration with the development of local economic activities. Support includes organising groups and providing technical assistance for income-generating activities, with experience in market gardening, commercially oriented nurseries and agricultural produce storage." },
+  },
+];
+
+export function getInterventionAreas(locale: Locale) {
+  return expertiseAreas.map((area) => ({
+    id: area.id,
+    ...area[locale],
+    photo: area.photo && (locale === "fr" ? area.photo : {
+      ...area.photo,
+      alt: `Image for the ${area.en.title} area of expertise.`,
+    }),
+  }));
+}
 
 // Photos d’illustration autorisées par Gassama le 3 octobre 2026.
 // Sources et licences : docs/IMAGES-TEMPORAIRES.md. À remplacer par les photos GECA.
@@ -334,58 +408,83 @@ export type Project = {
   zone: string;
   period: string;
   partner: string;
-  status: "current" | "completed";
+  status: "current" | "completed" | null;
   description: string;
   photo?: LocalPhoto;
 };
 
-// Contenu de maquette fourni par le brief. Zones et résumés à relire par GECA.
+// Références authentiques du 4 octobre 2026 : docs/TEXTES-AUTHENTIQUES-CLIENT.md.
+// Quatre statuts du brief initial conservés ; null signifie aucun statut fourni.
 export const projects: readonly Project[] = [
   {
     slug: "kounounkan",
     photo: temporaryPhotos.forest,
-    title:
-      "Activités génératrices de revenus autour du futur Parc national des plateaux de Kounounkan",
     zone: "Plateaux de Kounounkan",
-    period: "2025–2026",
-    partner: "Banque mondiale",
     status: "current",
-    description:
-      "Accompagner les communautés dans le développement d’activités économiques liées à la préservation de leur territoire.",
+    title: "Accompagner la mise en œuvre des activités génératrices de revenus (AGR) en périphérie du futur Parc national des plateaux de Kounounkan",
+    period: "2025-2026",
+    description: "Amélioration des conditions économiques et de la sécurité alimentaire, structuration des groupements, appui technique aux AGR, gestion des plaintes et prévention des VBG.",
+    partner: "Banque mondiale",
   },
   {
     slug: "appui-social-nature",
     photo: temporaryPhotos.planting,
-    title: "Projet d’appui social et protection de la nature",
     zone: "Guinée · zone à préciser",
-    period: "2025–2026",
-    partner: "Fondation ALCOA",
     status: "current",
-    description:
-      "Associer l’accompagnement des communautés à la protection des ressources naturelles.",
+    title: "Projet d’appui social et protection de la nature",
+    period: "2025-2026",
+    description: "Appui financier et technique aux femmes agricultrices affectées par l’exploitation minière, agriculture adaptée au climat, éducation environnementale et restauration écologique.",
+    partner: "Fondation ALCOA",
   },
   {
     slug: "planification-climatique",
     photo: temporaryPhotos.fields,
-    title:
-      "Intégration du changement climatique dans la planification locale en Basse-Guinée",
     zone: "Basse-Guinée",
-    period: "2024–2025",
-    partner: "ANAFIC",
     status: "completed",
-    description:
-      "Accompagner les collectivités pour intégrer les enjeux climatiques à leurs priorités de développement.",
+    title: "Sensibilisation des acteurs locaux (élus, OSC, femmes et jeunes) sur l'intégration du changement climatique dans la planification locale dans la région de la Basse-Guinée",
+    period: "2024-2025",
+    description: "Sensibilisation, formation et suivi pour l’intégration du changement climatique et de l’inclusion sociale dans les Plans de Développement Local (PDL) de 84 collectivités.",
+    partner: "ANAFIC",
   },
   {
     slug: "protemo",
     photo: temporaryPhotos.fields,
-    title: "Projet de Territoire de Moussayah — PROTEMO",
     zone: "Moussayah",
-    period: "2023–2024",
-    partner: "Ambassade de France en Guinée et Sierra Leone",
     status: "completed",
-    description:
-      "Soutenir une dynamique territoriale qui relie protection de l’environnement et développement communautaire.",
+    title: "Projet de Territoire de Moussayah - PROTEMO",
+    period: "2023-2024",
+    description: "Développement territorial participatif conciliant gouvernance environnementale, opportunités économiques et préservation des ressources naturelles.",
+    partner: "Ambassade de France en Guinée et Sierra Leone",
+  },
+  {
+    slug: "reboisement-communautaire",
+    photo: temporaryPhotos.forest,
+    zone: "Boffa, Kindia, Forécariah, Mamou et Faranah",
+    status: null,
+    title: "Reboisement communautaire de 550 000 arbres",
+    period: "2019, 2020 et 2021",
+    description: "Le projet de reboisement communautaire à grande échelle, mis en œuvre sur trois ans dans les régions de Boffa, Kindia, Forécariah, Mamou et Faranah, a permis la plantation de 550 000 arbres : 35 000 en 2019, 365 000 en 2020 et 150 000 en 2021.\n\nLe projet visait à restaurer les terres dégradées, lutter contre l’érosion, protéger les écosystèmes et les ressources en eau, renforcer la biodiversité et contribuer à la séquestration du carbone. Réalisé avec l’implication des communautés locales, il devait également favoriser la création d’activités génératrices de revenus liées aux produits forestiers et à l’écotourisme.",
+    partner: "Reforest’Action",
+  },
+  {
+    slug: "piscca",
+    photo: temporaryPhotos.planting,
+    zone: "Moussayah",
+    status: null,
+    title: "Lutte contre la dégradation de l’environnement pour un développement durable dans la sous-préfecture de Moussayah - Projet Innovant des Sociétés Civiles et Coalition d’Acteurs (PISCCA)",
+    period: "2021-2022",
+    description: "Renforcement de la résilience environnementale à travers le reboisement, la promotion de pratiques agricoles durables, la sensibilisation des communautés, la restauration des écosystèmes et l’amélioration de la gestion des ressources naturelles, avec une forte implication des communautés et des autorités locales.",
+    partner: "Ambassade de France en Guinée et Sierra Leone",
+  },
+  {
+    slug: "droits-communautes",
+    photo: temporaryPhotos.fields,
+    zone: "Guinée",
+    status: null,
+    title: "Défense des droits des communautés impactées par des projets de développement",
+    period: "Depuis 2018",
+    description: "Participation au consortium Collectif des Organisations pour la Défense des Droits des communautés (CODEC), visant à renforcer la participation citoyenne et à promouvoir les droits des communautés impactées par les projets de développement en Guinée.",
+    partner: "11th HOUR PROJECT",
   },
 ];
 
@@ -399,7 +498,11 @@ export const homeContent = {
     description: "Restaurer les écosystèmes · Renforcer les communautés",
     introduction:
       "En Guinée, nous agissons avec les communautés pour restaurer les terres dégradées, protéger les forêts et la biodiversité. Grâce au reboisement, à l’agroécologie et au renforcement des capacités, nous contribuons à améliorer les conditions de vie.",
-    photo: temporaryPhotos.forest,
+    photo: {
+      src: "/images/hero/plantation.png",
+      alt: "Une main plante un jeune arbre dans la terre.",
+      temporary: false,
+    },
     primary: "Découvrir nos projets",
     secondary: "Devenir partenaire",
     video: {
@@ -415,86 +518,44 @@ export const homeContent = {
     label: "Notre organisation",
     title: "Qui sommes-nous ?",
     description:
-      "Global EcoAction (GECA), anciennement RENASCEDD, est une ONG guinéenne créée en 2016. Nous agissons aux côtés des communautés pour restaurer les écosystèmes, protéger la biodiversité et améliorer les conditions de vie.",
+      `Global EcoAction (GECA), anciennement RENASCEDD, est une ONG guinéenne créée le ${identity.foundedOn.fr}. Nous agissons aux côtés des communautés pour restaurer les écosystèmes, protéger la biodiversité et améliorer les conditions de vie.`,
     cta: "À propos de GECA",
     sideLabel: "Notre signature",
     sideText: "Global EcoAction — Agir pour un avenir durable.",
     since: "Aux côtés des communautés depuis",
   },
   domains: {
-    label: "Nos domaines d’intervention",
-    title: "Six leviers pour un changement durable.",
+    label: "Nos expertises",
+    title: "Domaines d’expertise",
     cta: "Découvrir ce domaine",
-    description:
-      "Des actions complémentaires, pensées pour les réalités de nos territoires.",
-    items: [
-      {
-        id: "restauration-ecosystemes",
-        photo: interventionPhotos["restauration-ecosystemes"],
-        title: "Restauration des écosystèmes",
-        description:
-          "Restaurer les terres dégradées, protéger les forêts et la biodiversité grâce au reboisement et aux pépinières communautaires.",
-      },
-      {
-        id: "climat-resilience",
-        photo: interventionPhotos["climat-resilience"],
-        title: "Climat & résilience",
-        description:
-          "S’adapter au changement climatique et réduire ses effets sur les communautés.",
-      },
-      {
-        id: "agroecologie",
-        photo: interventionPhotos.agroecologie,
-        title: "Agroécologie & agriculture durable",
-        description:
-          "Accompagner les producteurs vers des pratiques qui préservent les sols.",
-      },
-      {
-        id: "ressources-naturelles",
-        photo: interventionPhotos["ressources-naturelles"],
-        title: "Ressources naturelles",
-        description:
-          "Encourager une gestion durable de l’eau, des terres et des forêts.",
-      },
-      {
-        id: "education-environnementale",
-        photo: interventionPhotos["education-environnementale"],
-        title: "Éducation environnementale",
-        description:
-          "Sensibiliser, transmettre et former pour donner à chacun les moyens d’agir.",
-      },
-      {
-        id: "gouvernance-communautes",
-        photo: interventionPhotos["gouvernance-communautes"],
-        title: "Gouvernance & communautés",
-        description:
-          "Renforcer la gouvernance environnementale et le développement local avec les communautés.",
-      },
-    ],
+    description: "Découvrez nos huit domaines d’expertise.",
+    items: getInterventionAreas("fr"),
   },
   impact: {
     label: "Notre impact",
-    title: "Des actions locales.",
-    titleSecondLine: "Une portée collective.",
+    title: "Résultats et",
+    titleSecondLine: "réalisations marquantes",
     photo: {
       src: "/images/temporary/impact-forest.jpg",
       alt: "Collines boisées dans la brume — image temporaire d’illustration, sans lien avec une action de GECA.",
       temporary: true,
     } satisfies LocalPhoto,
-    description:
-      "Chaque territoire accompagné est un pas vers un avenir plus résilient.",
-    // Valeurs du brief, à valider avec les pièces justificatives avant publication.
+    // Résultats authentiques reçus le 4 octobre 2026 ; référence dans docs/TEXTES-AUTHENTIQUES-CLIENT.md.
     stats: [
+      { value: "35 000", label: "arbres plantés en 2019" },
+      { value: "365 000", label: "arbres plantés en 2020" },
+      { value: "150 000", label: "arbres plantés en 2021" },
       { value: "84", label: "collectivités accompagnées" },
-      { value: "40", unit: "ha", label: "de sites dégradés restaurés" },
-      { value: "2016", label: "année de création de GECA" },
     ],
-    note: "Repères de la maquette · données à valider avant publication.",
-    // TODO: chiffre de 550 000 arbres à confirmer par GECA avant publication. Non affiché.
+    achievements: [
+      "Restauration de 40 hectares de sites dégradés en 2021-2022, associée à des activités génératrices de revenus, notamment le maraîchage.",
+      "Mise en place de pépinières communautaires et création d’emplois temporaires liés aux opérations de reboisement.",
+      "Contribution à la formation, à la sensibilisation et au suivi de l’intégration du changement climatique et de l’inclusion sociale dans les Plans de Développement Locaux de 84 collectivités de Kindia et Boké.",
+    ],
   },
   projects: {
     label: "Projets & programmes",
-    title: "Sur le terrain, le changement prend racine.",
+    title: "Sélection de références récentes",
     description:
       "Découvrez les initiatives que nous menons avec les communautés et nos partenaires.",
     current: "En cours",
@@ -502,7 +563,7 @@ export const homeContent = {
     filters: "Filtrer les projets",
     statusCurrent: "En cours",
     statusCompleted: "Réalisé",
-    partner: "Avec",
+    partner: "Partenaire / bailleur :",
     view: "Voir le projet",
     all: "Voir tous les projets",
     count: "projets affichés",
@@ -535,34 +596,6 @@ export const homeContent = {
           "Nous inscrivons les actions dans le temps, au-delà d’un projet.",
       },
     ],
-  },
-  team: {
-    label: "Les femmes et les hommes de GECA",
-    title: "Une équipe, un engagement commun.",
-    description:
-      "Les visages de notre engagement seront bientôt présentés ici.",
-    cta: "Découvrir notre équipe",
-    members: [
-      {
-        id: "member-1",
-        name: "Nom du membre",
-        role: "Fonction",
-        photo: undefined as LocalPhoto | undefined,
-      },
-      {
-        id: "member-2",
-        name: "Nom du membre",
-        role: "Fonction",
-        photo: undefined as LocalPhoto | undefined,
-      },
-      {
-        id: "member-3",
-        name: "Nom du membre",
-        role: "Fonction",
-        photo: undefined as LocalPhoto | undefined,
-      },
-    ],
-    photoLabel: "Photo",
   },
   news: {
     label: "Actualités & événements",
@@ -669,16 +702,167 @@ export const homeContent = {
 } as const;
 
 export const footerLinks = {
-  discover: ["a-propos", "equipe", "projets", "actualites", "evenements"],
+  discover: ["a-propos", "projets", "actualites", "evenements"],
   resources: [
-    "ressources",
-    "reseaux",
-    "partenaires",
     "devenir-partenaire",
     "nous-soutenir",
   ],
   legal: ["mentions-legales", "confidentialite", "plan-du-site"],
 };
+
+// Formulations validées par Gassama le 4 octobre 2026, développées à partir des textes client.
+export const missionVisionContent = {
+  "fr": {
+    "title": "Mission, vision et valeurs",
+    "label": "Notre cap",
+    "introduction": "Restaurer les écosystèmes, renforcer les communautés et construire un avenir durable en Guinée.",
+    "mission": {
+      "label": "Ce que nous faisons",
+      "title": "Notre mission",
+      "summary": "Agir avec les communautés en Guinée pour restaurer les écosystèmes, protéger la biodiversité et améliorer les conditions de vie, grâce à l’agroécologie, à l’adaptation climatique et à une gestion participative des ressources naturelles.",
+      "paragraphs": [
+        "Notre action associe la restauration des terres dégradées, le reboisement communautaire et la gestion durable des forêts, des sols et de l’eau. L’agroécologie et l’accompagnement des producteurs relient la préservation de ces ressources aux activités dont vivent les communautés.",
+        "L’éducation environnementale, la formation et la concertation territoriale complètent cette action. Elles accompagnent la participation des communautés, la gouvernance locale et le développement d’activités génératrices de revenus."
+      ],
+      "photo": {
+        "src": "/images/mission/plantation-kenya.jpg",
+        "temporary": true,
+        "author": "Caroletravis",
+        "source": "https://commons.wikimedia.org/wiki/File:Rachel_the_tireless_tree_planter,_Kenya_photo_2.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "alt": "Des personnes réunies autour de jeunes plants au Kenya — illustration temporaire, hors des activités de GECA.",
+        "caption": "Plantation au Kenya — illustration hors des activités de GECA."
+      }
+    },
+    "vision": {
+      "label": "L’avenir auquel nous contribuons",
+      "title": "Notre vision",
+      "summary": "Une Guinée où les écosystèmes sont préservés et restaurés, et où les communautés disposent de moyens d’existence durables et participent pleinement au développement de leurs territoires.",
+      "paragraphs": [
+        "Cette vision relie l’avenir des écosystèmes à celui des communautés. Elle associe la conservation de la biodiversité, la résilience climatique et le développement économique local, pour que la protection de la nature contribue à l’amélioration des conditions de vie.",
+        "Elle donne une place centrale à l’inclusion sociale et à la participation aux décisions locales. Les femmes, les jeunes, les producteurs et les communautés affectées par les projets de développement sont concernés par la gestion et l’avenir de leurs territoires."
+      ],
+      "photo": {
+        "src": "/images/mission/fouta-djallon.jpg",
+        "temporary": true,
+        "author": "Maarten van der Bent",
+        "source": "https://commons.wikimedia.org/wiki/File:Fouta_Djallon_(14604732032).jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "alt": "Collines verdoyantes du Fouta-Djallon en Guinée — photographie d’illustration.",
+        "caption": "Fouta-Djallon, Guinée — photographie d’illustration."
+      }
+    },
+    "valuesLabel": "Nos valeurs",
+    "valuesTitle": "Les principes qui guident nos actions",
+    "values": [
+      {
+        "title": "Participation communautaire",
+        "summary": "Construire les actions avec les communautés et renforcer leur rôle dans les décisions.",
+        "detail": "Cette participation s’appuie sur la concertation territoriale, la gouvernance locale et le renforcement des capacités. Les communautés prennent part à la gestion des ressources naturelles et aux actions qui concernent leurs territoires."
+      },
+      {
+        "title": "Inclusion et respect des droits",
+        "summary": "Prendre en compte les femmes, les jeunes et les communautés affectées par les projets de développement.",
+        "detail": "L’inclusion sociale accompagne les actions de formation et de développement local. L’appui aux communautés affectées porte notamment sur les droits, la gestion foncière et la prévention des conflits."
+      },
+      {
+        "title": "Respect de la nature",
+        "summary": "Préserver la biodiversité, les forêts, les sols et l’eau.",
+        "detail": "La restauration écologique, le reboisement communautaire et les pratiques agricoles durables traduisent cet engagement. Ils relient la protection des écosystèmes à une gestion durable des ressources naturelles."
+      },
+      {
+        "title": "Concertation et coopération",
+        "summary": "Favoriser le dialogue entre communautés, autorités et partenaires.",
+        "detail": "La concertation territoriale et la médiation entre acteurs permettent d’aborder ensemble les enjeux locaux. Cette démarche s’inscrit dans les collaborations de GECA avec des partenaires institutionnels, techniques et financiers."
+      },
+      {
+        "title": "Durabilité",
+        "summary": "Rechercher des effets qui se maintiennent dans le temps, pour les écosystèmes et les moyens d’existence.",
+        "detail": "Le renforcement des capacités, la responsabilisation communautaire et le développement d’activités génératrices de revenus participent à cette recherche. L’approche de GECA relie la résilience des communautés à la durabilité des investissements."
+      }
+    ],
+    "projects": "Découvrir nos projets",
+    "partner": "Devenir partenaire",
+    "photoChanges": "Photos redimensionnées et compressées ; recadrage à l’affichage."
+  },
+  "en": {
+    "title": "Mission, vision and values",
+    "label": "Our direction",
+    "introduction": "Restoring ecosystems, strengthening communities and building a sustainable future in Guinea.",
+    "mission": {
+      "label": "What we do",
+      "title": "Our mission",
+      "summary": "Work with communities in Guinea to restore ecosystems, protect biodiversity and improve living conditions through agroecology, climate adaptation and participatory natural resource management.",
+      "paragraphs": [
+        "Our work combines the restoration of degraded land, community reforestation and the sustainable management of forests, soils and water. Agroecology and support for producers connect the protection of these resources with the activities that sustain community livelihoods.",
+        "Environmental education, training and territorial consultation complement this work. They support community participation, local governance and the development of income-generating activities."
+      ],
+      "photo": {
+        "src": "/images/mission/plantation-kenya.jpg",
+        "temporary": true,
+        "author": "Caroletravis",
+        "source": "https://commons.wikimedia.org/wiki/File:Rachel_the_tireless_tree_planter,_Kenya_photo_2.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "alt": "People gathered around young plants in Kenya — temporary illustration, unrelated to GECA activities.",
+        "caption": "Planting in Kenya — illustration unrelated to GECA activities."
+      }
+    },
+    "vision": {
+      "label": "The future we contribute to",
+      "title": "Our vision",
+      "summary": "A Guinea where ecosystems are protected and restored, and where communities have sustainable livelihoods and participate fully in the development of their territories.",
+      "paragraphs": [
+        "This vision connects the future of ecosystems with that of communities. It brings together biodiversity conservation, climate resilience and local economic development, so that protecting nature contributes to better living conditions.",
+        "It places social inclusion and participation in local decisions at its heart. Women, young people, producers and communities affected by development projects have a stake in the management and future of their territories."
+      ],
+      "photo": {
+        "src": "/images/mission/fouta-djallon.jpg",
+        "temporary": true,
+        "author": "Maarten van der Bent",
+        "source": "https://commons.wikimedia.org/wiki/File:Fouta_Djallon_(14604732032).jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "alt": "Green hills in the Fouta Djallon, Guinea — illustrative photograph.",
+        "caption": "Fouta Djallon, Guinea — illustrative photograph."
+      }
+    },
+    "valuesLabel": "Our values",
+    "valuesTitle": "The principles that guide our actions",
+    "values": [
+      {
+        "title": "Community participation",
+        "summary": "Develop actions with communities and strengthen their role in decision-making.",
+        "detail": "This participation draws on territorial consultation, local governance and capacity building. Communities take part in natural resource management and in actions affecting their territories."
+      },
+      {
+        "title": "Inclusion and respect for rights",
+        "summary": "Take into account women, young people and communities affected by development projects.",
+        "detail": "Social inclusion accompanies training and local development activities. Support for affected communities addresses rights, land management and conflict prevention in particular."
+      },
+      {
+        "title": "Respect for nature",
+        "summary": "Protect biodiversity, forests, soils and water.",
+        "detail": "Ecological restoration, community reforestation and sustainable agricultural practices put this commitment into action. They connect ecosystem protection with sustainable natural resource management."
+      },
+      {
+        "title": "Dialogue and cooperation",
+        "summary": "Encourage dialogue between communities, authorities and partners.",
+        "detail": "Territorial consultation and mediation between stakeholders enable local issues to be addressed together. This approach is reflected in GECA’s collaborations with institutional, technical and financial partners."
+      },
+      {
+        "title": "Sustainability",
+        "summary": "Seek lasting effects for ecosystems and livelihoods.",
+        "detail": "Capacity building, community empowerment and income-generating activities contribute to this aim. GECA’s approach connects community resilience with the sustainability of investments."
+      }
+    ],
+    "projects": "Explore our projects",
+    "partner": "Become a partner",
+    "photoChanges": "Photos resized and compressed; cropped for display."
+  }
+} as const;
 
 // À propos : développements éditoriaux des informations client déjà présentes.
 // Provenance et limites : docs/CONTENU-CLIENT.md. Traduction EN à relire par GECA.
@@ -694,17 +878,21 @@ export const aboutContent = {
     photoLabel: "Les territoires au cœur de notre engagement",
     sinceLabel: "Engagés depuis",
     sinceDescription: "Une ONG guinéenne, ancrée dans les réalités de ses territoires.",
-    location: "Conakry · Guinée",
+    location: "Kissosso · Matoto · Conakry · Guinée",
     explore: "Découvrir notre histoire",
     history: {
       label: "Notre histoire",
       title: "De RENASCEDD à Global EcoAction.",
       paragraphs: [
-        "Notre organisation a été créée en 2016. Anciennement RENASCEDD, elle porte aujourd’hui le nom de Global EcoAction, ou GECA. Basée à Conakry, elle agit en Guinée pour relier protection de l’environnement et développement communautaire.",
+        organizationFacts.fr.creation,
         "Notre engagement repose sur une conviction : préserver les ressources naturelles et améliorer les conditions de vie sont deux objectifs qui avancent ensemble. Les terres, les forêts et la biodiversité font partie du quotidien des communautés ; leur avenir se construit avec elles.",
       ],
       convictionLabel: "Notre conviction",
       conviction: "Faire de la protection de l’environnement un moteur de développement et d’amélioration des conditions de vie.",
+      details: [
+        { title: "Notre implantation", description: organizationFacts.fr.location },
+        { title: "Nos capacités", description: organizationFacts.fr.capacities },
+      ],
     },
     purpose: {
       label: "Notre cap",
@@ -712,10 +900,10 @@ export const aboutContent = {
       description: "Un même engagement pour des écosystèmes vivants et des communautés capables de préparer leur avenir.",
       missionLabel: "Notre mission",
       missionTitle: "Restaurer la nature, renforcer les communautés.",
-      mission: "Restaurer les terres dégradées, protéger les forêts et la biodiversité, et accompagner les communautés face au changement climatique. Le reboisement, l’agroécologie et le renforcement des capacités sont des moyens complémentaires pour agir.",
+      mission: missionVisionContent.fr.mission.summary,
       visionLabel: "Notre ambition",
       visionTitle: "Des territoires résilients, inclusifs et durables.",
-      vision: "Contribuer à des territoires où la protection de l’environnement soutient le développement local. Des territoires où les femmes, les jeunes et les producteurs disposent des moyens de participer à la gestion durable des ressources naturelles.",
+      vision: missionVisionContent.fr.vision.summary,
     },
     approach: {
       label: homeContent.approach.label,
@@ -731,8 +919,8 @@ export const aboutContent = {
     },
     domains: {
       label: homeContent.domains.label,
-      title: "Des actions qui se complètent.",
-      description: "De la restauration des écosystèmes au développement local, nos six domaines d’intervention relient la nature et les communautés.",
+      title: "Domaines d’expertise",
+      description: "Découvrez nos huit domaines d’expertise.",
       items: homeContent.domains.items.map(({ title, description }) => ({ title, description })),
     },
     closing: {
@@ -749,22 +937,26 @@ export const aboutContent = {
     pageName: "About us",
     label: "Who we are",
     title: "Nature and communities, a shared future.",
-    introduction: "Global EcoAction (GECA), formerly RENASCEDD, is a Guinean NGO founded in 2016. We work alongside communities to restore ecosystems, protect biodiversity and improve living conditions.",
+    introduction: `Global EcoAction (GECA), formerly RENASCEDD, is a Guinean NGO founded on ${identity.foundedOn.en}. We work alongside communities to restore ecosystems, protect biodiversity and improve living conditions.`,
     photo: { ...temporaryPhotos.fields, alt: "Aerial view of cultivated fields — temporary illustration, unrelated to a GECA activity." },
     photoLabel: "Local landscapes at the heart of our work",
     sinceLabel: "Committed since",
     sinceDescription: "A Guinean NGO rooted in the realities of its local communities and landscapes.",
-    location: "Conakry · Guinea",
+    location: "Kissosso · Matoto · Conakry · Guinea",
     explore: "Discover our story",
     history: {
       label: "Our story",
       title: "From RENASCEDD to Global EcoAction.",
       paragraphs: [
-        "Our organisation was founded in 2016. Formerly RENASCEDD, it is now known as Global EcoAction, or GECA. Based in Conakry, it works in Guinea to connect environmental protection with community development.",
+        organizationFacts.en.creation,
         "Our work is guided by a conviction: protecting natural resources and improving living conditions go hand in hand. Land, forests and biodiversity are part of communities’ daily lives; their future must be built together.",
       ],
       convictionLabel: "Our conviction",
       conviction: "Make environmental protection a driver of development and better living conditions.",
+      details: [
+        { title: "Where we work", description: organizationFacts.en.location },
+        { title: "Our capabilities", description: organizationFacts.en.capacities },
+      ],
     },
     purpose: {
       label: "Our direction",
@@ -772,10 +964,10 @@ export const aboutContent = {
       description: "A shared commitment to thriving ecosystems and communities with the means to shape their future.",
       missionLabel: "Our mission",
       missionTitle: "Restore nature, strengthen communities.",
-      mission: "Restore degraded land, protect forests and biodiversity, and support communities facing climate change. Reforestation, agroecology and capacity building are complementary ways to take action.",
+      mission: missionVisionContent.en.mission.summary,
       visionLabel: "Our ambition",
       visionTitle: "Resilient, inclusive and sustainable places.",
-      vision: "Help build places where environmental protection supports local development. Places where women, young people and producers have the means to participate in the sustainable management of natural resources.",
+      vision: missionVisionContent.en.vision.summary,
     },
     approach: {
       label: "Our approach",
@@ -790,17 +982,10 @@ export const aboutContent = {
       ],
     },
     domains: {
-      label: "Our focus areas",
-      title: "Actions that work together.",
-      description: "From ecosystem restoration to local development, our six focus areas connect nature and communities.",
-      items: [
-        { title: "Ecosystem restoration", description: "Restore degraded land, protect forests and biodiversity through reforestation and community nurseries." },
-        { title: "Climate & resilience", description: "Adapt to climate change and reduce its effects on communities." },
-        { title: "Agroecology & sustainable agriculture", description: "Support producers in adopting practices that protect soils." },
-        { title: "Natural resources", description: "Encourage sustainable management of water, land and forests." },
-        { title: "Environmental education", description: "Raise awareness, share knowledge and train people to take action." },
-        { title: "Governance & communities", description: "Strengthen environmental governance and local development with communities." },
-      ],
+      label: "Our expertise",
+      title: "Areas of expertise",
+      description: "Explore our eight areas of expertise.",
+      items: getInterventionAreas("en"),
     },
     closing: {
       label: "Take action together",
@@ -812,36 +997,93 @@ export const aboutContent = {
   },
 } as const;
 
-// Catalogue : mêmes projets et statuts que le brief ; aucune déduction de statut par date.
-// Traductions proposées, périodes et partenaires à confirmer avant publication.
-export const projectTranslationsEn: Record<string, Pick<Project, "title" | "zone" | "partner" | "description">> = {
-  kounounkan: {
-    title: "Income-generating activities around the future Kounounkan Plateaux National Park",
+// Traductions des sept références authentiques, sans ajout factuel ni statut déduit.
+export const projectTranslationsEn: Record<string, Pick<Project, "title" | "zone" | "period" | "partner" | "description">> = {
+  "kounounkan": {
+    title: "Support the implementation of income-generating activities (IGAs) around the future Kounounkan Plateaux National Park",
     zone: "Kounounkan Plateaux",
+    period: "2025-2026",
     partner: "World Bank",
-    description: "Support communities in developing economic activities linked to the protection of their local area.",
+    description: "Improving economic conditions and food security, structuring groups, providing technical support for IGAs, handling complaints and preventing gender-based violence.",
   },
   "appui-social-nature": {
     title: "Social support and nature protection project",
     zone: "Guinea · location to be confirmed",
+    period: "2025-2026",
     partner: "ALCOA Foundation",
-    description: "Combine support for communities with the protection of natural resources.",
+    description: "Financial and technical support for women farmers affected by mining, climate-adapted agriculture, environmental education and ecological restoration.",
   },
   "planification-climatique": {
-    title: "Integrating climate change into local planning in Lower Guinea",
+    title: "Raising awareness among local stakeholders (elected representatives, civil society organisations, women and young people) about integrating climate change into local planning in the Lower Guinea region",
     zone: "Lower Guinea",
+    period: "2024-2025",
     partner: "ANAFIC",
-    description: "Support local authorities in including climate issues in their development priorities.",
+    description: "Awareness raising, training and monitoring to integrate climate change and social inclusion into the Local Development Plans (LDPs) of 84 local authorities.",
   },
-  protemo: {
-    title: "Moussayah Territory Project — PROTEMO",
+  "protemo": {
+    title: "Moussayah Territory Project - PROTEMO",
     zone: "Moussayah",
+    period: "2023-2024",
     partner: "Embassy of France in Guinea and Sierra Leone",
-    description: "Support local development that connects environmental protection with community development.",
+    description: "Participatory territorial development combining environmental governance, economic opportunities and the preservation of natural resources.",
+  },
+  "reboisement-communautaire": {
+    title: "Community reforestation with 550,000 trees",
+    zone: "Boffa, Kindia, Forécariah, Mamou and Faranah",
+    period: "2019, 2020 and 2021",
+    partner: "Reforest’Action",
+    description: "The large-scale community reforestation project, implemented over three years in the regions of Boffa, Kindia, Forécariah, Mamou and Faranah, resulted in the planting of 550,000 trees: 35,000 in 2019, 365,000 in 2020 and 150,000 in 2021.\n\nThe project aimed to restore degraded land, combat erosion, protect ecosystems and water resources, strengthen biodiversity and contribute to carbon sequestration. Carried out with the involvement of local communities, it was also intended to support the creation of income-generating activities related to forest products and ecotourism.",
+  },
+  "piscca": {
+    title: "Combating environmental degradation for sustainable development in the sub-prefecture of Moussayah - Innovative Civil Society Projects and Coalitions of Actors (PISCCA)",
+    zone: "Moussayah",
+    period: "2021-2022",
+    partner: "Embassy of France in Guinea and Sierra Leone",
+    description: "Strengthening environmental resilience through reforestation, the promotion of sustainable agricultural practices, community awareness raising, ecosystem restoration and improved natural resource management, with strong involvement from communities and local authorities.",
+  },
+  "droits-communautes": {
+    title: "Defending the rights of communities affected by development projects",
+    zone: "Guinea",
+    period: "Since 2018",
+    partner: "11th HOUR PROJECT",
+    description: "Participation in the consortium Collectif des Organisations pour la Défense des Droits des communautés (CODEC), which aims to strengthen civic participation and promote the rights of communities affected by development projects in Guinea.",
   },
 };
 
-// Page unique : textes FR repris de l’accueil ; traductions sans ajout factuel.
+// Page unique : références du client et traductions sans ajout factuel.
+export const partnershipContent = {
+  fr: {
+    title: "Devenir partenaire",
+    label: "Partenariat",
+    strengthsTitle: "Atouts pour un partenariat avec un bailleur",
+    strengths: [
+      "Ancrage communautaire et expérience de terrain dans des contextes ruraux, environnementaux et miniers.",
+      "Capacité à articuler conservation de la biodiversité, résilience climatique, inclusion sociale et développement économique local.",
+      "Expérience de collaboration avec des partenaires institutionnels, techniques et financiers nationaux et internationaux.",
+      "Approche participative privilégiant la gouvernance locale, la responsabilisation communautaire et la durabilité des investissements.",
+    ],
+    positioningTitle: "Positionnement",
+    positioning: "GECA se positionne comme un partenaire de mise en œuvre capable d’accompagner des programmes associant restauration des écosystèmes, adaptation climatique, agroécologie, gouvernance territoriale et amélioration des moyens d’existence des communautés en Guinée.",
+    contact: "Nous contacter",
+    projects: "Découvrir nos projets",
+  },
+  en: {
+    title: "Become a partner",
+    label: "Partnership",
+    strengthsTitle: "Strengths for a partnership with a funder",
+    strengths: [
+      "Community roots and field experience in rural, environmental and mining contexts.",
+      "Ability to combine biodiversity conservation, climate resilience, social inclusion and local economic development.",
+      "Experience of working with national and international institutional, technical and financial partners.",
+      "A participatory approach that prioritises local governance, community empowerment and the sustainability of investments.",
+    ],
+    positioningTitle: "Positioning",
+    positioning: "GECA positions itself as an implementing partner capable of supporting programmes that combine ecosystem restoration, climate adaptation, agroecology, territorial governance and improved livelihoods for communities in Guinea.",
+    contact: "Contact us",
+    projects: "Explore our projects",
+  },
+} as const;
+
 export const portfolioContent = {
   fr: {
     breadcrumb: "Fil d’Ariane",
@@ -851,13 +1093,13 @@ export const portfolioContent = {
     introduction: homeContent.projects.description,
     catalogLabel: homeContent.projects.label,
     catalogTitle: homeContent.projects.title,
-    notice: "Périodes, statuts et partenaires à confirmer par GECA avant publication.",
+    notice: "Statuts des projets à confirmer par GECA.",
     statuses: { current: homeContent.projects.statusCurrent, completed: homeContent.projects.statusCompleted },
     count: homeContent.projects.count,
     region: "Territoire",
     period: "Période",
-    partner: homeContent.projects.partner,
-    objective: "L’objectif du projet",
+    partner: "Partenaire / bailleur",
+    objective: "Objet principal",
     photo: homeContent.projects.photo,
     closingLabel: homeContent.cta.label,
     closingTitle: homeContent.cta.partnerTitle,
@@ -872,20 +1114,48 @@ export const portfolioContent = {
     metadata: "Discover the initiatives we carry out with communities and our partners.",
     introduction: "Discover the initiatives we carry out with communities and our partners.",
     catalogLabel: "Projects & programmes",
-    catalogTitle: "On the ground, change takes root.",
-    notice: "Periods, statuses and partners to be confirmed by GECA before publication.",
+    catalogTitle: "Selected recent references",
+    notice: "Project statuses to be confirmed by GECA.",
     statuses: { current: "Ongoing", completed: "Completed" },
     count: "projects shown",
     region: "Location",
     period: "Period",
-    partner: "With",
-    objective: "The project’s objective",
+    partner: "Partner / funder",
+    objective: "Main purpose",
     photo: "GECA project photo",
     closingLabel: "Take action",
     closingTitle: "Do you have a project in Guinea?",
     closingDescription: "Let’s build solutions together that serve local areas and communities.",
     contact: interfaceText.en.contact,
     about: "About us",
+  },
+} as const;
+
+// Texte client du 4 octobre 2026 ; la traduction ne remplace pas la source française.
+export const territorialExperience = {
+  fr: {
+    label: "Expérience territoriale",
+    title: "Expérience spécifique à Kounounkan - Moussayah",
+    introduction: "GECA dispose d’une expérience continue dans la zone de Kounounkan - Moussayah, où elle a combiné diagnostic territorial, conservation, restauration écologique et développement local. Cette expérience comprend notamment :",
+    achievements: [
+      "Une étude diagnostique des communautés riveraines de Kounounkan, réalisée sur fonds propres en 2020.",
+      "La mise en place de pépinières à vocation économique, le développement de l’agroforesterie, du maraîchage et de la production de plants fruitiers.",
+      "La construction d’un magasin agricole destiné au stockage et à la conservation des productions locales.",
+      "Le reboisement de 50 000 plants et le développement d’activités génératrices de revenus avec deux groupements locaux dans le cadre du projet PISCCA.",
+      "La mise en œuvre de PROTEMO, incluant un cadre de concertation, une cartographie des acteurs, une charte du territoire et des actions de reboisement portant sur 300 000 plants au niveau des têtes de source, cours d’eau et zones communautaires dégradées.",
+    ],
+  },
+  en: {
+    label: "Territorial experience",
+    title: "Specific experience in Kounounkan - Moussayah",
+    introduction: "GECA has ongoing experience in the Kounounkan - Moussayah area, where it has combined territorial assessment, conservation, ecological restoration and local development. This experience includes:",
+    achievements: [
+      "A diagnostic study of communities bordering Kounounkan, funded from the organisation’s own resources in 2020.",
+      "The establishment of income-generating nurseries and the development of agroforestry, market gardening and fruit tree seedling production.",
+      "The construction of an agricultural warehouse for storing and preserving local produce.",
+      "Reforestation involving 50,000 seedlings and the development of income-generating activities with two local groups as part of the PISCCA project.",
+      "The implementation of PROTEMO, including a consultation framework, stakeholder mapping, a territorial charter and reforestation activities involving 300,000 seedlings around springs, watercourses and degraded community areas.",
+    ],
   },
 } as const;
 
@@ -901,18 +1171,16 @@ export function getPortfolioProjects(locale: Locale): readonly Project[] {
   }));
 }
 
-// Développement éditorial des six domaines du brief, sans nouveaux résultats annoncés.
+// Présentation des huit domaines authentiques, partagés avec l’accueil et À propos.
 export const interventionContent = {
   fr: {
-    metadata: "Les six domaines d’intervention de Global EcoAction : restauration des écosystèmes, climat, agroécologie, ressources naturelles, éducation et gouvernance locale.",
+    metadata: "Les huit domaines d’expertise de Global EcoAction : ressources naturelles, restauration, climat, agroécologie, éducation, gouvernance, appui aux communautés et résilience socio-économique.",
     breadcrumb: "Fil d’Ariane",
     about: "À propos",
     label: "Nature & communautés",
-    title: "Nos domaines d’intervention",
-    introduction: "Protéger la nature et améliorer les conditions de vie avancent ensemble. En Guinée, GECA relie six domaines complémentaires pour accompagner les communautés vers des territoires plus durables.",
-    contents: "Explorer nos six domaines",
-    priorities: "Nos priorités",
-    back: "Revenir aux domaines",
+    title: "Nos domaines d’expertise",
+    introduction: "Découvrez nos huit domaines d’expertise.",
+    overview: "Global EcoAction agit aux côtés des communautés en Guinée pour restaurer les écosystèmes, préserver la biodiversité et améliorer les conditions de vie. Nos domaines d’expertise associent gestion durable des ressources naturelles, adaptation climatique, agroécologie et développement économique local. L’éducation environnementale, la concertation territoriale et l’appui aux communautés affectées par les projets miniers et de développement complètent cette approche participative, attentive à l’inclusion sociale et à la durabilité des actions.",
     closing: {
       label: "Des domaines à l’action",
       title: "Ensemble, donnons vie à ces engagements.",
@@ -922,15 +1190,13 @@ export const interventionContent = {
     },
   },
   en: {
-    metadata: "Global EcoAction’s six focus areas: ecosystem restoration, climate, agroecology, natural resources, environmental education and local governance.",
+    metadata: "Global EcoAction’s eight areas of expertise: natural resources, restoration, climate, agroecology, education, governance, community support and socio-economic resilience.",
     breadcrumb: "Breadcrumb",
     about: "About us",
     label: "Nature & communities",
-    title: "Our focus areas",
-    introduction: "Protecting nature and improving living conditions go hand in hand. In Guinea, GECA connects six complementary areas to support communities in building more sustainable places.",
-    contents: "Explore our six focus areas",
-    priorities: "Our priorities",
-    back: "Back to focus areas",
+    title: "Our areas of expertise",
+    introduction: "Explore our eight areas of expertise.",
+    overview: "Global EcoAction works alongside communities in Guinea to restore ecosystems, protect biodiversity and improve living conditions. Our areas of expertise combine sustainable natural resource management, climate adaptation, agroecology and local economic development. Environmental education, territorial consultation and support for communities affected by mining and development projects complement this participatory approach, with attention to social inclusion and lasting action.",
     closing: {
       label: "From priorities to action",
       title: "Together, bring these commitments to life.",
@@ -940,73 +1206,3 @@ export const interventionContent = {
     },
   },
 } as const;
-
-type DomainId = (typeof homeContent.domains.items)[number]["id"];
-type InterventionDetail = { body: string; priorities: readonly string[] };
-
-const interventionDetails: Record<Locale, Record<DomainId, InterventionDetail>> = {
-  fr: {
-    "restauration-ecosystemes": {
-      body: "Les forêts et les terres vivantes abritent la biodiversité et soutiennent la vie des communautés. Pour GECA, leur restauration associe la protection de la nature à la participation des populations. Le reboisement et les pépinières communautaires font partie de cette démarche : faire grandir les arbres, mais aussi les capacités locales qui permettent d’en prendre soin.",
-      priorities: ["Restaurer les terres dégradées par le reboisement.", "Soutenir les pépinières communautaires et les savoir-faire locaux.", "Relier la protection des forêts à celle de la biodiversité."],
-    },
-    "climat-resilience": {
-      body: "Face au changement climatique, les communautés ont besoin de moyens pour s’adapter et préserver leurs conditions de vie. La résilience, c’est cette capacité à faire face aux difficultés et à se relever. GECA relie cet enjeu à la restauration des écosystèmes, à la gestion des ressources et au renforcement des capacités locales.",
-      priorities: ["Renforcer la compréhension des enjeux climatiques.", "Accompagner l’adaptation aux réalités des territoires.", "Relier la protection des écosystèmes à la résilience des communautés."],
-    },
-    agroecologie: {
-      body: "Produire tout en préservant les sols, l’eau et la biodiversité : c’est le sens de l’agroécologie. GECA place l’accompagnement des producteurs au cœur de ce domaine. La transmission des connaissances et les pratiques agricoles durables contribuent à rapprocher les besoins des populations de la protection des terres dont elles dépendent.",
-      priorities: ["Accompagner les producteurs vers des pratiques agroécologiques.", "Préserver les sols et les ressources nécessaires à l’agriculture.", "Partager les savoir-faire pour une agriculture durable."],
-    },
-    "ressources-naturelles": {
-      body: "L’eau, les terres et les forêts sont des ressources essentielles au quotidien. Leur gestion durable consiste à répondre aux besoins d’aujourd’hui tout en préservant leur avenir. GECA place les populations au cœur de cette responsabilité, en reliant la protection de l’environnement aux réalités et aux besoins du développement local.",
-      priorities: ["Encourager une gestion durable de l’eau, des terres et des forêts.", "Renforcer la place des communautés dans la gestion des ressources.", "Associer préservation de la nature et besoins locaux."],
-    },
-    "education-environnementale": {
-      body: "Comprendre son environnement aide à mieux le protéger. La sensibilisation, l’éducation et la formation donnent aux personnes des repères pour agir dans leur quotidien. GECA relie le partage des connaissances au renforcement des capacités des femmes, des jeunes et des producteurs, pour que chacun puisse prendre part à la protection de la nature.",
-      priorities: ["Sensibiliser aux liens entre environnement et conditions de vie.", "Transmettre les connaissances et les savoir-faire utiles pour agir.", "Renforcer les capacités des femmes, des jeunes et des producteurs."],
-    },
-    "gouvernance-communautes": {
-      body: "Les décisions sur l’environnement concernent les personnes qui vivent avec ses ressources. La gouvernance environnementale, c’est la manière de prendre ces décisions et d’organiser l’action collective. GECA encourage une place active des communautés pour relier protection de la nature, participation locale et amélioration des conditions de vie.",
-      priorities: ["Placer les populations au cœur de la gestion de leur environnement.", "Renforcer la participation et les capacités d’action locales.", "Faire de la protection de l’environnement un moteur du développement local."],
-    },
-  },
-  en: {
-    "restauration-ecosystemes": {
-      body: "Forests and healthy land support biodiversity and community life. For GECA, restoring them connects nature protection with local participation. Reforestation and community nurseries are part of this approach: growing trees while building the local skills needed to care for them.",
-      priorities: ["Restore degraded land through reforestation.", "Support community nurseries and local knowledge.", "Connect forest protection with biodiversity conservation."],
-    },
-    "climat-resilience": {
-      body: "Communities need ways to adapt to climate change and protect their living conditions. Resilience means being able to face difficulties and recover. GECA connects this challenge with ecosystem restoration, resource management and stronger local capacities.",
-      priorities: ["Build understanding of climate challenges.", "Support adaptation suited to local realities.", "Connect ecosystem protection with community resilience."],
-    },
-    agroecologie: {
-      body: "Producing food while protecting soils, water and biodiversity is at the heart of agroecology. GECA places support for producers at the centre of this work. Sharing knowledge and encouraging sustainable farming practices helps connect people’s needs with the protection of the land they depend on.",
-      priorities: ["Support producers in adopting agroecological practices.", "Protect soils and the resources agriculture relies on.", "Share practical knowledge for sustainable farming."],
-    },
-    "ressources-naturelles": {
-      body: "Water, land and forests are essential to everyday life. Managing them sustainably means meeting today’s needs while protecting their future. GECA places communities at the heart of this responsibility, linking environmental protection with the realities and needs of local development.",
-      priorities: ["Encourage sustainable management of water, land and forests.", "Strengthen the role of communities in resource management.", "Connect nature conservation with local needs."],
-    },
-    "education-environnementale": {
-      body: "Understanding our environment helps us protect it. Awareness raising, education and training give people practical knowledge to act in their daily lives. GECA connects knowledge sharing with stronger capacities for women, young people and producers, so that everyone can take part in protecting nature.",
-      priorities: ["Raise awareness of the links between the environment and living conditions.", "Share knowledge and practical skills for action.", "Build the capacities of women, young people and producers."],
-    },
-    "gouvernance-communautes": {
-      body: "Environmental decisions affect the people who live with local resources. Environmental governance is how these decisions are made and collective action is organised. GECA encourages communities to play an active role, connecting nature protection, local participation and better living conditions.",
-      priorities: ["Place people at the heart of managing their environment.", "Strengthen local participation and the capacity to act.", "Make environmental protection a driver of local development."],
-    },
-  },
-};
-
-export function getInterventionAreas(locale: Locale) {
-  return homeContent.domains.items.map((item, index) => ({
-    ...item,
-    ...aboutContent[locale].domains.items[index],
-    ...interventionDetails[locale][item.id],
-    photo: locale === "fr" ? item.photo : {
-      ...item.photo,
-      alt: `Image for the ${aboutContent.en.domains.items[index].title} focus area.`,
-    },
-  }));
-}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import { Icon } from "./ui";
 import { assetPath } from "@/lib/assets";
 import localImageLoader from "@/lib/image-loader";
@@ -29,11 +30,24 @@ export function HeroVideo({
     const video = videoRef.current;
     if (!video) return;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const desktop = window.matchMedia("(min-width: 768px)");
     const connection = (
       navigator as Navigator & { connection?: { saveData?: boolean } }
     ).connection;
 
     const updatePlayback = () => {
+      // Sur téléphone, ne demander ni vidéo ni affiche, même après un redimensionnement.
+      if (!desktop.matches) {
+        video.pause();
+        video.removeAttribute("poster");
+        if (video.hasAttribute("src")) {
+          video.removeAttribute("src");
+          video.load();
+          setReady(false);
+        }
+        return;
+      }
+      video.poster = lightPoster;
       if (motion.matches || connection?.saveData || manuallyPaused.current) {
         video.pause();
         return;
@@ -46,15 +60,17 @@ export function HeroVideo({
     };
     updatePlayback();
     motion.addEventListener("change", updatePlayback);
+    desktop.addEventListener("change", updatePlayback);
     return () => {
       motion.removeEventListener("change", updatePlayback);
+      desktop.removeEventListener("change", updatePlayback);
       video.pause();
     };
-  }, [src]);
+  }, [src, lightPoster]);
 
   const togglePlayback = () => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !window.matchMedia("(min-width: 768px)").matches) return;
     if (!video.paused) {
       manuallyPaused.current = true;
       video.pause();
@@ -72,11 +88,10 @@ export function HeroVideo({
       <div
         className="hero-visual"
         aria-hidden="true"
-        style={{ backgroundImage: `url("${lightPoster}")` }}
+        style={{ "--hero-video-poster": `url("${lightPoster}")` } as CSSProperties}
       >
         <video
           ref={videoRef}
-          poster={lightPoster}
           width={1280}
           height={720}
           muted

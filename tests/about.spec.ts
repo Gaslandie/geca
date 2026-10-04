@@ -16,7 +16,7 @@ for (const width of [320, 375, 768, 1440, 1920]) {
     await page.evaluate(() => document.fonts.ready);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(aboutContent.fr.title);
     await expect(page.locator("main > section")).toHaveCount(6);
-    await expect(page.locator(".about-domain-grid > li")).toHaveCount(6);
+    await expect(page.locator(".about-domain-grid > li")).toHaveCount(8);
     await expect(page.locator("main")).toContainText("RENASCEDD");
     const frame = (await page.locator(".header-inner").boundingBox())!;
     for (const section of await page.locator("main > section").all()) {

@@ -125,7 +125,7 @@ export function StatCard({
   label: string;
 }) {
   return (
-    <div className="stat">
+    <div className="stat card-content">
       <p className="stat-value">
         {value}
         {unit && <span> {unit}</span>}

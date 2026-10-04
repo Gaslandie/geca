@@ -10,14 +10,14 @@ export function ProjectCard({ project }: { project: Project }) {
     <article className="project-card">
       <div className="project-photo">
         <PhotoPlaceholder label={text.photo} photo={project.photo} />
-        <span className="project-status">
+        {project.status && <span className="project-status">
           <span aria-hidden="true" />
           {project.status === "current"
             ? text.statusCurrent
             : text.statusCompleted}
-        </span>
+        </span>}
       </div>
-      <div className="project-body">
+      <div className="project-body card-content">
         <p className="project-meta">
           <span>
             {project.zone}
@@ -42,7 +42,7 @@ export function ProjectCard({ project }: { project: Project }) {
 }
 
 export function Projects() {
-  const [filter, setFilter] = useState<Project["status"]>("current");
+  const [filter, setFilter] = useState<NonNullable<Project["status"]>>("current");
   const visible = projects
     .filter((project) => project.status === filter)
     .slice(0, 3);

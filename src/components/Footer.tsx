@@ -47,7 +47,7 @@ export function Footer({ locale }: { locale: Locale }) {
           <div className="footer-contact">
             <h2>{text.contact}</h2>
             <address>
-              <p>{identity.address}</p>
+              <p>{identity.address[locale]}</p>
               <a href={identity.phoneHref}>{identity.phone}</a>
               <a href={`mailto:${identity.email}`}>{identity.email}</a>
             </address>
@@ -64,7 +64,10 @@ export function Footer({ locale }: { locale: Locale }) {
             © {new Date().getFullYear()} {identity.name} ({identity.shortName}).{" "}
             {text.rights}
           </p>
-          <ul>{links(footerLinks.legal)}</ul>
+          <ul>
+            {links(footerLinks.legal)}
+            <li><Link href={`${href(locale, "mentions-legales")}#credits-photo`}>{locale === "fr" ? "Crédits photo" : "Photo credits"}</Link></li>
+          </ul>
           <p className="footer-credit">{text.footerCredit}</p>
         </div>
       </Container>

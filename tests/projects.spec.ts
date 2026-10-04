@@ -15,7 +15,7 @@ for (const width of [320, 375, 768, 1440, 1920]) {
     await page.goto("/fr/projets");
     await page.evaluate(() => document.fonts.ready);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(portfolioContent.fr.title);
-    await expect(page.locator(".portfolio-project")).toHaveCount(4);
+    await expect(page.locator(".portfolio-project")).toHaveCount(7);
     await expect(page.locator(".portfolio-notice")).toHaveText(portfolioContent.fr.notice);
     const frame = (await page.locator(".header-inner").boundingBox())!;
     for (const section of await page.locator("main > section").all()) {
@@ -55,7 +55,7 @@ test("page unique : menu direct, accueil vers une ancre, langue et contact", asy
   await expect(navigation.getByRole("button", { name: "Projets & programmes", exact: true })).toHaveCount(0);
   await navigation.getByRole("link", { name: "Projets & programmes", exact: true }).click();
   await expect(page).toHaveURL("/fr/projets");
-  await expect(page.locator(".portfolio-project")).toHaveCount(4);
+  await expect(page.locator(".portfolio-project")).toHaveCount(7);
   await page.goto("/fr");
   const first = projects[0];
   const cardLink = page.getByRole("link", { name: `${homeContent.projects.view} : ${first.title}`, exact: true });
@@ -67,7 +67,7 @@ test("page unique : menu direct, accueil vers une ancre, langue et contact", asy
   await page.locator("#main-navigation .language-switch").getByRole("link", { name: "EN", exact: true }).click();
   await expect(page).toHaveURL("/en/projets");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(portfolioContent.en.title);
-  await expect(page.locator(".portfolio-project")).toHaveCount(4);
+  await expect(page.locator(".portfolio-project")).toHaveCount(7);
   await page.locator(".portfolio-closing").getByRole("link", { name: portfolioContent.en.contact, exact: true }).click();
   await expect(page).toHaveURL("/en/contact");
 });
@@ -77,14 +77,15 @@ for (const locale of ["fr", "en"] as const) {
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();
     await page.goto(`http://127.0.0.1:3000/${locale}/projets`);
-    await expect(page.locator(".portfolio-project")).toHaveCount(4);
+    await expect(page.locator(".portfolio-project")).toHaveCount(7);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(portfolioContent[locale].title);
     for (const project of getPortfolioProjects(locale)) {
       const card = page.locator(`#projet-${project.slug}`);
       await expect(card.getByRole("heading", { level: 3 })).toHaveText(project.title);
       await expect(card.locator(".portfolio-description")).toHaveText(project.description);
       await expect(card.locator("dd")).toHaveText([project.zone, project.period, project.partner]);
-      await expect(card.locator(".portfolio-status")).toHaveText(portfolioContent[locale].statuses[project.status]);
+      if (project.status) await expect(card.locator(".portfolio-status")).toHaveText(portfolioContent[locale].statuses[project.status]);
+      else await expect(card.locator(".portfolio-status")).toHaveCount(0);
     }
     if (locale === "fr") {
       await expect(page.locator(".portfolio-intro .section-description")).toHaveText(homeContent.projects.description);
