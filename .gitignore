@@ -8,3 +8,6 @@ playwright-report/
 .env*
 !.env.example
 .DS_Store
+
+# Document client original : archive locale avec métadonnées personnelles.
+/docs/sources/2026-10-06-RECOMMANDATIONS.docx

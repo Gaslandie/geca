@@ -287,12 +287,66 @@ Développement éditorial : Nous relions la restauration écologique au dévelop
 
 Fondements : ressources et restauration — domaines, référence Reforest’Action et expérience Kounounkan ; climat et éducation — référence ANAFIC ; agroécologie et revenus — AGR, ALCOA et expérience Kounounkan ; gouvernance — PROTEMO ; communautés affectées — CODEC et ALCOA.
 
+## Recommandations du client — 6 octobre 2026
+
+Source : `RECOMMANDATIONS.docx`, transmis par Gassama le 6 octobre 2026 avec demande d’application exacte, sans invention, en corrigeant uniquement l’orthographe et la syntaxe. Copie inchangée : [document reçu](sources/2026-10-06-RECOMMANDATIONS.docx). Les instructions de contenu et de présentation sont appliquées dans ce périmètre ; le document n’autorise pas un changement des protections ni une publication.
+
+### Texte reçu, sans correction
+
+> Réalisation et résultats marquants
+
+> Restauration des forêts dégradées, lutte contre l’érosion, protection des écosystèmes et des ressources en eau, renforcement de la biodiversité et contribuer à la séquestration du carbone.
+
+> Développement territorial participatif conciliant gouvernance environnementale, opportunités économiques et préservation des ressources naturelles.
+
+> Sensibilisation, formation et suivi pour l’intégration du changement climatique et de l’inclusion sociale dans les Plan de Développement Local (PDL) de 84 collectivités.
+
+> Appui financier et technique aux femmes agricultrices affectées par l’exploitation minière, agriculture adaptée au climat, éducation environnementale et restauration écologique.
+
+> Amélioration des conditions économiques et de la sécurité alimentaire, structuration des groupements, appui technique aux AGR, gestion des plaintes et prévention des VBG.
+
+> La casse du nom
+
+> Ecrire comme suit : Global EcoAction
+
+> Ne pas ajouter Guinée
+
+> La police
+
+> A la page d’accueil, réduire la police du slogan «  agir pour un avenir durable de 40% et augmenter celle de «  Global EcoAction » de 50%
+
+> Adresse
+
+> Au lieu de Kissosso mettre sangoyah marché
+
+> Kissosso, commune de Matoto, Conakry, République de Guinée
+
+> Partenaires
+
+> Ministère de l’Environnement et du Développement Durable – MEDD
+
+> Office Guinéen des Parcs Nationaux et Réserves de Faunes - OGPNRF
+
+### Images intégrées au document
+
+Dans l’ordre : logo MEDD (image1.png), logo OGPNRF (image2.jpeg), logo 11th Hour Project (image3.png), logo CODEC (image4.png), logo CNOSCG (image5.png). Les deux premiers accompagnent les noms écrits ; les trois suivants sont identifiés uniquement par leurs inscriptions et, pour CODEC, par le nom déjà reçu le 4 octobre. Aucun développement du sigle CNOSCG, rôle de financeur ou projet associé n’est inventé. Les cinq logos s’ajoutent aux cinq existants. Voir `LOGOS-PARTENAIRES.md`.
+
+### Application et corrections limitées
+
+- Le titre devient « Réalisations et résultats marquants » : accord au pluriel, ordre demandé conservé. Les cinq paragraphes remplacent les trois anciennes puces de l’impact, dans l’ordre du document. Les quatre chiffres déjà validés ne sont pas modifiés. L’expérience territoriale et les objets complets des projets restent distincts et inchangés.
+- « et contribuer » devient « et contribution », pour accorder la fin de la liste de noms ; « dans les Plan » devient « dans les Plans ». Aucun autre développement de ces paragraphes.
+- Nom : « Global EcoAction », sans ajout de pays au nom et sans conversion CSS en majuscules sur l’accueil ou le repère de Contact. Les mentions géographiques dans les phrases et l’adresse sont conservées : elles ne font pas partie du nom.
+- Accueil : taille du slogan multipliée par 0,6 (réduction de 40 %) ; taille du nom multipliée par 1,5 (augmentation de 50 %), par rapport aux valeurs communes précédentes. Autres titres inchangés.
+- « sangoyah marché » devient « Sangoyah Marché ». L’instruction explicite « Au lieu de Kissosso » prévaut sur la ligne d’ancienne adresse reproduite juste après. Adresse courante : « Sangoyah Marché, commune de Matoto, Conakry, République de Guinée ». Cette révision remplace la précision du 4 octobre, conservée plus haut comme historique. Mise à jour des coordonnées communes, À propos, Contact, pied de page et recherche, en FR/EN.
+- « Réserves de Faunes » devient « Réserves de Faune », conformément à la grammaire et à l’inscription du logo fourni. Les fichiers de logo eux-mêmes ne sont pas retouchés.
+- L’accueil anglais reste en préparation, comme avant cette demande. Les pages anglaises existantes reprennent la nouvelle adresse et le nom corrigé ; aucune nouvelle page ni rubrique n’est créée.
+
 ## Utilisation sur le site
 
 - Identité, implantation et capacités : page « À propos ». Date de création reprise dans l’accueil ; adresse partagée par Contact et le pied de page. Les capacités figuraient aussi dans le bloc Équipe de l’accueil, retiré ensuite à la demande de Gassama ; leur texte authentique reste conservé ici et sur À propos.
 - Les huit domaines, dans l’ordre reçu, avec leurs phrases françaises intégrales : accueil, « À propos » et page des domaines d’expertise. Les titres courts servent de repères. Les versions anglaises sont des traductions de travail, pas de nouveaux textes authentiques fournis par le client.
 - Les six photos de domaines fournies sont conservées. Avec l’autorisation suivante de Gassama, la photo Gouvernance illustre aussi l’appui aux communautés affectées et la photo Agroécologie illustre aussi les revenus et la résilience. Ce sont des réutilisations, sans attribution à une action particulière.
-- Les quatre chiffres et les trois réalisations sont repris dans la section « Notre impact » de l’accueil français. Ils remplacent les anciens repères provisoires ; la date de création reste dans la présentation de GECA. L’accueil anglais reste en préparation.
+- Les quatre chiffres validés sont repris dans « Notre impact » de l’accueil français. Depuis le 6 octobre, les cinq paragraphes de RECOMMANDATIONS.docx remplacent les trois réalisations initiales dans cette section. Les anciennes formulations restent archivées plus haut ; la date de création reste dans la présentation de GECA. L’accueil anglais reste en préparation.
 - Les sept références complètes sont publiées sur la page unique Projets & programmes en FR/EN. L’accueil reprend les titres et objets actualisés des quatre projets déjà classés dans le brief. Les trois nouvelles références restent sans statut tant qu’il n’est pas fourni. La correction 2019 est aussi appliquée à « Notre impact ».
 - L’expérience spécifique à Kounounkan - Moussayah figure après les références sur la page Projets & programmes, intégralement en français et avec une traduction anglaise de travail. Les 50 000 et 300 000 plants restent associés aux projets cités, sans cumul avec les autres résultats. La numérotation du document client n’est pas affichée comme titre de section du site.
 - Les quatre atouts et le positionnement remplissent la page existante « Devenir partenaire », en FR/EN, à la place du message d’attente. Le français est intégral ; seule la numérotation est omise et la casse du titre « Positionnement » est adaptée. Les liens vers Projets et Contact réutilisent les rubriques existantes.
@@ -312,3 +366,5 @@ Fondements : ressources et restauration — domaines, référence Reforest’Act
 | 4 octobre 2026 | Gassama demande de retirer la section des membres | Le client n’a pas les photos ni les informations et n’a pas confirmé le maintien de cette rubrique. Bloc Équipe et liens retirés ; capacités authentiques conservées sur À propos. Ne pas réintroduire les portraits sans nouvelle demande. |
 | 4 octobre 2026 | Gassama valide mission, vision et valeurs et demande leur développement | Textes éditoriaux distingués des sources initiales, page FR/EN dédiée et résumés À propos harmonisés. Photos africaines sourcées. |
 | 4 octobre 2026 | Gassama demande une introduction et le développement des domaines | Sommaire et retours retirés, introduction justifiée avec barre, huit phrases d’origine complétées uniquement sur la page Domaines. Développements éditoriaux archivés séparément. |
+
+| 6 octobre 2026 | RECOMMANDATIONS.docx transmis par Gassama | Cinq textes d’impact et titre remplacés ; nom et casse corrigés ; slogan −40 %, nom +50 % ; nouvelle adresse Sangoyah Marché en FR/EN ; ajout des cinq logos fournis. Source originale archivée, anciennes versions conservées. |

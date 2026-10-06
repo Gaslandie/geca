@@ -134,3 +134,8 @@ Le seul grand titre « AGIR POUR UN AVENIR DURABLE » utilise Ubuntu Sans locale
 ## Paragraphes justifiés — demande du 4 octobre 2026
 
 Les deux paragraphes du hero et le paragraphe de présentation sous « Notre organisation » sont justifiés : lignes alignées sur les deux bords, dernière ligne à gauche. La coupure automatique des mots suit la langue française du document et les capacités du navigateur. Cette précision remplace le centrage pour ces trois paragraphes seulement ; les titres et les repères conservent leurs alignements existants. Ne pas étendre cette règle à toutes les descriptions du site.
+
+
+## Ajustements du client — règle prioritaire du 6 octobre 2026
+
+Source : `RECOMMANDATIONS.docx`. Sur l’accueil seulement, le slogan « AGIR POUR UN AVENIR DURABLE » utilise `calc(var(--text-page-title) * 0.6)` : 24–43,2 px au lieu de 40–72 px avec la taille racine habituelle. Le nom « Global EcoAction » utilise `calc(var(--text-label) * 1.5)` : 21 px au lieu de 14 px. La casse du nom reste exacte (`text-transform: none`), sur le hero et sur le repère du bloc final de Contact. Aucun pays n’est ajouté au nom. Les autres tailles, polices, centrages, animations et espacements communs restent applicables. Cette demande est l’exception explicite à la taille commune du titre du hero décrite le 4 octobre.

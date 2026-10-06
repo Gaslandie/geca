@@ -15,3 +15,20 @@ Ajout demandé par Gassama dans la maquette locale. Les cinq organismes sont ceu
 Les marques appartiennent à leurs organismes. Aucune licence libre n'a été identifiée pour les quatre marques hors ambassade. Leur disponibilité en ligne ne constitue pas une autorisation générale de réutilisation. Cette insertion concerne uniquement la maquette locale demandée ; aucun accord de publication ni nouveau partenariat n'est déduit de ces sources.
 
 Les SVG ont été inspectés : uniquement des formes, groupes, définitions et styles ; aucun script, gestionnaire d'événement, objet HTML ou lien externe incorporé. Ils ont ensuite été convertis en PNG avec Sharp déjà installé. Les PNG ont été décodés et examinés. Les fichiers de marque sont servis localement, sans appel aux sites sources lors de la visite. Les proportions et couleurs sont conservées, sans recoloration ni déformation. Dimensions réelles renseignées dans `src/content/site.ts`, chargement différé avec `next/image`. Les logos ne sont pas des photos temporaires et ne reçoivent pas l'étiquette des photos d'illustration.
+
+
+## Cinq logos fournis par le client — 6 octobre 2026
+
+Source : `docs/sources/2026-10-06-RECOMMANDATIONS.docx`, transmis par Gassama avec demande d’intégration. Fichiers incorporés récupérés sans téléchargement externe, sans redessin, recadrage ou changement de couleur. Les cinq partenaires précédents sont conservés.
+
+| Inscription / nom fourni | Image Word | Source locale conservée sous `assets/source-images/images/partners/` | Dimensions |
+| --- | --- | --- | --- |
+| Ministère de l’Environnement et du Développement Durable – MEDD | image1.png | medd.png | 496 × 127 |
+| Office Guinéen des Parcs Nationaux et Réserves de Faune – OGPNRF | image2.jpeg | ogpnrf.jpg | 260 × 271 |
+| 11th Hour Project | image3.png | 11th-hour-project.png | 618 × 156 |
+| CODEC | image4.png | codec.png | 159 × 113 |
+| CNOSCG | image5.png | cnoscg.png | 277 × 175 |
+
+Le JPEG OGPNRF conserve ses octets, avec l’extension `.jpg` reconnue par le traitement existant. Chaque image est décodée par Sharp avec une limite de pixels, puis préparée en WebP local sans agrandissement ni métadonnées privées. Dimensions réelles, proportions, texte alternatif et registre fermé conservés. Aucun document Word source n’est placé dans `public`.
+
+Le nom complet du CODEC vient du texte client du 4 octobre ; aucun nom complet du CNOSCG n’est fourni et seul son sigle est utilisé. La correction « Faunes » → « Faune » suit aussi le texte visible du logo. Les logos ne prouvent pas un financement ni une association à un projet précis. Les licences de ces cinq fichiers ne sont pas indiquées dans le document ; seule leur fourniture par le client et la demande d’intégration de Gassama sont établies.

@@ -67,6 +67,9 @@ for (const locale of locales) {
 for (const width of [320, 375, 768, 1024, 1440]) {
   test(`contact ${width}px : disposition, photos et accessibilité`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
+    // Mesurer la disposition au repos, pas au milieu de l’apparition de 12 px.
+    // Les mouvements et leur arrêt au focus sont vérifiés dans les tests dédiés.
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/fr/contact");
     await expect(page.locator(".contact-submit")).toBeEnabled();
     await page.evaluate(() => document.fonts.ready);

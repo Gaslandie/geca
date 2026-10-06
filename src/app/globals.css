@@ -666,9 +666,13 @@ p, a, button {
   justify-content: center;
   color: var(--gold-light);
   margin-bottom: 26px;
+  /* RECOMMANDATIONS.docx : nom +50 %, casse exacte de la marque. */
+  font-size: calc(var(--text-label) * 1.5);
+  text-transform: none;
 }
 .hero-content h1 {
-  font-size: var(--text-page-title);
+  /* Réduction de 40 % du slogan, sans changer les titres des autres pages. */
+  font-size: calc(var(--text-page-title) * 0.6);
   font-weight: 600;
   line-height: 1.12;
   color: var(--white);
@@ -677,6 +681,9 @@ p, a, button {
 }
 .hero-title-line {
   display: block;
+}
+.contact-closing .eyebrow {
+  text-transform: none;
 }
 .hero-caption {
   position: relative;

@@ -113,3 +113,10 @@ Gassama demande le fichier `/home/mohamed-gassama/Desktop/BONNES-PRATIQUES-SITES
 ## Recherche superposée — 4 octobre 2026
 
 La loupe ouvre un panneau modal au-dessus de la page, avec arrière-plan flouté et résultats au fil de la saisie. Indexer seulement les contenus publics et les routes actives, depuis les données partagées. Ne pas envoyer, journaliser ou conserver les recherches. Conserver fermeture, focus, clavier, noms accessibles, langues et adaptation mobile. Pas de moteur externe, d’IA distante ou de dépendance supplémentaire pour cette maquette statique. Après proposition séparée, Gassama a explicitement accepté l’ajout de BP-02 « Recherche superposée accessible » à la référence du Bureau le 4 octobre 2026. Toute prochaine pratique nécessite son propre accord.
+
+
+## Recommandations du client — priorité du 6 octobre 2026
+
+Gassama demande d’appliquer `RECOMMANDATIONS.docx` sans invention, avec seulement des corrections d’orthographe et de syntaxe. Source intacte dans `docs/sources/2026-10-06-RECOMMANDATIONS.docx`, texte et révisions dans `docs/TEXTES-AUTHENTIQUES-CLIENT.md`. L’impact reprend les cinq paragraphes dans l’ordre reçu et le titre « Réalisations et résultats marquants » ; les chiffres déjà validés restent inchangés. Nom écrit « Global EcoAction », sans pays ajouté ni capitales forcées. Sur l’accueil, slogan réduit de 40 % et nom agrandi de 50 % par rapport aux variables communes (facteurs 0,6 et 1,5). Le reste de la typographie ne change pas.
+
+Le client remplace Kissosso par **Sangoyah Marché**, commune de Matoto, Conakry, République de Guinée. Cette nouvelle demande prévaut sur l’adresse du 4 octobre, dans toutes les données courantes FR/EN. Les cinq logos fournis (MEDD, OGPNRF, 11th Hour Project, CODEC, CNOSCG) complètent la grille existante. Ils sont conservés localement et servis par le registre fermé ; aucun sigle non développé par le client, rôle, financement ou lien externe supplémentaire n’est inventé. Sources et limites des licences dans `docs/LOGOS-PARTENAIRES.md`. Les règles de sécurité, benchmarking, français simple, contenu authentique et autorisation explicite avant commit/push restent applicables.

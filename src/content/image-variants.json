@@ -279,6 +279,24 @@
       "src": "/images/optimized/images-mission-plantation-kenya-1600-5553de6fb4bc.webp"
     }
   ],
+  "/images/partners/11th-hour-project.png": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-partners-11th-hour-project-192-d1813b06a04b.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-partners-11th-hour-project-320-fe9f0b2f25e6.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-partners-11th-hour-project-480-be9497d8698d.webp"
+    },
+    {
+      "width": 618,
+      "src": "/images/optimized/images-partners-11th-hour-project-618-e3195b4fe525.webp"
+    }
+  ],
   "/images/partners/alcoa-foundation.png": [
     {
       "width": 192,
@@ -337,6 +355,50 @@
     {
       "width": 486,
       "src": "/images/optimized/images-partners-banque-mondiale-486-1a16e128a63c.webp"
+    }
+  ],
+  "/images/partners/cnoscg.png": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-partners-cnoscg-192-707c89c93c67.webp"
+    },
+    {
+      "width": 277,
+      "src": "/images/optimized/images-partners-cnoscg-277-5bdf696623b9.webp"
+    }
+  ],
+  "/images/partners/codec.png": [
+    {
+      "width": 159,
+      "src": "/images/optimized/images-partners-codec-159-20123d23a6bc.webp"
+    }
+  ],
+  "/images/partners/medd.png": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-partners-medd-192-d42550882c35.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-partners-medd-320-4d703eefb59c.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-partners-medd-480-57baf3ee529d.webp"
+    },
+    {
+      "width": 496,
+      "src": "/images/optimized/images-partners-medd-496-f099ae141fec.webp"
+    }
+  ],
+  "/images/partners/ogpnrf.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-partners-ogpnrf-192-c6b944ffbe4c.webp"
+    },
+    {
+      "width": 260,
+      "src": "/images/optimized/images-partners-ogpnrf-260-c5996ef7ba1c.webp"
     }
   ],
   "/images/partners/reforestaction.png": [

@@ -280,7 +280,8 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
         return { width: box.width, height: box.height };
       }),
     );
-    expect(partnerCards).toHaveLength(5);
+    // Cinq logos existants et cinq fournis dans RECOMMANDATIONS.docx.
+    expect(partnerCards).toHaveLength(10);
     for (const card of partnerCards) {
       expect(Math.abs(card.width - partnerCards[0].width)).toBeLessThan(1);
       expect(Math.abs(card.height - partnerCards[0].height)).toBeLessThan(1);

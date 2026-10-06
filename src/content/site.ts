@@ -13,8 +13,8 @@ export const identity = {
   foundedOn: { fr: "14 décembre 2016", en: "14 December 2016" },
   renamedOn: { fr: "26 août 2026", en: "26 August 2026" },
   address: {
-    fr: "Kissosso, commune de Matoto, Conakry, République de Guinée",
-    en: "Kissosso, municipality of Matoto, Conakry, Republic of Guinea",
+    fr: "Sangoyah Marché, commune de Matoto, Conakry, République de Guinée",
+    en: "Sangoyah Marché, municipality of Matoto, Conakry, Republic of Guinea",
   },
   phone: "+224 628 40 03 87",
   phoneHref: "tel:+224628400387",
@@ -332,7 +332,7 @@ export const contactContent = {
     visit: "Nous trouver",
     call: "Nous appeler",
     write: "Nous écrire",
-    closingLabel: "Global EcoAction · Guinée",
+    closingLabel: identity.name,
     closingTitle: "Ensemble, faisons grandir un avenir durable.",
     closingDescription: "Restaurer la nature, renforcer les communautés : chaque échange peut être le début d’une action commune.",
     form: {
@@ -372,7 +372,7 @@ export const contactContent = {
     visit: "Find us",
     call: "Call us",
     write: "Email us",
-    closingLabel: "Global EcoAction · Guinea",
+    closingLabel: identity.name,
     closingTitle: "Together, let’s grow a sustainable future.",
     closingDescription: "Restoring nature, strengthening communities: every conversation can be the start of a shared action.",
     form: {
@@ -492,7 +492,7 @@ export const projects: readonly Project[] = [
 // Répartition éditoriale et provenance : docs/CONTENU-CLIENT.md.
 export const homeContent = {
   hero: {
-    label: "GLOBAL ECOACTION · GUINÉE",
+    label: identity.name,
     title: "AGIR POUR",
     titleSecondLine: "UN AVENIR DURABLE",
     description: "Restaurer les écosystèmes · Renforcer les communautés",
@@ -533,8 +533,8 @@ export const homeContent = {
   },
   impact: {
     label: "Notre impact",
-    title: "Résultats et",
-    titleSecondLine: "réalisations marquantes",
+    title: "Réalisations et",
+    titleSecondLine: "résultats marquants",
     photo: {
       src: "/images/temporary/impact-forest.jpg",
       alt: "Collines boisées dans la brume — image temporaire d’illustration, sans lien avec une action de GECA.",
@@ -547,10 +547,13 @@ export const homeContent = {
       { value: "150 000", label: "arbres plantés en 2021" },
       { value: "84", label: "collectivités accompagnées" },
     ],
+    // RECOMMANDATIONS.docx, reçu le 6 octobre 2026 : ordre et contenu du client.
     achievements: [
-      "Restauration de 40 hectares de sites dégradés en 2021-2022, associée à des activités génératrices de revenus, notamment le maraîchage.",
-      "Mise en place de pépinières communautaires et création d’emplois temporaires liés aux opérations de reboisement.",
-      "Contribution à la formation, à la sensibilisation et au suivi de l’intégration du changement climatique et de l’inclusion sociale dans les Plans de Développement Locaux de 84 collectivités de Kindia et Boké.",
+      "Restauration des forêts dégradées, lutte contre l’érosion, protection des écosystèmes et des ressources en eau, renforcement de la biodiversité et contribution à la séquestration du carbone.",
+      "Développement territorial participatif conciliant gouvernance environnementale, opportunités économiques et préservation des ressources naturelles.",
+      "Sensibilisation, formation et suivi pour l’intégration du changement climatique et de l’inclusion sociale dans les Plans de Développement Local (PDL) de 84 collectivités.",
+      "Appui financier et technique aux femmes agricultrices affectées par l’exploitation minière, agriculture adaptée au climat, éducation environnementale et restauration écologique.",
+      "Amélioration des conditions économiques et de la sécurité alimentaire, structuration des groupements, appui technique aux AGR, gestion des plaintes et prévention des VBG.",
     ],
   },
   projects: {
@@ -685,6 +688,51 @@ export const homeContent = {
           alt: "Logo de Reforest’Action",
           width: 1640,
           height: 593,
+        },
+      },
+      {
+        name: "Ministère de l’Environnement et du Développement Durable – MEDD",
+        logo: {
+          src: "/images/partners/medd.png",
+          alt: "Logo du Ministère de l’Environnement et du Développement Durable – MEDD",
+          width: 496,
+          height: 127,
+        },
+      },
+      {
+        name: "Office Guinéen des Parcs Nationaux et Réserves de Faune – OGPNRF",
+        logo: {
+          src: "/images/partners/ogpnrf.jpg",
+          alt: "Logo de l’Office Guinéen des Parcs Nationaux et Réserves de Faune – OGPNRF",
+          width: 260,
+          height: 271,
+        },
+      },
+      {
+        name: "11th Hour Project",
+        logo: {
+          src: "/images/partners/11th-hour-project.png",
+          alt: "Logo de 11th Hour Project",
+          width: 618,
+          height: 156,
+        },
+      },
+      {
+        name: "Collectif des Organisations pour la Défense des Droits des communautés – CODEC",
+        logo: {
+          src: "/images/partners/codec.png",
+          alt: "Logo du CODEC",
+          width: 159,
+          height: 113,
+        },
+      },
+      {
+        name: "CNOSCG",
+        logo: {
+          src: "/images/partners/cnoscg.png",
+          alt: "Logo du CNOSCG",
+          width: 277,
+          height: 175,
         },
       },
     ],
@@ -878,7 +926,7 @@ export const aboutContent = {
     photoLabel: "Les territoires au cœur de notre engagement",
     sinceLabel: "Engagés depuis",
     sinceDescription: "Une ONG guinéenne, ancrée dans les réalités de ses territoires.",
-    location: "Kissosso · Matoto · Conakry · Guinée",
+    location: "Sangoyah Marché · Matoto · Conakry · Guinée",
     explore: "Découvrir notre histoire",
     history: {
       label: "Notre histoire",
@@ -942,7 +990,7 @@ export const aboutContent = {
     photoLabel: "Local landscapes at the heart of our work",
     sinceLabel: "Committed since",
     sinceDescription: "A Guinean NGO rooted in the realities of its local communities and landscapes.",
-    location: "Kissosso · Matoto · Conakry · Guinea",
+    location: "Sangoyah Marché · Matoto · Conakry · Guinea",
     explore: "Discover our story",
     history: {
       label: "Our story",

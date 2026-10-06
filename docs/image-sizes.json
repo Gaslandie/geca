@@ -390,6 +390,30 @@
     "originalBytes": 4895718
   },
   {
+    "source": "/images/partners/11th-hour-project.png",
+    "width": 192,
+    "bytes": 2112,
+    "originalBytes": 18435
+  },
+  {
+    "source": "/images/partners/11th-hour-project.png",
+    "width": 320,
+    "bytes": 3732,
+    "originalBytes": 18435
+  },
+  {
+    "source": "/images/partners/11th-hour-project.png",
+    "width": 480,
+    "bytes": 5860,
+    "originalBytes": 18435
+  },
+  {
+    "source": "/images/partners/11th-hour-project.png",
+    "width": 618,
+    "bytes": 8048,
+    "originalBytes": 18435
+  },
+  {
     "source": "/images/partners/alcoa-foundation.png",
     "width": 192,
     "bytes": 2588,
@@ -466,6 +490,60 @@
     "width": 486,
     "bytes": 6892,
     "originalBytes": 12044
+  },
+  {
+    "source": "/images/partners/cnoscg.png",
+    "width": 192,
+    "bytes": 4852,
+    "originalBytes": 49139
+  },
+  {
+    "source": "/images/partners/cnoscg.png",
+    "width": 277,
+    "bytes": 7460,
+    "originalBytes": 49139
+  },
+  {
+    "source": "/images/partners/codec.png",
+    "width": 159,
+    "bytes": 3420,
+    "originalBytes": 12304
+  },
+  {
+    "source": "/images/partners/medd.png",
+    "width": 192,
+    "bytes": 1580,
+    "originalBytes": 23895
+  },
+  {
+    "source": "/images/partners/medd.png",
+    "width": 320,
+    "bytes": 3116,
+    "originalBytes": 23895
+  },
+  {
+    "source": "/images/partners/medd.png",
+    "width": 480,
+    "bytes": 5024,
+    "originalBytes": 23895
+  },
+  {
+    "source": "/images/partners/medd.png",
+    "width": 496,
+    "bytes": 5066,
+    "originalBytes": 23895
+  },
+  {
+    "source": "/images/partners/ogpnrf.jpg",
+    "width": 192,
+    "bytes": 8376,
+    "originalBytes": 29688
+  },
+  {
+    "source": "/images/partners/ogpnrf.jpg",
+    "width": 260,
+    "bytes": 12876,
+    "originalBytes": 29688
   },
   {
     "source": "/images/partners/reforestaction.png",
