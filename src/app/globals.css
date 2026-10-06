@@ -1524,7 +1524,7 @@ p, a, button {
 }
 .partner-list {
   display: grid;
-  gap: 16px;
+  gap: var(--card-gap);
   margin-top: 36px;
 }
 .partner-list li {
@@ -2640,12 +2640,10 @@ p, a, button {
   }
   .partner-list {
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 16px;
     margin-top: 42px;
   }
   .partner-list li {
     min-height: 180px;
-    aspect-ratio: 1.18;
   }
   .cta-section {
     padding-block: 74px;

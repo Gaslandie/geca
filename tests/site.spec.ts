@@ -277,7 +277,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     const partnerCards = await page.locator(".partner-list li").evaluateAll((cards) =>
       cards.map((card) => {
         const box = card.getBoundingClientRect();
-        return { width: box.width, height: box.height };
+        return { width: box.width, height: box.height, x: box.x, y: box.y, right: box.right, bottom: box.bottom };
       }),
     );
     // Cinq logos existants et cinq fournis dans RECOMMANDATIONS.docx.
@@ -285,6 +285,18 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     for (const card of partnerCards) {
       expect(Math.abs(card.width - partnerCards[0].width)).toBeLessThan(1);
       expect(Math.abs(card.height - partnerCards[0].height)).toBeLessThan(1);
+    }
+    // Des cartes de même largeur peuvent pourtant se chevaucher dans la grille.
+    const partnerGrid = (await page.locator(".partner-list").boundingBox())!;
+    const partnerGap = await page.locator(".partner-list").evaluate((grid) => parseFloat(getComputedStyle(grid).gap));
+    expect(partnerGap).toBeGreaterThanOrEqual(20);
+    for (const [index, card] of partnerCards.entries()) {
+      expect(card.x).toBeGreaterThanOrEqual(partnerGrid.x - 1);
+      expect(card.right).toBeLessThanOrEqual(partnerGrid.x + partnerGrid.width + 1);
+      if (index === 0) continue;
+      const previous = partnerCards[index - 1];
+      const sameRow = Math.abs(card.y - previous.y) < 1;
+      expect(sameRow ? card.x - previous.right : card.y - previous.bottom).toBeCloseTo(partnerGap, 0);
     }
     expect(
       await page.evaluate(

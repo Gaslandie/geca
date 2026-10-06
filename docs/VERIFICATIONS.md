@@ -657,3 +657,14 @@ Les licences des cinq logos ne sont pas précisées dans le document client ; le
 Gassama demande explicitement de terminer, faire le commit et pousser sur GitHub Pages. Les contrôles ci-dessus restent pertinents pour cette même version : aucun code du site n’a changé depuis leur réussite. La branche distante `main` a été relue avant le commit, sans divergence avec le HEAD local ; le workflow publie uniquement `out` et conserve ses vérifications avant déploiement.
 
 Le Word source contient un nom d’auteur et de dernier éditeur dans ses métadonnées. Il reste intact dans l’archive locale, mais son chemin est exclu de Git pour ne pas diffuser ces données inutiles au site dans le dépôt public. Les textes extraits, corrections et logos nécessaires sont versionnés. Les liens vers ce Word dans la documentation désignent donc une archive locale, absente du dépôt distant et de Pages.
+
+
+## Cartes des logos qui se chevauchent — 6 octobre 2026
+
+Gassama signale des cartes jointives sur sa capture et autorise explicitement le commit et le push. Cause reproduite : à 1024 px, chaque carte mesurait 212,39 px pour une colonne de 160,5 px, avec un chevauchement réel de 35,89 px. Retrait du rapport imposé `aspect-ratio: 1.18` sur les cartes ; grille reliée à `--card-gap` (20–32 px). Les images conservent leurs proportions, textes alternatifs, sources et tailles de chargement. Aucun contenu GECA modifié.
+
+Vérifications réussies : lint, TypeScript, compilation Pages puis reconstruction locale, huit tests de l’export et sept tests locaux ciblés (règles communes, routes FR/EN, accès refusés, écrans 320/1024/1440 px). Le contrôle existant des logos mesure désormais la distance entre leurs bords et leur maintien dans la grille ; il ne se limite plus à comparer leurs tailles.
+
+Mesures complémentaires sur 13 largeurs (320, 375, 599, 600, 768, 1023, 1024, 1041, 1100, 1199, 1200, 1440, 1920 px), à 100 % et 200 % : dix cartes dans leur cadre, distances horizontales/verticales conformes au gap commun, aucun chevauchement ni débordement de page. Survol sans variation de dimensions ni de padding. Espacement également contrôlé sans JavaScript à 1041 px. Captures à 1041 et 1440 px examinées, cartes distinctes ; capture mobile disponible sous `/tmp/geca-logo-spacing-375.png`.
+
+Serveur local reconstruit et redémarré sur `127.0.0.1:3000` après identification du processus GECA avant arrêt. Contrôles visuels réalisés sur ce serveur. Changement limité au CSS et aux contrôles de disposition : aucun service, collecte, dépendance, accès aux données ou protection modifié. Les tests de routes inconnues, fichiers privés et URL d’images refusées restent réussis. Les comptes et droits révoqués ne sont pas applicables à cette maquette sans compte. Les limites des licences déjà documentées restent inchangées. La référence de bonnes pratiques du Bureau n’a pas été modifiée.

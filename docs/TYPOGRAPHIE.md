@@ -139,3 +139,8 @@ Les deux paragraphes du hero et le paragraphe de présentation sous « Notre org
 ## Ajustements du client — règle prioritaire du 6 octobre 2026
 
 Source : `RECOMMANDATIONS.docx`. Sur l’accueil seulement, le slogan « AGIR POUR UN AVENIR DURABLE » utilise `calc(var(--text-page-title) * 0.6)` : 24–43,2 px au lieu de 40–72 px avec la taille racine habituelle. Le nom « Global EcoAction » utilise `calc(var(--text-label) * 1.5)` : 21 px au lieu de 14 px. La casse du nom reste exacte (`text-transform: none`), sur le hero et sur le repère du bloc final de Contact. Aucun pays n’est ajouté au nom. Les autres tailles, polices, centrages, animations et espacements communs restent applicables. Cette demande est l’exception explicite à la taille commune du titre du hero décrite le 4 octobre.
+
+
+## Cartes partenaires — 6 octobre 2026
+
+La grille des logos utilise `--card-gap` (20–32 px) dans les deux directions. Ne pas imposer un rapport largeur/hauteur aux cartes : combiné à une hauteur minimale, il les faisait dépasser des colonnes à cinq éléments. Les images gardent `object-fit: contain`, les cartes conservent le padding commun et une hauteur minimale, sans changement de dimensions au survol.
