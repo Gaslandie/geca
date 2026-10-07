@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { aboutContent, href, identity, interfaceText, type Locale } from "@/content/site";
-import { Button, Container, PhotoPlaceholder, SectionHeading } from "./ui";
+import { aboutContent, href, identity, interfaceText, pageIntroductions, type Locale } from "@/content/site";
+import { Button, Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
 
 export function About({ locale }: { locale: Locale }) {
   const text = aboutContent[locale];
   return (
     <main id="main-content" tabIndex={-1} className="about-page">
-      <section className="about-intro" aria-labelledby="about-page-title">
+      <section className="about-intro page-hero" aria-labelledby="about-page-title">
         <Container>
           <nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
             <Link href={href(locale)}>{interfaceText[locale].home}</Link>
@@ -17,10 +17,10 @@ export function About({ locale }: { locale: Locale }) {
             <div>
               <p className="eyebrow">{text.label}</p>
               <h1 id="about-page-title">{text.title}</h1>
-              <p className="section-description">{text.introduction}</p>
             </div>
-            <Button href="#notre-histoire" variant="text">{text.explore}</Button>
           </div>
+          <PageIntroduction>{pageIntroductions[locale]["a-propos"]}</PageIntroduction>
+          <div className="page-hero-actions"><Button href="#notre-histoire" variant="text">{text.explore}</Button></div>
         </Container>
         <div className="about-intro-band">
           <PhotoPlaceholder label={text.photoLabel} photo={text.photo} className="about-landscape" priority sizes="(max-width: 767px) 100vw, (min-width: 1600px) 922px, 62vw" />

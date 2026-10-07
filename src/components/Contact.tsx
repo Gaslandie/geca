@@ -1,23 +1,30 @@
 import Link from "next/link";
-import { contactContent, contactPhotos, href, identity, interfaceText, type Locale } from "@/content/site";
+import { contactContent, contactPhotos, href, identity, interfaceText, pageIntroductions, type Locale } from "@/content/site";
 import { ContactForm } from "./ContactForm";
-import { Container, PhotoPlaceholder, SectionHeading } from "./ui";
+import { ContactMap } from "./ContactMap";
+import { Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
 
 export function Contact({ locale }: { locale: Locale }) {
   const text = contactContent[locale];
   return (
     <main id="main-content" tabIndex={-1} className="contact-page">
-      <section className="contact-split" aria-labelledby="contact-title">
-        <div className="contact-introduction">
-          <div className="contact-copy">
+      <section className="page-hero" aria-labelledby="contact-title">
+        <Container>
             <nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
               <Link href={href(locale)}>{interfaceText[locale].home}</Link>
               <span aria-hidden="true">/</span>
               <span aria-current="page">Contact</span>
             </nav>
+          <div className="section-heading"><div>
             <p className="eyebrow">{text.label}</p>
             <h1 id="contact-title">{text.title}</h1>
-            <p className="contact-description">{text.description}</p>
+          </div></div>
+          <PageIntroduction>{pageIntroductions[locale].contact}</PageIntroduction>
+        </Container>
+      </section>
+      <section className="contact-split" aria-label={text.form.title}>
+        <div className="contact-introduction">
+          <div className="contact-copy">
             <a className="contact-email" href={`mailto:${identity.email}`}>
               {identity.email}
             </a>
@@ -43,6 +50,8 @@ export function Contact({ locale }: { locale: Locale }) {
           </div>
         </Container>
       </section>
+
+      <ContactMap locale={locale} />
 
       <section className="contact-closing" aria-label={text.closingTitle}>
         <div className="section">

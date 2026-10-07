@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { href, interfaceText, partnershipContent, type Locale } from "@/content/site";
-import { Button, Container, SectionHeading } from "./ui";
+import { href, interfaceText, pageIntroductions, partnershipContent, type Locale } from "@/content/site";
+import { Button, Container, PageIntroduction, SectionHeading } from "./ui";
 
 export function Partnership({ locale }: { locale: Locale }) {
   const text = partnershipContent[locale];
   return (
     <main id="main-content" className="partnership-page" tabIndex={-1}>
-      <section className="partnership-intro" aria-labelledby="partnership-title">
+      <section className="partnership-intro page-hero" aria-labelledby="partnership-title">
         <Container>
           <nav className="contact-breadcrumb" aria-label={locale === "fr" ? "Fil d’Ariane" : "Breadcrumb"}>
             <Link href={href(locale)}>{interfaceText[locale].home}</Link>
@@ -19,6 +19,7 @@ export function Partnership({ locale }: { locale: Locale }) {
               <h1 id="partnership-title">{text.title}</h1>
             </div>
           </div>
+          <PageIntroduction>{pageIntroductions[locale]["devenir-partenaire"]}</PageIntroduction>
         </Container>
       </section>
       <section className="section" aria-label={text.strengthsTitle}>

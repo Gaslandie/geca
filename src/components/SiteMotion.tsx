@@ -56,10 +56,43 @@ export function SiteMotion() {
     const finished = new WeakSet<Element>();
     const observed = new Set<Element>();
     const running = new Map<Element, Animation>();
+    let counterObserver: IntersectionObserver | null = null;
+    let counterFrame = 0;
+    const counted = new WeakSet<Element>();
+    let counters: { element: HTMLElement; value: number; text: string }[] = [];
+    const finishCounters = () => {
+      cancelAnimationFrame(counterFrame);
+      counterFrame = 0;
+      counters.forEach(({ element, text }) => { element.textContent = text; });
+      counters = [];
+    };
+    const countTogether = (group: Element) => {
+      if (counted.has(group)) return;
+      counted.add(group);
+      counters = [...group.querySelectorAll<HTMLElement>("[data-count]")].map((element) => ({
+        element, value: Number(element.dataset.count), text: element.textContent ?? "",
+      })).filter(({ value }) => Number.isSafeInteger(value) && value >= 0);
+      const formatter = new Intl.NumberFormat("fr-FR");
+      const started = performance.now();
+      counters.forEach(({ element }) => { element.textContent = "0"; });
+      const tick = (now: number) => {
+        const progress = Math.min(1, (now - started) / 1800);
+        const fraction = 1 - Math.pow(1 - progress, 3);
+        counters.forEach(({ element, value }) => {
+          element.textContent = formatter.format(Math.floor(value * fraction)).replace(/\u202f/g, " ");
+        });
+        if (progress < 1) counterFrame = requestAnimationFrame(tick);
+        else finishCounters();
+      };
+      counterFrame = requestAnimationFrame(tick);
+    };
     let observer: IntersectionObserver | null = null;
     let mutations: MutationObserver | null = null;
 
     const stop = () => {
+      counterObserver?.disconnect();
+      counterObserver = null;
+      finishCounters();
       observer?.disconnect();
       observer = null;
       mutations?.disconnect();
@@ -126,9 +159,21 @@ export function SiteMotion() {
         }
       };
       observeTargets();
+      counterObserver = new IntersectionObserver((entries) => {
+        for (const entry of entries) if (entry.isIntersecting) {
+          countTogether(entry.target);
+          counterObserver?.unobserve(entry.target);
+        }
+      }, { threshold: 0 });
+      document.querySelectorAll(".impact .stats-grid").forEach((group) => {
+        if (!counted.has(group)) counterObserver?.observe(group);
+      });
       const main = document.querySelector("main");
       if (main && typeof MutationObserver === "function") {
-        mutations = new MutationObserver(observeTargets);
+        mutations = new MutationObserver((records) => {
+          if (records.every((record) => record.target instanceof Element && record.target.matches(".stat-count"))) return;
+          observeTargets();
+        });
         mutations.observe(main, { childList: true, subtree: true });
       }
     };
@@ -142,12 +187,15 @@ export function SiteMotion() {
       }
     };
 
+    const handleVisibility = () => { if (document.hidden) finishCounters(); };
     start();
+    document.addEventListener("visibilitychange", handleVisibility);
     preference.addEventListener("change", start);
     connection?.addEventListener?.("change", start);
     document.addEventListener("focusin", handleFocus);
     return () => {
       stop();
+      document.removeEventListener("visibilitychange", handleVisibility);
       preference.removeEventListener("change", start);
       connection?.removeEventListener?.("change", start);
       document.removeEventListener("focusin", handleFocus);

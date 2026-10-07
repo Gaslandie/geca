@@ -1,4 +1,30 @@
 import { expect, test } from "@playwright/test";
+import { locales, routes } from "../src/content/site";
+
+for (const locale of locales) {
+  for (const width of [375, 1440]) {
+    test(`introductions ${locale} ${width}px : modèle commun sur toutes les pages internes`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 1000 });
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      for (const route of routes) {
+        await page.goto(`/${locale}/${route.path}`);
+        const introduction = page.locator("main .page-intro-copy");
+        await expect(introduction).toHaveCount(1);
+        await expect(introduction).toHaveCSS("text-align", "justify");
+        await expect(introduction).toHaveCSS("text-align-last", "start");
+        expect(await introduction.evaluate((element) => getComputedStyle(element, "::before").width)).toBe("4px");
+        const heading = await page.locator("main h1").boundingBox();
+        const paragraph = await introduction.boundingBox();
+        expect(paragraph!.y, route.path).toBeGreaterThan(heading!.y + heading!.height);
+        expect(paragraph!.width, route.path).toBeLessThanOrEqual(900);
+        await page.addStyleTag({ content: "html { font-size: 200%; }" });
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), route.path).toBe(true);
+      }
+      await page.goto(`/${locale}`);
+      await expect(page.locator(".page-intro-copy")).toHaveCount(0);
+    });
+  }
+}
 
 // Contrat visuel commun : les nouvelles pages doivent réutiliser ces mêmes règles.
 for (const width of [375, 1440]) {

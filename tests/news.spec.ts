@@ -79,7 +79,7 @@ for (const locale of ["fr", "en"] as const) {
     for (const entry of entries) {
       await page.goto(`/${locale}/${newsArticlePath(entry.id)}`);
       await expect(page.locator("#article-title")).toHaveText(entry.title);
-      for (const paragraph of entry.description.split("\n\n")) await expect(page.locator(".news-article-body")).toContainText(paragraph);
+      for (const paragraph of entry.description.split("\n\n")) await expect(page.locator("main > article")).toContainText(paragraph);
       if (entry.partner) await expect(page.locator(".news-article-facts")).toContainText(entry.partner);
       if (entry.zone) await expect(page.locator(".news-article-facts")).toContainText(entry.zone);
       await expect(page.locator(".news-article-neighbor")).toHaveCount(entry === entries[0] || entry === entries.at(-1) ? 1 : 2);

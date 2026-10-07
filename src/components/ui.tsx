@@ -120,6 +120,10 @@ export function PhotoPlaceholder({
   );
 }
 
+export function PageIntroduction({ children, id }: { children: string; id?: string }) {
+  return <div id={id} className="page-intro-copy" data-reveal><p>{children}</p></div>;
+}
+
 export function StatCard({
   value,
   unit,
@@ -132,7 +136,9 @@ export function StatCard({
   return (
     <div className="stat card-content">
       <p className="stat-value">
-        {value}
+        <span className="stat-final" aria-hidden="true">{value}</span>
+        <span className="sr-only">{value}</span>
+        <span className="stat-count" data-count={Number(value.replace(/\s/g, ""))} aria-hidden="true">{value}</span>
         {unit && <span> {unit}</span>}
       </p>
       <p className="stat-label">{label}</p>

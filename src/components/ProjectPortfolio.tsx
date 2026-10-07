@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { getPortfolioProjects, href, interfaceText, portfolioContent, territorialExperience, type Locale } from "@/content/site";
-import { Button, Container, PhotoPlaceholder, SectionHeading } from "./ui";
+import { getPortfolioProjects, href, interfaceText, pageIntroductions, portfolioContent, territorialExperience, type Locale } from "@/content/site";
+import { Button, Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
 
 export function ProjectPortfolio({ locale }: { locale: Locale }) {
   const text = portfolioContent[locale];
@@ -9,7 +9,7 @@ export function ProjectPortfolio({ locale }: { locale: Locale }) {
 
   return (
     <main id="main-content" className="portfolio-page" tabIndex={-1}>
-      <section className="portfolio-intro" aria-labelledby="portfolio-title">
+      <section className="portfolio-intro page-hero" aria-labelledby="portfolio-title">
         <Container>
           <nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
             <Link href={href(locale)}>{interfaceText[locale].home}</Link>
@@ -23,6 +23,7 @@ export function ProjectPortfolio({ locale }: { locale: Locale }) {
               <p className="section-description">{text.introduction}</p>
             </div>
           </div>
+          <PageIntroduction>{pageIntroductions[locale].projets}</PageIntroduction>
         </Container>
       </section>
 

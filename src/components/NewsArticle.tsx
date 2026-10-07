@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getNewsEntries, href, interfaceText, newsArticlePath, newsContent, type Locale, type NewsEntry } from "@/content/site";
-import { Button, Container, PhotoPlaceholder } from "./ui";
+import { Button, Container, PageIntroduction, PhotoPlaceholder } from "./ui";
 
 export function NewsArticle({ locale, entry }: { locale: Locale; entry: NewsEntry }) {
   const text = newsContent[locale];
@@ -12,7 +12,7 @@ export function NewsArticle({ locale, entry }: { locale: Locale; entry: NewsEntr
   return (
     <main id="main-content" className="news-article-page" tabIndex={-1}>
       <article>
-        <section className="section" aria-labelledby="article-title">
+        <section className="section page-hero" aria-labelledby="article-title">
           <Container>
             <nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
               <Link href={href(locale)}>{interfaceText[locale].home}</Link>
@@ -30,9 +30,14 @@ export function NewsArticle({ locale, entry }: { locale: Locale; entry: NewsEntr
                   : entry.period}</p>
               </div>
             </header>
+            <PageIntroduction>{entry.description.split("\n\n")[0]}</PageIntroduction>
+          </Container>
+        </section>
+        <section className="section">
+          <Container>
             {entry.photo && <PhotoPlaceholder className="news-article-photo" photo={entry.photo} label={entry.title} sizes="(min-width: 1280px) 1144px, 100vw" />}
             <div className="news-article-body" data-reveal>
-              {entry.description.split("\n\n").map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {entry.description.split("\n\n").slice(1).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               {(entry.zone || entry.partner) && <dl className="news-article-facts">
                 {entry.zone && <div><dt>{text.zone}</dt><dd>{entry.zone}</dd></div>}
                 {entry.partner && <div><dt>{text.partner}</dt><dd>{entry.partner}</dd></div>}

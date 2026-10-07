@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getInterventionAreas, href, interfaceText, interventionContent, type Locale } from "@/content/site";
-import { Button, Container, PhotoPlaceholder, SectionHeading } from "./ui";
+import { Button, Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
 
 export function InterventionAreas({ locale }: { locale: Locale }) {
   const text = interventionContent[locale];
@@ -8,7 +8,7 @@ export function InterventionAreas({ locale }: { locale: Locale }) {
 
   return (
     <main id="main-content" tabIndex={-1} className="intervention-page">
-      <section className="intervention-intro" aria-labelledby="intervention-title">
+      <section className="intervention-intro page-hero" aria-labelledby="intervention-title">
         <Container>
           <nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
             <Link href={href(locale)}>{interfaceText[locale].home}</Link>
@@ -24,9 +24,7 @@ export function InterventionAreas({ locale }: { locale: Locale }) {
               <p className="section-description">{text.introduction}</p>
             </div>
           </div>
-          <div id="domaines" className="intervention-overview" data-reveal>
-            <p>{text.overview}</p>
-          </div>
+          <PageIntroduction id="domaines">{text.overview}</PageIntroduction>
         </Container>
       </section>
 

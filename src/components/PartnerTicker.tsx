@@ -22,7 +22,6 @@ const staticOnServer = () => false;
 
 export function PartnerTicker({ names, label }: { names: readonly string[]; label: string }) {
   const enabled = useSyncExternalStore(subscribe, canMove, staticOnServer);
-  const [paused, setPaused] = useState(false);
   const [visible, setVisible] = useState(true);
   const region = useRef<HTMLElement>(null);
 
@@ -43,12 +42,10 @@ export function PartnerTicker({ names, label }: { names: readonly string[]; labe
   }, [enabled]);
 
   return (
-    <aside ref={region} className="partner-ticker" aria-label={label} data-reveal="off" data-enabled={enabled} data-paused={paused || !visible}>
+    <aside ref={region} className="partner-ticker" aria-label={label} tabIndex={enabled ? 0 : undefined} data-reveal="off" data-enabled={enabled} data-paused={!visible}>
       <div className="partner-ticker-heading">
         <p>{label}</p>
-        {enabled && <button className="partner-ticker-control" type="button" aria-pressed={paused} onClick={() => setPaused(!paused)}>
-          {paused ? "Reprendre le défilement" : "Mettre en pause"}
-        </button>}
+
       </div>
       <div className="partner-ticker-window">
         <div className="partner-ticker-track">

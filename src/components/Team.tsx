@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { href, interfaceText, teamContent, teamMembers, type Locale } from "@/content/site";
+import { href, interfaceText, pageIntroductions, teamContent, teamMembers, type Locale } from "@/content/site";
 import { assetPath } from "@/lib/assets";
-import { Button, Container, SectionHeading } from "./ui";
+import { Button, Container, PageIntroduction, SectionHeading } from "./ui";
 
 function TeamGrid({ locale }: { locale: Locale }) {
   return (
@@ -14,7 +14,7 @@ function TeamGrid({ locale }: { locale: Locale }) {
             alt={member.name}
             width={member.photo.width}
             height={member.photo.height}
-            sizes="(max-width: 479px) 100vw, 360px"
+            sizes="220px"
             className="team-portrait"
           />
           <div className="card-content">
@@ -45,7 +45,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
   const text = teamContent[locale];
   return (
     <main id="main-content" tabIndex={-1}>
-      <section className="mission-intro" aria-labelledby="team-page-title">
+      <section className="mission-intro page-hero" aria-labelledby="team-page-title">
         <Container>
           <nav className="contact-breadcrumb" aria-label={locale === "fr" ? "Fil d’Ariane" : "Breadcrumb"}>
             <Link href={href(locale)}>{interfaceText[locale].home}</Link>
@@ -57,6 +57,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
           <div className="mission-intro-heading section-heading">
             <div><p className="eyebrow">Global EcoAction</p><h1 id="team-page-title">{text.pageTitle}</h1></div>
           </div>
+          <PageIntroduction>{pageIntroductions[locale].equipe}</PageIntroduction>
         </Container>
       </section>
       <section className="section" aria-label={text.title}>

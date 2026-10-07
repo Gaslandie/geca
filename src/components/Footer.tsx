@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   footerLinks,
+  homeContent,
   href,
   identity,
   interfaceText,
@@ -9,6 +11,7 @@ import {
 } from "@/content/site";
 import { Container } from "./ui";
 import { BrandLogo } from "./BrandLogo";
+import { assetPath } from "@/lib/assets";
 
 export function Footer({ locale }: { locale: Locale }) {
   const text = interfaceText[locale];
@@ -23,6 +26,14 @@ export function Footer({ locale }: { locale: Locale }) {
   }
   return (
     <footer className="site-footer">
+      <Image
+        className="footer-background"
+        src={assetPath(homeContent.hero.photo.src)}
+        alt=""
+        aria-hidden="true"
+        fill
+        sizes="100vw"
+      />
       <Container>
         <div className="footer-grid">
           <div className="footer-brand">
@@ -34,7 +45,6 @@ export function Footer({ locale }: { locale: Locale }) {
               <BrandLogo />
             </Link>
             <p>{text.footerDescription}</p>
-            <p className="social-placeholder">{text.socials}</p>
           </div>
           <div>
             <h2>{text.navigation}</h2>

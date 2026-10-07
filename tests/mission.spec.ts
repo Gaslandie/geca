@@ -48,8 +48,11 @@ for (const locale of ["fr", "en"] as const) {
     await page.getByRole("link", { name: locale === "fr" ? "Crédits photo" : "Photo credits", exact: true }).click();
     await expect(page).toHaveURL(new RegExp(`/${locale}/mentions-legales#credits-photo$`));
     for (const photo of Object.values(clientPhotoSources)) {
-      await expect(page.locator("#credits-photo").getByRole("heading", { name: photo[locale], exact: true })).toBeVisible();
-      await expect(page.locator("#credits-photo").getByText(`${photo.source} — ${photo.reference}`, { exact: true })).toBeVisible();
+      const credit = page.locator("#credits-photo li")
+        .filter({ has: page.getByRole("heading", { name: photo[locale], exact: true }) })
+        .filter({ has: page.getByText(`${photo.source} — ${photo.reference}`, { exact: true }) });
+      await expect(credit).toHaveCount(1);
+      await expect(credit).toBeVisible();
     }
     await context.close();
   });

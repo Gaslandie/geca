@@ -48,7 +48,7 @@ test("hero : apparition commune, arrêt au clavier et aucune répétition", asyn
 });
 
 for (const width of [320, 768, 1440]) {
-  test(`impact ${width}px : photo continue, cartes empilées et texte agrandi`, async ({ page }) => {
+  test(`impact ${width}px : cartes décalées, chiffres lisibles et texte agrandi`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/fr");
@@ -56,23 +56,23 @@ for (const width of [320, 768, 1440]) {
     await section.scrollIntoViewIfNeeded();
     const cards = section.locator(".stat");
     await expect(cards).toHaveCount(4);
-    await expect(section.locator(".stat-value")).toHaveText(["35 000", "365 000", "150 000", "84"]);
+    await expect(section.locator(".stat-count")).toHaveText(["35 000", "365 000", "150 000", "84"]);
     await expect(section.locator(".stat-label")).toHaveText(["arbres plantés en 2019", "arbres plantés en 2020", "arbres plantés en 2021", "collectivités accompagnées"]);
     await expect(section.locator(".impact-achievements li")).toHaveText([...homeContent.impact.achievements]);
-    await expect(section.getByText("Illustration du thème", { exact: true })).toBeVisible();
+    await expect(section.locator(".impact-photo")).toHaveCount(0);
     const heading = (await section.locator(".impact-heading").boundingBox())!;
     const first = (await cards.first().boundingBox())!;
-    expect(first.y).toBeGreaterThanOrEqual(heading.y + heading.height);
-    const sectionBox = (await section.boundingBox())!;
-    expect(heading.x + heading.width / 2).toBeCloseTo(sectionBox.x + sectionBox.width / 2, 0);
-    for (let index = 1; index < 4; index++) {
-      const previous = (await cards.nth(index - 1).boundingBox())!;
-      const current = (await cards.nth(index).boundingBox())!;
-      expect(current.y).toBeGreaterThan(previous.y + previous.height);
+    if (width < 1100) expect(first.y).toBeGreaterThanOrEqual(heading.y + heading.height);
+    const column = (await section.locator(".impact-copy").boundingBox())!;
+    expect(heading.x + heading.width / 2).toBeCloseTo(column.x + column.width / 2, 0);
+    const boxes = await cards.evaluateAll(elements => elements.map(element => {
+      const box = element.getBoundingClientRect();
+      return {left:box.left,right:box.right,top:box.top,bottom:box.bottom};
+    }));
+    for (let index = 0; index < boxes.length; index++) for (let other = index + 1; other < boxes.length; other++) {
+      const a = boxes[index], b = boxes[other];
+      expect(a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top).toBe(true);
     }
-    const background = (await section.locator(".impact-photo").boundingBox())!;
-    const box = (await section.boundingBox())!;
-    expect(background).toEqual(box);
     expect((await new AxeBuilder({ page }).include(".impact").analyze()).violations).toEqual([]);
     await section.screenshot({ path: `/tmp/geca-impact-new-${width}.png` });
     await page.addStyleTag({ content: ":root { font-size: 200%; }" });
@@ -137,7 +137,7 @@ for (const mode of ["reduce", "saveData", "unsupported", "noAnimate"] as const) 
     await page.goto("/fr");
     await page.locator(".impact").scrollIntoViewIfNeeded();
     await expect(page.locator("#impact-title")).toBeVisible();
-    await expect(page.locator(".stat-value")).toHaveText(["35 000", "365 000", "150 000", "84"]);
+    await expect(page.locator(".stat-count")).toHaveText(["35 000", "365 000", "150 000", "84"]);
     expect(await page.evaluate(() => (window as unknown as { gecaMotionCalls: string[] }).gecaMotionCalls)).toEqual([]);
     expect(errors).toEqual([]);
   });
@@ -197,3 +197,35 @@ for (const [path, selectors] of [
     await expect(cards.last()).toBeVisible();
   });
 }
+
+
+test("compteurs impact : progression commune, fin exacte et pas de répétition", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/fr");
+  await page.locator(".impact .stats-grid").scrollIntoViewIfNeeded();
+  const values = () => page.locator(".impact .stat-count").evaluateAll(nodes => nodes.map(node => Number(node.textContent?.replace(/\s/g, ""))));
+  await expect.poll(values).not.toEqual([35000, 365000, 150000, 84]);
+  const sample = await values();
+  const targets = [35000, 365000, 150000, 84];
+  const fraction = sample[0] / targets[0];
+  for (let index = 1; index < 4; index++) expect(Math.abs(sample[index] / targets[index] - fraction)).toBeLessThanOrEqual(1 / targets[index] + 1 / targets[0]);
+  await expect(page.locator(".impact .stat-count")).toHaveText(["35 000", "365 000", "150 000", "84"]);
+  await expect(page.locator(".impact .stat-value .sr-only")).toHaveText(["35 000", "365 000", "150 000", "84"]);
+  const card = page.locator(".impact .stat").first();
+  const before = await card.evaluate(element => ({width:element.clientWidth,height:element.clientHeight,shadow:getComputedStyle(element).boxShadow}));
+  await card.hover();
+  await expect.poll(()=>card.evaluate(element=>getComputedStyle(element).boxShadow)).not.toBe(before.shadow);
+  expect(await card.evaluate(element=>({width:element.clientWidth,height:element.clientHeight}))).toEqual({width:before.width,height:before.height});
+  await page.locator(".hero").scrollIntoViewIfNeeded();
+  await page.locator(".impact .stats-grid").scrollIntoViewIfNeeded();
+  expect(await values()).toEqual(targets);
+});
+
+test("compteurs sans JavaScript : les valeurs finales restent lisibles", async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled:false });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:3000/fr");
+  await expect(page.locator(".impact .stat-count")).toHaveText(["35 000", "365 000", "150 000", "84"]);
+  await context.close();
+});

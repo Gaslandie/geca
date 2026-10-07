@@ -14,14 +14,12 @@ for (const width of [320, 768, 1440]) {
     await expect(ticker.locator("img")).toHaveCount(0);
     await expect(page.locator(".partners .partner-logo")).toHaveCount(12);
     await expect(ticker.locator(".partner-ticker-track")).toHaveCSS("animation-duration", "180s");
-    await ticker.getByRole("button", { name: "Mettre en pause" }).click();
+    await expect(ticker.getByRole("button")).toHaveCount(0);
+    await ticker.focus();
     await page.mouse.move(0, 0);
-    await page.keyboard.press("Tab");
-    await expect(ticker).toHaveAttribute("data-paused", "true");
     await expect(ticker.locator(".partner-ticker-track")).toHaveCSS("animation-play-state", "paused");
-    await ticker.getByRole("button", { name: "Reprendre le défilement" }).focus();
-    await page.keyboard.press("Enter");
-    await expect(ticker).toHaveAttribute("data-paused", "false");
+    await page.keyboard.press("Tab");
+    await expect(ticker.locator(".partner-ticker-track")).toHaveCSS("animation-play-state", "running");
     await page.emulateMedia({ reducedMotion: "reduce" });
     await expect(ticker).toHaveAttribute("data-enabled", "false");
     await expect(ticker.getByRole("button")).toHaveCount(0);

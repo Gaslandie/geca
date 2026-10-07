@@ -54,7 +54,7 @@ for (const width of [320, 375, 768, 1440, 1920]) {
 test("domaines : introduction, ancres directes, accueil, langue et destinations", async ({ page, request }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(`/fr${path}`);
-  await expect(page.locator(".intervention-overview")).toHaveText(interventionContent.fr.overview);
+  await expect(page.locator(".page-intro-copy")).toHaveText(interventionContent.fr.overview);
   await expect(page.locator(".intervention-nav, .intervention-back")).toHaveCount(0);
   for (const area of getInterventionAreas("fr")) {
     await page.goto(`/fr${path}#${area.id}`);

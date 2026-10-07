@@ -1,14 +1,14 @@
 import Link from "next/link";
-import { getNewsEntries, href, interfaceText, newsArticlePath, newsContent, type Locale } from "@/content/site";
+import { getNewsEntries, href, interfaceText, newsArticlePath, newsContent, pageIntroductions, type Locale } from "@/content/site";
 import { BrandLogo } from "./BrandLogo";
-import { Container, PhotoPlaceholder, SectionHeading } from "./ui";
+import { Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
 
 export function News({ locale }: { locale: Locale }) {
   const text = newsContent[locale];
   const entries = getNewsEntries(locale);
   return (
     <main id="main-content" className="news-page" tabIndex={-1}>
-      <section className="section" aria-labelledby="news-page-title">
+      <section className="section page-hero" aria-labelledby="news-page-title">
         <Container>
           <nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
             <Link href={href(locale)}>{interfaceText[locale].home}</Link>
@@ -22,6 +22,7 @@ export function News({ locale }: { locale: Locale }) {
               <p className="section-description">{text.introduction}</p>
             </div>
           </div>
+          <PageIntroduction>{pageIntroductions[locale].actualites}</PageIntroduction>
         </Container>
       </section>
       <section className="section section--tinted" aria-label={text.archiveTitle}>

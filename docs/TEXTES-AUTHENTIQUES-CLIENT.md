@@ -1,5 +1,17 @@
 # Textes authentiques du client — référence GECA
 
+## Introductions des pages internes — demande de Gassama, 7 octobre 2026
+
+Gassama demande un paragraphe plus développé sous chaque titre de page, hors accueil, avec la présentation de la page Domaines. Les synthèses FR/EN sont centralisées dans `pageIntroductions` de `src/content/site.ts`. Il s’agit de reformulations éditoriales des informations déjà transmises, pas de nouveaux faits client. À propos reprend l’identité et l’implantation actuelles ; Mission/Vision reprend les résumés validés ; Équipe reprend les capacités administratives et de terrain sans biographie nouvelle ; Partenariat reprend les atouts et le positionnement. Domaines conserve son texte. Les articles conservent leur premier paragraphe exact dans l’introduction, puis la suite du texte sans doublon. Les pages encore en préparation gardent cet état ; aucun paiement, envoi de message ou service nouveau n’est annoncé.
+
+Nouvelles synthèses françaises, sans changement des textes sources :
+
+- Projets : « Nos projets et programmes relient la protection de la nature à l’amélioration des conditions de vie des communautés en Guinée. Reboisement communautaire, restauration des écosystèmes, agroécologie et adaptation climatique s’associent à la formation, à la concertation territoriale et au développement d’activités génératrices de revenus. À Kounounkan et Moussayah, notre expérience combine diagnostic territorial, conservation et développement local. Découvrez les initiatives menées avec les communautés et nos partenaires, leurs objectifs et leurs territoires d’intervention. »
+- Actualités : « La vie de Global EcoAction se construit au fil de ses engagements auprès des communautés et de ses actions pour la nature en Guinée. Retrouvez les étapes de l’histoire de notre organisation, de sa création en 2016 à l’adoption du nom Global EcoAction en 2026, ainsi que les initiatives de reboisement, d’agroécologie, d’adaptation climatique et de développement local. Chaque article permet de découvrir une étape ou une action, avec ses objectifs et ses repères dans le temps. »
+- Contact : présentation existante, complétée par « Nos échanges peuvent porter sur la restauration des écosystèmes, l’agroécologie, l’adaptation climatique ou le renforcement des capacités des communautés. Retrouvez ci-dessous nos coordonnées à Conakry pour nous contacter et discuter des possibilités de travailler ensemble. »
+
+Les introductions Recherche, Confidentialité, Mentions légales et Plan du site décrivent seulement les fonctions et contenus publics existants. La page Nous soutenir reprend la mission et les invitations à échanger, sans inventer de modalités de don. Traductions fidèles dans les mêmes données partagées.
+
 ## Règle de travail
 
 Source : textes transmis par Gassama le 4 octobre 2026 et explicitement désignés comme venant du client. Ce fichier conserve les textes reçus, distincts des propositions rédigées pour la maquette.
@@ -608,3 +620,7 @@ Gassama transmet une capture Mehad et demande la même logique de présentation 
 ## Présentation des logos partenaires — Gassama, 7 octobre 2026
 
 Capture Mehad transmise avec demande d’auto-défilement ou défilement manuel par flèches pour les partenaires du bas. Mise en page seulement : douze partenaires et leurs logos existants conservés, description et titre GECA inchangés. Aucun propos de Mehad sur la confiance ou un soutien financier repris. Bandeau de noms sous le hero conservé.
+
+### Texte de présentation des partenaires — 7 octobre 2026
+
+Gassama demande de remplacer « Partenaires cités dans nos documents. » par un texte destiné au visiteur sur la place des partenaires dans les actions de GECA. Reformulation des atouts et du positionnement transmis le 4 octobre, sans rôle attribué à un organisme particulier : « Restaurer les écosystèmes et améliorer les conditions de vie des communautés est un travail collectif. Nos collaborations avec des partenaires institutionnels, techniques et financiers accompagnent ces actions en Guinée. » Les mentions internes de provenance restent dans la référence de contenu, pas dans cette présentation publique.

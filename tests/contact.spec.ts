@@ -3,6 +3,36 @@ import AxeBuilder from "@axe-core/playwright";
 import { contactContent, identity, locales } from "../src/content/site";
 
 for (const locale of locales) {
+  test(`carte ${locale} : activation explicite et itinéraire public`, async ({ page }) => {
+    const external: string[] = [];
+    page.on("request", (request) => {
+      if (new URL(request.url()).origin !== "http://127.0.0.1:3000") external.push(request.url());
+    });
+    await page.route("https://www.openstreetmap.org/export/embed.html?**", (route) => route.fulfill({
+      contentType: "text/html", body: "<!doctype html><html lang='fr'><title>Carte de test</title><body>Carte du quartier</body></html>",
+    }));
+    await page.goto(`/${locale}/contact`);
+    const map = page.getByRole("region", { name: contactContent[locale].map.title, exact: true });
+    await map.scrollIntoViewIfNeeded();
+    await expect(map.locator("iframe")).toHaveCount(0);
+    expect(external).toEqual([]);
+    const directions = map.getByRole("link", { name: contactContent[locale].map.directions });
+    const destination = new URL((await directions.getAttribute("href"))!);
+    expect(destination.origin).toBe("https://www.google.com");
+    expect(destination.searchParams.get("destination")).toBe(identity.address.fr);
+    await expect(directions).toHaveAttribute("rel", "noopener noreferrer");
+    await map.getByRole("button", { name: contactContent[locale].map.show }).focus();
+    await page.keyboard.press("Enter");
+    const frame = map.locator("iframe");
+    await expect(frame).toBeFocused();
+    await expect(frame).toHaveAttribute("referrerpolicy", "no-referrer");
+    await expect(frame).toHaveAttribute("title", contactContent[locale].map.description);
+    expect(new URL((await frame.getAttribute("src"))!).searchParams.has("marker")).toBe(false);
+    expect(external.every((url) => url.startsWith("https://www.openstreetmap.org/export/embed.html?"))).toBe(true);
+  });
+}
+
+for (const locale of locales) {
   test(`contact ${locale} : validation, aperçu, aucune transmission et effacement`, async ({ page, request }) => {
     const text = contactContent[locale];
     const errors: string[] = [];
@@ -14,6 +44,12 @@ for (const locale of locales) {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(text.title);
     await expect(page.locator(".contact-details a").first()).toHaveAttribute("href", identity.phoneHref);
     await expect(page.locator(".contact-email")).toHaveAttribute("href", `mailto:${identity.email}`);
+
+    // Terminer les images locales et préchargements de liens avant de surveiller la saisie.
+    await page.locator(".site-footer").scrollIntoViewIfNeeded();
+    await page.waitForLoadState("networkidle");
+    await form.scrollIntoViewIfNeeded();
+    await page.waitForLoadState("networkidle");
 
     const network: string[] = [];
     page.on("request", (r) => {

@@ -306,14 +306,6 @@ export function getInterventionAreas(locale: Locale) {
   }));
 }
 
-// Sélection propre à l’accueil demandée le 7 octobre 2026.
-// Les quatre autres photos client et l’image du climat sont conservées.
-const homeInterventionPhotos: Record<string, LocalPhoto> = {
-  "ressources-naturelles": clientPhoto("gbara-arrosage"),
-  "restauration-ecosystemes": clientPhoto("moussayah-pepiniere"),
-  "appui-communautes": clientPhoto("kolaboui-materiels"),
-};
-
 // Photos d’illustration autorisées par Gassama le 3 octobre 2026.
 // Sources et licences : docs/IMAGES-TEMPORAIRES.md. À remplacer par les photos GECA.
 const temporaryPhotos = {
@@ -374,6 +366,12 @@ export const contactContent = {
     visit: "Nous trouver",
     call: "Nous appeler",
     write: "Nous écrire",
+    map: {
+      title: "Géolocalisation",
+      description: "Carte du quartier de Sangoyah Marché.",
+      show: "Afficher la carte",
+      directions: "Ouvrir l’itinéraire",
+    },
     closingLabel: identity.name,
     closingTitle: "Ensemble, faisons grandir un avenir durable.",
     closingDescription: "Restaurer la nature, renforcer les communautés : chaque échange peut être le début d’une action commune.",
@@ -414,6 +412,12 @@ export const contactContent = {
     visit: "Find us",
     call: "Call us",
     write: "Email us",
+    map: {
+      title: "Location",
+      description: "Map of the Sangoyah Marché neighbourhood.",
+      show: "Show the map",
+      directions: "Get directions",
+    },
     closingLabel: identity.name,
     closingTitle: "Together, let’s grow a sustainable future.",
     closingDescription: "Restoring nature, strengthening communities: every conversation can be the start of a shared action.",
@@ -568,10 +572,7 @@ export const homeContent = {
     title: "Domaines d’expertise",
     cta: "Découvrir ce domaine",
     description: "Découvrez nos huit domaines d’expertise.",
-    items: getInterventionAreas("fr").map((area) => ({
-      ...area,
-      photo: homeInterventionPhotos[area.id] ?? area.photo,
-    })),
+    items: getInterventionAreas("fr"),
   },
   impact: {
     label: "Notre impact",
@@ -657,7 +658,7 @@ export const homeContent = {
     label: "Nos partenaires",
     title: "Ensemble, nous allons plus loin.",
     description:
-      "Partenaires cités dans nos documents.",
+      "Restaurer les écosystèmes et améliorer les conditions de vie des communautés est un travail collectif. Nos collaborations avec des partenaires institutionnels, techniques et financiers accompagnent ces actions en Guinée.",
     items: [
       {
         name: "Banque mondiale",
@@ -1439,3 +1440,35 @@ export const routes: readonly { path: string; fr: string; en: string }[] = [
     en: getNewsEntry("en", entry.id)!.title,
   })),
 ];
+
+// Introductions des pages internes : synthèses des contenus client déjà validés.
+export const pageIntroductions = {
+  fr: {
+    "recherche": "Retrouvez les informations publiques de Global EcoAction à l’aide de la recherche du site. Vous pouvez consulter nos domaines d’expertise, nos projets et programmes, les étapes de notre histoire ou les coordonnées pour nous contacter. La loupe dans la barre de navigation ouvre la recherche et affiche les résultats au fil de votre saisie, sans conserver les mots recherchés.",
+    "a-propos": `${aboutContent.fr.introduction} ${organizationFacts.fr.location}`,
+    "a-propos/mission-vision-valeurs": `${missionVisionContent.fr.mission.summary} ${missionVisionContent.fr.vision.summary}`,
+    "projets": "Nos projets et programmes relient la protection de la nature à l’amélioration des conditions de vie des communautés en Guinée. Reboisement communautaire, restauration des écosystèmes, agroécologie et adaptation climatique s’associent à la formation, à la concertation territoriale et au développement d’activités génératrices de revenus. À Kounounkan et Moussayah, notre expérience combine diagnostic territorial, conservation et développement local. Découvrez les initiatives menées avec les communautés et nos partenaires, leurs objectifs et leurs territoires d’intervention.",
+    "devenir-partenaire": `GECA collabore avec des partenaires institutionnels, techniques et financiers nationaux et internationaux. ${partnershipContent.fr.positioning} Notre approche participative privilégie la gouvernance locale, la responsabilisation communautaire et la durabilité des investissements.`,
+    "equipe": `${organizationFacts.fr.capacities} ${missionVisionContent.fr.mission.summary} Découvrez les personnes qui composent notre équipe et leurs fonctions au sein de Global EcoAction.`,
+    "actualites": "La vie de Global EcoAction se construit au fil de ses engagements auprès des communautés et de ses actions pour la nature en Guinée. Retrouvez les étapes de l’histoire de notre organisation, de sa création en 2016 à l’adoption du nom Global EcoAction en 2026, ainsi que les initiatives de reboisement, d’agroécologie, d’adaptation climatique et de développement local. Chaque article permet de découvrir une étape ou une action, avec ses objectifs et ses repères dans le temps.",
+    "contact": `${contactContent.fr.description} Nos échanges peuvent porter sur la restauration des écosystèmes, l’agroécologie, l’adaptation climatique ou le renforcement des capacités des communautés. Retrouvez ci-dessous nos coordonnées à Conakry pour nous contacter et discuter des possibilités de travailler ensemble.`,
+    "nous-soutenir": `${missionVisionContent.fr.mission.summary} ${homeContent.cta.supportText} ${aboutContent.fr.closing.description}`,
+    "mentions-legales": "Les photographies et les logos participent à la présentation de Global EcoAction, de ses domaines d’expertise et de ses partenaires. Retrouvez sur cette page les crédits des visuels utilisés sur le site, leurs sources et les informations disponibles sur leurs droits d’utilisation. Les photos illustrent les thèmes présentés ; leur présence ne suffit pas à les rattacher à un projet ou à un résultat précis.",
+    "confidentialite": "Le formulaire de contact permet de préparer et de prévisualiser un message, sans envoi ni enregistrement de la saisie. Vous pouvez effacer les informations que vous avez renseignées. La recherche du site consulte uniquement les contenus publics, sans conserver les mots recherchés. Pour échanger avec Global EcoAction, vous pouvez utiliser l’adresse e-mail ou le numéro de téléphone indiqués dans la rubrique Contact.",
+    "plan-du-site": "Découvrez les rubriques du site de Global EcoAction : notre organisation, notre mission, nos domaines d’expertise, notre équipe et nos projets et programmes. Les actualités permettent de retrouver les étapes de notre histoire et les actions présentées sur le site. Les pages Devenir partenaire et Contact vous orientent pour échanger avec nous et envisager des actions utiles à la nature et aux communautés en Guinée.",
+  },
+  en: {
+    "a-propos": `${aboutContent.en.introduction} ${organizationFacts.en.location}`,
+    "recherche": "Find public information about Global EcoAction using the website search. Explore our areas of expertise, projects and programmes, milestones in our history or contact details. The search icon in the navigation bar opens the search panel and shows results as you type, without saving your search terms.",
+    "a-propos/mission-vision-valeurs": `${missionVisionContent.en.mission.summary} ${missionVisionContent.en.vision.summary}`,
+    "projets": "Our projects and programmes connect nature conservation with better living conditions for communities in Guinea. Community reforestation, ecosystem restoration, agroecology and climate adaptation go hand in hand with training, territorial consultation and income-generating activities. In Kounounkan and Moussayah, our experience combines territorial assessment, conservation and local development. Explore the initiatives carried out with communities and our partners, their objectives and the areas where they take place.",
+    "devenir-partenaire": `GECA works with national and international institutional, technical and financial partners. ${partnershipContent.en.positioning} Our participatory approach prioritises local governance, community responsibility and lasting investment.`,
+    "equipe": `${organizationFacts.en.capacities} ${missionVisionContent.en.mission.summary} Meet the people who make up our team and discover their roles at Global EcoAction.`,
+    "actualites": "Global EcoAction’s story grows through its work alongside communities and its actions for nature in Guinea. Explore milestones in our organisation’s history, from its founding in 2016 to the adoption of the name Global EcoAction in 2026, as well as initiatives in reforestation, agroecology, climate adaptation and local development. Each article introduces a milestone or an activity, with its objectives and the period in which it took place.",
+    "contact": `${contactContent.en.description} Our conversations can focus on ecosystem restoration, agroecology, climate adaptation or strengthening community capacities. Find our contact details in Conakry below to get in touch and discuss opportunities to work together.`,
+    "nous-soutenir": `${missionVisionContent.en.mission.summary} Every contribution helps advance our mission. ${aboutContent.en.closing.description}`,
+    "mentions-legales": "Photographs and logos help introduce Global EcoAction, its areas of expertise and its partners. This page brings together credits for the visuals used on the website, their sources and the available information about usage rights. Photographs illustrate the topics presented; their presence alone does not associate them with a particular project or result.",
+    "confidentialite": "The contact form lets you prepare and preview a message without sending it or saving your input. You can clear the information you have entered. The website search uses only public content and does not save your search terms. To get in touch with Global EcoAction, use the email address or phone number provided on the Contact page.",
+    "plan-du-site": "Explore the sections of the Global EcoAction website: our organisation, mission, areas of expertise, team, and projects and programmes. The news pages present milestones in our history and activities featured on the website. The Become a partner and Contact pages help you get in touch and explore actions that serve nature and communities in Guinea.",
+  },
+} as const;
