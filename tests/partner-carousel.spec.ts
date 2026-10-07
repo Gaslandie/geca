@@ -29,7 +29,7 @@ for (const width of [320, 768, 1440]) {
   });
 }
 
-test("logos : avance lente, arrêt au focus et commandes sans texte supplémentaire", async ({page})=>{
+test("logos : avance toutes les trois secondes, arrêt au focus et commandes sans texte supplémentaire", async ({page})=>{
   await page.setViewportSize({width:1440,height:900});
   await page.emulateMedia({reducedMotion:"no-preference"});
   await page.goto("/fr");
@@ -37,13 +37,13 @@ test("logos : avance lente, arrêt au focus et commandes sans texte supplémenta
   const list=carousel.locator('.partner-list');
   await carousel.scrollIntoViewIfNeeded();
   await page.mouse.move(0,0);
-  await expect.poll(()=>list.evaluate(element=>element.scrollLeft),{timeout:12000}).toBeGreaterThan(1);
+  await expect.poll(()=>list.evaluate(element=>element.scrollLeft),{timeout:6500}).toBeGreaterThan(1);
   await expect.poll(()=>list.evaluate(element=>element.style.scrollSnapType)).toBe("");
   await list.focus();
   await carousel.hover();
   await page.mouse.move(0,0);
   const focusedPosition=await list.evaluate(element=>element.scrollLeft);
-  await page.waitForTimeout(8500);
+  await page.waitForTimeout(3500);
   expect(await list.evaluate(element=>element.scrollLeft)).toBeCloseTo(focusedPosition,0);
   await expect(carousel.getByRole('button')).toHaveCount(2);
   await expect(carousel.getByText(/Reprendre|Mettre en pause/)).toHaveCount(0);

@@ -1,9 +1,9 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { clientPhotoSources, missionVisionContent } from "../src/content/site";
+import { missionVisionContent } from "../src/content/site";
 
 for (const width of [320, 768, 1440]) {
-  test(`mission ${width}px : photos locales créditées, lecture et liens`, async ({ page }) => {
+  test(`mission ${width}px : photos locales, lecture et liens`, async ({ page }) => {
     await page.setViewportSize({ width, height: 1000 });
     await page.emulateMedia({ reducedMotion: "reduce" });
     const external: string[] = [];
@@ -45,15 +45,13 @@ for (const locale of ["fr", "en"] as const) {
     await expect(page.locator(".mission-value-card h3")).toHaveText(text.values.map((value) => value.title));
     await expect(page.locator(".mission-value-card .card-subtitle")).toHaveText(text.values.map((value) => value.summary));
     await expect(page.locator(".mission-value-card p:last-child")).toHaveText(text.values.map((value) => value.detail));
-    await page.getByRole("link", { name: locale === "fr" ? "Crédits photo" : "Photo credits", exact: true }).click();
-    await expect(page).toHaveURL(new RegExp(`/${locale}/mentions-legales#credits-photo$`));
-    for (const photo of Object.values(clientPhotoSources)) {
-      const credit = page.locator("#credits-photo li")
-        .filter({ has: page.getByRole("heading", { name: photo[locale], exact: true }) })
-        .filter({ has: page.getByText(`${photo.source} — ${photo.reference}`, { exact: true }) });
-      await expect(credit).toHaveCount(1);
-      await expect(credit).toBeVisible();
-    }
+    await expect(page.locator('a[href*="#credits-photo"]')).toHaveCount(0);
+    await page.goto(`http://127.0.0.1:3000/${locale}/mentions-legales`);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(locale === "fr" ? "Mentions légales" : "Legal notice");
+    await expect(page.locator("#credits-photo")).toHaveCount(0);
+    await expect(page.locator("body")).not.toContainText("1 IMAGES.pdf");
+    await expect(page.locator("body")).not.toContainText("PIC.docx");
+    await expect(page.locator("body")).not.toContainText("IMAGES BM AGR.docx");
     await context.close();
   });
 }

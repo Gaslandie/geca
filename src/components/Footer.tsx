@@ -6,6 +6,7 @@ import {
   href,
   identity,
   interfaceText,
+  newsletterContent,
   routes,
   type Locale,
 } from "@/content/site";
@@ -15,6 +16,7 @@ import { assetPath } from "@/lib/assets";
 
 export function Footer({ locale }: { locale: Locale }) {
   const text = interfaceText[locale];
+  const newsletter = newsletterContent[locale];
   function links(paths: string[]) {
     return paths.map((path) => (
       <li key={path}>
@@ -25,6 +27,24 @@ export function Footer({ locale }: { locale: Locale }) {
     ));
   }
   return (
+    <>
+    <section className="newsletter-section" aria-labelledby="newsletter-title">
+      <Container>
+        <div className="section-heading">
+          <div>
+          <h2 id="newsletter-title">{newsletter.title}</h2>
+          <p className="section-description">{newsletter.description}</p>
+          </div>
+        </div>
+        <div className="newsletter-controls" data-reveal>
+          <div className="newsletter-field">
+            <label htmlFor="newsletter-email">{newsletter.email}</label>
+            <input id="newsletter-email" type="email" autoComplete="email" placeholder="E-mail" />
+          </div>
+          <button type="button" className="button button-primary button-inverse">{newsletter.subscribe}</button>
+        </div>
+      </Container>
+    </section>
     <footer className="site-footer">
       <Image
         className="footer-background"
@@ -76,11 +96,11 @@ export function Footer({ locale }: { locale: Locale }) {
           </p>
           <ul>
             {links(footerLinks.legal)}
-            <li><Link href={`${href(locale, "mentions-legales")}#credits-photo`}>{locale === "fr" ? "Crédits photo" : "Photo credits"}</Link></li>
           </ul>
           <p className="footer-credit">{text.footerCredit}</p>
         </div>
       </Container>
     </footer>
+    </>
   );
 }

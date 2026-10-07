@@ -80,7 +80,7 @@ export function PartnerCarousel({ items }: { items: readonly Partner[] }) {
     const schedule = () => {
       clearInterval(timer);
       if (document.hidden) stopScroll();
-      else timer = setInterval(() => move(1), 8000);
+      else timer = setInterval(() => move(1), 3000);
     };
     schedule();
     document.addEventListener("visibilitychange", schedule);

@@ -603,6 +603,12 @@ Gassama demande de remplir les actualités passées jusqu'à aujourd'hui « sans
 
 Les titres éditoriaux « RENASCEDD devient Global EcoAction » et « Création de l’organisation » reformulent les faits d'identité fournis le 4 octobre. Les descriptions reprennent ces faits. Les deux cartes d'accueil présentent désormais les deux références 2025-2026, avec leurs périodes et leurs photos déjà corroborées, et ouvrent les ancres correspondantes des archives. Cette demande remplace le statut « Contenu en préparation » de la rubrique. Aucun nouvel article individuel ni sous-page de projet.
 
+## Newsletter — demande de Gassama, 7 octobre 2026
+
+Gassama propose un bandeau d’inscription à partir d’une capture : « Abonnez-vous à notre newsletter » et « Soyez informé(e) de nos actualités directement par e-mail. ». Ces textes et leur traduction fidèle sont repris avant le pied de page. Aucun service d’inscription n’est connecté : les champs restent désactivés et la mention « Les inscriptions ne sont pas encore ouvertes. » précise cet état. Aucun e-mail collecté, enregistré ou envoyé.
+
+Révision demandée le même jour : retirer la mention d’inscriptions fermées et permettre de saisir une adresse e-mail. Le champ et le bouton sont désormais utilisables dans l’aperçu, sans envoi, enregistrement ni confirmation d’inscription. Aucun service connecté.
+
 ## Partenaire supplémentaire — 7 octobre 2026, matin
 
 Gassama transmet `WhatsApp Image 2026-10-07 at 06.47.17.jpeg` et précise : « voici un autre partenaire important ». Nom présent sur le logo : **Parcs naturels régionaux de France**. Ajout à la grille des partenaires de l’accueil, depuis les données partagées. Aucun rôle, financement, projet ou lien externe précisé ; aucun n’est ajouté.

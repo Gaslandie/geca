@@ -10,7 +10,6 @@ import { MissionVisionValues } from "@/components/MissionVisionValues";
 import { News } from "@/components/News";
 import { NewsArticle } from "@/components/NewsArticle";
 import { TeamPage } from "@/components/Team";
-import { PhotoCredits } from "@/components/PhotoCredits";
 import { getNewsEntry, newsContent, teamContent, teamMembers, aboutContent, contactContent, interventionContent, isLocale, locales, missionVisionContent, pageIntroductions, partnershipContent, portfolioContent, routes } from "@/content/site";
 
 type Props = { params: Promise<{ locale: string; slug: string[] }> };
@@ -75,6 +74,5 @@ export default async function SectionPage({ params }: Props) {
   if (route.path === "projets") return <ProjectPortfolio locale={locale} />;
   if (route.path === "devenir-partenaire") return <Partnership locale={locale} />;
   const introduction = pageIntroductions[locale][route.path as keyof typeof pageIntroductions.fr];
-  if (route.path === "mentions-legales") return <UnderConstruction locale={locale} title={route[locale]} introduction={introduction}><PhotoCredits locale={locale} /></UnderConstruction>;
   return <UnderConstruction locale={locale} title={route[locale]} introduction={introduction} />;
 }

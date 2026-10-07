@@ -1339,7 +1339,6 @@ export const newsContent = {
     next: "Actualité suivante",
     articleNavigation: "Navigation entre les actualités",
     zone: "Zone d’intervention",
-    photoCredits: "Crédits photo",
   },
   en: {
     title: "News",
@@ -1362,7 +1361,6 @@ export const newsContent = {
     next: "Next article",
     articleNavigation: "Browse news articles",
     zone: "Area of intervention",
-    photoCredits: "Photo credits",
   },
 } as const;
 
@@ -1441,6 +1439,21 @@ export const routes: readonly { path: string; fr: string; en: string }[] = [
   })),
 ];
 
+export const newsletterContent = {
+  fr: {
+    title: "Abonnez-vous à notre newsletter",
+    description: "Soyez informé(e) de nos actualités directement par e-mail.",
+    email: "Adresse e-mail",
+    subscribe: "S’abonner",
+  },
+  en: {
+    title: "Subscribe to our newsletter",
+    description: "Receive our news directly by email.",
+    email: "Email address",
+    subscribe: "Subscribe",
+  },
+} as const;
+
 // Introductions des pages internes : synthèses des contenus client déjà validés.
 export const pageIntroductions = {
   fr: {
@@ -1453,7 +1466,7 @@ export const pageIntroductions = {
     "actualites": "La vie de Global EcoAction se construit au fil de ses engagements auprès des communautés et de ses actions pour la nature en Guinée. Retrouvez les étapes de l’histoire de notre organisation, de sa création en 2016 à l’adoption du nom Global EcoAction en 2026, ainsi que les initiatives de reboisement, d’agroécologie, d’adaptation climatique et de développement local. Chaque article permet de découvrir une étape ou une action, avec ses objectifs et ses repères dans le temps.",
     "contact": `${contactContent.fr.description} Nos échanges peuvent porter sur la restauration des écosystèmes, l’agroécologie, l’adaptation climatique ou le renforcement des capacités des communautés. Retrouvez ci-dessous nos coordonnées à Conakry pour nous contacter et discuter des possibilités de travailler ensemble.`,
     "nous-soutenir": `${missionVisionContent.fr.mission.summary} ${homeContent.cta.supportText} ${aboutContent.fr.closing.description}`,
-    "mentions-legales": "Les photographies et les logos participent à la présentation de Global EcoAction, de ses domaines d’expertise et de ses partenaires. Retrouvez sur cette page les crédits des visuels utilisés sur le site, leurs sources et les informations disponibles sur leurs droits d’utilisation. Les photos illustrent les thèmes présentés ; leur présence ne suffit pas à les rattacher à un projet ou à un résultat précis.",
+    "mentions-legales": `${aboutContent.fr.introduction} ${organizationFacts.fr.location}`,
     "confidentialite": "Le formulaire de contact permet de préparer et de prévisualiser un message, sans envoi ni enregistrement de la saisie. Vous pouvez effacer les informations que vous avez renseignées. La recherche du site consulte uniquement les contenus publics, sans conserver les mots recherchés. Pour échanger avec Global EcoAction, vous pouvez utiliser l’adresse e-mail ou le numéro de téléphone indiqués dans la rubrique Contact.",
     "plan-du-site": "Découvrez les rubriques du site de Global EcoAction : notre organisation, notre mission, nos domaines d’expertise, notre équipe et nos projets et programmes. Les actualités permettent de retrouver les étapes de notre histoire et les actions présentées sur le site. Les pages Devenir partenaire et Contact vous orientent pour échanger avec nous et envisager des actions utiles à la nature et aux communautés en Guinée.",
   },
@@ -1467,7 +1480,7 @@ export const pageIntroductions = {
     "actualites": "Global EcoAction’s story grows through its work alongside communities and its actions for nature in Guinea. Explore milestones in our organisation’s history, from its founding in 2016 to the adoption of the name Global EcoAction in 2026, as well as initiatives in reforestation, agroecology, climate adaptation and local development. Each article introduces a milestone or an activity, with its objectives and the period in which it took place.",
     "contact": `${contactContent.en.description} Our conversations can focus on ecosystem restoration, agroecology, climate adaptation or strengthening community capacities. Find our contact details in Conakry below to get in touch and discuss opportunities to work together.`,
     "nous-soutenir": `${missionVisionContent.en.mission.summary} Every contribution helps advance our mission. ${aboutContent.en.closing.description}`,
-    "mentions-legales": "Photographs and logos help introduce Global EcoAction, its areas of expertise and its partners. This page brings together credits for the visuals used on the website, their sources and the available information about usage rights. Photographs illustrate the topics presented; their presence alone does not associate them with a particular project or result.",
+    "mentions-legales": `${aboutContent.en.introduction} ${organizationFacts.en.location}`,
     "confidentialite": "The contact form lets you prepare and preview a message without sending it or saving your input. You can clear the information you have entered. The website search uses only public content and does not save your search terms. To get in touch with Global EcoAction, use the email address or phone number provided on the Contact page.",
     "plan-du-site": "Explore the sections of the Global EcoAction website: our organisation, mission, areas of expertise, team, and projects and programmes. The news pages present milestones in our history and activities featured on the website. The Become a partner and Contact pages help you get in touch and explore actions that serve nature and communities in Guinea.",
   },

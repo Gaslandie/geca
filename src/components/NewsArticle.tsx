@@ -46,7 +46,6 @@ export function NewsArticle({ locale, entry }: { locale: Locale; entry: NewsEntr
               <div className="news-article-actions">
                 <Button href={href(locale, entry.path)} variant="secondary">{entry.partner ? text.projectLink : text.aboutLink}</Button>
                 <Button href={`${href(locale, "actualites")}#${entry.id}`} variant="text">{text.backToNews}</Button>
-                {entry.photo && <Button href={`${href(locale, "mentions-legales")}#credits-photo`} variant="text">{text.photoCredits}</Button>}
               </div>
             </div>
           </Container>

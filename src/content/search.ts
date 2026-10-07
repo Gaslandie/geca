@@ -1,4 +1,4 @@
-import { newsArticlePath, getNewsEntries, newsContent, teamContent, teamMembers, clientPhotoSources, aboutContent, contactContent, getInterventionAreas, getPortfolioProjects, homeContent, href, identity, interfaceText, interventionContent, missionVisionContent, organizationFacts, partnershipContent, portfolioContent, routes, territorialExperience, type Locale } from "./site";
+import { newsArticlePath, getNewsEntries, newsContent, teamContent, teamMembers, aboutContent, contactContent, getInterventionAreas, getPortfolioProjects, homeContent, href, identity, interfaceText, interventionContent, missionVisionContent, organizationFacts, partnershipContent, portfolioContent, routes, territorialExperience, type Locale } from "./site";
 import type { SearchDocument } from "@/lib/search";
 
 // Liste exclusivement publique, construite au rendu serveur. Jamais de fichier interne.
@@ -28,7 +28,6 @@ export function getSearchDocuments(locale: Locale): SearchDocument[] {
   add("projets", experience.title, portfolio.title, `${experience.introduction} ${experience.achievements.join(" ")}`, "experience-kounounkan-moussayah");
   add("devenir-partenaire", partner.strengthsTitle, locale === "fr" ? "Partenariat" : "Partnership", `${partner.positioning} ${partner.strengths.join(" ")}`);
   add("contact", contact.title, interfaceText[locale].contact, `${contact.description} ${identity.address[locale]} ${identity.phone} ${identity.email}`);
-  add("mentions-legales", locale === "fr" ? "Crédits photo" : "Photo credits", identity.name, Object.values(clientPhotoSources).map((photo) => photo[locale]).join(" "), "credits-photo");
   if (locale === "fr") {
     add("", `${homeContent.impact.title} ${homeContent.impact.titleSecondLine}`, homeContent.impact.label, `${homeContent.impact.stats.map((stat) => `${stat.value} ${stat.label}`).join(" · ")} ${homeContent.impact.achievements.join(" ")}`, "impact-title");
     add("", homeContent.partners.title, homeContent.partners.label, homeContent.partners.items.map((item) => item.name).join(" "), "partners-title");
