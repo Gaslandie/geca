@@ -63,8 +63,8 @@ export function ProjectPortfolio({ locale }: { locale: Locale }) {
         <Container>
           <SectionHeading label={text.closingLabel} title={text.closingTitle} description={text.closingDescription} />
           <div className="portfolio-closing-actions">
-            <Button href={href(locale, "contact")} variant="light">{text.contact}</Button>
-            <Button href={href(locale, "a-propos")} variant="text">{text.about}</Button>
+            <Button href={href(locale, "contact")} tone="inverse">{text.contact}</Button>
+            <Button href={href(locale, "a-propos")} variant="text" tone="inverse">{text.about}</Button>
           </div>
         </Container>
       </section>

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { getNewsEntries, href, interfaceText, newsContent, type Locale } from "@/content/site";
+import { getNewsEntries, href, interfaceText, newsArticlePath, newsContent, type Locale } from "@/content/site";
+import { BrandLogo } from "./BrandLogo";
 import { Container, PhotoPlaceholder, SectionHeading } from "./ui";
 
 export function News({ locale }: { locale: Locale }) {
@@ -30,19 +31,20 @@ export function News({ locale }: { locale: Locale }) {
           <div className="news-archive-grid">
             {entries.map((entry) => (
               <article className="news-card" id={entry.id} key={entry.id} aria-labelledby={`news-${entry.id}`} tabIndex={-1}>
-                {entry.photo && <PhotoPlaceholder className="news-photo" photo={entry.photo} label={entry.category} sizes="(max-width: 767px) 100vw, 50vw" />}
+                {entry.photo
+                  ? <PhotoPlaceholder className="news-photo" photo={entry.photo} label={entry.category} sizes="(max-width: 699px) 100vw, (max-width: 1279px) 50vw, 25vw" />
+                  : <div className="news-milestone-visual"><BrandLogo /></div>}
                 <div className="news-card-content card-content">
-                  <p className="eyebrow">{entry.category}</p>
-                  <h3 id={`news-${entry.id}`}>{entry.title}</h3>
                   <p className="news-archive-period">
                     {entry.dateTime ? text.date : text.period} : {entry.dateTime
                       ? <time dateTime={entry.dateTime}>{entry.period}</time>
                       : <span>{entry.period}</span>}
                   </p>
-                  {entry.description.split("\n\n").map((paragraph) => <p className="news-archive-description" key={paragraph}>{paragraph}</p>)}
-                  {entry.partner && <p>{text.partner} : <strong>{entry.partner}</strong></p>}
+                  <p className="news-category">{entry.category}</p>
+                  <h3 id={`news-${entry.id}`}><Link href={href(locale, newsArticlePath(entry.id))}>{entry.title}</Link></h3>
+                  <p className="news-archive-description">{entry.description.split("\n\n")[0]}</p>
                   <div className="news-card-footer">
-                    <Link className="news-card-link" href={href(locale, entry.path)}>{entry.partner ? text.projectLink : text.aboutLink}</Link>
+                    <Link className="button button-text news-card-link" href={href(locale, newsArticlePath(entry.id))} aria-label={`${text.readArticle} : ${entry.title}`}>{text.readArticle}</Link>
                   </div>
                 </div>
               </article>

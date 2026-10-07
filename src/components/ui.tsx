@@ -39,13 +39,15 @@ export function Container({
 export function Button({
   children,
   variant = "primary",
+  tone = "default",
   className = "",
   ...props
 }: ComponentProps<typeof Link> & {
-  variant?: "primary" | "secondary" | "light" | "text";
+  variant?: "primary" | "secondary" | "text";
+  tone?: "default" | "inverse";
 }) {
   return (
-    <Link {...props} className={`button button-${variant} ${className}`}>
+    <Link {...props} className={`button button-${variant} ${tone === "inverse" ? "button-inverse" : ""} ${className}`}>
       {children}
     </Link>
   );

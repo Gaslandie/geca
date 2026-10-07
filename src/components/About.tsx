@@ -114,8 +114,8 @@ export function About({ locale }: { locale: Locale }) {
         <Container>
           <SectionHeading label={text.closing.label} title={text.closing.title} description={text.closing.description} />
           <div className="about-closing-actions">
-            <Button href={href(locale, "contact")} variant="light">{text.closing.contact}</Button>
-            <Button href={href(locale)} variant="text">{text.closing.home}</Button>
+            <Button href={href(locale, "contact")} tone="inverse">{text.closing.contact}</Button>
+            <Button href={href(locale)} variant="text" tone="inverse">{text.closing.home}</Button>
           </div>
         </Container>
       </section>

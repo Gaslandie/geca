@@ -81,7 +81,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
             <textarea id="contact-message" name="message" rows={4} required minLength={10} maxLength={3000} aria-describedby="contact-message-help" />
             <p id="contact-message-help" className="contact-field-help">{text.help}</p>
           </div>
-          <button type="submit" className="button contact-submit">{text.submit}</button>
+          <button type="submit" className="button button-primary contact-submit">{text.submit}</button>
           <p className="contact-privacy-note">{text.privacy}</p>
         </fieldset>
         <noscript><p className="contact-form-note">{text.noScript}</p></noscript>
@@ -96,7 +96,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
               <dt>{text.reason}</dt><dd>{preview.reason}</dd>
               <dt>{text.message}</dt><dd className="contact-preview-message">{preview.message}</dd>
             </dl>
-            <button type="reset" className="contact-reset">{text.reset}</button>
+            <button type="reset" className="button button-text contact-reset">{text.reset}</button>
           </div>
         )}
       </form>

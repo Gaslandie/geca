@@ -48,8 +48,8 @@ export function InterventionAreas({ locale }: { locale: Locale }) {
         <Container>
           <SectionHeading label={text.closing.label} title={text.closing.title} description={text.closing.description} />
           <div className="intervention-closing-actions">
-            <Button href={href(locale, "projets")} variant="light">{text.closing.projects}</Button>
-            <Button href={href(locale, "contact")} variant="text">{text.closing.contact}</Button>
+            <Button href={href(locale, "projets")} tone="inverse">{text.closing.projects}</Button>
+            <Button href={href(locale, "contact")} variant="text" tone="inverse">{text.closing.contact}</Button>
           </div>
         </Container>
       </section>

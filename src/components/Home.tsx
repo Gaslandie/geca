@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Link from "next/link";
-import { assetPath } from "@/lib/assets";
 import { homeContent as content, href } from "@/content/site";
 import {
   Button,
@@ -11,6 +9,8 @@ import {
 } from "./ui";
 import { Projects } from "./Projects";
 import { TeamSection } from "./Team";
+import { PartnerCarousel } from "./PartnerCarousel";
+import { PartnerTicker } from "./PartnerTicker";
 import { HeroSlideshow } from "./HeroSlideshow";
 
 export function Home() {
@@ -37,13 +37,15 @@ export function Home() {
             </div>
             <div className="hero-actions">
               <div className="hero-action-links">
-                <Button href={href("fr", "projets")}>{content.hero.primary}</Button>
-                <Button href={href("fr", "devenir-partenaire")} variant="secondary">{content.hero.secondary}</Button>
+                <Button href={href("fr", "projets")} tone="inverse">{content.hero.primary}</Button>
+                <Button href={href("fr", "devenir-partenaire")} variant="secondary" tone="inverse">{content.hero.secondary}</Button>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <PartnerTicker names={content.partners.items.map((partner) => partner.name)} label={content.partners.label} />
 
       <section className="about section" aria-labelledby="about-title">
         <Container className="about-content">
@@ -64,7 +66,7 @@ export function Home() {
         </Container>
       </section>
 
-      <section className="domains section section--tinted" aria-label={content.domains.label}>
+      <section className="domains section" aria-label={content.domains.label}>
         <Container>
           <SectionHeading
             label={content.domains.label}
@@ -74,23 +76,25 @@ export function Home() {
           <div className="domains-grid">
             {content.domains.items.map((item) => (
               <article className={`domain${item.photo ? "" : " domain--text"}`} key={item.id}>
-                {item.photo && <PhotoPlaceholder
-                  label={item.title}
-                  photo={item.photo}
-                  className="domain-photo"
-                  sizes="(max-width: 767px) 100vw, (max-width: 1335px) 50vw, 620px"
-                />}
-                <div className="domain-content card-content">
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                  <Link
-                    href={`${href("fr", "a-propos/domaines-intervention")}#${item.id}`}
-                    className="domain-link"
-                    aria-label={`${content.domains.cta} : ${item.title}`}
-                  >
-                    {content.domains.cta}
-                  </Link>
-                </div>
+                <Link
+                  href={`${href("fr", "a-propos/domaines-intervention")}#${item.id}`}
+                  className="domain-link"
+                  aria-labelledby={`domain-title-${item.id}`}
+                >
+                  <div className="domain-circle">
+                    {item.photo && <PhotoPlaceholder
+                      label={item.title}
+                      photo={item.photo}
+                      className="domain-photo"
+                      sizes="(max-width: 699px) 360px, (max-width: 1279px) 50vw, 25vw"
+                    />}
+                    <h3 id={`domain-title-${item.id}`}>{item.title}</h3>
+                  </div>
+                  <div className="domain-content card-content">
+                    <p>{item.description}</p>
+                    <span className="button button-text">{content.domains.cta}</span>
+                  </div>
+                </Link>
               </article>
             ))}
           </div>
@@ -98,24 +102,18 @@ export function Home() {
       </section>
 
       <section className="impact" aria-labelledby="impact-title">
-        <PhotoPlaceholder
-          label={content.impact.label}
-          photo={content.impact.photo}
-          className="impact-photo"
-          sizes="100vw"
-        />
         <Container>
-          <div className="impact-heading section-heading">
-            <div>
-              <p className="eyebrow">{content.impact.label}</p>
-              <h2 id="impact-title">
-                <span>{content.impact.title}</span>{" "}
-                <span>{content.impact.titleSecondLine}</span>
-              </h2>
-            </div>
-          </div>
           <div className="impact-layout">
             <div className="impact-copy">
+              <div className="impact-heading section-heading">
+                <div>
+                  <p className="eyebrow">{content.impact.label}</p>
+                  <h2 id="impact-title">
+                    <span>{content.impact.title}</span>{" "}
+                    <span>{content.impact.titleSecondLine}</span>
+                  </h2>
+                </div>
+              </div>
               <ul className="impact-achievements">
                 {content.impact.achievements.map((achievement) => (
                   <li key={achievement}>{achievement}</li>
@@ -158,7 +156,7 @@ export function Home() {
               <h2 id="news-title">{content.news.title}</h2>
               <p className="section-description">{content.news.description}</p>
             </div>
-            <Link href={href("fr", "actualites")} className="news-all-link">
+            <Link href={href("fr", "actualites")} className="button button-text news-all-link">
               {content.news.cta}
             </Link>
           </div>
@@ -183,7 +181,7 @@ export function Home() {
                     </span>
                     <Link
                       href={href("fr", item.path)}
-                      className="news-card-link"
+                      className="button button-text news-card-link"
                       aria-label={`Découvrir les actualités : ${item.title}`}
                     >
                       Découvrir
@@ -197,7 +195,6 @@ export function Home() {
       </section>
 
       <section className="partners section" aria-labelledby="partners-title">
-        <div className="partners-foliage" aria-hidden="true"><span /><span /><span /></div>
         <Container>
           <div className="partners-heading section-heading">
             <div>
@@ -206,20 +203,7 @@ export function Home() {
               <p className="section-description">{content.partners.description}</p>
             </div>
           </div>
-          <ul className="partner-list">
-            {content.partners.items.map((partner) => (
-              <li className="card-content" key={partner.name}>
-                <Image
-                  src={assetPath(partner.logo.src)}
-                  alt={partner.logo.alt}
-                  width={partner.logo.width}
-                  height={partner.logo.height}
-                  sizes="(min-width: 1200px) 240px, (min-width: 670px) 280px, 240px"
-                  className="partner-logo"
-                />
-              </li>
-            ))}
-          </ul>
+          <PartnerCarousel items={content.partners.items} />
         </Container>
       </section>
 
@@ -229,14 +213,14 @@ export function Home() {
             <p className="eyebrow">{content.cta.label}</p>
             <h2>{content.cta.partnerTitle}</h2>
             <p>{content.cta.partnerText}</p>
-            <Button href={href("fr", "devenir-partenaire")} variant="light">
+            <Button href={href("fr", "devenir-partenaire")} tone="inverse">
               {content.cta.partnerButton}
             </Button>
           </div>
           <div className="support-cta card-content">
             <h3>{content.cta.supportTitle}</h3>
             <p>{content.cta.supportText}</p>
-            <Button href={href("fr", "nous-soutenir")} variant="text">
+            <Button href={href("fr", "nous-soutenir")} variant="text" tone="inverse">
               {content.cta.supportButton}
             </Button>
           </div>

@@ -221,7 +221,7 @@ function HeaderNavigation({
         </nav>
         <div className="header-actions">
           <Link
-            className="donate-link"
+            className="button button-donate donate-link"
             href={href(locale, "nous-soutenir")}
             onClick={close}
           >

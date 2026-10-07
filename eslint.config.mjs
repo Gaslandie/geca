@@ -6,6 +6,7 @@ import { fixupConfigRules } from "@eslint/compat";
 export default defineConfig([
   ...fixupConfigRules([...nextVitals, ...nextTs]),
   globalIgnores([
+    "backoffice/**",
     ".next/**",
     "out/**",
     "test-results/**",

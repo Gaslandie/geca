@@ -180,3 +180,59 @@ Gassama demande une version transparente du logo. `BrandLogo` utilise le dériv�
 ## Hero : alignement à gauche — 7 octobre 2026
 
 Gassama demande les textes du hero « à gauche ». Nom, slogan, sous-titre et mission partagent désormais le même bord gauche sur mobile et ordinateur. Cette exception prime sur le centrage des titres et la justification sur deux bords de la mission. Boutons et autres sections suivent leurs règles existantes. Ne pas changer les textes ni les médias.
+
+## Boutons uniformisés — 7 octobre 2026
+
+Gassama valide trois niveaux communs : principal plein, secondaire avec contour et lien discret souligné. Réutiliser `Button` (`primary`, `secondary`, `text`) et `.button` pour les boutons natifs du formulaire ; `tone="inverse"` sur fond sombre. Doré réservé au don. Variables communes : hauteur minimale 48 px, arrondi 8 px, padding 12/22 px, espace des groupes 16 px. Commandes à icônes compactes de 44 px minimum ; don de la barre compact pour tenir sur mobile et à 200 %. Aucun changement de dimensions au survol ou au focus. Conserver liens/destinations, noms accessibles, clavier, mouvements réduits, trois pulsations du don et formulaire sans envoi. Voir `docs/TYPOGRAPHIE.md` et `docs/BENCHMARK.md`. Cette demande remplace les anciennes formes particulières des boutons ; elle n’autorise ni ajout à la référence du Bureau, ni commit/push.
+
+## Actualités horizontales sur ordinateur — 7 octobre 2026
+
+Gassama demande une actualité par ligne sur la page Actualités FR/EN : dès 1024 px, photo à gauche (38 %) et texte à droite (62 %), puis actualité suivante. Image au-dessus du texte sur mobile/tablette. Pas de hauteur fixe ni de texte coupé ; entrées sans photo sur toute la largeur. Conserver contenus, médias, crédits, boutons, titres centrés et animations partagées. Les cartes d’accueil restent inchangées. Voir `docs/TYPOGRAPHIE.md` et `docs/BENCHMARK.md`.
+
+## Back-office Laravel et hébergement Bluehost — 7 octobre 2026
+
+Gassama choisit Laravel en PHP avec MySQL, à la place de la proposition WordPress. Hébergement visé : abonnement Bluehost existant ; domaine `globalecoaction.org` conservé chez OVH. Cette demande autorise la préparation du back-office et remplace la restriction de maquette seule pour ce périmètre. Compatibilité du compte Bluehost encore à vérifier : PHP/extension, MySQL maintenu, accès de déploiement et racine limitée à `public`. Voir `docs/BACKOFFICE.md`. Le site Next.js et les données authentiques sont conservés ; leur liaison et la republication restent à développer, sans prétendre qu’une installation de Laravel les actualise automatiquement. Aucun DNS, service mail, compte réel, paiement ou envoi d’e-mails modifié par cette seule décision. Conserver les contrôles serveur, protections des fichiers/sessions, tests autorisés/refusés, benchmarking et français simple. Aucun commit/push sans demande explicite.
+
+
+## Domaines de l’accueil en cercles — 7 octobre 2026
+
+Gassama demande d’adapter à l’accueil les deux captures de cercles photographiques et contour au survol. Les huit domaines gardent leurs titres, descriptions, photos et destinations ; titre blanc centré sur photo assombrie, description et lien discret sous le cercle, contour vert au survol et au clavier. Quatre colonnes dès 1280 px, deux dès 700 px, une en dessous. Le texte à 200 % peut augmenter la hauteur de la forme pour rester entier. Cette présentation remplace l’alternance photo/texte des seuls domaines de l’accueil FR ; ne pas modifier les pages Domaines ni inventer un accueil EN, encore en préparation. Garder composants, variables typographiques, padding/espaces, apparition commune, sources/crédits et restrictions de mouvement. Aucun changement du back-office, aucun commit/push autorisé.
+
+## Actualités en cartes et pages détaillées — 7 octobre 2026
+
+Gassama demande une liste de cartes avec photo supérieure et extrait, puis une page dédiée par actualité. Cette demande remplace les actualités horizontales et la limitation antérieure à une liste seule. Les neuf archives communes ont des routes fermées `/fr/actualites/[id]` et `/en/actualites/[id]`. Conserver texte intégral, périodes distinctes des dates de repère, crédits, labels thématiques, retour et précédent/suivant. Aucun fait ajouté. Projets reste une page unique avec ancres. Les liens d’accueil et de recherche visent les articles.
+
+## Bandeau partenaires sous le hero — 7 octobre 2026
+
+Gassama demande un bandeau lent avec les noms des partenaires, sans logos, à la fin du hero. Réutiliser les douze noms de `homeContent.partners.items`. Conserver la section des logos à sa place. `PartnerTicker` : boucle lente, pause clavier/bouton, survol/focus, suspension hors écran/onglet caché ; liste fixe avec préférences de mouvement/données ou sans JavaScript. Aucun fait ajouté.
+
+## Impact de l’accueil : référence Mehad — 7 octobre 2026
+
+Gassama demande le récit à gauche et quatre cartes chiffrées décalées à droite sur fond clair. Remplace le fond photo et les cartes empilées de l’impact. Conserver cinq paragraphes client et quatre chiffres exacts, sans ajout. En-tête centré dans la colonne de texte ; cartes vertes, sans pictogrammes, décalage grand écran seulement. Texte puis cartes sur mobile/tablette ; conserver padding, animations, clavier, contrastes et mouvement réduit. Sources de l’ancienne photo conservées.
+
+
+## CRITICAL RULE — SCAFFOLDING POLICY
+
+Consigne permanente de Gassama — 7 octobre 2026. Cette règle prime sur les anciennes consignes imposant des fichiers, plans, audits ou documents de suivi non indispensables à la tâche demandée. Elle ne réduit aucune exigence de sécurité.
+
+You must only create scaffolding (extra files, folders, plans, audits, verification scripts, certification machinery, evidence gathering, process documentation, or any supporting structure) when it is strictly and immediately necessary to complete the requested task.
+
+Default behavior:
+
+- Prefer the simplest, most direct solution.
+- Do the actual work first.
+- Avoid creating any extra structure, process, or files unless the task cannot be completed without them.
+- If you are about to create scaffolding, stop and ask yourself: “Is this absolutely required right now to finish the user’s request?” If the answer is no, do not create it.
+- Never expand scope into process, architecture, audits, or “best practices” unless explicitly asked.
+
+When scaffolding is truly required:
+
+- Keep it minimal.
+- Explain briefly why it is necessary.
+- Remove or clean it up if it is no longer needed.
+
+Violating this rule (creating unnecessary scaffolding) is considered a failure to follow instructions.
+
+## Logos partenaires en carrousel — 7 octobre 2026
+
+Gassama demande la disposition de sa capture Mehad, avec avance automatique et flèches manuelles pour la section des partenaires du bas. Conserver les douze logos, noms, textes authentiques et sources. `PartnerCarousel` affiche 5/3/1 logos selon la largeur, sans cartes ni feuillage, avec pause, flèches, clavier et défilement tactile. Avance toutes les six secondes ; interruption après commande manuelle, survol/focus, hors écran et onglet caché. Pas d’automatique avec mouvement réduit/économie de données, grille complète sans JavaScript. Bandeau des noms sous le hero inchangé. Aucun nouvel organisme, fait, service ou dépendance.

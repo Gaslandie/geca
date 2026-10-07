@@ -36,7 +36,7 @@ export const organizationFacts = {
 } as const;
 
 // Registre fermé : une URL inconnue ne devient jamais une rubrique valide.
-export const routes = [
+const sectionRoutes = [
   { path: "a-propos", fr: "Qui sommes-nous ?", en: "About us" },
   {
     path: "a-propos/mission-vision-valeurs",
@@ -647,7 +647,7 @@ export const homeContent = {
     items: projects.slice(0, 2).map((project) => ({
       title: project.title,
       description: project.description,
-      path: `actualites#projet-${project.slug}`,
+      path: `actualites/projet-${project.slug}`,
       category: "Projets & programmes",
       period: project.period,
       photo: project.photo,
@@ -1332,6 +1332,13 @@ export const newsContent = {
     date: "Date du repère",
     partner: "Partenaire / bailleur",
     breadcrumb: "Fil d’Ariane",
+    readArticle: "Lire l’article",
+    backToNews: "Toutes les actualités",
+    previous: "Actualité précédente",
+    next: "Actualité suivante",
+    articleNavigation: "Navigation entre les actualités",
+    zone: "Zone d’intervention",
+    photoCredits: "Crédits photo",
   },
   en: {
     title: "News",
@@ -1348,11 +1355,19 @@ export const newsContent = {
     date: "Milestone date",
     partner: "Partner / funder",
     breadcrumb: "Breadcrumb",
+    readArticle: "Read the article",
+    backToNews: "All news",
+    previous: "Previous article",
+    next: "Next article",
+    articleNavigation: "Browse news articles",
+    zone: "Area of intervention",
+    photoCredits: "Photo credits",
   },
 } as const;
 
 export type NewsEntry = {
   id: string;
+  zone?: string;
   title: string;
   description: string;
   period: string;
@@ -1391,6 +1406,7 @@ export function getNewsEntries(locale: Locale): readonly NewsEntry[] {
         path: `projets#projet-${project.slug}`,
         photo: project.photo,
         partner: project.partner,
+        zone: project.zone,
       }] : [];
     }),
     {
@@ -1406,3 +1422,20 @@ export function getNewsEntries(locale: Locale): readonly NewsEntry[] {
     },
   ];
 }
+
+
+// Pages publiques d’actualité : slugs du catalogue fermé, pas d’URL arbitraire.
+export const newsArticlePath = (id: string) => `actualites/${id}`;
+
+export function getNewsEntry(locale: Locale, id: string) {
+  return getNewsEntries(locale).find((entry) => entry.id === id);
+}
+
+export const routes: readonly { path: string; fr: string; en: string }[] = [
+  ...sectionRoutes,
+  ...getNewsEntries("fr").map((entry) => ({
+    path: newsArticlePath(entry.id),
+    fr: entry.title,
+    en: getNewsEntry("en", entry.id)!.title,
+  })),
+];

@@ -594,3 +594,17 @@ Les titres éditoriaux « RENASCEDD devient Global EcoAction » et « Création 
 ## Partenaire supplémentaire — 7 octobre 2026, matin
 
 Gassama transmet `WhatsApp Image 2026-10-07 at 06.47.17.jpeg` et précise : « voici un autre partenaire important ». Nom présent sur le logo : **Parcs naturels régionaux de France**. Ajout à la grille des partenaires de l’accueil, depuis les données partagées. Aucun rôle, financement, projet ou lien externe précisé ; aucun n’est ajouté.
+
+## Présentation des actualités — demande de Gassama, 7 octobre 2026
+
+Gassama demande des cartes inspirées de sa capture et une page détaillée par actualité. Cette décision remplace la restriction antérieure de liste seule pour les actualités. Neuf pages FR/EN reprennent uniquement les neuf archives existantes, leurs textes entiers, périodes, zones et partenaires authentiques. Aucun nouvel article factuel, date de publication ou récit ajouté. Projets & programmes reste une page unique avec ancres.
+
+Gassama demande aussi le 7 octobre un bandeau lent des noms partenaires à la fin du hero, sans logos à cet emplacement. Les douze noms existants sont réutilisés à l’identique ; la section des logos reste à sa place. Aucun partenaire ou rôle ajouté.
+
+## Présentation de l’impact — Gassama, 7 octobre 2026
+
+Gassama transmet une capture Mehad et demande la même logique de présentation pour l’impact de l’accueil. Adaptation de mise en page uniquement : conserver les cinq paragraphes reçus le 6 octobre, dans leur ordre, et les quatre chiffres validés (35 000, 365 000, 150 000, 84). Aucun chiffre, fait, texte, pictogramme médical ou rapport Mehad repris.
+
+## Présentation des logos partenaires — Gassama, 7 octobre 2026
+
+Capture Mehad transmise avec demande d’auto-défilement ou défilement manuel par flèches pour les partenaires du bas. Mise en page seulement : douze partenaires et leurs logos existants conservés, description et titre GECA inchangés. Aucun propos de Mehad sur la confiance ou un soutien financier repris. Bandeau de noms sous le hero conservé.

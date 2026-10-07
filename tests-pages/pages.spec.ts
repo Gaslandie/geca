@@ -127,8 +127,8 @@ for (const locale of locales) {
     await expect(page.locator(".news-card")).toHaveCount(9);
     await expect(page.locator("time")).toHaveCount(2);
     await expect(page.locator("#projet-kounounkan .news-archive-period")).toContainText("2025-2026");
-    await page.locator("#projet-kounounkan a").click();
-    await expect(page).toHaveURL(new RegExp(`/geca/${locale}/projets/#projet-kounounkan$`));
-    await expect(page.locator("#projet-kounounkan")).toBeInViewport();
+    await page.locator("#projet-kounounkan h3 a").click();
+    await expect(page).toHaveURL(new RegExp(`/geca/${locale}/actualites/projet-kounounkan/$`));
+    await expect(page.locator("#article-title")).toBeVisible();
   });
 }

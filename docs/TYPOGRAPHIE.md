@@ -170,3 +170,38 @@ Réutiliser les cartes, titres centrés, espaces et mouvements communs. Les para
 ## Textes du hero à gauche — priorité du 7 octobre 2026
 
 Gassama demande « justifie moi les textes de la section hero à gauche ». Application : nom, slogan, sous-titre et mission alignés sur le même bord gauche, mobile et ordinateur. Espacement régulier entre les mots, dernière ligne à gauche également ; le paragraphe de mission ne reste plus justifié sur les deux bords. Cette demande remplace le centrage et la justification précédents de ces seuls textes. Le bloc conserve sa largeur de lecture et ses marges générales ; boutons centrés, photos, textes, couleurs et animations conservés.
+
+## Boutons et liens d’action uniformes — 7 octobre 2026
+
+Utiliser `Button` pour les destinations : `primary` (plein), `secondary` (contour), `text` (lien souligné). `tone="inverse"` adapte les trois niveaux aux fonds sombres, sans changer leur géométrie. Un groupe garde une action principale ; les autres actions sont secondaires ou discrètes. Doré réservé au bouton de don. Garder les libellés existants et les noms accessibles.
+
+La classe `.button` est aussi la base des vrais boutons de formulaire. Variables communes : `--button-height` 48 px minimum, `--button-radius` 8 px, padding 12/22 px, `--button-gap` 16 px. Même corps de 16 px ; exception compacte du don dans la barre pour préserver le logo et les commandes sur petit écran. Commandes à icônes : cibles de 44 px minimum et arrondi commun. Aucun changement de dimensions au survol, à l’appui ou au focus. États de focus visibles, effets brefs respectant le mouvement réduit ; contrôles désactivés conservés. Les liens discrets gardent le soulignement au repos. Ces règles remplacent les formes particulières du hero, du formulaire et des liens de cartes.
+
+## Liste des actualités — 7 octobre 2026
+
+Sur la page Actualités FR/EN, une seule actualité par ligne. Dès 1024 px, image à gauche sur 38 % et texte à droite sur 62 %. Sous ce seuil, image puis texte. La hauteur suit le texte complet ; ne pas tronquer les titres ou descriptions pour égaliser des cartes. Les entrées sans photo gardent un corps sur toute la largeur. Conserver centrage des titres, justification des descriptions et règles partagées de cartes/boutons. Les cartes d’actualités de l’accueil restent inchangées.
+
+
+## Domaines de l’accueil : cercles photographiques — 7 octobre 2026
+
+Référence : deux captures fournies par Gassama dans le chat, photos rondes avec titre centré et anneau extérieur sur l’une des vues. Adaptation aux huit domaines existants : `.domain-circle`, photo et voile sombre, h3 blanc conservant `--text-card-title`. Descriptions complètes sous les photos dans `.domain-content.card-content`, liens discrets partagés ; un seul lien clavier par carte avec nom accessible issu du titre. Pas de nouvelle police ni de pictogramme. Quatre colonnes dès 1280 px, deux dès 700 px, une en dessous ; diamètre maximal 360 px. À 200 %, la hauteur peut s’étendre en ovale afin de préserver le texte, sans rognage.
+
+Espaces des grilles et corps de carte communs. L’anneau vert de survol utilise une ombre extérieure, le clavier un contour de 3 px à 6 px ; aucun changement de dimensions. Le mouvement existant anime la carte entière, sans mouvement imbriqué. Le contenu fonctionne sans JavaScript. Cette présentation remplace les anciennes lignes alternées uniquement dans l’accueil FR. Données, pages Domaines FR/EN et accueil EN en préparation conservés.
+
+## Actualités : cartes et détails — 7 octobre 2026
+
+La demande de cartes illustrées remplace la disposition horizontale de la liste Actualités. Grille 1/2/4 colonnes aux seuils 700/1280 px ; photo 4:3 au-dessus, période, catégorie, titre et extrait. Aperçu limité à quatre lignes de titre et trois de description ; la page individuelle conserve la totalité du texte. Padding, espaces, titres centrés, boutons et mouvements partagés conservés. Les cartes de l’accueil conduisent aussi aux articles. Les détails proposent période authentique, texte complet, zone et partenaire connus, référence liée, crédits et navigation précédente/suivante.
+
+Les courts extraits de trois lignes sont alignés au début pour éviter les grands espaces entre les mots. Les paragraphes complets des articles gardent la justification, dernière ligne au début.
+
+## Bandeau partenaires — 7 octobre 2026
+
+Sous le hero : noms seuls sur fond clair, texte vert et séparateurs dorés ; aucun logo ni nouvelle police. Défilement lent de 180 secondes par boucle avec pause accessible. Fallback fixe, noms complets pouvant revenir à la ligne à 200 % et sans animations. Section des partenaires et logos conservée.
+
+## Impact : récit et cartes décalées — 7 octobre 2026
+
+Présentation inspirée de la capture Mehad : fond blanc, cinq paragraphes à gauche, quatre cartes vertes en deux colonnes à droite dès 1100 px. En-tête centré dans la colonne de récit, exception à l’en-tête pleine largeur pour cette composition demandée. Deuxième colonne décalée de 64 px, réserve inférieure correspondante. Sous 1100 px, texte puis cartes ; une colonne de cartes sous 700 px. Textes longs justifiés, chiffres et libellés centrés, variables et padding communs conservés, pas de dimension changeante au survol. Aucune icône ajoutée.
+
+## Partenaires : logos en carrousel — 7 octobre 2026
+
+La section de logos du bas devient une rangée sur fond blanc, sans encadrement de cartes ni feuillage. Titres, description authentique, couleurs des marques et proportions conservés. Cinq logos dès 1100 px, trois dès 700 px, un en dessous ; flèches 44 px et pause. Sur mobile, flèches sous la rangée. Padding/espaces communs, pas de changement de dimensions au survol ; les logos de cette rangée ne cumulent pas les apparitions de carte avec le défilement. Fallback grille sans JavaScript. Le bandeau des noms sous le hero reste distinct.

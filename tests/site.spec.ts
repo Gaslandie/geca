@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { aboutContent, contactContent, homeContent, interventionContent, locales, missionVisionContent, partnershipContent, portfolioContent, newsContent, routes } from "../src/content/site";
+import { aboutContent, contactContent, homeContent, interventionContent, locales, missionVisionContent, partnershipContent, portfolioContent, newsContent, routes, getNewsEntry } from "../src/content/site";
 
 test("routes connues FR / EN, langues et titres", async ({ request }) => {
   for (const locale of locales) {
@@ -30,6 +30,9 @@ test("routes connues FR / EN, langues et titres", async ({ request }) => {
       } else if (path === "actualites") {
         expect(html).toContain(newsContent[locale].archiveTitle);
         expect(html).not.toContain(locale === "fr" ? "Cette rubrique est en préparation." : "This section is being prepared.");
+      } else if (path.startsWith("actualites/")) {
+        expect(html).toContain(getNewsEntry(locale, path.slice("actualites/".length))!.period);
+        expect(html).toContain("article-title");
       } else if (path === "contact") {
         expect(html).toContain(contactContent[locale].title);
         expect(html).toContain(contactContent[locale].form.demo);
@@ -137,14 +140,17 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
         expect(photo).not.toBeNull();
         expect(text).not.toBeNull();
         if (photo && text) {
-          if (width < 768) {
-            expect(text.y).toBeGreaterThanOrEqual(photo.y + photo.height - 1);
-            expect(Math.abs(text.width - photo.width)).toBeLessThan(1);
-          } else {
-            expect(Math.abs(text.y - photo.y)).toBeLessThan(1);
-            expect(Math.abs(text.width - photo.width)).toBeLessThan(1);
-            expect(Math.abs(text.height - photo.height)).toBeLessThan(1);
-            expect(index % 2 === 0 ? text.x < photo.x : photo.x < text.x).toBe(true);
+          expect(Math.abs(photo.width - photo.height)).toBeLessThan(1);
+          expect(text.y).toBeGreaterThanOrEqual(photo.y + photo.height - 1);
+          const circle = domain.locator(".domain-circle");
+          await expect(circle).toHaveCSS("border-radius", "50%");
+          const title = await domain.locator("h3").boundingBox();
+          expect(title).not.toBeNull();
+          if (title) {
+            expect(title.x).toBeGreaterThanOrEqual(photo.x - 1);
+            expect(title.y).toBeGreaterThanOrEqual(photo.y - 1);
+            expect(title.x + title.width).toBeLessThanOrEqual(photo.x + photo.width + 1);
+            expect(title.y + title.height).toBeLessThanOrEqual(photo.y + photo.height + 1);
           }
         }
       } else {
@@ -262,7 +268,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     expect(typography.fontsLoaded).toBe(true);
     const sectionHeaders = await page.locator(".section-heading").evaluateAll((headers) =>
       headers.map((header) => {
-        const section = header.closest("section")!.getBoundingClientRect();
+        const section = (header.closest(".impact-copy") ?? header.closest("section"))!.getBoundingClientRect();
         return [...header.querySelectorAll("h2, .eyebrow, .section-description")].every((element) => {
           const box = element.getBoundingClientRect();
           const style = getComputedStyle(element);
@@ -274,7 +280,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
         });
       }),
     );
-    // Tous les en-têtes de section, y compris Impact, sont centrés.
+    // Impact est centré dans sa colonne de récit ; les autres en-têtes sur la section.
     expect(sectionHeaders).toHaveLength(7);
     await expect(page.locator(".team-member")).toHaveCount(8);
     await expect(page.locator("#mohamed-makale-kaba")).toContainText("Mohamed Makalé KABA");
@@ -298,13 +304,13 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       expect(Math.abs(card.width - partnerCards[0].width)).toBeLessThan(1);
       expect(Math.abs(card.height - partnerCards[0].height)).toBeLessThan(1);
     }
-    // Des cartes de même largeur peuvent pourtant se chevaucher dans la grille.
+    // La rangée peut dépasser dans son viewport, mais jamais déborder la page.
     const partnerGrid = (await page.locator(".partner-list").boundingBox())!;
     const partnerGap = await page.locator(".partner-list").evaluate((grid) => parseFloat(getComputedStyle(grid).gap));
     expect(partnerGap).toBeGreaterThanOrEqual(20);
     for (const [index, card] of partnerCards.entries()) {
       expect(card.x).toBeGreaterThanOrEqual(partnerGrid.x - 1);
-      expect(card.right).toBeLessThanOrEqual(partnerGrid.x + partnerGrid.width + 1);
+      expect(card.right).toBeLessThanOrEqual(partnerGrid.x + await page.locator(".partner-list").evaluate((list) => list.scrollWidth) + 1);
       if (index === 0) continue;
       const previous = partnerCards[index - 1];
       const sameRow = Math.abs(card.y - previous.y) < 1;
@@ -370,7 +376,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     expect(results.violations).toEqual([]);
     const illustrations = page.locator(".photo-placeholder.has-photo");
     // L’ancienne photo du hero est désormais un fond décoratif distinct.
-    await expect(illustrations).toHaveCount(13);
+    await expect(illustrations).toHaveCount(12);
     for (const illustration of await illustrations.all()) {
       await illustration.scrollIntoViewIfNeeded();
       await expect(illustration.locator(".temporary-image-label")).toHaveCount(0);
@@ -437,6 +443,14 @@ test("texte agrandi à 200 % : contenus et navigation restent dans le cadre", as
     await page.goto("/fr");
     await page.evaluate(() => document.fonts.ready);
     await page.addStyleTag({ content: ":root { font-size: 200%; }" });
+    for (const circle of await page.locator(".domain-circle").all()) {
+      const frame = (await circle.boundingBox())!;
+      const title = (await circle.locator("h3").boundingBox())!;
+      expect(title.x).toBeGreaterThanOrEqual(frame.x - 1);
+      expect(title.y).toBeGreaterThanOrEqual(frame.y - 1);
+      expect(title.x + title.width).toBeLessThanOrEqual(frame.x + frame.width + 1);
+      expect(title.y + title.height).toBeLessThanOrEqual(frame.y + frame.height + 1);
+    }
     if (await page.locator(".menu-toggle").isVisible()) await page.locator(".menu-toggle").click();
     const nav = page.getByRole("navigation", { name: "Navigation principale" });
     await expect(nav).toBeVisible();

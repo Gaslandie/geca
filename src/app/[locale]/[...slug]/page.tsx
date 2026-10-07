@@ -8,9 +8,10 @@ import { ProjectPortfolio } from "@/components/ProjectPortfolio";
 import { Partnership } from "@/components/Partnership";
 import { MissionVisionValues } from "@/components/MissionVisionValues";
 import { News } from "@/components/News";
+import { NewsArticle } from "@/components/NewsArticle";
 import { TeamPage } from "@/components/Team";
 import { PhotoCredits } from "@/components/PhotoCredits";
-import { newsContent, teamContent, teamMembers, aboutContent, contactContent, interventionContent, isLocale, locales, missionVisionContent, partnershipContent, portfolioContent, routes } from "@/content/site";
+import { getNewsEntry, newsContent, teamContent, teamMembers, aboutContent, contactContent, interventionContent, isLocale, locales, missionVisionContent, partnershipContent, portfolioContent, routes } from "@/content/site";
 
 type Props = { params: Promise<{ locale: string; slug: string[] }> };
 
@@ -32,10 +33,11 @@ async function resolveRoute(params: Props["params"]) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, route } = await resolveRoute(params);
+  const entry = route.path.startsWith("actualites/") ? getNewsEntry(locale, route.path.slice("actualites/".length)) : undefined;
   return {
     title: route[locale],
     description:
-      route.path === "actualites"
+      entry ? entry.description.split("\n\n")[0] : route.path === "actualites"
         ? newsContent[locale].introduction
         : route.path === "equipe"
         ? `${teamContent[locale].pageTitle} — ${teamMembers.map((member) => `${member.name}, ${member.role[locale]}`).join(" ; ")}`
@@ -60,6 +62,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function SectionPage({ params }: Props) {
   const { locale, route } = await resolveRoute(params);
   if (route.path === "actualites") return <News locale={locale} />;
+  if (route.path.startsWith("actualites/")) {
+    const entry = getNewsEntry(locale, route.path.slice("actualites/".length));
+    if (!entry) notFound();
+    return <NewsArticle locale={locale} entry={entry} />;
+  }
   if (route.path === "equipe") return <TeamPage locale={locale} />;
   if (route.path === "contact") return <Contact locale={locale} />;
   if (route.path === "a-propos") return <About locale={locale} />;

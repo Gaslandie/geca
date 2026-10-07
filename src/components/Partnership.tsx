@@ -38,8 +38,8 @@ export function Partnership({ locale }: { locale: Locale }) {
             </div>
           </div>
           <div className="partnership-actions">
-            <Button href={href(locale, "contact")} variant="light">{text.contact}</Button>
-            <Button href={href(locale, "projets")} variant="text">{text.projects}</Button>
+            <Button href={href(locale, "contact")} tone="inverse">{text.contact}</Button>
+            <Button href={href(locale, "projets")} variant="text" tone="inverse">{text.projects}</Button>
           </div>
         </Container>
       </section>

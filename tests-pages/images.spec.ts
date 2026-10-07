@@ -33,15 +33,16 @@ test("export : taille selon l’écran, photos réutilisées, aucun original té
   expect(selected[0]).not.toBe(selected[1]);
   await page.setViewportSize({ width: 375, height: 900 });
   await page.goto("/geca/fr/");
-  const forestPhoto = page.locator(".impact-photo img");
-  await forestPhoto.scrollIntoViewIfNeeded();
-  await expect.poll(() => forestPhoto.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
-  const firstSrc = await forestPhoto.evaluate((img: HTMLImageElement) => img.currentSrc);
-  await page.goto("/geca/fr/contact/");
-  const contactPhoto = page.locator(".contact-forest img");
-  await contactPhoto.scrollIntoViewIfNeeded();
-  await expect.poll(() => contactPhoto.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
-  expect(await contactPhoto.evaluate((img: HTMLImageElement) => img.currentSrc)).toBe(firstSrc);
+  await expect(page.locator(".impact-photo")).toHaveCount(0);
+  const sharedPhoto = page.locator(".news-card img").first();
+  await sharedPhoto.scrollIntoViewIfNeeded();
+  await expect.poll(() => sharedPhoto.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+  const firstSrc = await sharedPhoto.evaluate((img: HTMLImageElement) => img.currentSrc);
+  await page.goto("/geca/fr/actualites/projet-kounounkan/");
+  const articlePhoto = page.locator(".news-article-photo img");
+  await articlePhoto.scrollIntoViewIfNeeded();
+  await expect.poll(() => articlePhoto.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+  expect(await articlePhoto.evaluate((img: HTMLImageElement) => img.currentSrc)).toBe(firstSrc);
   expect(requests.every((url) => url.startsWith("http://127.0.0.1:3100/"))).toBe(true);
   expect(requests.filter((url) => /\.(jpg|png)(\?|$)/.test(url))).toEqual([]);
   for (const path of ["assets/source-images/images/temporary/forest.jpg", "assets/source-images/images/hero/plantation.png", "images/hero/plantation.png", "assets/source-videos/geca-forest.mp4", "images/temporary/forest.jpg"]) {
