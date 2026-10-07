@@ -24,7 +24,7 @@ for (const locale of ["fr", "en"]) {
       ["a-propos/mission-vision-valeurs", ".mission-prose, .mission-figure"],
       ["devenir-partenaire", ".partnership-strength-card"],
       ["contact", ".contact-form-panel, .contact-forest"],
-      ["actualites", ".construction-body"],
+      ["actualites", ".news-card"],
     ]) {
       await page.goto(`/${locale}${path ? `/${path}` : ""}`);
       const blocks = page.locator(`${sample}, .footer-grid > *, .footer-bottom`);
@@ -38,12 +38,12 @@ for (const locale of ["fr", "en"]) {
         const log = (window as unknown as { motionLog: MotionLog }).motionLog;
         return {
           nested: log.some((entry) => log.some((other) => other.target !== entry.target && other.target.contains(entry.target))),
-          timings: [...new Set(log.map((entry) => `${entry.duration}|${entry.easing}`))],
-          frames: log.every((entry) => entry.frames[0].transform === "translateY(12px)" && entry.frames[1].transform === "translateY(0)" && entry.frames.every((frame) => frame.opacity === undefined)),
+          timings: log.every((entry) => [560, 600, 720].includes(entry.duration) && entry.easing === "cubic-bezier(0.2, 0.65, 0.3, 1)"),
+          frames: log.every((entry) => String(entry.frames[0].transform).startsWith("translateY(") && String(entry.frames[1].transform).startsWith("translateY(0)") && entry.frames.every((frame) => frame.opacity === undefined)),
         };
       });
       expect(result.nested, path).toBe(false);
-      expect(result.timings, path).toEqual(["480|cubic-bezier(0.2, 0.65, 0.3, 1)"]);
+      expect(result.timings, path).toBe(true);
       expect(result.frames, path).toBe(true);
       await page.evaluate(() => scrollTo(0, 0));
       await blocks.last().scrollIntoViewIfNeeded();
@@ -61,17 +61,20 @@ test("nouveaux blocs : opt-out, annulation et nettoyage des éléments retirés"
     Object.defineProperty(navigator, "connection", { value: connection, configurable: true });
     const original = Element.prototype.animate;
     const log: MotionLog = [];
-    Object.assign(window, { motionLog: log });
+    Object.assign(window, { motionLog: log, motionReady: false });
     Element.prototype.animate = function (frames, options) {
       const animation = original.call(this, frames, options);
+      Object.assign(window, { motionReady: true });
       if (this.id.startsWith("motion-test")) {
-        log.push({ target: this, animation, duration: 480, easing: "", frames: frames as Keyframe[] });
+        log.push({ target: this, animation, duration: Number(animation.effect!.getTiming().duration), easing: "", frames: frames as Keyframe[] });
         animation.pause();
       }
       return animation;
     };
   });
   await page.goto("/fr/projets");
+  // Insérer après la prise en main de la page par React et SiteMotion.
+  await page.waitForFunction(() => (window as unknown as { motionReady: boolean }).motionReady);
   await page.evaluate(() => {
     const block = document.createElement("div");
     block.id = "motion-test-parent";
@@ -109,3 +112,37 @@ test("nouveaux blocs : opt-out, annulation et nettoyage des éléments retirés"
   await expect.poll(() => page.evaluate(() => (window as unknown as { motionLog: MotionLog }).motionLog[1].animation.playState)).toBe("idle");
   await expect(page.locator("#motion-test-new")).toBeVisible();
 });
+
+for (const width of [375, 1440]) {
+  test(`titres distincts et cartes coordonnées à ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.addInitScript(() => {
+      const original = Element.prototype.animate;
+      const log: { target: Element; duration: number; delay: number; frames: Keyframe[] }[] = [];
+      Object.assign(window, { coordinatedMotion: log });
+      Element.prototype.animate = function (frames, options) {
+        const animation = original.call(this, frames, options);
+        const timing = animation.effect!.getTiming();
+        log.push({ target: this, duration: Number(timing.duration), delay: timing.delay ?? 0, frames: frames as Keyframe[] });
+        return animation;
+      };
+    });
+    await page.goto("/fr");
+    await expect.poll(() => page.locator("#hero-title").evaluate((element) =>
+      (window as unknown as { coordinatedMotion: { target: Element; duration: number; delay: number; frames: Keyframe[] }[] }).coordinatedMotion
+        .filter((entry) => entry.target === element).map((entry) => [entry.duration, entry.delay, entry.frames[0].transform]),
+    )).toEqual([[720, 0, "translateY(24px) scale(.96)"]]);
+    await page.locator(".team-member").first().scrollIntoViewIfNeeded();
+    await expect.poll(() => page.locator(".team-member").first().evaluate((element) =>
+      (window as unknown as { coordinatedMotion: { target: Element; duration: number }[] }).coordinatedMotion
+        .find((entry) => entry.target === element)?.duration,
+    )).toBe(600);
+    expect(await page.evaluate(() =>
+      (window as unknown as { coordinatedMotion: { delay: number }[] }).coordinatedMotion.every((entry) => entry.delay >= 0 && entry.delay <= 280),
+    )).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await expect.poll(() => page.locator("main").evaluate((element) => element.getAnimations({ subtree: true }).length)).toBe(0);
+  });
+}

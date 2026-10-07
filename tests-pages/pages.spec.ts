@@ -57,6 +57,9 @@ for (const width of [375, 1440]) {
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({ path: `test-results/pages-home-${width}.png`, animations: "disabled" });
     await expect(page.locator(".hero-slide img")).toHaveCount(5);
+    for (const text of await page.locator(".hero-brand, #hero-title, .hero-description, .hero-introduction").all()) await expect(text).toHaveCSS("text-align", "left");
+    await expect(page.locator(".site-header .brand-logo")).toHaveAttribute("src", /global-ecoaction-logo-transparent-/);
+    await expect(page.locator(".site-header .brand")).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
     expect(await page.locator(".hero-slide img").evaluateAll(images => new Set(images.map(image => new URL((image as HTMLImageElement).src).pathname)).size)).toBe(5);
     await expect(page.locator(".hero-slide img").first()).toHaveAttribute("alt", "");
     await expect(page.locator(".hero video, .hero-video-toggle, .hero-action-arrow")).toHaveCount(0);
@@ -115,3 +118,17 @@ test("export : entrée et contact utilisables sans JavaScript", async ({ browser
   for (const email of await emails.all()) await expect(email).toBeVisible();
   await context.close();
 });
+
+
+for (const locale of locales) {
+  test(`export : archives ${locale}, périodes et ancres préfixées`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(`/geca/${locale}/actualites/`);
+    await expect(page.locator(".news-card")).toHaveCount(9);
+    await expect(page.locator("time")).toHaveCount(2);
+    await expect(page.locator("#projet-kounounkan .news-archive-period")).toContainText("2025-2026");
+    await page.locator("#projet-kounounkan a").click();
+    await expect(page).toHaveURL(new RegExp(`/geca/${locale}/projets/#projet-kounounkan$`));
+    await expect(page.locator("#projet-kounounkan")).toBeInViewport();
+  });
+}

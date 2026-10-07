@@ -158,3 +158,15 @@ Nom du hero, précision du 7 octobre : taille × 1,8 de --text-label (+20 % sur 
 
 
 Navigation directe, 7 octobre : écart horizontal entre les rubriques de 20 px, demandé légèrement plus large (12 px auparavant).
+
+## Animations coordonnées — règle prioritaire du 7 octobre 2026
+
+La nouvelle demande remplace l'apparition unique identique de 480 ms : famille commune dans `SiteMotion`, trois accents selon le rôle. Titres h1/h2 autonomes : 720 ms, montée 24 px et léger agrandissement de 0,96 à 1. Cartes/photos : 600 ms, montée 24 px et échelle 0,985 à 1. Textes/actions : 560 ms, montée 18 px. Courbe commune conservée ; décalages 70 ms limités à 280 ms dans une section, titres prioritaires. Pas de changement de police, taille finale, texte ou espace. Carte complète animée plutôt que parent et enfants ensemble. Inclure les portraits de l'équipe. Garder apparition ponctuelle, contenu toujours visible, arrêt au focus, réduction des mouvements, économie de données et nettoyage aux changements de page/retraits. Référence et limites dans `docs/BENCHMARK.md`.
+
+## Archives Actualités — 7 octobre 2026
+
+Réutiliser les cartes, titres centrés, espaces et mouvements communs. Les paragraphes descriptifs des archives sont justifiés, dernière ligne au début, coupure selon la langue ; les catégories, titres et périodes restent centrés. Deux colonnes dès 768 px, une en dessous. Photos existantes avec leurs étiquettes ; aucun média fictif pour les repères d'identité.
+
+## Textes du hero à gauche — priorité du 7 octobre 2026
+
+Gassama demande « justifie moi les textes de la section hero à gauche ». Application : nom, slogan, sous-titre et mission alignés sur le même bord gauche, mobile et ordinateur. Espacement régulier entre les mots, dernière ligne à gauche également ; le paragraphe de mission ne reste plus justifié sur les deux bords. Cette demande remplace le centrage et la justification précédents de ces seuls textes. Le bloc conserve sa largeur de lecture et ses marges générales ; boutons centrés, photos, textes, couleurs et animations conservés.

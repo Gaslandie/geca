@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { aboutContent, contactContent, homeContent, interventionContent, locales, missionVisionContent, partnershipContent, portfolioContent, routes } from "../src/content/site";
+import { aboutContent, contactContent, homeContent, interventionContent, locales, missionVisionContent, partnershipContent, portfolioContent, newsContent, routes } from "../src/content/site";
 
 test("routes connues FR / EN, langues et titres", async ({ request }) => {
   for (const locale of locales) {
@@ -27,6 +27,9 @@ test("routes connues FR / EN, langues et titres", async ({ request }) => {
         expect(html).toContain(locale === "fr" ? "Assistant programme" : "Programme Assistant");
         expect(html).toContain(locale === "fr" ? "Responsable suivi-évaluation" : "Monitoring and Evaluation Manager");
         expect(html).toContain(locale === "fr" ? "Directeur Exécutif" : "Executive Director");
+      } else if (path === "actualites") {
+        expect(html).toContain(newsContent[locale].archiveTitle);
+        expect(html).not.toContain(locale === "fr" ? "Cette rubrique est en préparation." : "This section is being prepared.");
       } else if (path === "contact") {
         expect(html).toContain(contactContent[locale].title);
         expect(html).toContain(contactContent[locale].form.demo);
@@ -119,7 +122,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     await page.evaluate(() => document.fonts.ready);
     // Mesurer la disposition finale après l'apparition commune, testée séparément.
     await page.locator(".hero-grid").evaluate(async (element) => {
-      await Promise.all(element.getAnimations().map((animation) => animation.finished.catch(() => {})));
+      await Promise.all(element.getAnimations({ subtree: true }).map((animation) => animation.finished.catch(() => {})));
     });
     const domains = page.locator(".domains .domain");
     await expect(domains).toHaveCount(8);
@@ -344,7 +347,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     } else {
       await nav.getByRole("link", { name: "Actualités", exact: true }).click();
       await expect(page).toHaveURL("/fr/actualites");
-      await page.getByRole("link", { name: "Retour à l’accueil" }).click();
+      await page.locator(".contact-breadcrumb").getByRole("link", { name: "Accueil", exact: true }).click();
     }
     const filter = page.getByRole("group", { name: "Filtrer les projets" });
     await expect(page.locator(".project-card")).toHaveCount(2);

@@ -6,9 +6,10 @@ import { useEffect } from "react";
 // Règle commune, y compris pour les futurs corps de carte et blocs data-reveal.
 // Le HTML reste visible : ces effets n'ajoutent aucune condition d'accès.
 const targets = [
-  "[data-reveal]:not([data-reveal='off'])", ".hero-grid", ".card-content",
-  ".section-heading", ".impact-heading", ".stat", ".domain",
-  ".project-card", ".portfolio-project", ".news-card",
+  "[data-reveal]:not([data-reveal='off'])", ".hero-brand", ".hero-description", ".hero-introduction", ".hero-actions", ".card-content",
+  "h1", "h2", ".section-heading .eyebrow", ".section-heading .section-description",
+  ".section-heading > .button", ".stat", ".domain",
+  ".project-card", ".portfolio-project", ".news-card", ".team-member",
   ".partner-list li", ".cta-grid > div", ".contact-copy",
   ".contact-form", ".contact-details-grid > div",
   ".about-since", ".about-conviction", ".about-purpose-card",
@@ -24,8 +25,24 @@ const targets = [
   ".about-closing-actions",
 ].join(",");
 const selector = `main :is(${targets}), .site-footer .footer-grid > *, .site-footer .footer-bottom`;
-const revealFrames = [{ transform: "translateY(12px)" }, { transform: "translateY(0)" }];
-const revealTiming = { duration: 480, easing: "cubic-bezier(.2,.65,.3,1)" };
+// Trois accents d'une même famille : titres, cartes/photos, textes/actions.
+const cardSelector = ".stat, .domain, .project-card, .portfolio-project, .news-card, .team-member, .partner-list li, .photo-placeholder, .mission-figure, .about-purpose-card, .mission-value-card, .partnership-strength-card";
+const headingSelector = "h1, h2";
+const easing = "cubic-bezier(.2,.65,.3,1)";
+function motionFor(target: Element) {
+  if (target.matches(headingSelector)) return {
+    frames: [{ transform: "translateY(24px) scale(.96)" }, { transform: "translateY(0) scale(1)" }],
+    duration: 720,
+  };
+  if (target.matches(cardSelector)) return {
+    frames: [{ transform: "translateY(24px) scale(.985)" }, { transform: "translateY(0) scale(1)" }],
+    duration: 600,
+  };
+  return {
+    frames: [{ transform: "translateY(18px)" }, { transform: "translateY(0)" }],
+    duration: 560,
+  };
+}
 
 export function SiteMotion() {
   const pathname = usePathname();
@@ -55,14 +72,25 @@ export function SiteMotion() {
       stop();
       if (preference.matches || connection?.saveData) return;
       observer = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
+        // Coordonner seulement les éléments visibles ensemble dans une section.
+        // Le décalage reste borné, même pour une longue grille de cartes.
+        const groups = new Map<Element, number>();
+        const visible = entries.filter((entry) => entry.isIntersecting)
+          .sort((a, b) => Number(b.target.matches(headingSelector)) - Number(a.target.matches(headingSelector)) ||
+            (a.target.compareDocumentPosition(b.target) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+        for (const entry of visible) {
           if (!entry.isIntersecting || !entry.target.isConnected || finished.has(entry.target)) continue;
           const target = entry.target;
           finished.add(target);
           observer?.unobserve(target);
           observed.delete(target);
           if (target.contains(document.activeElement)) continue;
-          const animation = target.animate(revealFrames, revealTiming);
+          const group = target.closest("section, .footer-grid") ?? target.parentElement!;
+          const index = groups.get(group) ?? 0;
+          groups.set(group, index + 1);
+          const { frames, duration } = motionFor(target);
+          const delay = target.matches(headingSelector) ? 0 : Math.min(index, 4) * 70;
+          const animation = target.animate(frames, { duration, easing, delay, fill: "backwards" });
           running.set(target, animation);
           animation.onfinish = () => running.delete(target);
         }

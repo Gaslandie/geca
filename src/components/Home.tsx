@@ -179,7 +179,7 @@ export function Home() {
                   <p>{item.description}</p>
                   <div className="news-card-footer">
                     <span className="draft-label">
-                      {content.news.placeholderLabel}
+                      {item.period}
                     </span>
                     <Link
                       href={href("fr", item.path)}

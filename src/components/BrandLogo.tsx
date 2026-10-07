@@ -5,7 +5,7 @@ export function BrandLogo({ preload = false }: { preload?: boolean }) {
   return (
     <Image
       className="brand-logo"
-      src={assetPath("/images/brand/global-ecoaction-logo.png")}
+      src={assetPath("/images/brand/global-ecoaction-logo-transparent.png")}
       alt="Global EcoAction — Agir pour un avenir durable"
       width={1774}
       height={887}

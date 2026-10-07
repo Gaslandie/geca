@@ -1,4 +1,4 @@
-import { teamContent, teamMembers, clientPhotoSources, aboutContent, contactContent, getInterventionAreas, getPortfolioProjects, homeContent, href, identity, interfaceText, interventionContent, missionVisionContent, organizationFacts, partnershipContent, portfolioContent, routes, territorialExperience, type Locale } from "./site";
+import { getNewsEntries, newsContent, teamContent, teamMembers, clientPhotoSources, aboutContent, contactContent, getInterventionAreas, getPortfolioProjects, homeContent, href, identity, interfaceText, interventionContent, missionVisionContent, organizationFacts, partnershipContent, portfolioContent, routes, territorialExperience, type Locale } from "./site";
 import type { SearchDocument } from "@/lib/search";
 
 // Liste exclusivement publique, construite au rendu serveur. Jamais de fichier interne.
@@ -22,6 +22,7 @@ export function getSearchDocuments(locale: Locale): SearchDocument[] {
   for (const key of ["mission", "vision"] as const) add("a-propos/mission-vision-valeurs", mission[key].title, mission.title, `${mission[key].summary} ${mission[key].paragraphs.join(" ")}`, `notre-${key}`);
   for (const value of mission.values) add("a-propos/mission-vision-valeurs", value.title, mission.valuesLabel, `${value.summary} ${value.detail}`, "nos-valeurs");
   for (const project of getPortfolioProjects(locale)) add("projets", project.title, portfolio.title, `${project.description} ${project.zone} ${project.period} ${project.partner}`, `projet-${project.slug}`);
+  for (const entry of getNewsEntries(locale)) add("actualites", entry.title, newsContent[locale].title, `${entry.description} ${entry.period} ${entry.partner ?? ""}`, entry.id);
   for (const member of teamMembers) add("equipe", member.name, teamContent[locale].pageTitle, member.role[locale], member.id);
   const experience = territorialExperience[locale];
   add("projets", experience.title, portfolio.title, `${experience.introduction} ${experience.achievements.join(" ")}`, "experience-kounounkan-moussayah");

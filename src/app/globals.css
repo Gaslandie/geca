@@ -332,7 +332,7 @@ p, a, button {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  background: var(--white);
+  background: transparent;
   border-radius: 3px;
 }
 .brand-logo {
@@ -1308,6 +1308,8 @@ p, a, button {
   background: var(--green-dark);
   color: #d0dcd4;
 }
+/* Le slogan noir du logo garde un support clair sur le pied de page sombre. */
+.site-footer .brand { background: var(--white); }
 .footer-grid {
   display: grid;
   gap: 36px;
@@ -2666,3 +2668,45 @@ html { scroll-padding-top: calc(var(--site-header-height, 104px) + 16px); }
     background: var(--cream); border: 1px solid var(--line); box-shadow: 0 12px 20px #003f1b12;
   }
 }
+
+/* Archives : mêmes titres, cartes et animations que les autres rubriques. */
+.news-archive-grid {
+  display: grid;
+  gap: var(--card-gap);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+.news-archive-notice {
+  max-width: 860px;
+  margin: 0 auto var(--heading-gap);
+}
+#main-content .news-card-content > .news-archive-description,
+.news-archive-notice {
+  text-align: justify;
+  text-align-last: start;
+  hyphens: auto;
+}
+#main-content .news-card-content > .news-archive-period {
+  text-align: center;
+  font-weight: 700;
+  color: var(--green);
+}
+.news-page .news-card-link {
+  width: auto;
+  height: auto;
+  min-height: 44px;
+  padding: 8px 16px;
+}
+.news-page .news-card-footer { justify-content: center; }
+@media (min-width: 768px) {
+  .news-archive-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Demande du 7 octobre : textes du hero alignés au même bord gauche. */
+#main-content .hero-content { text-align: left; }
+#main-content .hero-content :is(h1, .eyebrow, .hero-description, .hero-introduction) {
+  text-align: left;
+  text-align-last: auto;
+  margin-inline: 0;
+}
+.hero-copy { margin-inline: 0; }

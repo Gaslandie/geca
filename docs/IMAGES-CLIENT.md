@@ -137,3 +137,7 @@ Extraction JPEG intacte depuis l’original archivé ; variantes WebP du script 
 ## Cinq images du carrousel — 7 octobre 2026
 
 Gassama demande cinq photos différentes. Deux photos jusque-là inutilisées complètent les trois fonds : page 47 / image extraite 047, hero-gbara-champ.jpg (1280 × 722), aménagement du champ maraîcher de Gbara ; page 59 / image 059, figure 1, hero-gbara-entretien.jpg (1000 × 750), entretien avec le groupement maraîcher de Gbara. Examinées en taille réelle avec les légendes ; aucune personne identifiée et aucun projet ou résultat déduit. Extraction JPEG intacte, WebP commun sans agrandissement ni métadonnées privées. Crédits FR/EN ajoutés via le registre partagé. Auteur/licence non précisés ; usage demandé par Gassama.
+
+## Actualités documentées — 7 octobre 2026
+
+La page Actualités réutilise les photos des sept références avec leurs niveaux de preuve, textes alternatifs et étiquettes thématiques/temporaires existants. Les deux cartes d'accueil réutilisent les photos corroborées des références AGR Kounounkan et Appui social/nature. Les repères de création et de changement de nom restent sans photo, faute de photo précisément associée. Aucun cliché n'est daté à partir d'une période de projet. Les anciennes associations aux cartes en préparation restent consignées ci-dessus comme historique ; leurs médias sont conservés.

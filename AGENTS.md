@@ -164,3 +164,19 @@ Garder Global/Action jaunes et Eco vert. Nom renforcé : jaune doré --gold, ver
 ## Cinq fonds du hero — 7 octobre 2026
 
 Le carrousel du hero contient désormais cinq photos client distinctes : les trois fonds précédents et deux vues jusque-là inutilisées, PDF pages 47 et 59. Garder cadence de cinq secondes, textes, absence de pause demandée, fallback fixe et crédits. Cette demande remplace le nombre de trois fonds.
+
+## Animations coordonnées — demande du 7 octobre 2026
+
+Gassama demande davantage de mouvement avec uniformité et un effet propre aux titres. Cette demande remplace le mouvement unique de 12 px / 480 ms : appliquer la famille partagée de `SiteMotion` documentée dans `docs/TYPOGRAPHIE.md`, titres 720 ms, cartes/photos 600 ms, textes/actions 560 ms et petits décalages bornés. Conserver les protections d'accessibilité, l'apparition ponctuelle, l'absence de mouvements imbriqués et les préférences de mouvement/données. Les cartes se déplacent en entier ; les titres autonomes ont leur effet distinct. Aucun changement factuel ni typographique final.
+
+## Actualités documentées — demande du 7 octobre 2026
+
+Gassama demande les actualités passées jusqu'à aujourd'hui, sans invention. Les pages Actualités FR/EN et les deux cartes d'accueil présentent désormais les repères d'identité et les sept références client, en archives. Réutiliser `getNewsEntries` et les projets communs ; distinguer les dates de repère des périodes de projet, sans fabriquer de publication ou annoncer une nouvelle action. Archives non exhaustives. De nouveaux articles demandent de nouveaux faits authentiques, archivés dans la référence client. Préserver les crédits et étiquettes des photos, les registres fermés, la recherche locale et les mouvements communs.
+
+## Logo GECA transparent — 7 octobre 2026
+
+Gassama demande une version transparente du logo. `BrandLogo` utilise le dérivé local `global-ecoaction-logo-transparent.png`, préparé par suppression du fond avec imagegen et servi en variantes WebP alpha via le registre fermé. Original intact, même cadre et dimensions, pas de nouvelle identité ou recoloration. Pas de fond blanc CSS dans la navigation ; support clair conservé au pied de page pour le slogan noir sur vert sombre. Provenance et limites dans `docs/LOGO-GECA.md`. Ne pas modifier les partenaires par cette demande.
+
+## Hero : alignement à gauche — 7 octobre 2026
+
+Gassama demande les textes du hero « à gauche ». Nom, slogan, sous-titre et mission partagent désormais le même bord gauche sur mobile et ordinateur. Cette exception prime sur le centrage des titres et la justification sur deux bords de la mission. Boutons et autres sections suivent leurs règles existantes. Ne pas changer les textes ni les médias.

@@ -9,10 +9,10 @@ for (const width of [375, 1440]) {
       await page.goto(path);
       await page.evaluate(() => document.fonts.ready);
       const headings = await page.locator("main h1, main h2, main h3, main .eyebrow, main .card-subtitle, main .contact-form-title, main .contact-detail-label, main .portfolio-objective-label").evaluateAll((elements) =>
-        elements.map((element) => ({ text: element.textContent, align: getComputedStyle(element).textAlign })),
+        elements.map((element) => ({ text: element.textContent, align: getComputedStyle(element).textAlign, hero: !!element.closest(".hero-content") })),
       );
       expect(headings.length, path).toBeGreaterThan(0);
-      for (const heading of headings) expect(heading.align, `${path}: ${heading.text}`).toBe("center");
+      for (const heading of headings) expect(heading.align, `${path}: ${heading.text}`).toBe(heading.hero ? "left" : "center");
       const paddings = await page.locator("main .card-content").evaluateAll((elements) => elements.map((element) => {
         const style = getComputedStyle(element);
         return [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft];

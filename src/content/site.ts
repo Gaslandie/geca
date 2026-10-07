@@ -642,27 +642,16 @@ export const homeContent = {
     label: "Actualités",
     title: "La vie de GECA.",
     description:
-      "Découvrez nos dernières actualités et nos activités sur le terrain.",
+      "Retrouvez les repères de notre organisation et les actions documentées au fil des années.",
     cta: "Voir toutes les actualités",
-    placeholderLabel: "Contenu en préparation",
-    items: [
-      {
-        title: "Au plus près des communautés",
-        description:
-          "Nos prochaines nouvelles du terrain seront à découvrir ici.",
-        path: "actualites",
-        category: "Sur le terrain",
-        photo: clientPhoto("khimbeli-consultation", "fr", true),
-      },
-      {
-        title: "Partager les savoirs, faire grandir l’action",
-        description:
-          "Retrouvez bientôt nos initiatives de sensibilisation et de formation.",
-        path: "actualites",
-        category: "Vie de l’association",
-        photo: clientPhoto("formation-maraichage", "fr", true),
-      },
-    ],
+    items: projects.slice(0, 2).map((project) => ({
+      title: project.title,
+      description: project.description,
+      path: `actualites#projet-${project.slug}`,
+      category: "Projets & programmes",
+      period: project.period,
+      photo: project.photo,
+    })),
   },
   partners: {
     label: "Nos partenaires",
@@ -1315,3 +1304,96 @@ export const teamContent = {
   fr: { label: "Notre équipe", title: "Les femmes et les hommes de GECA", all: "Découvrir l’équipe", pageTitle: "Notre équipe" },
   en: { label: "Our team", title: "The people of GECA", all: "Meet the team", pageTitle: "Our team" },
 } as const;
+
+
+// Archives demandées le 7 octobre 2026. Les périodes ne sont pas des dates de publication.
+export const newsContent = {
+  fr: {
+    title: "Actualités",
+    label: "La vie de GECA",
+    introduction: "De 2016 à 2026, retrouvez les repères de notre organisation et les actions documentées au fil des années.",
+    archiveTitle: "Repères et actions documentés",
+    archiveLabel: "Nos archives",
+    notice: "Les périodes indiquées sont celles des projets, et non des dates de publication. Ces archives rassemblent les informations disponibles ; elles ne constituent pas un relevé exhaustif des actualités.",
+    organization: "Vie de l’organisation",
+    project: "Projets & programmes",
+    projectLink: "Voir la référence du projet",
+    aboutLink: "Découvrir notre histoire",
+    period: "Période du projet",
+    date: "Date du repère",
+    partner: "Partenaire / bailleur",
+    breadcrumb: "Fil d’Ariane",
+  },
+  en: {
+    title: "News",
+    label: "GECA’s story",
+    introduction: "From 2016 to 2026, explore milestones in our organisation’s history and documented activities over the years.",
+    archiveTitle: "Milestones and documented activities",
+    archiveLabel: "Our archives",
+    notice: "The periods shown are project periods, not publication dates. These archives bring together the available information; they are not a complete record of news.",
+    organization: "Organisation milestones",
+    project: "Projects & programmes",
+    projectLink: "View the project reference",
+    aboutLink: "Explore our history",
+    period: "Project period",
+    date: "Milestone date",
+    partner: "Partner / funder",
+    breadcrumb: "Breadcrumb",
+  },
+} as const;
+
+export type NewsEntry = {
+  id: string;
+  title: string;
+  description: string;
+  period: string;
+  dateTime?: string;
+  category: string;
+  path: string;
+  photo?: LocalPhoto;
+  partner?: string;
+};
+
+export function getNewsEntries(locale: Locale): readonly NewsEntry[] {
+  const text = newsContent[locale];
+  const catalog = getPortfolioProjects(locale);
+  // Ordre des périodes fournies ; aucune fin ou date de publication déduite.
+  const archive = ["kounounkan", "appui-social-nature", "planification-climatique", "protemo", "piscca", "reboisement-communautaire", "droits-communautes"];
+  return [
+    {
+      id: "nouvelle-denomination",
+      title: locale === "fr" ? "RENASCEDD devient Global EcoAction" : "RENASCEDD becomes Global EcoAction",
+      description: locale === "fr"
+        ? `Le ${identity.renamedOn.fr}, RENASCEDD a adopté la nouvelle dénomination Global EcoAction (GECA), sans changement de mission, d’objectifs ni de continuité opérationnelle.`
+        : `On ${identity.renamedOn.en}, RENASCEDD adopted the new name Global EcoAction (GECA), with no change to its mission or objectives and no interruption to its operations.`,
+      period: identity.renamedOn[locale],
+      dateTime: "2026-08-26",
+      category: text.organization,
+      path: "a-propos#notre-histoire",
+    },
+    ...archive.flatMap((slug) => {
+      const project = catalog.find((item) => item.slug === slug);
+      return project ? [{
+        id: `projet-${project.slug}`,
+        title: project.title,
+        description: project.description,
+        period: project.period,
+        category: text.project,
+        path: `projets#projet-${project.slug}`,
+        photo: project.photo,
+        partner: project.partner,
+      }] : [];
+    }),
+    {
+      id: "creation-organisation",
+      title: locale === "fr" ? "Création de l’organisation" : "The organisation is founded",
+      description: locale === "fr"
+        ? `L’organisation a été créée le ${identity.foundedOn.fr}.`
+        : `The organisation was founded on ${identity.foundedOn.en}.`,
+      period: identity.foundedOn[locale],
+      dateTime: "2016-12-14",
+      category: text.organization,
+      path: "a-propos#notre-histoire",
+    },
+  ];
+}

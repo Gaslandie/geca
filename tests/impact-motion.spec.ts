@@ -8,7 +8,7 @@ test("hero : apparition commune, arrêt au clavier et aucune répétition", asyn
     Object.assign(window, { heroRevealCalls: 0, heroReveal: null });
     Element.prototype.animate = function (...args) {
       const animation = animate.apply(this, args);
-      if (this.classList.contains("hero-grid")) {
+      if (this.classList.contains("hero-actions")) {
         const state = window as unknown as { heroRevealCalls: number; heroReveal: Animation };
         state.heroRevealCalls++;
         state.heroReveal = animation;
@@ -23,21 +23,21 @@ test("hero : apparition commune, arrêt au clavier et aucune répétition", asyn
   await expect.poll(() => page.evaluate(() =>
     (window as unknown as { heroRevealCalls: number }).heroRevealCalls,
   )).toBe(1);
-  const offset = () => page.locator(".hero-grid").evaluate((element) =>
+  const offset = () => page.locator(".hero-actions").evaluate((element) =>
     new DOMMatrixReadOnly(getComputedStyle(element).transform).m42,
   );
-  expect(await offset()).toBe(12);
-  expect(await page.locator(".hero-grid").evaluate((element) => new DOMMatrixReadOnly(getComputedStyle(element).transform).a)).toBe(1);
+  expect(await offset()).toBe(18);
+  expect(await page.locator(".hero-actions").evaluate((element) => new DOMMatrixReadOnly(getComputedStyle(element).transform).a)).toBe(1);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   const duration = await page.evaluate(() => {
     const animation = (window as unknown as { heroReveal: Animation }).heroReveal;
     const duration = Number(animation.effect!.getComputedTiming().duration);
-    animation.currentTime = duration / 2;
+    animation.currentTime = (animation.effect!.getTiming().delay ?? 0) + duration / 2;
     return duration;
   });
-  expect(duration).toBe(480);
+  expect(duration).toBe(560);
   expect(await offset()).toBeGreaterThan(0);
-  expect(await offset()).toBeLessThan(12);
+  expect(await offset()).toBeLessThan(18);
   await page.locator(".hero-actions a").first().focus();
   await expect.poll(offset).toBe(0);
   await page.locator(".impact").scrollIntoViewIfNeeded();

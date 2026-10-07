@@ -2056,5 +2056,29 @@
     "width": 1600,
     "bytes": 102194,
     "originalBytes": 446646
+  },
+  {
+    "source": "/images/brand/global-ecoaction-logo-transparent.png",
+    "width": 192,
+    "bytes": 9248,
+    "originalBytes": 776356
+  },
+  {
+    "source": "/images/brand/global-ecoaction-logo-transparent.png",
+    "width": 320,
+    "bytes": 17466,
+    "originalBytes": 776356
+  },
+  {
+    "source": "/images/brand/global-ecoaction-logo-transparent.png",
+    "width": 480,
+    "bytes": 28130,
+    "originalBytes": 776356
+  },
+  {
+    "source": "/images/brand/global-ecoaction-logo-transparent.png",
+    "width": 640,
+    "bytes": 39776,
+    "originalBytes": 776356
   }
 ]

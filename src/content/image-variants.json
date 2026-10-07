@@ -1488,5 +1488,23 @@
       "width": 1600,
       "src": "/images/optimized/videos-geca-forest-poster-1600-40183d5ef5b1.webp"
     }
+  ],
+  "/images/brand/global-ecoaction-logo-transparent.png": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-brand-global-ecoaction-logo-transparent-192-bdfb8c83cd27.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-brand-global-ecoaction-logo-transparent-320-525f28fc12d7.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-brand-global-ecoaction-logo-transparent-480-fcf074504b26.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-brand-global-ecoaction-logo-transparent-640-5624a1ccd532.webp"
+    }
   ]
 }
