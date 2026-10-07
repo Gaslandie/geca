@@ -26,7 +26,7 @@ for (const width of [320, 375, 768, 1440, 1920]) {
     }
     for (const photo of await page.locator("main .photo-placeholder").all()) {
       await photo.scrollIntoViewIfNeeded();
-      await expect(photo.getByText("Image temporaire", { exact: true })).toBeVisible();
+      await expect(photo.getByText("Image temporaire", { exact: true })).toHaveCount(0);
       await expect.poll(() => photo.locator("img").evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
     }
     expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()).violations).toEqual([]);
@@ -48,7 +48,7 @@ test("à propos : arrivée depuis l'accueil, histoire au clavier, langue et cont
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/\/fr\/a-propos#notre-histoire$/);
   await expect(page.locator("#notre-histoire")).toBeInViewport();
-  await page.locator(".menu-toggle").click();
+  if (await page.locator(".menu-toggle").isVisible()) await page.locator(".menu-toggle").click();
   await page.locator("#main-navigation .language-switch").getByRole("link", { name: "EN", exact: true }).click();
   await expect(page).toHaveURL("/en/a-propos");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");

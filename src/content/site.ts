@@ -48,9 +48,9 @@ export const routes = [
     fr: "Domaines d’expertise",
     en: "Areas of expertise",
   },
+  { path: "equipe", fr: "Équipe", en: "Team" },
   { path: "projets", fr: "Projets & programmes", en: "Projects & programmes" },
   { path: "actualites", fr: "Actualités", en: "News" },
-  { path: "evenements", fr: "Événements", en: "Events" },
   { path: "nous-soutenir", fr: "Nous soutenir", en: "Support us" },
   {
     path: "devenir-partenaire",
@@ -84,6 +84,7 @@ export const navigation: readonly NavItem[] = [
       "a-propos",
       "a-propos/mission-vision-valeurs",
       "a-propos/domaines-intervention",
+      "equipe",
     ],
   },
   {
@@ -95,7 +96,6 @@ export const navigation: readonly NavItem[] = [
     fr: "Actualités",
     en: "News",
     path: "actualites",
-    children: ["actualites", "evenements"],
   },
   { fr: "Contact", en: "Contact", path: "contact" },
 ];
@@ -169,9 +169,42 @@ export type LocalPhoto = {
   src: `/${string}`;
   alt: string;
   temporary?: boolean;
+  contextLabel?: string;
 };
 
 export const temporaryImageLabel = "Image temporaire";
+
+// Photos extraites des trois fichiers client fournis le 6 octobre 2026.
+// Légendes, liens confirmés et illustrations de thème : docs/IMAGES-CLIENT.md.
+export const clientPhotoSources = {
+  "hero-gbara-champ": { src: "/images/client/hero-gbara-champ.jpg", source: "1 IMAGES.pdf", reference: "page 47", fr: "Aménagement du champ maraîcher à Gbara.", en: "Preparing the market garden in Gbara." },
+  "hero-gbara-entretien": { src: "/images/client/hero-gbara-entretien.jpg", source: "1 IMAGES.pdf", reference: "page 59, figure 1", fr: "Entretien avec le groupement maraîcher de Gbara.", en: "Discussion with the market-gardening group in Gbara." },
+  "hero-bassia-travail": { src: "/images/client/hero-bassia-travail.jpg", source: "1 IMAGES.pdf", reference: "page 39", fr: "Travail dans un champ maraîcher à Bassia.", en: "People working in a market garden in Bassia." },
+  "hero-gbara-arrosage": { src: "/images/client/hero-gbara-arrosage.jpg", source: "1 IMAGES.pdf", reference: "page 51", fr: "Arrosage des pépinières de piment à Gbara.", en: "Watering pepper nurseries in Gbara." },
+  "hero-bassia-groupe": { src: "/images/client/hero-bassia-groupe.jpg", source: "1 IMAGES.pdf", reference: "page 34", fr: "Vue de groupe dans un champ maraîcher à Bassia.", en: "Group in a market garden in Bassia." },
+  "bassia-travail-champ": { src: "/images/client/bassia-travail-champ.jpg", source: "1 IMAGES.pdf", reference: "page 42", fr: "Travail collectif dans un champ maraîcher à Bassia.", en: "People working together in a market garden in Bassia." },
+  "bassia-maraichage": { src: "/images/client/bassia-maraichage.jpg", source: "1 IMAGES.pdf", reference: "page 43", fr: "Plantation de jeunes plants dans un champ maraîcher à Bassia.", en: "Young seedlings being planted in a market garden in Bassia." },
+  "formation-groupements": { src: "/images/client/formation-groupements.jpg", source: "1 IMAGES.pdf", reference: "page 1", fr: "Session de formation des groupements locaux en plein air.", en: "Outdoor training session for local groups." },
+  "moussayah-concertation": { src: "/images/client/moussayah-concertation.jpg", source: "1 IMAGES.pdf", reference: "page 32", fr: "Réunion pour la mise en place des comités de gestion des plaintes à Moussayah.", en: "Meeting to establish grievance management committees in Moussayah." },
+  "allassoyah-materiels": { src: "/images/client/allassoyah-materiels.jpg", source: "1 IMAGES.pdf", reference: "page 14", fr: "Remise de matériels agricoles aux groupements à Allassoyah.", en: "Agricultural equipment being handed over to groups in Allassoyah." },
+  "gbara-visite": { src: "/images/client/gbara-visite.jpg", source: "1 IMAGES.pdf", reference: "page 6", fr: "Visite du site d’activité du groupement à Gbara.", en: "Visit to the group’s activity site in Gbara." },
+  "gbara-arrosage": { src: "/images/client/gbara-arrosage.jpg", source: "1 IMAGES.pdf", reference: "page 50", fr: "Arrosage des pépinières de piment à Gbara.", en: "Watering pepper nurseries in Gbara." },
+  "bassia-champ": { src: "/images/client/bassia-champ.jpg", source: "1 IMAGES.pdf", reference: "page 44", fr: "Vue du champ maraîcher de Bassia, entouré de végétation.", en: "View of the market garden in Bassia, surrounded by vegetation." },
+  "gorede-saponification": { src: "/images/client/gorede-saponification.jpg", source: "IMAGES BM AGR.docx", reference: "image 12", fr: "Remise de matériels de saponification à Görèdè.", en: "Soap-making equipment being handed over in Görèdè." },
+  "kolaboui-materiels": { src: "/images/client/kolaboui-materiels.jpg", source: "PIC.docx", reference: "image 8", fr: "Remise de matériels agricoles aux femmes bénéficiaires à Kolaboui.", en: "Agricultural equipment being handed over to women beneficiaries in Kolaboui." },
+  "moussayah-dialogue": { src: "/images/client/moussayah-dialogue.jpg", source: "PIC.docx", reference: "image 1", fr: "Réunion de concertation à Moussayah lors de la visite de la Fédération des Parcs Naturels Régionaux de France.", en: "Consultation meeting in Moussayah during a visit by the Federation of Regional Nature Parks of France." },
+  "moussayah-pepiniere": { src: "/images/client/moussayah-pepiniere.jpg", source: "PIC.docx", reference: "image 6", fr: "Pépinière à Moussayah centre 2.", en: "Plant nursery in Moussayah centre 2." },
+  "moussayah-ombrieres": { src: "/images/client/moussayah-ombrieres.jpg", source: "PIC.docx", reference: "image 5", fr: "Construction d’ombrières dans une pépinière à Moussayah centre 2.", en: "Building shade structures in a nursery in Moussayah centre 2." },
+  "khimbeli-consultation": { src: "/images/client/khimbeli-consultation.jpg", source: "PIC.docx", reference: "image 27", fr: "Consultation communautaire à Khimbéli.", en: "Community consultation in Khimbéli." },
+  "formation-maraichage": { src: "/images/client/formation-maraichage.jpg", source: "PIC.docx", reference: "image 22", fr: "Formation aux techniques maraîchères des femmes bénéficiaires de Kolaboui et Sangarédi.", en: "Market-gardening training for women beneficiaries from Kolaboui and Sangarédi." },
+  "tabekhoure-champ": { src: "/images/client/tabekhoure-champ.jpg", source: "1 IMAGES.pdf", reference: "page 56", fr: "Aménagement d’un champ maraîcher à Tabékhouré.", en: "Preparing a market garden in Tabékhouré." },
+} as const;
+
+function clientPhoto(key: keyof typeof clientPhotoSources, locale: Locale = "fr", illustrative = false) {
+  const photo = clientPhotoSources[key];
+  const contextLabel = illustrative ? (locale === "fr" ? "Illustration du thème" : "Thematic illustration") : undefined;
+  return { src: photo.src, alt: contextLabel ? `${contextLabel} : ${photo[locale]}` : photo[locale], caption: photo[locale], contextLabel };
+}
 
 // Images définitives fournies par Gassama. Association exacte selon les noms
 // des fichiers ; provenance et préparation : docs/IMAGES-DOMAINES.md.
@@ -231,19 +264,19 @@ const expertiseAreas: readonly {
   },
   {
     id: "agroecologie",
-    photo: interventionPhotos["agroecologie"],
+    photo: clientPhoto("bassia-maraichage"),
     fr: { title: "Agroécologie et agriculture durable", description: "Agroécologie, agriculture durable et accompagnement des producteurs.", detail: "Nous accompagnons les producteurs et les groupements dans des pratiques agricoles durables et adaptées au climat. Notre expérience comprend l’agroforesterie, le maraîchage et la production de plants fruitiers, en lien avec l’amélioration des conditions économiques et de la sécurité alimentaire." },
     en: { title: "Agroecology and sustainable agriculture", description: "Agroecology, sustainable agriculture and support for producers.", detail: "We support producers and groups in sustainable, climate-adapted farming practices. Our experience includes agroforestry, market gardening and fruit seedling production, linked to improved economic conditions and food security." },
   },
   {
     id: "education-environnementale",
-    photo: interventionPhotos["education-environnementale"],
+    photo: clientPhoto("formation-groupements"),
     fr: { title: "Éducation environnementale", description: "Éducation environnementale, sensibilisation et formation communautaire.", detail: "Nous associons l’éducation environnementale au renforcement des capacités des communautés et des acteurs locaux. Les actions de sensibilisation et de formation portent notamment sur le changement climatique et l’inclusion sociale, en lien avec la participation aux décisions et à la planification locale." },
     en: { title: "Environmental education", description: "Environmental education, awareness raising and community training.", detail: "We combine environmental education with capacity building for communities and local stakeholders. Awareness raising and training address climate change and social inclusion in particular, alongside participation in local decision-making and planning." },
   },
   {
     id: "gouvernance-communautes",
-    photo: interventionPhotos["gouvernance-communautes"],
+    photo: clientPhoto("moussayah-concertation"),
     fr: { title: "Gouvernance environnementale", description: "Gouvernance environnementale, concertation territoriale et médiation entre acteurs.", detail: "Notre approche participative favorise le dialogue entre communautés, autorités locales et partenaires. L’expérience de PROTEMO comprend un cadre de concertation, une cartographie des acteurs et une charte du territoire, pour articuler préservation des ressources naturelles et développement local." },
     en: { title: "Environmental governance", description: "Environmental governance, territorial consultation and mediation between stakeholders.", detail: "Our participatory approach encourages dialogue between communities, local authorities and partners. Our PROTEMO experience includes a consultation framework, stakeholder mapping and a territorial charter to connect natural resource conservation with local development." },
   },
@@ -255,7 +288,7 @@ const expertiseAreas: readonly {
   },
   {
     id: "revenus-resilience",
-    photo: { ...interventionPhotos.agroecologie, alt: "Illustration réutilisée pour le domaine Revenus et résilience socio-économique." },
+    photo: clientPhoto("allassoyah-materiels"),
     fr: { title: "Revenus et résilience socio-économique", description: "Développement d’activités génératrices de revenus et renforcement de la résilience socio-économique.", detail: "Nous relions la restauration écologique au développement d’activités économiques locales. L’accompagnement comprend la structuration des groupements et l’appui technique aux activités génératrices de revenus, avec une expérience du maraîchage, des pépinières à vocation économique et du stockage des productions agricoles." },
     en: { title: "Income and socio-economic resilience", description: "Development of income-generating activities and strengthening of socio-economic resilience.", detail: "We connect ecological restoration with the development of local economic activities. Support includes organising groups and providing technical assistance for income-generating activities, with experience in market gardening, commercially oriented nurseries and agricultural produce storage." },
   },
@@ -267,10 +300,19 @@ export function getInterventionAreas(locale: Locale) {
     ...area[locale],
     photo: area.photo && (locale === "fr" ? area.photo : {
       ...area.photo,
-      alt: `Image for the ${area.en.title} area of expertise.`,
+      alt: Object.values(clientPhotoSources).find((photo) => photo.src === area.photo?.src)?.en
+        ?? `Image for the ${area.en.title} area of expertise.`,
     }),
   }));
 }
+
+// Sélection propre à l’accueil demandée le 7 octobre 2026.
+// Les quatre autres photos client et l’image du climat sont conservées.
+const homeInterventionPhotos: Record<string, LocalPhoto> = {
+  "ressources-naturelles": clientPhoto("gbara-arrosage"),
+  "restauration-ecosystemes": clientPhoto("moussayah-pepiniere"),
+  "appui-communautes": clientPhoto("kolaboui-materiels"),
+};
 
 // Photos d’illustration autorisées par Gassama le 3 octobre 2026.
 // Sources et licences : docs/IMAGES-TEMPORAIRES.md. À remplacer par les photos GECA.
@@ -310,12 +352,12 @@ const temporaryPhotos = {
 // Page contact : reformulation pour GECA, sans nouvelle promesse ni envoi réel.
 export const contactPhotos = {
   landscape: {
-    fr: temporaryPhotos.fields,
-    en: { ...temporaryPhotos.fields, alt: "Aerial view of cultivated fields — temporary illustration, unrelated to a GECA activity." },
+    fr: clientPhoto("tabekhoure-champ"),
+    en: clientPhoto("tabekhoure-champ", "en"),
   },
   forest: {
-    fr: temporaryPhotos.forest,
-    en: { ...temporaryPhotos.forest, alt: "Tropical foliage — temporary illustration, unrelated to a GECA activity." },
+    fr: clientPhoto("moussayah-pepiniere"),
+    en: clientPhoto("moussayah-pepiniere", "en"),
   },
 } satisfies Record<string, Record<Locale, LocalPhoto>>;
 
@@ -418,7 +460,7 @@ export type Project = {
 export const projects: readonly Project[] = [
   {
     slug: "kounounkan",
-    photo: temporaryPhotos.forest,
+    photo: clientPhoto("gorede-saponification"),
     zone: "Plateaux de Kounounkan",
     status: "current",
     title: "Accompagner la mise en œuvre des activités génératrices de revenus (AGR) en périphérie du futur Parc national des plateaux de Kounounkan",
@@ -428,7 +470,7 @@ export const projects: readonly Project[] = [
   },
   {
     slug: "appui-social-nature",
-    photo: temporaryPhotos.planting,
+    photo: clientPhoto("kolaboui-materiels"),
     zone: "Guinée · zone à préciser",
     status: "current",
     title: "Projet d’appui social et protection de la nature",
@@ -448,7 +490,7 @@ export const projects: readonly Project[] = [
   },
   {
     slug: "protemo",
-    photo: temporaryPhotos.fields,
+    photo: clientPhoto("moussayah-dialogue", "fr", true),
     zone: "Moussayah",
     status: "completed",
     title: "Projet de Territoire de Moussayah - PROTEMO",
@@ -458,7 +500,7 @@ export const projects: readonly Project[] = [
   },
   {
     slug: "reboisement-communautaire",
-    photo: temporaryPhotos.forest,
+    photo: clientPhoto("moussayah-pepiniere", "fr", true),
     zone: "Boffa, Kindia, Forécariah, Mamou et Faranah",
     status: null,
     title: "Reboisement communautaire de 550 000 arbres",
@@ -468,7 +510,7 @@ export const projects: readonly Project[] = [
   },
   {
     slug: "piscca",
-    photo: temporaryPhotos.planting,
+    photo: clientPhoto("moussayah-ombrieres", "fr", true),
     zone: "Moussayah",
     status: null,
     title: "Lutte contre la dégradation de l’environnement pour un développement durable dans la sous-préfecture de Moussayah - Projet Innovant des Sociétés Civiles et Coalition d’Acteurs (PISCCA)",
@@ -478,7 +520,7 @@ export const projects: readonly Project[] = [
   },
   {
     slug: "droits-communautes",
-    photo: temporaryPhotos.fields,
+    photo: clientPhoto("khimbeli-consultation", "fr", true),
     zone: "Guinée",
     status: null,
     title: "Défense des droits des communautés impactées par des projets de développement",
@@ -498,11 +540,8 @@ export const homeContent = {
     description: "Restaurer les écosystèmes · Renforcer les communautés",
     introduction:
       "En Guinée, nous agissons avec les communautés pour restaurer les terres dégradées, protéger les forêts et la biodiversité. Grâce au reboisement, à l’agroécologie et au renforcement des capacités, nous contribuons à améliorer les conditions de vie.",
-    photo: {
-      src: "/images/hero/plantation.png",
-      alt: "Une main plante un jeune arbre dans la terre.",
-      temporary: false,
-    },
+    photo: clientPhoto("bassia-travail-champ"),
+    slides: [clientPhoto("hero-bassia-travail"), clientPhoto("hero-gbara-arrosage"), clientPhoto("hero-bassia-groupe"), clientPhoto("hero-gbara-champ"), clientPhoto("hero-gbara-entretien")],
     primary: "Découvrir nos projets",
     secondary: "Devenir partenaire",
     video: {
@@ -529,17 +568,16 @@ export const homeContent = {
     title: "Domaines d’expertise",
     cta: "Découvrir ce domaine",
     description: "Découvrez nos huit domaines d’expertise.",
-    items: getInterventionAreas("fr"),
+    items: getInterventionAreas("fr").map((area) => ({
+      ...area,
+      photo: homeInterventionPhotos[area.id] ?? area.photo,
+    })),
   },
   impact: {
     label: "Notre impact",
     title: "Réalisations et",
     titleSecondLine: "résultats marquants",
-    photo: {
-      src: "/images/temporary/impact-forest.jpg",
-      alt: "Collines boisées dans la brume — image temporaire d’illustration, sans lien avec une action de GECA.",
-      temporary: true,
-    } satisfies LocalPhoto,
+    photo: clientPhoto("moussayah-pepiniere", "fr", true),
     // Résultats authentiques reçus le 4 octobre 2026 ; référence dans docs/TEXTES-AUTHENTIQUES-CLIENT.md.
     stats: [
       { value: "35 000", label: "arbres plantés en 2019" },
@@ -601,10 +639,10 @@ export const homeContent = {
     ],
   },
   news: {
-    label: "Actualités & événements",
+    label: "Actualités",
     title: "La vie de GECA.",
     description:
-      "Découvrez nos dernières actualités, nos activités sur le terrain et les événements à venir.",
+      "Découvrez nos dernières actualités et nos activités sur le terrain.",
     cta: "Voir toutes les actualités",
     placeholderLabel: "Contenu en préparation",
     items: [
@@ -614,7 +652,7 @@ export const homeContent = {
           "Nos prochaines nouvelles du terrain seront à découvrir ici.",
         path: "actualites",
         category: "Sur le terrain",
-        photo: temporaryPhotos.planting,
+        photo: clientPhoto("khimbeli-consultation", "fr", true),
       },
       {
         title: "Partager les savoirs, faire grandir l’action",
@@ -622,22 +660,9 @@ export const homeContent = {
           "Retrouvez bientôt nos initiatives de sensibilisation et de formation.",
         path: "actualites",
         category: "Vie de l’association",
-        photo: temporaryPhotos.community,
+        photo: clientPhoto("formation-maraichage", "fr", true),
       },
     ],
-    event: {
-      label: "Prochain événement",
-      title: "Un prochain rendez-vous pour agir ensemble.",
-      date: "Date et lieu à venir",
-      description: "Restez connectés pour ne rien manquer de nos prochains événements.",
-      cta: "Découvrir les événements",
-      motto: "Des communautés plus résilientes, une nature préservée.",
-      photo: {
-        src: "/images/temporary/event-leaf.jpg",
-        alt: "Gouttes d’eau sur une feuille verte — image temporaire d’illustration, sans lien avec un événement GECA.",
-        temporary: true,
-      },
-    },
   },
   partners: {
     label: "Nos partenaires",
@@ -735,6 +760,15 @@ export const homeContent = {
           height: 175,
         },
       },
+      {
+        name: "ARBORIA PROJECT",
+        logo: {
+          src: "/images/partners/arboria-project.jpg",
+          alt: "Logo d’ARBORIA PROJECT",
+          width: 1007,
+          height: 482,
+        },
+      },
     ],
   },
   cta: {
@@ -750,7 +784,7 @@ export const homeContent = {
 } as const;
 
 export const footerLinks = {
-  discover: ["a-propos", "projets", "actualites", "evenements"],
+  discover: ["a-propos", "equipe", "projets", "actualites"],
   resources: [
     "devenir-partenaire",
     "nous-soutenir",
@@ -772,16 +806,7 @@ export const missionVisionContent = {
         "Notre action associe la restauration des terres dégradées, le reboisement communautaire et la gestion durable des forêts, des sols et de l’eau. L’agroécologie et l’accompagnement des producteurs relient la préservation de ces ressources aux activités dont vivent les communautés.",
         "L’éducation environnementale, la formation et la concertation territoriale complètent cette action. Elles accompagnent la participation des communautés, la gouvernance locale et le développement d’activités génératrices de revenus."
       ],
-      "photo": {
-        "src": "/images/mission/plantation-kenya.jpg",
-        "temporary": true,
-        "author": "Caroletravis",
-        "source": "https://commons.wikimedia.org/wiki/File:Rachel_the_tireless_tree_planter,_Kenya_photo_2.jpg",
-        "license": "CC BY-SA 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "alt": "Des personnes réunies autour de jeunes plants au Kenya — illustration temporaire, hors des activités de GECA.",
-        "caption": "Plantation au Kenya — illustration hors des activités de GECA."
-      }
+      "photo": clientPhoto("gbara-arrosage", "fr")
     },
     "vision": {
       "label": "L’avenir auquel nous contribuons",
@@ -791,16 +816,7 @@ export const missionVisionContent = {
         "Cette vision relie l’avenir des écosystèmes à celui des communautés. Elle associe la conservation de la biodiversité, la résilience climatique et le développement économique local, pour que la protection de la nature contribue à l’amélioration des conditions de vie.",
         "Elle donne une place centrale à l’inclusion sociale et à la participation aux décisions locales. Les femmes, les jeunes, les producteurs et les communautés affectées par les projets de développement sont concernés par la gestion et l’avenir de leurs territoires."
       ],
-      "photo": {
-        "src": "/images/mission/fouta-djallon.jpg",
-        "temporary": true,
-        "author": "Maarten van der Bent",
-        "source": "https://commons.wikimedia.org/wiki/File:Fouta_Djallon_(14604732032).jpg",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "alt": "Collines verdoyantes du Fouta-Djallon en Guinée — photographie d’illustration.",
-        "caption": "Fouta-Djallon, Guinée — photographie d’illustration."
-      }
+      "photo": clientPhoto("bassia-champ", "fr")
     },
     "valuesLabel": "Nos valeurs",
     "valuesTitle": "Les principes qui guident nos actions",
@@ -847,16 +863,7 @@ export const missionVisionContent = {
         "Our work combines the restoration of degraded land, community reforestation and the sustainable management of forests, soils and water. Agroecology and support for producers connect the protection of these resources with the activities that sustain community livelihoods.",
         "Environmental education, training and territorial consultation complement this work. They support community participation, local governance and the development of income-generating activities."
       ],
-      "photo": {
-        "src": "/images/mission/plantation-kenya.jpg",
-        "temporary": true,
-        "author": "Caroletravis",
-        "source": "https://commons.wikimedia.org/wiki/File:Rachel_the_tireless_tree_planter,_Kenya_photo_2.jpg",
-        "license": "CC BY-SA 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "alt": "People gathered around young plants in Kenya — temporary illustration, unrelated to GECA activities.",
-        "caption": "Planting in Kenya — illustration unrelated to GECA activities."
-      }
+      "photo": clientPhoto("gbara-arrosage", "en")
     },
     "vision": {
       "label": "The future we contribute to",
@@ -866,16 +873,7 @@ export const missionVisionContent = {
         "This vision connects the future of ecosystems with that of communities. It brings together biodiversity conservation, climate resilience and local economic development, so that protecting nature contributes to better living conditions.",
         "It places social inclusion and participation in local decisions at its heart. Women, young people, producers and communities affected by development projects have a stake in the management and future of their territories."
       ],
-      "photo": {
-        "src": "/images/mission/fouta-djallon.jpg",
-        "temporary": true,
-        "author": "Maarten van der Bent",
-        "source": "https://commons.wikimedia.org/wiki/File:Fouta_Djallon_(14604732032).jpg",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "alt": "Green hills in the Fouta Djallon, Guinea — illustrative photograph.",
-        "caption": "Fouta Djallon, Guinea — illustrative photograph."
-      }
+      "photo": clientPhoto("bassia-champ", "en")
     },
     "valuesLabel": "Our values",
     "valuesTitle": "The principles that guide our actions",
@@ -922,7 +920,7 @@ export const aboutContent = {
     label: "Qui sommes-nous ?",
     title: "La nature et les communautés, un avenir commun.",
     introduction: homeContent.about.description,
-    photo: temporaryPhotos.fields,
+    photo: clientPhoto("gbara-visite"),
     photoLabel: "Les territoires au cœur de notre engagement",
     sinceLabel: "Engagés depuis",
     sinceDescription: "Une ONG guinéenne, ancrée dans les réalités de ses territoires.",
@@ -957,7 +955,7 @@ export const aboutContent = {
       label: homeContent.approach.label,
       title: homeContent.approach.title,
       description: homeContent.approach.description,
-      photo: temporaryPhotos.planting,
+      photo: clientPhoto("gbara-arrosage"),
       photoLabel: "Faire grandir les actions locales",
       items: [
         { title: "Partir des réalités locales", description: "Les besoins des communautés et les ressources du territoire orientent les actions. GECA place les populations au cœur de la gestion durable de leur environnement." },
@@ -986,7 +984,7 @@ export const aboutContent = {
     label: "Who we are",
     title: "Nature and communities, a shared future.",
     introduction: `Global EcoAction (GECA), formerly RENASCEDD, is a Guinean NGO founded on ${identity.foundedOn.en}. We work alongside communities to restore ecosystems, protect biodiversity and improve living conditions.`,
-    photo: { ...temporaryPhotos.fields, alt: "Aerial view of cultivated fields — temporary illustration, unrelated to a GECA activity." },
+    photo: clientPhoto("gbara-visite", "en"),
     photoLabel: "Local landscapes at the heart of our work",
     sinceLabel: "Committed since",
     sinceDescription: "A Guinean NGO rooted in the realities of its local communities and landscapes.",
@@ -1021,7 +1019,7 @@ export const aboutContent = {
       label: "Our approach",
       title: "Alongside communities. At every step.",
       description: "By strengthening the capacities of women, young people and producers, GECA contributes to more resilient, inclusive and sustainable places.",
-      photo: { ...temporaryPhotos.planting, alt: "Gloved hands planting a seedling — temporary illustration, unrelated to a GECA activity." },
+      photo: clientPhoto("gbara-arrosage", "en"),
       photoLabel: "Helping local action grow",
       items: [
         { title: "Start with local realities", description: "Community needs and local resources guide our actions. GECA places people at the heart of the sustainable management of their environment." },
@@ -1209,14 +1207,19 @@ export const territorialExperience = {
 
 export function getPortfolioProjects(locale: Locale): readonly Project[] {
   if (locale === "fr") return projects;
-  return projects.map((project) => ({
-    ...project,
-    ...projectTranslationsEn[project.slug],
-    photo: project.photo ? {
-      ...project.photo,
-      alt: "Temporary illustration, unrelated to a GECA project or its location.",
-    } : undefined,
-  }));
+  return projects.map((project) => {
+    const source = Object.values(clientPhotoSources).find((photo) => photo.src === project.photo?.src);
+    return {
+      ...project,
+      ...projectTranslationsEn[project.slug],
+      photo: project.photo ? {
+        ...project.photo,
+        alt: source ? `${project.photo.contextLabel ? "Thematic illustration: " : ""}${source.en}`
+          : "Temporary illustration, unrelated to a GECA project or its location.",
+        contextLabel: project.photo.contextLabel ? "Thematic illustration" : undefined,
+      } : undefined,
+    };
+  });
 }
 
 // Présentation des huit domaines authentiques, partagés avec l’accueil et À propos.
@@ -1253,4 +1256,62 @@ export const interventionContent = {
       contact: "Talk to GECA",
     },
   },
+} as const;
+
+
+// Portrait et identité fournis par Gassama le 7 octobre 2026.
+export const teamMembers = [
+  {
+    id: "mohamed-makale-kaba",
+    name: "Mohamed Makalé KABA",
+    role: { fr: "Directeur Exécutif", en: "Executive Director" },
+    photo: { src: "/images/team/mohamed-makale-kaba.jpg", width: 1300, height: 1209 },
+  },
+  {
+    id: "daouda-toure",
+    name: "Daouda TOURE",
+    role: { fr: "Responsable suivi-évaluation", en: "Monitoring and Evaluation Manager" },
+    photo: { src: "/images/team/daouda-toure.jpg", width: 1024, height: 1536 },
+  },
+  {
+    id: "salifou-camara",
+    name: "Salifou CAMARA",
+    role: { fr: "Assistant programme", en: "Programme Assistant" },
+    photo: { src: "/images/team/salifou-camara.jpg", width: 1024, height: 1536 },
+  },
+  {
+    id: "mohamed-lamine-sacko",
+    name: "Mohamed Lamine SACKO",
+    role: { fr: "Comptable", en: "Accountant" },
+    photo: { src: "/images/team/mohamed-lamine-sacko.jpg", width: 1086, height: 1448 },
+  },
+  {
+    id: "mariame-djelo-diallo",
+    name: "Mariame Djélo DIALLO",
+    role: { fr: "Chargée de communication", en: "Communications Officer" },
+    photo: { src: "/images/team/mariame-djelo-diallo.jpg", width: 1536, height: 1024 },
+  },
+  {
+    id: "fode-baba-sylla",
+    name: "Fodé Baba SYLLA",
+    role: { fr: "Assistant administratif", en: "Administrative Assistant" },
+    photo: { src: "/images/team/fode-baba-sylla.jpg", width: 1292, height: 1218 },
+  },
+  {
+    id: "ibrahima-kaba",
+    name: "Ibrahima KABA",
+    role: { fr: "Responsable des programmes", en: "Programme Manager" },
+    photo: { src: "/images/team/ibrahima-kaba.jpg", width: 1254, height: 1254 },
+  },
+  {
+    id: "archille-delamou",
+    name: "Archille DELAMOU",
+    role: { fr: "Responsable logistique", en: "Logistics Manager" },
+    photo: { src: "/images/team/archille-delamou.jpg", width: 1086, height: 1448 },
+  },
+] as const;
+
+export const teamContent = {
+  fr: { label: "Notre équipe", title: "Les femmes et les hommes de GECA", all: "Découvrir l’équipe", pageTitle: "Notre équipe" },
+  en: { label: "Our team", title: "The people of GECA", all: "Meet the team", pageTitle: "Our team" },
 } as const;

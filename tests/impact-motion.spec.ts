@@ -59,7 +59,7 @@ for (const width of [320, 768, 1440]) {
     await expect(section.locator(".stat-value")).toHaveText(["35 000", "365 000", "150 000", "84"]);
     await expect(section.locator(".stat-label")).toHaveText(["arbres plantés en 2019", "arbres plantés en 2020", "arbres plantés en 2021", "collectivités accompagnées"]);
     await expect(section.locator(".impact-achievements li")).toHaveText([...homeContent.impact.achievements]);
-    await expect(section.getByText("Image temporaire", { exact: true })).toBeVisible();
+    await expect(section.getByText("Illustration du thème", { exact: true })).toBeVisible();
     const heading = (await section.locator(".impact-heading").boundingBox())!;
     const first = (await cards.first().boundingBox())!;
     expect(first.y).toBeGreaterThanOrEqual(heading.y + heading.height);
@@ -109,7 +109,7 @@ test("apparitions : une seule lecture, préférence modifiée et contenu toujour
   expect(await statCalls()).toBe(before);
   expect(await page.locator(".stat").first().evaluate((element) => getComputedStyle(element).opacity)).toBe("1");
   await page.evaluate(() => scrollTo(0, 0));
-  await page.locator(".menu-toggle").click();
+  if (await page.locator(".menu-toggle").isVisible()) await page.locator(".menu-toggle").click();
   expect(await page.locator(".main-nav").evaluate((element) => getComputedStyle(element).animationName)).toBe("none");
 });
 
@@ -144,7 +144,7 @@ for (const mode of ["reduce", "saveData", "unsupported", "noAnimate"] as const) 
 }
 
 for (const [path, selectors] of [
-  ["/fr", ".domain, .stat, .project-card, .news-card, .event-card, .partner-list li, .cta-grid > div"],
+  ["/fr", ".domain, .stat, .project-card, .news-card, .partner-list li, .cta-grid > div"],
   ["/fr/a-propos", ".about-since, .about-conviction, .about-purpose-card, .about-steps li, .about-domain-grid li"],
   ["/fr/projets", ".portfolio-project"],
   ["/fr/a-propos/domaines-intervention", ".intervention-detail"],

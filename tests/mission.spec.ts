@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { missionVisionContent } from "../src/content/site";
+import { clientPhotoSources, missionVisionContent } from "../src/content/site";
 
 for (const width of [320, 768, 1440]) {
   test(`mission ${width}px : photos locales créditées, lecture et liens`, async ({ page }) => {
@@ -15,8 +15,8 @@ for (const width of [320, 768, 1440]) {
     for (const figure of await page.locator(".mission-figure").all()) {
       await figure.scrollIntoViewIfNeeded();
       await expect.poll(() => figure.locator("img").evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
-      await expect(figure.locator("img")).toHaveAttribute("src", /\/images\/optimized\/images-mission-/);
-      await expect(figure.getByText("Image temporaire", { exact: true })).toBeVisible();
+      await expect(figure.locator("img")).toHaveAttribute("src", /\/images\/optimized\/images-client-/);
+      await expect(figure.getByText("Image temporaire", { exact: true })).toHaveCount(0);
       await expect(figure.locator("figcaption")).toHaveCount(0);
     }
     expect(external).toEqual([]);
@@ -47,9 +47,9 @@ for (const locale of ["fr", "en"] as const) {
     await expect(page.locator(".mission-value-card p:last-child")).toHaveText(text.values.map((value) => value.detail));
     await page.getByRole("link", { name: locale === "fr" ? "Crédits photo" : "Photo credits", exact: true }).click();
     await expect(page).toHaveURL(new RegExp(`/${locale}/mentions-legales#credits-photo$`));
-    for (const key of ["mission", "vision"] as const) {
-      await expect(page.locator("#credits-photo").getByText(text[key].photo.author, { exact: false })).toBeVisible();
-      await expect(page.locator(`#credits-photo a[href="${text[key].photo.licenseUrl}"]`)).toBeVisible();
+    for (const photo of Object.values(clientPhotoSources)) {
+      await expect(page.locator("#credits-photo").getByRole("heading", { name: photo[locale], exact: true })).toBeVisible();
+      await expect(page.locator("#credits-photo").getByText(`${photo.source} — ${photo.reference}`, { exact: true })).toBeVisible();
     }
     await context.close();
   });

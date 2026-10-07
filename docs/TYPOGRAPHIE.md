@@ -144,3 +144,17 @@ Source : `RECOMMANDATIONS.docx`. Sur l’accueil seulement, le slogan « AGIR PO
 ## Cartes partenaires — 6 octobre 2026
 
 La grille des logos utilise `--card-gap` (20–32 px) dans les deux directions. Ne pas imposer un rapport largeur/hauteur aux cartes : combiné à une hauteur minimale, il les faisait dépasser des colonnes à cinq éléments. Les images gardent `object-fit: contain`, les cartes conservent le padding commun et une hauteur minimale, sans changement de dimensions au survol.
+
+
+## Hero plein fond — 7 octobre 2026
+
+Composition identique mobile/ordinateur : trois photos client décoratives en plein fond, contenu centré dans une largeur maximale de 860 px ; texte permanent sur voile sombre, deux liens en dessous. Vidéo et flèche retirées. Global/Action jaunes (#ffd329), Eco vert clair (#79d795), adapté au fond sombre pour garder la lecture. Facteurs typographiques client conservés (nom × 1,5 ; slogan × 0,6), titre Ubuntu Sans 600. Mission justifiée, dernière ligne au début. Fondu 1 seconde, intervalle 5 secondes ; sans pause selon demande explicite, avec limite d’accessibilité documentée. Préférences de mouvement réduit et économie de données, ainsi qu’absence de JavaScript : premier fond fixe. Apparition commune du contenu conservée sans cumuler celle du fond.
+
+
+Précision du 7 octobre : le bloc des textes du hero n’a plus de fond, bordure, rayon ni ombre. Texte directement sur les photos avec un voile commun sombre. Navigation directe à partir de 1280 px, compacte lorsque le texte agrandi demande davantage d’espace ; barre persistante et espace de défilement selon sa hauteur réelle.
+
+
+Nom du hero, précision du 7 octobre : taille × 1,8 de --text-label (+20 % sur la version × 1,5), poids 800 ; Global/Action en --gold (#ebad0e), Eco garde #79d795. Autres textes inchangés.
+
+
+Navigation directe, 7 octobre : écart horizontal entre les rubriques de 20 px, demandé légèrement plus large (12 px auparavant).

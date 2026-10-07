@@ -10,7 +10,24 @@ test("routes connues FR / EN, langues et titres", async ({ request }) => {
       const html = await response.text();
       expect(html).toContain(`lang="${locale}"`);
       expect(html).toContain("<title>");
-      if (path === "contact") {
+      if (path === "equipe") {
+        expect(html).toContain("Mohamed Makalé KABA");
+        expect(html).toContain("Daouda TOURE");
+        expect(html).toContain("Salifou CAMARA");
+        expect(html).toContain("Mohamed Lamine SACKO");
+        expect(html).toContain("Mariame Djélo DIALLO");
+        expect(html).toContain("Fodé Baba SYLLA");
+        expect(html).toContain("Ibrahima KABA");
+        expect(html).toContain("Archille DELAMOU");
+        expect(html).toContain(locale === "fr" ? "Responsable logistique" : "Logistics Manager");
+        expect(html).toContain(locale === "fr" ? "Responsable des programmes" : "Programme Manager");
+        expect(html).toContain(locale === "fr" ? "Assistant administratif" : "Administrative Assistant");
+        expect(html).toContain(locale === "fr" ? "Chargée de communication" : "Communications Officer");
+        expect(html).toContain(locale === "fr" ? "Comptable" : "Accountant");
+        expect(html).toContain(locale === "fr" ? "Assistant programme" : "Programme Assistant");
+        expect(html).toContain(locale === "fr" ? "Responsable suivi-évaluation" : "Monitoring and Evaluation Manager");
+        expect(html).toContain(locale === "fr" ? "Directeur Exécutif" : "Executive Director");
+      } else if (path === "contact") {
         expect(html).toContain(contactContent[locale].title);
         expect(html).toContain(contactContent[locale].form.demo);
       } else if (path === "a-propos") {
@@ -43,8 +60,20 @@ test("routes connues FR / EN, langues et titres", async ({ request }) => {
 test("accès refusés et protections de la maquette", async ({ request }) => {
   for (const path of [
     "/fr/inconnue",
-    "/fr/equipe",
-    "/en/equipe",
+    "/fr/evenements",
+    "/en/evenements",
+    "/fr/evenements/inconnu",
+    "/fr/equipe/inconnu",
+    "/en/equipe/inconnu",
+    "/assets/source-images/images/team/mohamed-makale-kaba.jpg",
+    "/assets/source-images/images/team/daouda-toure.jpg",
+    "/assets/source-images/images/team/salifou-camara.jpg",
+    "/assets/source-images/images/team/mohamed-lamine-sacko.jpg",
+    "/assets/source-images/images/team/mariame-djelo-diallo.jpg",
+    "/assets/source-images/images/team/fode-baba-sylla.jpg",
+    "/assets/source-images/images/team/ibrahima-kaba.jpg",
+    "/assets/source-images/images/team/archille-delamou.jpg",
+    "/assets/source-images/images/partners/arboria-project.jpg",
     "/fr/ressources",
     "/en/ressources",
     "/fr/reseaux",
@@ -98,7 +127,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       const area = homeContent.domains.items[index];
       await expect(domain.locator(".domain-content > p")).toHaveText(area.description);
       if (area.photo) {
-        expect(await domain.locator("img").evaluate((image: HTMLImageElement) => new URL(image.currentSrc || image.src).pathname)).toMatch(new RegExp(`/images/optimized/images-domaines-${area.photo.src.split("/").pop()!.replace(/\.jpg$/, "")}-\\d+-[a-f0-9]+\\.webp$`));
+        expect(await domain.locator("img").evaluate((image: HTMLImageElement) => new URL(image.currentSrc || image.src).pathname)).toMatch(new RegExp(`/images/optimized/${area.photo.src.slice(1).replaceAll("/", "-").replace(/\.jpg$/, "")}-\\d+-[a-f0-9]+\\.webp$`));
         await expect(domain.locator(".temporary-image-label")).toHaveCount(0);
         const photo = await domain.locator(".domain-photo").boundingBox();
         const text = await domain.locator(".domain-content").boundingBox();
@@ -125,11 +154,11 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       expect((await link.boundingBox())?.height).toBeGreaterThanOrEqual(44);
     }
     await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
-    const visual = await page.locator(".hero-visual").boundingBox();
+    const visual = await page.locator(".hero-backdrop").boundingBox();
     const message = await page.locator(".hero-content").boundingBox();
     const frame = (await page.locator(".header-inner").boundingBox())!;
     const logo = (await page.locator(".site-header .brand").boundingBox())!;
-    const menuBox = (await page.locator(".menu-toggle").boundingBox())!;
+    const menuBox = (await page.locator(width >= 1280 ? ".header-actions" : ".menu-toggle").boundingBox())!;
     expect(frame.x).toBeCloseTo(logo.x, 0);
     expect(frame.x + frame.width).toBeCloseTo(menuBox.x + menuBox.width, 0);
     for (const section of await page.locator("#main-content > section:not(.hero), #main-content .container, .site-footer .container").all()) {
@@ -151,40 +180,15 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       expect(box.x).toBe(0);
       expect(box.width).toBe(width);
     }
-    if (width >= 768) expect(visual).not.toBeNull();
-    else expect(visual).toBeNull();
+    const hero = (await page.locator(".hero").boundingBox())!;
+    expect(visual).toEqual(hero);
     expect(message).not.toBeNull();
-    await expect(page.locator(".hero-photo img")).toHaveAttribute("alt", homeContent.hero.photo.alt);
-    await expect(page.locator(".hero-photo .temporary-image-label")).toHaveCount(0);
-    expect(await page.locator(".hero-photo img").evaluate((img: HTMLImageElement) => new URL(img.currentSrc).pathname)).toMatch(/images-hero-plantation-\d+-[a-f0-9]+\.webp$/);
-    if (message) {
-      expect(message.x).toBe(0);
-      expect(message.width).toBeCloseTo(width < 768 ? width : width * 0.65, 0);
-      const caption = (await page.locator(".hero-caption").boundingBox())!;
-      const actionPanel = (await page.locator(".hero-actions").boundingBox())!;
-      const photo = (await page.locator(".hero-photo").boundingBox())!;
-      if (width >= 768) {
-        expect(visual!.x).toBe(0);
-        expect(visual!.width).toBeCloseTo(width * 0.65, 0);
-        expect(visual!.y).toBeCloseTo(caption.y, 0);
-        expect(visual!.height).toBeCloseTo(caption.height, 0);
-        expect(photo.y).toBeCloseTo(message.y, 0);
-        expect(photo.x).toBeCloseTo(message.x + message.width, 0);
-        expect(photo.width).toBeCloseTo(actionPanel.width, 0);
-        expect(photo.x).toBeCloseTo(actionPanel.x, 0);
-        expect(caption.y).toBeCloseTo(message.y + message.height, 0);
-        expect(actionPanel.y).toBeCloseTo(caption.y, 0);
-        expect(caption.width).toBeCloseTo(width * 0.65, 0);
-        expect(actionPanel.x).toBeCloseTo(caption.x + caption.width, 0);
-      } else {
-        expect(await page.locator("#hero-title").evaluate((title) => getComputedStyle(title).textAlign)).toBe("center");
-        expect(await page.locator(".hero-content .eyebrow").evaluate((label) => getComputedStyle(label).color)).toBe("rgb(255, 224, 138)");
-        expect(photo.y).toBeCloseTo(message.y, 0);
-        expect(caption.y).toBeCloseTo(message.y + message.height, 0);
-        expect(photo.height).toBeCloseTo(message.height + caption.height, 0);
-        expect(actionPanel.y).toBeCloseTo(photo.y + photo.height, 0);
-      }
-    }
+    if (message) expect(message.x + message.width / 2).toBeCloseTo(width / 2, 0);
+    await expect(page.locator(".hero-slide img").first()).toHaveAttribute("alt", "");
+    expect(await page.locator(".hero-slide img").first().evaluate((img: HTMLImageElement) => new URL(img.currentSrc).pathname)).toMatch(/images-client-hero-bassia-travail-\d+-[a-f0-9]+\.webp$/);
+    await expect(page.locator(".hero-brand")).toHaveText("Global EcoAction");
+    await expect(page.locator(".hero-brand-gold")).toHaveText(["Global", "Action"]);
+    await expect(page.locator(".hero-brand-green")).toHaveText("Eco");
     await expect(page.locator("#hero-title")).toHaveText(
       "AGIR POUR UN AVENIR DURABLE",
     );
@@ -194,29 +198,21 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       const box = await action.boundingBox();
       expect(box?.height).toBeGreaterThanOrEqual(44);
     }
-    if (width >= 768) {
-      await page.getByRole("button", { name: "Mettre la vidéo en pause" }).click();
-    } else {
-      await expect(page.locator(".hero-video-toggle")).toBeHidden();
-      await expect(page.locator(".hero-visual video")).not.toHaveAttribute("src");
-      await expect(page.locator(".hero-visual video")).not.toHaveAttribute("poster");
-      expect(requests.filter((url) => /geca-forest(\.mp4|-poster)/.test(url))).toEqual([]);
-    }
-    await expect.poll(() => page.locator(".hero-visual video").evaluate(
-      (video: HTMLVideoElement) => video.paused,
-    )).toBe(true);
+    await expect(page.locator(".hero video, .hero-video-toggle, .hero-action-arrow")).toHaveCount(0);
+    expect(requests.filter((url) => /geca-forest(\.mp4|-poster)/.test(url))).toEqual([]);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBe(true);
     const menu = page.getByRole("button", { name: "Menu", exact: true });
-    await expect(menu).toBeVisible();
+    if (width < 1280) await expect(menu).toBeVisible();
+    else await expect(page.locator(".menu-toggle")).toBeHidden();
     const search = page.locator(".header-actions .search-link");
     await expect(search).toHaveAccessibleName("Rechercher");
     await expect(search.locator("svg")).toHaveCount(1);
-    await expect(menu.locator("svg")).toHaveCount(1);
-    await expect(page.locator(".hero-actions .hero-action-arrow")).toBeVisible();
+    await expect(page.locator(".menu-toggle svg")).toHaveCount(1);
+    await expect(page.locator(".hero-actions .hero-action-arrow")).toHaveCount(0);
     await expect(page.locator(".domain svg, .project-card svg, .stat svg, .news-card svg")).toHaveCount(0);
     await expect(search).toHaveAttribute("aria-haspopup", "dialog");
     await expect(page.locator("#main-navigation a[href='/fr/recherche']")).toHaveCount(0);
@@ -224,18 +220,23 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     const donateBox = (await page.locator(".donate-link").boundingBox())!;
     const language = page.locator("#main-navigation .language-switch");
     await expect(page.locator(".header-actions .language-switch")).toHaveCount(0);
-    await expect(language).toBeHidden();
+    if (width < 1280) await expect(language).toBeHidden();
+    else await expect(language).toBeVisible();
     expect(searchBox.x).toBeGreaterThanOrEqual(donateBox.x + donateBox.width + 5);
-    const menuBarBox = (await menu.boundingBox())!;
-    expect(menuBarBox.x).toBeGreaterThanOrEqual(searchBox.x + searchBox.width + 7);
     const brandBox = (await page.locator(".site-header .brand").boundingBox())!;
     expect(searchBox.y + searchBox.height / 2).toBeCloseTo(donateBox.y + donateBox.height / 2, 0);
     expect(searchBox.y + searchBox.height / 2).toBeCloseTo(brandBox.y + brandBox.height / 2, 0);
-    expect(menuBarBox.y + menuBarBox.height / 2).toBeCloseTo(brandBox.y + brandBox.height / 2, 0);
+    if (width < 1280) {
+      const menuBarBox = (await menu.boundingBox())!;
+      expect(menuBarBox.x).toBeGreaterThanOrEqual(searchBox.x + searchBox.width + 7);
+      expect(menuBarBox.y + menuBarBox.height / 2).toBeCloseTo(brandBox.y + brandBox.height / 2, 0);
+    }
     await expect(page.locator(".donate-link")).toHaveText("Faire un don");
     await expect(page.locator(".hero-introduction")).toContainText("En Guinée, nous agissons avec les communautés");
-    await expect(page.getByRole("navigation", { name: "Navigation principale" })).toBeHidden();
-    await menu.click();
+    if (width < 1280) {
+      await expect(page.getByRole("navigation", { name: "Navigation principale" })).toBeHidden();
+      await menu.click();
+    }
     const nav = page.getByRole("navigation", { name: "Navigation principale" });
     await expect(nav).toBeVisible();
     await expect(language.getByRole("link", { name: "FR", exact: true })).toBeVisible();
@@ -271,8 +272,16 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       }),
     );
     // Tous les en-têtes de section, y compris Impact, sont centrés.
-    expect(sectionHeaders).toHaveLength(6);
-    await expect(page.locator(".team, .team-member, a[href$='/equipe']")).toHaveCount(0);
+    expect(sectionHeaders).toHaveLength(7);
+    await expect(page.locator(".team-member")).toHaveCount(8);
+    await expect(page.locator("#mohamed-makale-kaba")).toContainText("Mohamed Makalé KABA");
+    await expect(page.locator("#daouda-toure")).toContainText("Daouda TOURE");
+    await expect(page.locator("#salifou-camara")).toContainText("Salifou CAMARA");
+    await expect(page.locator("#mohamed-lamine-sacko")).toContainText("Mohamed Lamine SACKO");
+    await expect(page.locator("#mariame-djelo-diallo")).toContainText("Mariame Djélo DIALLO");
+    await expect(page.locator("#fode-baba-sylla")).toContainText("Fodé Baba SYLLA");
+    await expect(page.locator("#ibrahima-kaba")).toContainText("Ibrahima KABA");
+    await expect(page.locator("#archille-delamou")).toContainText("Archille DELAMOU");
     expect(sectionHeaders.every(Boolean)).toBe(true);
     const partnerCards = await page.locator(".partner-list li").evaluateAll((cards) =>
       cards.map((card) => {
@@ -280,8 +289,8 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
         return { width: box.width, height: box.height, x: box.x, y: box.y, right: box.right, bottom: box.bottom };
       }),
     );
-    // Cinq logos existants et cinq fournis dans RECOMMANDATIONS.docx.
-    expect(partnerCards).toHaveLength(10);
+    // Dix logos précédents, plus ARBORIA PROJECT fourni le 7 octobre.
+    expect(partnerCards).toHaveLength(11);
     for (const card of partnerCards) {
       expect(Math.abs(card.width - partnerCards[0].width)).toBeLessThan(1);
       expect(Math.abs(card.height - partnerCards[0].height)).toBeLessThan(1);
@@ -303,10 +312,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBe(true);
-    for (const group of [
-      "À propos",
-      "Actualités",
-    ]) {
+    for (const group of ["À propos"]) {
       const trigger = nav.getByRole("button", { name: group, exact: true });
       await trigger.click();
       await expect(trigger).toHaveAttribute("aria-expanded", "true");
@@ -336,11 +342,8 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       ).toBe(true);
       await page.locator(".contact-breadcrumb").getByRole("link", { name: "Accueil", exact: true }).click();
     } else {
-      await nav
-        .getByRole("button", { name: "Actualités", exact: true })
-        .click();
-      await nav.getByRole("link", { name: "Événements", exact: true }).click();
-      await expect(page).toHaveURL("/fr/evenements");
+      await nav.getByRole("link", { name: "Actualités", exact: true }).click();
+      await expect(page).toHaveURL("/fr/actualites");
       await page.getByRole("link", { name: "Retour à l’accueil" }).click();
     }
     const filter = page.getByRole("group", { name: "Filtrer les projets" });
@@ -363,16 +366,11 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       .analyze();
     expect(results.violations).toEqual([]);
     const illustrations = page.locator(".photo-placeholder.has-photo");
-    await expect(illustrations).toHaveCount(15);
+    // L’ancienne photo du hero est désormais un fond décoratif distinct.
+    await expect(illustrations).toHaveCount(13);
     for (const illustration of await illustrations.all()) {
       await illustration.scrollIntoViewIfNeeded();
-      if (await illustration.evaluate((element) => element.matches(".domain-photo, .hero-photo"))) {
-        await expect(illustration.locator(".temporary-image-label")).toHaveCount(0);
-      } else {
-        await expect(
-          illustration.getByText("Image temporaire", { exact: true }),
-        ).toBeVisible();
-      }
+      await expect(illustration.locator(".temporary-image-label")).toHaveCount(0);
       await expect
         .poll(() =>
           illustration
@@ -436,7 +434,7 @@ test("texte agrandi à 200 % : contenus et navigation restent dans le cadre", as
     await page.goto("/fr");
     await page.evaluate(() => document.fonts.ready);
     await page.addStyleTag({ content: ":root { font-size: 200%; }" });
-    await page.getByRole("button", { name: "Menu", exact: true }).click();
+    if (await page.locator(".menu-toggle").isVisible()) await page.locator(".menu-toggle").click();
     const nav = page.getByRole("navigation", { name: "Navigation principale" });
     await expect(nav).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -452,10 +450,8 @@ test("clavier, langue anglaise et mouvements réduits", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/fr");
-  await expect(page.locator(".hero-visual video")).not.toHaveAttribute("src");
-  expect(
-    await page.locator(".hero-visual video").evaluate((video: HTMLVideoElement) => video.paused),
-  ).toBe(true);
+  await expect(page.locator(".hero-backdrop")).toHaveAttribute("data-slide", "0");
+  await expect(page.locator(".hero-slide")).toHaveCount(1);
   expect(
     await page
       .locator(".hero-actions .button-primary")
@@ -470,7 +466,7 @@ test("clavier, langue anglaise et mouvements réduits", async ({ page }) => {
     "main-content",
   );
   await page.goto("/fr/projets");
-  await page.getByRole("button", { name: "Menu", exact: true }).click();
+  if (await page.locator(".menu-toggle").isVisible()) await page.locator(".menu-toggle").click();
   await page
     .locator("#main-navigation .language-switch")
     .getByRole("link", { name: "EN", exact: true })
@@ -487,145 +483,97 @@ test("clavier, langue anglaise et mouvements réduits", async ({ page }) => {
   await expect(page).toHaveURL("/fr");
 });
 
-test("vidéo locale : lecture sans son, pause au clavier et mouvements réduits", async ({ page, request }) => {
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.goto("/fr");
-  const video = page.locator(".hero-visual video");
-  await expect.poll(() => video.evaluate((element: HTMLVideoElement) =>
-    element.readyState >= 2 && !element.paused && element.currentTime > 0,
-  )).toBe(true);
-  expect(await video.evaluate((element: HTMLVideoElement) =>
-    element.muted && element.loop && element.playsInline && element.videoWidth === 1280,
-  )).toBe(true);
-  const pause = page.getByRole("button", { name: "Mettre la vidéo en pause" });
-  await expect(pause).toHaveText("");
-  await expect(pause.locator("svg")).toHaveCount(1);
-  await pause.focus();
-  await page.keyboard.press("Enter");
-  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => element.paused)).toBe(true);
-  await expect(page.getByRole("button", { name: "Lire la vidéo" })).toHaveText("");
-  const stoppedAt = await video.evaluate((element: HTMLVideoElement) => element.currentTime);
-  await page.locator(".hero-actions a").first().focus();
-  expect(await video.evaluate((element: HTMLVideoElement) => element.currentTime)).toBe(stoppedAt);
-  await page.getByRole("button", { name: "Lire la vidéo" }).click();
-  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.paused)).toBe(true);
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => element.paused)).toBe(true);
-  await page.setViewportSize({ width: 375, height: 900 });
-  await expect(video).not.toHaveAttribute("src");
-  await expect(video).not.toHaveAttribute("poster");
-  await expect(page.locator(".hero-video-toggle")).toBeHidden();
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await expect(page.locator(".hero-video-toggle")).toBeVisible();
-  await expect(video).not.toHaveAttribute("src");
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.paused)).toBe(true);
-  const media = await request.get("/videos/geca-forest.mp4", {
-    headers: { Range: "bytes=0-63" },
+for (const width of [375, 1440]) {
+  test(`carrousel ${width}px : cinq secondes, boucle et mouvement réduit`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.clock.install({ time: new Date("2026-10-07T12:00:00Z") });
+    await page.clock.pauseAt(new Date("2026-10-07T12:00:01Z"));
+    await page.goto("/fr");
+    const backdrop = page.locator(".hero-backdrop");
+    await expect(page.locator(".hero-slide")).toHaveCount(5);
+    expect(await page.locator(".hero-slide img").evaluateAll(images => new Set(images.map(image => image.getAttribute("src"))).size)).toBe(5);
+    await expect.poll(() => page.locator(".hero-slide img").evaluateAll((images) => images.every((image) => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth > 0))).toBe(true);
+    await expect(backdrop).toHaveAttribute("data-slide", "0");
+    await page.clock.runFor(4999);
+    await expect(backdrop).toHaveAttribute("data-slide", "0");
+    await page.clock.runFor(1);
+    await expect(backdrop).toHaveAttribute("data-slide", "1");
+    for (const next of [2, 3, 4, 0]) {
+      await page.clock.runFor(5000);
+      await expect(backdrop).toHaveAttribute("data-slide", String(next));
+    }
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await expect(page.locator(".hero-slide")).toHaveCount(1);
+    await page.clock.runFor(15000);
+    await expect(backdrop).toHaveAttribute("data-slide", "0");
+    await expect(page.locator(".hero video, .hero button")).toHaveCount(0);
   });
-  expect(media.status()).toBe(206);
-  expect(media.headers()["content-type"]).toContain("video/mp4");
-  expect((await media.body()).subarray(4, 8).toString()).toBe("ftyp");
-});
+}
 
-test("vidéo indisponible : image de secours et deux liens utilisables", async ({ page }) => {
-  await page.route("**/videos/geca-forest.mp4", (route) => route.abort());
+test("photo indisponible : saut du fond cassé et liens utilisables", async ({ page }) => {
+  await page.clock.install({ time: new Date("2026-10-07T12:00:00Z") });
+    await page.clock.pauseAt(new Date("2026-10-07T12:00:01Z"));
+  await page.route("**/*hero-gbara-arrosage*", (route) => route.abort());
   await page.goto("/fr");
-  await expect(page.locator(".hero-video-toggle")).toHaveCount(0);
-  await expect(page.locator(".hero-visual video")).toHaveAttribute("data-ready", "false");
-  expect(await page.locator(".hero-visual").evaluate((element) =>
-    getComputedStyle(element).backgroundImage,
-  )).toMatch(/geca-forest-poster-960-[a-f0-9]+\.webp/);
-  for (const [label, path] of [
-    ["Découvrir nos projets", "/fr/projets"],
-    ["Devenir partenaire", "/fr/devenir-partenaire"],
-  ]) {
+  await expect.poll(() => page.locator(".hero-slide img").evaluateAll(images => images.filter(image => !image.getAttribute("src")?.includes("hero-gbara-arrosage")).every(image => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth > 0))).toBe(true);
+  await page.clock.runFor(5000);
+  await expect(page.locator(".hero-backdrop")).toHaveAttribute("data-slide", "2");
+  for (const [label, path] of [["Découvrir nos projets", "/fr/projets"], ["Devenir partenaire", "/fr/devenir-partenaire"]]) {
     await page.locator(".hero-actions").getByRole("link", { name: label }).click();
     await expect(page).toHaveURL(path);
     await page.locator(".site-header .brand").click();
   }
 });
 
-test("économie de données : image fixe avant une lecture demandée", async ({ page }) => {
-  await page.addInitScript(() => {
-    Object.defineProperty(navigator, "connection", { value: { saveData: true }, configurable: true });
-  });
-  const mediaRequests: string[] = [];
-  page.on("request", (request) => {
-    if (request.url().endsWith("/videos/geca-forest.mp4")) mediaRequests.push(request.url());
-  });
+test("économie de données : un seul fond fixe", async ({ page }) => {
+  await page.addInitScript(() => { Object.defineProperty(navigator, "connection", { value: { saveData: true }, configurable: true }); });
+  await page.clock.install({ time: new Date("2026-10-07T12:00:00Z") });
+    await page.clock.pauseAt(new Date("2026-10-07T12:00:01Z"));
+  const extra: string[] = [];
+  page.on("request", (request) => { if (/hero-(gbara-arrosage|bassia-groupe|gbara-champ|gbara-entretien)/.test(request.url())) extra.push(request.url()); });
   await page.goto("/fr");
-  const video = page.locator(".hero-visual video");
-  await expect(video).not.toHaveAttribute("src");
-  expect(mediaRequests).toEqual([]);
-  await page.getByRole("button", { name: "Lire la vidéo" }).click();
-  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.paused)).toBe(true);
+  await expect(page.locator(".hero-slide")).toHaveCount(1);
+  await page.clock.runFor(15000);
+  await expect(page.locator(".hero-backdrop")).toHaveAttribute("data-slide", "0");
+  expect(extra).toEqual([]);
 });
 
-test("lecture automatique refusée : image fixe et commande de lecture", async ({ page }) => {
-  await page.addInitScript(() => {
-    HTMLMediaElement.prototype.play = () => Promise.reject(new DOMException("Autoplay blocked", "NotAllowedError"));
-  });
-  await page.goto("/fr");
-  await expect(page.getByRole("button", { name: "Lire la vidéo" })).toBeVisible();
-  expect(await page.locator(".hero-visual video").evaluate(
-    (video: HTMLVideoElement) => video.paused,
-  )).toBe(true);
-  expect(await page.locator(".hero-visual").evaluate(
-    (element) => getComputedStyle(element).backgroundImage,
-  )).toMatch(/geca-forest-poster-960-[a-f0-9]+\.webp/);
-  await expect(page.locator(".hero-actions a")).toHaveCount(2);
-});
-
-test("sans JavaScript : image chargée, message et liens présents", async ({ browser }) => {
+test("sans JavaScript : un fond chargé, message et liens présents", async ({ browser }) => {
   for (const width of [375, 1440]) {
     const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width, height: 900 } });
     const page = await context.newPage();
-    const mediaRequests: string[] = [];
-    page.on("request", (request) => {
-      if (/geca-forest(\.mp4|-poster)/.test(request.url())) mediaRequests.push(request.url());
-    });
-    const imageLoaded = page.waitForResponse((response) =>
-      /images-hero-plantation-\d+-[a-f0-9]+\.webp$/.test(response.url()) && response.status() === 200,
-    );
+    const imageLoaded = page.waitForResponse((response) => /images-client-hero-bassia-travail-\d+-[a-f0-9]+\.webp$/.test(response.url()) && response.status() === 200);
     await page.goto("http://127.0.0.1:3000/fr");
     await imageLoaded;
     await expect(page.locator("#hero-title")).toBeVisible();
     await expect(page.locator(".hero-actions a")).toHaveCount(2);
-    await expect(page.locator(".hero-visual video")).not.toHaveAttribute("src");
-    await expect(page.locator(".hero-video-toggle")).toBeHidden();
-    if (width < 768) expect(mediaRequests).toEqual([]);
-    else expect(mediaRequests.some((url) => /geca-forest-poster-960-[a-f0-9]+\.webp$/.test(url))).toBe(true);
+    await expect(page.locator(".hero-slide")).toHaveCount(1);
+    await expect(page.locator(".hero video, .hero button")).toHaveCount(0);
     await context.close();
   }
 });
 
-
-test("hamburger sur ordinateur : clavier, fermeture, redimensionnement et langue", async ({ page }) => {
+test("navigation directe ordinateur : clavier, sous-menu et passage au mobile", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/fr");
   const nav = page.getByRole("navigation", { name: "Navigation principale" });
   const menu = page.locator(".menu-toggle");
-  await expect(nav).toBeHidden();
-  await menu.focus();
-  await page.keyboard.press("Enter");
-  await expect(menu).toHaveAttribute("aria-expanded", "true");
-  await page.keyboard.press("Tab");
-  await expect(nav.getByRole("link", { name: "FR", exact: true })).toBeFocused();
-  await page.keyboard.press("Escape");
-  await expect(nav).toBeHidden();
-  await expect(menu).toBeFocused();
-  await page.keyboard.press("Tab");
-  await expect(page.locator(".hero-video-toggle")).toBeFocused();
-  await menu.click();
-  await page.setViewportSize({ width: 375, height: 900 });
   await expect(nav).toBeVisible();
-  // Le titre est maintenant couvert par le panneau : cliquer la page visible.
-  const panel = (await nav.boundingBox())!;
-  await page.mouse.click(10, panel.y + panel.height + 10);
+  await expect(menu).toBeHidden();
+  const about = nav.getByRole("button", { name: "À propos", exact: true });
+  await about.focus();
+  await page.keyboard.press("Enter");
+  await expect(about).toHaveAttribute("aria-expanded", "true");
+  await page.keyboard.press("Tab");
+  await expect(nav.getByRole("link", { name: "Qui sommes-nous ?", exact: true })).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(about).toBeFocused();
+  await expect(about).toHaveAttribute("aria-expanded", "false");
+  await page.setViewportSize({ width: 375, height: 900 });
   await expect(nav).toBeHidden();
   await menu.click();
-  await page.locator("#main-navigation .language-switch").getByRole("link", { name: "EN", exact: true }).click();
+  await expect(nav).toBeVisible();
+  await nav.getByRole("link", { name: "EN", exact: true }).click();
   await expect(page).toHaveURL("/en");
   await expect(menu).toHaveAttribute("aria-expanded", "false");
 });

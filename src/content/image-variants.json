@@ -17,6 +17,584 @@
       "src": "/images/optimized/images-brand-global-ecoaction-logo-640-1872f1aa791a.webp"
     }
   ],
+  "/images/client/allassoyah-materiels.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-allassoyah-materiels-192-47f61ed2f789.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-allassoyah-materiels-320-80840c6159e5.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-allassoyah-materiels-480-38566fe5d668.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-allassoyah-materiels-640-49274144368e.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-allassoyah-materiels-960-a5411bcb09cb.webp"
+    },
+    {
+      "width": 1020,
+      "src": "/images/optimized/images-client-allassoyah-materiels-1020-b65477a625fe.webp"
+    }
+  ],
+  "/images/client/bassia-champ.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-bassia-champ-192-74e80baabb47.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-bassia-champ-320-2ec061c4fc9b.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-bassia-champ-480-54e4b7ea0bec.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-bassia-champ-640-3290601d0562.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-bassia-champ-960-8f38eec39d12.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-client-bassia-champ-1280-15856a29ac64.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-client-bassia-champ-1600-423e20d15172.webp"
+    }
+  ],
+  "/images/client/bassia-maraichage.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-bassia-maraichage-192-bcaab50b3f7e.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-bassia-maraichage-320-23be71676d53.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-bassia-maraichage-480-47576a2c3d10.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-bassia-maraichage-640-8db7a9203a32.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-bassia-maraichage-960-114dfa88d33c.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-client-bassia-maraichage-1280-56a8687f390a.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-client-bassia-maraichage-1600-40f2b6701aaa.webp"
+    }
+  ],
+  "/images/client/bassia-travail-champ.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-bassia-travail-champ-192-97d03ce43e85.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-bassia-travail-champ-320-f39f1e950acf.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-bassia-travail-champ-480-1b45ae19b8de.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-bassia-travail-champ-640-7b21a4d3d9a0.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-bassia-travail-champ-960-1758f8b97007.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-client-bassia-travail-champ-1280-769610e7c5da.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-client-bassia-travail-champ-1600-efa6099586d8.webp"
+    }
+  ],
+  "/images/client/formation-groupements.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-formation-groupements-192-29186ab7fabe.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-formation-groupements-320-3f22a42c1250.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-formation-groupements-480-fbca0e7bdf94.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-formation-groupements-640-6fd04c1ad520.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-formation-groupements-960-c37a4b10599d.webp"
+    },
+    {
+      "width": 1020,
+      "src": "/images/optimized/images-client-formation-groupements-1020-3e2d59d130c7.webp"
+    }
+  ],
+  "/images/client/formation-maraichage.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-formation-maraichage-192-7f4176c752ac.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-formation-maraichage-320-c9f627225015.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-formation-maraichage-480-01e38fde7c1b.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-formation-maraichage-640-ed7206908b47.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-formation-maraichage-960-e3d956238415.webp"
+    },
+    {
+      "width": 1020,
+      "src": "/images/optimized/images-client-formation-maraichage-1020-c584fdc4d494.webp"
+    }
+  ],
+  "/images/client/gbara-arrosage.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-gbara-arrosage-192-a1bb1a419334.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-gbara-arrosage-320-76b7e3c53bfd.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-gbara-arrosage-480-c03e4e20c543.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-gbara-arrosage-640-5eb1ae6a7172.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-gbara-arrosage-960-804a320b6419.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-client-gbara-arrosage-1280-510b2e26f935.webp"
+    }
+  ],
+  "/images/client/gbara-visite.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-gbara-visite-192-dab104aee7b2.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-gbara-visite-320-749a32dd7631.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-gbara-visite-480-9df3e0dff0a5.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-gbara-visite-640-cab773ccc246.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-gbara-visite-960-1cd4f1e84b98.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-client-gbara-visite-1280-b2f42d611bbb.webp"
+    }
+  ],
+  "/images/client/gorede-saponification.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-gorede-saponification-192-c0f553c30358.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-gorede-saponification-320-b5fac1b4b2a9.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-gorede-saponification-480-6969368b9edf.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-gorede-saponification-640-63c7e4b09a63.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-gorede-saponification-960-2a96b315c3c5.webp"
+    },
+    {
+      "width": 1080,
+      "src": "/images/optimized/images-client-gorede-saponification-1080-867a56e7f9de.webp"
+    }
+  ],
+  "/images/client/hero-bassia-groupe.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-hero-bassia-groupe-192-4ebae2c39922.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-hero-bassia-groupe-320-5189f917c151.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-hero-bassia-groupe-480-529d38aae091.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-hero-bassia-groupe-640-941b1f297d6d.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-hero-bassia-groupe-960-ba25101f8a95.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-client-hero-bassia-groupe-1280-6eb4ea837afd.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-client-hero-bassia-groupe-1600-12e4adbbad68.webp"
+    }
+  ],
+  "/images/client/hero-bassia-travail.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-hero-bassia-travail-192-6f5f0a1396a1.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-hero-bassia-travail-320-3a7412a1919f.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-hero-bassia-travail-480-d452683c043d.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-hero-bassia-travail-640-009eb81e5655.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-hero-bassia-travail-960-a28f7a3284f8.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-client-hero-bassia-travail-1280-b3ebcdd05bf7.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-client-hero-bassia-travail-1600-4a5341e17c27.webp"
+    }
+  ],
+  "/images/client/hero-gbara-arrosage.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-hero-gbara-arrosage-192-b5847933ef14.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-hero-gbara-arrosage-320-2576447e501a.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-hero-gbara-arrosage-480-77368531ca3b.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-hero-gbara-arrosage-640-ef24b6fbfc5d.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-hero-gbara-arrosage-960-d4678fe1071c.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-client-hero-gbara-arrosage-1280-bd64241ba48a.webp"
+    }
+  ],
+  "/images/client/hero-gbara-champ.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-hero-gbara-champ-192-012766ef038a.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-hero-gbara-champ-320-34195ad70d08.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-hero-gbara-champ-480-f32f31177338.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-hero-gbara-champ-640-4c380a17b8e9.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-hero-gbara-champ-960-b57043edac95.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-client-hero-gbara-champ-1280-dc8e4ed246f5.webp"
+    }
+  ],
+  "/images/client/hero-gbara-entretien.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-hero-gbara-entretien-192-88b9cdca2a32.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-hero-gbara-entretien-320-542cec2c2d6f.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-hero-gbara-entretien-480-2dc2fde17f7c.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-hero-gbara-entretien-640-8752dc7ef607.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-hero-gbara-entretien-960-a8d8684f71ce.webp"
+    },
+    {
+      "width": 1000,
+      "src": "/images/optimized/images-client-hero-gbara-entretien-1000-8717c32fbd6e.webp"
+    }
+  ],
+  "/images/client/khimbeli-consultation.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-khimbeli-consultation-192-c9000725ab31.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-khimbeli-consultation-320-4d7c38dfb7e4.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-khimbeli-consultation-480-19b9676a71f4.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-khimbeli-consultation-640-37707c0633e2.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-khimbeli-consultation-960-df647afc6dde.webp"
+    },
+    {
+      "width": 1259,
+      "src": "/images/optimized/images-client-khimbeli-consultation-1259-77ebc883c30b.webp"
+    }
+  ],
+  "/images/client/kolaboui-materiels.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-kolaboui-materiels-192-cf042bd98b65.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-kolaboui-materiels-320-a39f8342153d.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-kolaboui-materiels-480-8c95677c38a5.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-kolaboui-materiels-640-443896cda130.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-kolaboui-materiels-960-7a253dc265c0.webp"
+    },
+    {
+      "width": 1020,
+      "src": "/images/optimized/images-client-kolaboui-materiels-1020-386c1b288555.webp"
+    }
+  ],
+  "/images/client/moussayah-concertation.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-moussayah-concertation-192-5a5e147aaef0.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-moussayah-concertation-320-2c34d83f3378.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-moussayah-concertation-480-d79013e9df8e.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-moussayah-concertation-640-b35654ee15bb.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-moussayah-concertation-960-db8fe5be1c02.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-client-moussayah-concertation-1280-92d7c7275ca0.webp"
+    },
+    {
+      "width": 1600,
+      "src": "/images/optimized/images-client-moussayah-concertation-1600-4342116e4298.webp"
+    }
+  ],
+  "/images/client/moussayah-dialogue.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-moussayah-dialogue-192-3bb21ca0e973.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-moussayah-dialogue-320-49b325f50115.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-moussayah-dialogue-480-cddac2e0f5a9.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-moussayah-dialogue-640-89fe4a14e968.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-moussayah-dialogue-960-8c09307b0293.webp"
+    },
+    {
+      "width": 1020,
+      "src": "/images/optimized/images-client-moussayah-dialogue-1020-7171dc166bf9.webp"
+    }
+  ],
+  "/images/client/moussayah-ombrieres.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-moussayah-ombrieres-192-f9c331e7aa4a.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-moussayah-ombrieres-320-b42de08f805b.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-moussayah-ombrieres-480-90c420d7d757.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-moussayah-ombrieres-640-855ae9aa23aa.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-moussayah-ombrieres-960-56425e46a3ce.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-client-moussayah-ombrieres-1280-81e50a927269.webp"
+    },
+    {
+      "width": 1386,
+      "src": "/images/optimized/images-client-moussayah-ombrieres-1386-4715e0df7010.webp"
+    }
+  ],
+  "/images/client/moussayah-pepiniere.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-moussayah-pepiniere-192-4143998810be.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-moussayah-pepiniere-320-87cdf437b26c.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-moussayah-pepiniere-480-e05e7729840b.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-moussayah-pepiniere-640-5a41db582c34.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-moussayah-pepiniere-960-b1b4ce6672ab.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-client-moussayah-pepiniere-1280-31e207c5389b.webp"
+    },
+    {
+      "width": 1386,
+      "src": "/images/optimized/images-client-moussayah-pepiniere-1386-706e3316adb8.webp"
+    }
+  ],
+  "/images/client/tabekhoure-champ.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-tabekhoure-champ-192-c7394dfd35ef.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-tabekhoure-champ-320-593e43b951e4.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-tabekhoure-champ-480-74b8d704f2b2.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-tabekhoure-champ-640-dbbb3ba3a38a.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-tabekhoure-champ-960-7d9ea1973b6c.webp"
+    },
+    {
+      "width": 1080,
+      "src": "/images/optimized/images-client-tabekhoure-champ-1080-9c1fbd2cffba.webp"
+    }
+  ],
   "/images/domaines/agroecologie.jpg": [
     {
       "width": 192,
@@ -339,6 +917,24 @@
       "src": "/images/optimized/images-partners-anafic-384-ada5fa9f6e76.webp"
     }
   ],
+  "/images/partners/arboria-project.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-partners-arboria-project-192-fdd415a39dd5.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-partners-arboria-project-320-38dc28094022.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-partners-arboria-project-480-0d4b6b72a8cb.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-partners-arboria-project-640-449f049f23a7.webp"
+    }
+  ],
   "/images/partners/banque-mondiale.png": [
     {
       "width": 192,
@@ -417,6 +1013,226 @@
     {
       "width": 640,
       "src": "/images/optimized/images-partners-reforestaction-640-239c2968d67d.webp"
+    }
+  ],
+  "/images/team/archille-delamou.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-team-archille-delamou-192-b919708131ee.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-team-archille-delamou-320-acc8c2ee05de.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-team-archille-delamou-480-6bbaa6cc7051.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-team-archille-delamou-640-07d8fec0c49d.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-team-archille-delamou-960-25d46b7870fb.webp"
+    },
+    {
+      "width": 1086,
+      "src": "/images/optimized/images-team-archille-delamou-1086-d4438afc8300.webp"
+    }
+  ],
+  "/images/team/daouda-toure.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-team-daouda-toure-192-337c7299021e.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-team-daouda-toure-320-50a5eded3cb4.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-team-daouda-toure-480-eef20c9b8e4e.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-team-daouda-toure-640-a5ab884ca326.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-team-daouda-toure-960-1ce2758eafad.webp"
+    },
+    {
+      "width": 1024,
+      "src": "/images/optimized/images-team-daouda-toure-1024-3385d12e120c.webp"
+    }
+  ],
+  "/images/team/fode-baba-sylla.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-team-fode-baba-sylla-192-9f8104054768.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-team-fode-baba-sylla-320-71532b598376.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-team-fode-baba-sylla-480-4cf0b853d9e8.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-team-fode-baba-sylla-640-f4942378394d.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-team-fode-baba-sylla-960-a87bc8e7e95d.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-team-fode-baba-sylla-1280-6279b7612e9c.webp"
+    },
+    {
+      "width": 1292,
+      "src": "/images/optimized/images-team-fode-baba-sylla-1292-598e0fdb1cd0.webp"
+    }
+  ],
+  "/images/team/ibrahima-kaba.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-team-ibrahima-kaba-192-b1fad868113e.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-team-ibrahima-kaba-320-0d3ffcdc2fc4.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-team-ibrahima-kaba-480-663e239f832f.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-team-ibrahima-kaba-640-5b19f3dbb3fa.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-team-ibrahima-kaba-960-b40ae1a79ed1.webp"
+    },
+    {
+      "width": 1254,
+      "src": "/images/optimized/images-team-ibrahima-kaba-1254-862399bd43fd.webp"
+    }
+  ],
+  "/images/team/mariame-djelo-diallo.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-team-mariame-djelo-diallo-192-86266da75913.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-team-mariame-djelo-diallo-320-e0a6c02d0a22.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-team-mariame-djelo-diallo-480-d6993f44e43b.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-team-mariame-djelo-diallo-640-a63699a2defe.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-team-mariame-djelo-diallo-960-eb577f83c26f.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-team-mariame-djelo-diallo-1280-310af080ee6c.webp"
+    },
+    {
+      "width": 1536,
+      "src": "/images/optimized/images-team-mariame-djelo-diallo-1536-d6f8390487d0.webp"
+    }
+  ],
+  "/images/team/mohamed-lamine-sacko.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-team-mohamed-lamine-sacko-192-c69f44333c01.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-team-mohamed-lamine-sacko-320-3cd0ff015384.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-team-mohamed-lamine-sacko-480-3db9078c03cd.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-team-mohamed-lamine-sacko-640-0eae81d05029.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-team-mohamed-lamine-sacko-960-c2975f526426.webp"
+    },
+    {
+      "width": 1086,
+      "src": "/images/optimized/images-team-mohamed-lamine-sacko-1086-fffcff7a31fb.webp"
+    }
+  ],
+  "/images/team/mohamed-makale-kaba.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-team-mohamed-makale-kaba-192-35e36172c674.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-team-mohamed-makale-kaba-320-bfdd42c7c882.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-team-mohamed-makale-kaba-480-d9f961608000.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-team-mohamed-makale-kaba-640-eef1403ddf42.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-team-mohamed-makale-kaba-960-310398c99f35.webp"
+    },
+    {
+      "width": 1280,
+      "src": "/images/optimized/images-team-mohamed-makale-kaba-1280-f5d1d1b182d6.webp"
+    },
+    {
+      "width": 1300,
+      "src": "/images/optimized/images-team-mohamed-makale-kaba-1300-26c14b0de8ab.webp"
+    }
+  ],
+  "/images/team/salifou-camara.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-team-salifou-camara-192-79c1b8817b6c.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-team-salifou-camara-320-b4afaec11433.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-team-salifou-camara-480-bad68daef3b6.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-team-salifou-camara-640-eb20f5c9ea44.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-team-salifou-camara-960-266c5708d533.webp"
+    },
+    {
+      "width": 1024,
+      "src": "/images/optimized/images-team-salifou-camara-1024-77cc2cb5f37d.webp"
     }
   ],
   "/images/temporary/climate.jpg": [

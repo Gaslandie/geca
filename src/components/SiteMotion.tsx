@@ -8,7 +8,7 @@ import { useEffect } from "react";
 const targets = [
   "[data-reveal]:not([data-reveal='off'])", ".hero-grid", ".card-content",
   ".section-heading", ".impact-heading", ".stat", ".domain",
-  ".project-card", ".portfolio-project", ".news-card", ".event-card",
+  ".project-card", ".portfolio-project", ".news-card",
   ".partner-list li", ".cta-grid > div", ".contact-copy",
   ".contact-form", ".contact-details-grid > div",
   ".about-since", ".about-conviction", ".about-purpose-card",

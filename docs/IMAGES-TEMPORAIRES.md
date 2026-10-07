@@ -69,3 +69,11 @@ Gassama confirme de garder provisoirement `impact-forest.jpg` avec « Image temp
 Gassama choisit explicitement `Screenshot From 2026-10-04 19-28-41.png` depuis son dossier Screenshots. Copie exacte conservée dans `assets/source-images/images/hero/plantation.png`, 993 398 octets, 918 × 676 px ; variantes publiques WebP sous `public/images/optimized/`, sans métadonnées privées. Texte alternatif descriptif : « Une main plante un jeune arbre dans la terre. » Aucun lieu ni action GECA déduit. La mention « Image temporaire » de l’ancienne photo est retirée pour ce remplacement explicitement fourni. Source originale, auteur et licence non communiqués : à confirmer. L’ancienne photo de forêt et ses crédits sont conservés pour les autres usages et l’historique. La vidéo sur ordinateur garde sa source et son affiche existantes.
 
 Mesure du 4 octobre : cinq largeurs préparées (192, 320, 480, 640, 918 px). Plus grande variante : 41 314 octets contre 993 398 octets pour la capture, soit environ 95,8 % de réduction. Contrôle Sharp : 918 × 676 px, aucune métadonnée EXIF, XMP ou ICC dans cette variante.
+
+
+## Remplacement du 6 octobre 2026
+
+Les illustrations Commons Mission/Vision et les deux photos temporaires À propos ont été remplacées par une sélection de `1 IMAGES.pdf` fourni par Gassama. Leurs sources, auteurs et licences ci-dessus restent l’historique. Les crédits publics actuels décrivent les photos client désormais affichées. Voir `IMAGES-CLIENT.md`. Les autres photos temporaires et leurs étiquettes sont conservées.
+
+
+Le second examen du 6 octobre (PIC, IMAGES BM AGR et PDF) remplace aussi six images de projets, le fond Impact, les deux images Contact et les deux cartes de nouvelles. La planification climatique et le prochain événement conservent leurs illustrations temporaires. Les originaux et crédits historiques restent conservés ici. Les photos choisies seulement pour leur thème sont identifiées comme telles sur le site.

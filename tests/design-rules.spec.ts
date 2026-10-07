@@ -5,7 +5,7 @@ for (const width of [375, 1440]) {
   test(`règles communes ${width}px : titres centrés, cartes et espaces stables`, async ({ page }) => {
     await page.setViewportSize({ width, height: 1000 });
     await page.emulateMedia({ reducedMotion: "no-preference" });
-    for (const path of ["/fr", "/fr/a-propos", "/fr/projets", "/fr/a-propos/domaines-intervention", "/fr/a-propos/mission-vision-valeurs", "/en/a-propos/mission-vision-valeurs", "/fr/contact", "/fr/actualites", "/fr/devenir-partenaire", "/en/devenir-partenaire", "/en/projets", "/en/contact"]) {
+    for (const path of ["/fr", "/fr/equipe", "/en/equipe", "/fr/a-propos", "/fr/projets", "/fr/a-propos/domaines-intervention", "/fr/a-propos/mission-vision-valeurs", "/en/a-propos/mission-vision-valeurs", "/fr/contact", "/fr/actualites", "/fr/devenir-partenaire", "/en/devenir-partenaire", "/en/projets", "/en/contact"]) {
       await page.goto(path);
       await page.evaluate(() => document.fonts.ready);
       const headings = await page.locator("main h1, main h2, main h3, main .eyebrow, main .card-subtitle, main .contact-form-title, main .contact-detail-label, main .portfolio-objective-label").evaluateAll((elements) =>

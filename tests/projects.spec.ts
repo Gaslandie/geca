@@ -25,7 +25,10 @@ for (const width of [320, 375, 768, 1440, 1920]) {
     }
     for (const [index, card] of (await page.locator(".portfolio-project").all()).entries()) {
       await card.scrollIntoViewIfNeeded();
-      await expect(card.getByText("Image temporaire", { exact: true })).toBeVisible();
+      await expect(card.locator(".temporary-image-label")).toHaveCount(projects[index].photo?.temporary ? 1 : 0);
+      if (projects[index].photo?.contextLabel) {
+        await expect(card.locator(".photo-context-label")).toHaveText("Illustration du thème");
+      } else await expect(card.locator(".photo-context-label")).toHaveCount(0);
       await expect.poll(() => card.locator("img").evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
       await expect(card.locator("dl > div")).toHaveCount(3);
       const photo = (await card.locator(".portfolio-photo").boundingBox())!;
@@ -50,7 +53,7 @@ for (const width of [320, 375, 768, 1440, 1920]) {
 test("page unique : menu direct, accueil vers une ancre, langue et contact", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/fr");
-  await page.locator(".menu-toggle").click();
+  if (await page.locator(".menu-toggle").isVisible()) await page.locator(".menu-toggle").click();
   const navigation = page.getByRole("navigation", { name: "Navigation principale" });
   await expect(navigation.getByRole("button", { name: "Projets & programmes", exact: true })).toHaveCount(0);
   await navigation.getByRole("link", { name: "Projets & programmes", exact: true }).click();
@@ -63,7 +66,7 @@ test("page unique : menu direct, accueil vers une ancre, langue et contact", asy
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(`/fr/projets#projet-${first.slug}`);
   await expect(page.locator(`#projet-${first.slug}`)).toBeInViewport();
-  await page.locator(".menu-toggle").click();
+  if (await page.locator(".menu-toggle").isVisible()) await page.locator(".menu-toggle").click();
   await page.locator("#main-navigation .language-switch").getByRole("link", { name: "EN", exact: true }).click();
   await expect(page).toHaveURL("/en/projets");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(portfolioContent.en.title);
@@ -84,6 +87,9 @@ for (const locale of ["fr", "en"] as const) {
       await expect(card.getByRole("heading", { level: 3 })).toHaveText(project.title);
       await expect(card.locator(".portfolio-description")).toHaveText(project.description);
       await expect(card.locator("dd")).toHaveText([project.zone, project.period, project.partner]);
+      await expect(card.locator("img")).toHaveAttribute("alt", project.photo!.alt);
+      if (project.photo?.contextLabel) await expect(card.locator(".photo-context-label")).toHaveText(locale === "fr" ? "Illustration du thème" : "Thematic illustration");
+      else await expect(card.locator(".photo-context-label")).toHaveCount(0);
       if (project.status) await expect(card.locator(".portfolio-status")).toHaveText(portfolioContent[locale].statuses[project.status]);
       else await expect(card.locator(".portfolio-status")).toHaveCount(0);
     }

@@ -28,7 +28,7 @@ test("export : toutes les pages FR/EN, ressources et entrée du site", async ({ 
 });
 
 test("export : adresses inconnues, fichiers privés et envoi refusés", async ({ request }) => {
-  for (const path of ["fr/inconnue/", "fr/projets/inconnu/", "fr/a-propos/equipe/", "fr/ressources/", "en/ressources/", "fr/reseaux/", "fr/partenaires/", "docs/TEXTES-AUTHENTIQUES-CLIENT.md", "es/", "es/contact/", ".env", ".git/config", "src/content/site.ts", "api/contact", "api/payments", "_next/image?url=https://example.com/image.jpg&w=640&q=75"]) {
+  for (const path of ["fr/inconnue/", "fr/evenements/", "en/evenements/", "fr/projets/inconnu/", "fr/a-propos/equipe/", "fr/ressources/", "en/ressources/", "fr/reseaux/", "fr/partenaires/", "docs/TEXTES-AUTHENTIQUES-CLIENT.md", "es/", "es/contact/", ".env", ".git/config", "src/content/site.ts", "api/contact", "api/payments", "_next/image?url=https://example.com/image.jpg&w=640&q=75"]) {
     expect((await request.get(`/geca/${path}`)).status(), path).toBe(404);
   }
   expect((await request.post("/geca/fr/contact/", { data: { email: "demo@example.com" } })).status()).toBe(405);
@@ -37,7 +37,7 @@ test("export : adresses inconnues, fichiers privés et envoi refusés", async ({
 });
 
 for (const width of [375, 1440]) {
-  test(`export : images, vidéo, navigation et langues à ${width}px`, async ({ page }) => {
+  test(`export : images, carrousel, navigation et langues à ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     const errors: string[] = [];
     const mediaRequests: string[] = [];
@@ -50,31 +50,28 @@ for (const width of [375, 1440]) {
     for (const image of await page.locator("img").all()) {
       await image.scrollIntoViewIfNeeded();
       await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
-      expect(await image.getAttribute("src")).toMatch(/^\/geca\/images\//);
+      const source = new URL((await image.getAttribute("src"))!, page.url());
+      expect(source.origin).toBe(new URL(page.url()).origin);
+      expect(source.pathname).toMatch(/^\/geca\/images\//);
     }
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({ path: `test-results/pages-home-${width}.png`, animations: "disabled" });
-    await expect(page.locator(".hero-photo img")).toHaveAttribute("src", /\/geca\/images\/optimized\/images-hero-plantation-\d+-[a-f0-9]+\.webp$/);
-    if (width >= 768) {
-      await expect(page.locator(".hero-visual video")).toHaveAttribute("poster", /\/geca\/images\/optimized\/videos-geca-forest-poster-960-[a-f0-9]+\.webp$/);
-      await expect(page.locator(".hero-visual video")).toHaveAttribute("src", "/geca/videos/geca-forest.mp4");
-    } else {
-      await expect(page.locator(".hero-visual video")).not.toHaveAttribute("poster");
-      await expect(page.locator(".hero-visual video")).not.toHaveAttribute("src");
-      await expect(page.locator(".hero-video-toggle")).toBeHidden();
-      expect(mediaRequests).toEqual([]);
-    }
+    await expect(page.locator(".hero-slide img")).toHaveCount(5);
+    expect(await page.locator(".hero-slide img").evaluateAll(images => new Set(images.map(image => new URL((image as HTMLImageElement).src).pathname)).size)).toBe(5);
+    await expect(page.locator(".hero-slide img").first()).toHaveAttribute("alt", "");
+    await expect(page.locator(".hero video, .hero-video-toggle, .hero-action-arrow")).toHaveCount(0);
+    expect(mediaRequests).toEqual([]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.locator(".hero-actions a").first().click();
     await expect(page).toHaveURL(/\/geca\/fr\/projets\/$/);
     await expect(page.locator('#main-navigation .nav-item > a[href="/geca/fr/projets/"]')).toHaveAttribute("aria-current", "page");
-    await page.locator(".menu-toggle").click();
+    if (await page.locator(".menu-toggle").isVisible()) await page.locator(".menu-toggle").click();
     await page.locator(".language-switch").getByRole("link", { name: "EN", exact: true }).click();
     await expect(page).toHaveURL(/\/geca\/en\/projets\/$/);
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
-    await page.locator(".menu-toggle").click();
+    if (await page.locator(".menu-toggle").isVisible()) await page.locator(".menu-toggle").click();
     await page.locator(".language-switch").getByRole("link", { name: "FR", exact: true }).click();
-    await page.getByRole("button", { name: "Menu", exact: true }).click();
+    if (await page.locator(".menu-toggle").isVisible()) await page.locator(".menu-toggle").click();
     await page.getByRole("navigation", { name: "Navigation principale" }).getByRole("link", { name: "Contact", exact: true }).click();
     await expect(page).toHaveURL(/\/geca\/fr\/contact\/$/);
     const accessibility = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze();

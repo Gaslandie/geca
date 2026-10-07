@@ -33,7 +33,7 @@ test("export : taille selon l’écran, photos réutilisées, aucun original té
   expect(selected[0]).not.toBe(selected[1]);
   await page.setViewportSize({ width: 375, height: 900 });
   await page.goto("/geca/fr/");
-  const forestPhoto = page.locator(".projects .project-card img").first();
+  const forestPhoto = page.locator(".impact-photo img");
   await forestPhoto.scrollIntoViewIfNeeded();
   await expect.poll(() => forestPhoto.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
   const firstSrc = await forestPhoto.evaluate((img: HTMLImageElement) => img.currentSrc);

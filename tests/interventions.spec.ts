@@ -39,7 +39,7 @@ for (const width of [320, 375, 768, 1440, 1920]) {
       const photo = section.locator(".intervention-photo");
       await photo.scrollIntoViewIfNeeded();
       await expect(photo.locator(".temporary-image-label")).toHaveCount(0);
-      expect(await photo.locator("img").evaluate((image: HTMLImageElement) => new URL(image.currentSrc || image.src).pathname)).toMatch(new RegExp(`/images/optimized/images-domaines-${area.photo.src.split("/").pop()!.replace(/\.jpg$/, "")}-\\d+-[a-f0-9]+\\.webp$`));
+      expect(await photo.locator("img").evaluate((image: HTMLImageElement) => new URL(image.currentSrc || image.src).pathname)).toMatch(new RegExp(`/images/optimized/${area.photo.src.slice(1).replaceAll("/", "-").replace(/\.jpg$/, "")}-\\d+-[a-f0-9]+\\.webp$`));
       await expect.poll(() => photo.locator("img").evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
     }
     expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()).violations).toEqual([]);
@@ -64,7 +64,7 @@ test("domaines : introduction, ancres directes, accueil, langue et destinations"
   await page.locator(".domain-link[href$='#agroecologie']").click();
   await expect(page).toHaveURL(`/fr${path}#agroecologie`);
   await expect(page.locator("#agroecologie")).toBeInViewport();
-  await page.locator(".menu-toggle").click();
+  if (await page.locator(".menu-toggle").isVisible()) await page.locator(".menu-toggle").click();
   await page.locator("#main-navigation .language-switch").getByRole("link", { name: "EN", exact: true }).click();
   await expect(page).toHaveURL(`/en${path}`);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(interventionContent.en.title);
@@ -92,7 +92,7 @@ test("domaines : contenu et navigation sans JavaScript, FR et EN", async ({ brow
       await photo.scrollIntoViewIfNeeded();
       await expect(photo.locator(".temporary-image-label")).toHaveCount(0);
       await expect(photo.locator("img")).toHaveAttribute("alt", domain.photo.alt);
-      expect(await photo.locator("img").evaluate((image: HTMLImageElement) => new URL(image.currentSrc || image.src).pathname)).toMatch(new RegExp(`/images/optimized/images-domaines-${domain.photo.src.split("/").pop()!.replace(/\.jpg$/, "")}-\\d+-[a-f0-9]+\\.webp$`));
+      expect(await photo.locator("img").evaluate((image: HTMLImageElement) => new URL(image.currentSrc || image.src).pathname)).toMatch(new RegExp(`/images/optimized/${domain.photo.src.slice(1).replaceAll("/", "-").replace(/\.jpg$/, "")}-\\d+-[a-f0-9]+\\.webp$`));
       await expect.poll(() => photo.locator("img").evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
     }
     const area = getInterventionAreas(locale)[7];

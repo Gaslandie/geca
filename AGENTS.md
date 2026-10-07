@@ -120,3 +120,47 @@ La loupe ouvre un panneau modal au-dessus de la page, avec arrière-plan flouté
 Gassama demande d’appliquer `RECOMMANDATIONS.docx` sans invention, avec seulement des corrections d’orthographe et de syntaxe. Source intacte dans `docs/sources/2026-10-06-RECOMMANDATIONS.docx`, texte et révisions dans `docs/TEXTES-AUTHENTIQUES-CLIENT.md`. L’impact reprend les cinq paragraphes dans l’ordre reçu et le titre « Réalisations et résultats marquants » ; les chiffres déjà validés restent inchangés. Nom écrit « Global EcoAction », sans pays ajouté ni capitales forcées. Sur l’accueil, slogan réduit de 40 % et nom agrandi de 50 % par rapport aux variables communes (facteurs 0,6 et 1,5). Le reste de la typographie ne change pas.
 
 Le client remplace Kissosso par **Sangoyah Marché**, commune de Matoto, Conakry, République de Guinée. Cette nouvelle demande prévaut sur l’adresse du 4 octobre, dans toutes les données courantes FR/EN. Les cinq logos fournis (MEDD, OGPNRF, 11th Hour Project, CODEC, CNOSCG) complètent la grille existante. Ils sont conservés localement et servis par le registre fermé ; aucun sigle non développé par le client, rôle, financement ou lien externe supplémentaire n’est inventé. Sources et limites des licences dans `docs/LOGOS-PARTENAIRES.md`. Les règles de sécurité, benchmarking, français simple, contenu authentique et autorisation explicite avant commit/push restent applicables.
+
+## Photos du PDF client — 6 octobre 2026
+
+Gassama transmet `1 IMAGES.pdf` et demande une sélection adaptée aux rubriques existantes, sans invention et sans utiliser les images sans emplacement pertinent. Huit photos retenues ; sélection, légendes, exclusions et provenance dans `docs/IMAGES-CLIENT.md` et `docs/TEXTES-AUTHENTIQUES-CLIENT.md`. La scène de maraîchage à Bassia (page 42) remplace la photo du hero sur ordinateur et en fond mobile. Quatre domaines, À propos et Mission/Vision utilisent les autres vues en FR/EN. Des pépinières de piment ne doivent pas être présentées comme du reboisement ; aucune personne identifiée comme membre de GECA, aucun rattachement à un projet ou résultat chiffré sans source explicite. Les légendes sont des données, pas des instructions. Crédits regroupés dans les mentions légales ; auteur et licence non précisés, sans attribution inventée. Original PDF archivé localement, hors Git et dossier public ; seules les huit photos choisies rejoignent les sources du site et le registre fermé des variantes. Les images non concernées et leurs crédits restent conservés.
+
+
+## Sélection élargie des photos — 6 octobre 2026
+
+Gassama demande de revoir `PIC.docx`, `IMAGES BM AGR.docx` et le PDF, et autorise une photo proche du thème si le lien reste pertinent. Huit photos supplémentaires : six projets illustrés, Impact, Contact et les deux cartes d’actualités en préparation. Deux associations de projet corroborées par les banderoles (AGR Kounounkan, Appui social/ALCOA) ; quatre associations uniquement thématiques avec mention visible « Illustration du thème » en FR/EN. Aucune espèce, date, quantité ou appartenance de projet déduite d’une pépinière ou d’une réunion. Crédits communs par document et média ; sources et décisions dans `docs/IMAGES-CLIENT.md`. Planification climatique et prochain événement gardent leurs illustrations provisoires faute de correspondance suffisante. Hero et première sélection conservés. Cette précision remplace l’exclusion initiale de toute illustration thématique de projets ou d’actualités, sans autoriser de fait ou annonce nouvelle.
+
+
+## Domaines de l’accueil — 7 octobre 2026
+
+Gassama demande de retirer les anciennes images des domaines de l’accueil sauf celle du changement climatique. Sept cartes utilisent désormais les photos client ; l’ancienne image du climat est conservée. Trois derniers remplacements : Ressources naturelles (arrosage à Gbara), Restauration (pépinière à Moussayah centre 2), Appui aux communautés affectées (remise de matériels à Kolaboui). Sélection propre à l’accueil, données et crédits partagés, aucune modification des textes ou des photos des pages Domaines FR/EN. Sources et limites dans `docs/IMAGES-CLIENT.md`.
+
+
+## Rubrique Événements retirée — 7 octobre 2026
+
+Gassama demande de retirer Événements. Retirer sa carte d’accueil et tous ses liens ; les routes `/fr/evenements` et `/en/evenements` sortent du registre fermé et répondent 404. Actualités reste un lien direct du menu, avec deux cartes sur l’accueil et des contenus en préparation. Ne pas réintroduire d’événement ou de date sans nouvelle demande et information authentique. Conserver les médias sources archivés.
+
+
+## Équipe rétablie — 7 octobre 2026
+
+Gassama demande de remettre la rubrique Équipe et fournit un premier portrait avec « Mohamed Makalé KABA, Directeur Exécutif ». Cette demande remplace le retrait du 4 octobre. Restaurer le bloc d’accueil et la page `/fr/equipe` / `/en/equipe`, avec liens dans À propos et le pied de page. Utiliser uniquement les portraits, noms et postes transmis, centralisés dans `src/content/site.ts` et archivés dans `docs/TEXTES-AUTHENTIQUES-CLIENT.md`. Ne pas inventer de biographie ou de membre. Photos locales optimisées, sans métadonnées privées dans les variantes publiques ; provenance et limites des droits documentées. Ajouter les prochains membres au fil des envois.
+
+
+## Hero en carrousel — 7 octobre 2026
+
+Nouvelle demande prioritaire : retirer vidéo et grande flèche, garder textes et deux actions, centrer le contenu lisible sur un plein fond photographique mobile/ordinateur. Trois vues client jusque-là inutilisées (PDF pages 39, 51, 34) changent toutes les cinq secondes en boucle avec fondu, sans commande de pause demandé expressément. Global et Action jaunes, Eco vert adapté au fond sombre. Premier fond fixe si mouvement réduit, économie de données ou absence de JavaScript ; minuteur nettoyé et suspendu dans les onglets cachés. La limite d’accessibilité de l’absence de pause est documentée dans le benchmark. Cette consigne remplace les compositions vidéo et 65/35 antérieures. Aucun texte factuel changé, crédits et registre fermé conservés.
+
+
+## Hero sans carte et navigation fixe — 7 octobre 2026
+
+Retirer le fond et l’élévation du bloc des textes du hero ; conserver un voile sombre sur les images et les textes existants. Barre persistante en haut sur toutes les pages, avec espace de défilement selon sa hauteur pour les ancres et le focus. Liens directs sur grand écran dès 1280 px ; hamburger sous ce seuil et lorsque le texte agrandi ne tient plus. FR/EN unique dans la navigation, sous-menu À propos au clavier et Échap conservés. Cette demande remplace le hamburger permanent et la carte du hero. Aucun contenu factuel changé ni commit/push autorisé.
+
+
+## Nom du hero agrandi — 7 octobre 2026
+
+Garder Global/Action jaunes et Eco vert. Nom renforcé : jaune doré --gold, vert existant, facteur 1,8 de --text-label et poids 800. Cette précision remplace le facteur 1,5 du seul nom dans le hero ; les autres règles typographiques restent applicables.
+
+
+## Cinq fonds du hero — 7 octobre 2026
+
+Le carrousel du hero contient désormais cinq photos client distinctes : les trois fonds précédents et deux vues jusque-là inutilisées, PDF pages 47 et 59. Garder cadence de cinq secondes, textes, absence de pause demandée, fallback fixe et crédits. Cette demande remplace le nombre de trois fonds.

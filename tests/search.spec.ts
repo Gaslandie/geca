@@ -10,12 +10,15 @@ test("recherche : accents, préfixes, fautes, mots multiples, chiffres et corpus
   for (const query of ["agroeco", "AGROÉCOLOGIE", "reboisemnt", "550000", "alcoa", "femmes agricultrices", "renascedd", "moteur"]) {
     expect(searchDocuments(index, query).length, query).toBeGreaterThan(0);
   }
+  expect(searchDocuments(index, "daouda toure")[0].document.href).toBe("/fr/equipe#daouda-toure");
+  expect(searchDocuments(index, "makale kaba")[0].document.href).toBe("/fr/equipe#mohamed-makale-kaba");
+  expect(searchDocuments(prepareSearch(getSearchDocuments("en")), "executive director")[0].document.href).toBe("/en/equipe#mohamed-makale-kaba");
   expect(searchDocuments(index, "agroeco")[0].document.href).toContain("#agroecologie");
   expect(searchDocuments(index, "agroecologie zzzzzzzzz")).toEqual([]);
   expect(searchDocuments(index, "<script>alert(1)</script>")).toEqual([]);
   for (const doc of docs) {
     expect(doc.href).toMatch(/^\/fr(?:\/|#|$)/);
-    expect(doc.href).not.toMatch(/\/(?:ressources|reseaux|partenaires|equipe)(?:\/|#|$)/);
+    expect(doc.href).not.toMatch(/\/(?:ressources|reseaux|partenaires|evenements)(?:\/|#|$)/);
     expect(doc.text).not.toMatch(/\/home\/|TEXTES-AUTHENTIQUES|SKILL\.md/);
   }
 });
@@ -55,7 +58,8 @@ for (const width of [320, 768, 1440]) {
     await page.keyboard.press("Escape");
     await expect(dialog).not.toBeVisible();
     await expect(trigger).toBeFocused();
-    expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
+    // L’événement natif close puis le nettoyage de l’effet React sont asynchrones.
+    await expect.poll(() => page.evaluate(() => document.body.style.overflow), { timeout: 1000 }).not.toBe("hidden");
     await trigger.click();
     await input.fill("PROTEMO");
     await expect(dialog.getByRole("status")).toContainText("résultat");

@@ -49,7 +49,11 @@ function HeaderNavigation({
     if (!header) return;
     const inner = header.querySelector<HTMLElement>(".header-inner");
     const updateMeasurements = () => {
-      header.style.setProperty("--header-height", `${header.offsetHeight}px`);
+      // Le menu direct garde de la place pour le texte agrandi.
+      header.dataset.compact = String(window.innerWidth < 80 * parseFloat(getComputedStyle(document.documentElement).fontSize));
+      const height = `${header.offsetHeight}px`;
+      header.style.setProperty("--header-height", height);
+      document.documentElement.style.setProperty("--site-header-height", height);
       if (inner) {
         const gutter = inner.getBoundingClientRect().left - header.getBoundingClientRect().left;
         header.style.setProperty("--navigation-gutter", `${gutter}px`);
@@ -59,7 +63,11 @@ function HeaderNavigation({
     const observer = new ResizeObserver(updateMeasurements);
     observer.observe(header);
     if (inner) observer.observe(inner);
-    return () => observer.disconnect();
+    observer.observe(document.documentElement);
+    return () => {
+      observer.disconnect();
+      document.documentElement.style.removeProperty("--site-header-height");
+    };
   }, []);
 
   useEffect(() => {
@@ -108,55 +116,11 @@ function HeaderNavigation({
           <BrandLogo preload />
         </Link>
 
-        <div className="header-actions">
-          <Link
-            className="donate-link"
-            href={href(locale, "nous-soutenir")}
-            onClick={close}
-          >
-            {text.donate}
-          </Link>
-          <SiteSearch locale={locale} documents={searchDocuments} onOpen={close} />
-        </div>
-        <button
-          ref={menuRef}
-          className="menu-toggle"
-          aria-expanded={menuOpen}
-          aria-controls="main-navigation"
-          aria-label={menuOpen ? text.close : text.menu}
-          onClick={() => {
-            setMenuOpen(!menuOpen);
-            setOpenGroup(null);
-          }}
-        >
-          <Icon name={menuOpen ? "close" : "menu"} />
-        </button>
         <nav
           id="main-navigation"
           aria-label={text.mainNav}
           className={`main-nav ${menuOpen ? "is-open" : ""}`}
         >
-          <div className="language-switch" role="group" aria-label={text.language}>
-            <Link
-              href={locale === "fr" ? pathname : translatedPath}
-              lang="fr"
-              hrefLang="fr"
-              aria-current={locale === "fr" ? "page" : undefined}
-              onClick={close}
-            >
-              FR
-            </Link>
-            <span aria-hidden="true">/</span>
-            <Link
-              href={locale === "en" ? pathname : translatedPath}
-              lang="en"
-              hrefLang="en"
-              aria-current={locale === "en" ? "page" : undefined}
-              onClick={close}
-            >
-              EN
-            </Link>
-          </div>
           <ul>
             {navigation.map((item) => {
               const isActive = item.path
@@ -233,7 +197,51 @@ function HeaderNavigation({
               );
             })}
           </ul>
+          <div className="language-switch" role="group" aria-label={text.language}>
+            <Link
+              href={locale === "fr" ? pathname : translatedPath}
+              lang="fr"
+              hrefLang="fr"
+              aria-current={locale === "fr" ? "page" : undefined}
+              onClick={close}
+            >
+              FR
+            </Link>
+            <span aria-hidden="true">/</span>
+            <Link
+              href={locale === "en" ? pathname : translatedPath}
+              lang="en"
+              hrefLang="en"
+              aria-current={locale === "en" ? "page" : undefined}
+              onClick={close}
+            >
+              EN
+            </Link>
+          </div>
         </nav>
+        <div className="header-actions">
+          <Link
+            className="donate-link"
+            href={href(locale, "nous-soutenir")}
+            onClick={close}
+          >
+            {text.donate}
+          </Link>
+          <SiteSearch locale={locale} documents={searchDocuments} onOpen={close} />
+        </div>
+        <button
+          ref={menuRef}
+          className="menu-toggle"
+          aria-expanded={menuOpen}
+          aria-controls="main-navigation"
+          aria-label={menuOpen ? text.close : text.menu}
+          onClick={() => {
+            setMenuOpen(!menuOpen);
+            setOpenGroup(null);
+          }}
+        >
+          <Icon name={menuOpen ? "close" : "menu"} />
+        </button>
       </Container>
     </header>
   );

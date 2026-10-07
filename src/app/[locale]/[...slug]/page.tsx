@@ -7,8 +7,9 @@ import { InterventionAreas } from "@/components/InterventionAreas";
 import { ProjectPortfolio } from "@/components/ProjectPortfolio";
 import { Partnership } from "@/components/Partnership";
 import { MissionVisionValues } from "@/components/MissionVisionValues";
+import { TeamPage } from "@/components/Team";
 import { PhotoCredits } from "@/components/PhotoCredits";
-import { aboutContent, contactContent, interventionContent, isLocale, locales, missionVisionContent, partnershipContent, portfolioContent, routes } from "@/content/site";
+import { teamContent, teamMembers, aboutContent, contactContent, interventionContent, isLocale, locales, missionVisionContent, partnershipContent, portfolioContent, routes } from "@/content/site";
 
 type Props = { params: Promise<{ locale: string; slug: string[] }> };
 
@@ -33,7 +34,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: route[locale],
     description:
-      route.path === "contact"
+      route.path === "equipe"
+        ? `${teamContent[locale].pageTitle} — ${teamMembers.map((member) => `${member.name}, ${member.role[locale]}`).join(" ; ")}`
+        : route.path === "contact"
         ? contactContent[locale].metadata
         : route.path === "a-propos"
         ? aboutContent[locale].metadata
@@ -53,6 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function SectionPage({ params }: Props) {
   const { locale, route } = await resolveRoute(params);
+  if (route.path === "equipe") return <TeamPage locale={locale} />;
   if (route.path === "contact") return <Contact locale={locale} />;
   if (route.path === "a-propos") return <About locale={locale} />;
   if (route.path === "a-propos/domaines-intervention") return <InterventionAreas locale={locale} />;

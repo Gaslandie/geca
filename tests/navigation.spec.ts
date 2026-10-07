@@ -5,7 +5,7 @@ for (const viewport of [
   { width: 320, height: 900 },
   { width: 375, height: 900 },
   { width: 768, height: 600 },
-  { width: 1440, height: 900 },
+  { width: 1024, height: 900 },
   { width: 667, height: 375 },
 ]) {
   test(`menu superposé ${viewport.width}×${viewport.height} : page immobile et liens accessibles`, async ({ page }) => {
@@ -87,3 +87,39 @@ test("don : pulsation courte, mouvements réduits et destination sans paiement",
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(page.locator("form")).toHaveCount(0);
 });
+
+for (const width of [375, 1280, 1440, 1920]) {
+  test(`barre fixe ${width}px : défilement, ancres, focus et hero sans carte`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/fr");
+    const hero = await page.locator(".hero-content").evaluate(element => {
+      const style = getComputedStyle(element); return { background: style.backgroundColor, shadow: style.boxShadow, border: style.borderWidth };
+    });
+    expect(hero).toEqual({ background: "rgba(0, 0, 0, 0)", shadow: "none", border: "0px" });
+    await page.evaluate(() => scrollTo(0, 1600));
+    expect((await page.locator(".site-header").boundingBox())!.y).toBe(0);
+    const compact = page.locator(".menu-toggle");
+    if (width >= 1280) {
+      await expect(compact).toBeHidden();
+      await expect(page.locator(".main-nav")).toBeVisible();
+    } else await compact.click();
+    await page.locator(".main-nav").getByRole("button", { name: "À propos", exact: true }).click();
+    await page.locator(".main-nav").getByRole("link", { name: "Qui sommes-nous ?", exact: true }).click();
+    await page.getByRole("link", { name: /histoire/i }).click();
+    const header = (await page.locator(".site-header").boundingBox())!;
+    expect((await page.locator("#notre-histoire").boundingBox())!.y).toBeGreaterThanOrEqual(header.height);
+    await page.locator("main a").last().focus();
+    const focused = await page.locator("main a").last().boundingBox();
+    expect(focused!.y).toBeGreaterThanOrEqual(header.height);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.addStyleTag({ content: ":root { font-size: 200%; }" });
+    await expect(compact).toBeVisible();
+    await compact.click();
+    await expect(page.locator(".main-nav")).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(compact).toBeFocused();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  });
+}

@@ -32,3 +32,8 @@ Source : `docs/sources/2026-10-06-RECOMMANDATIONS.docx`, transmis par Gassama av
 Le JPEG OGPNRF conserve ses octets, avec l’extension `.jpg` reconnue par le traitement existant. Chaque image est décodée par Sharp avec une limite de pixels, puis préparée en WebP local sans agrandissement ni métadonnées privées. Dimensions réelles, proportions, texte alternatif et registre fermé conservés. Aucun document Word source n’est placé dans `public`.
 
 Le nom complet du CODEC vient du texte client du 4 octobre ; aucun nom complet du CNOSCG n’est fourni et seul son sigle est utilisé. La correction « Faunes » → « Faune » suit aussi le texte visible du logo. Les logos ne prouvent pas un financement ni une association à un projet précis. Les licences de ces cinq fichiers ne sont pas indiquées dans le document ; seule leur fourniture par le client et la demande d’intégration de Gassama sont établies.
+
+
+## ARBORIA PROJECT — 7 octobre 2026
+
+Logo transmis directement par Gassama : `WhatsApp Image 2026-10-07 at 00.27.17.jpeg`, avec demande d’ajout comme partenaire. Nom lu dans l’image : « ARBORIA PROJECT ». Original JPEG 1007 × 482 intact dans `assets/source-images/images/partners/arboria-project.jpg`. Variantes WebP locales, largeur maximale 640 px et qualité 85 conformément au traitement commun des logos, sans métadonnées privées, servies par le registre fermé. Pas de recadrage, recoloration, redessin ou déformation ; le slogan reste dans le logo. Aucun rôle, financement ou lien externe ajouté. Licence non précisée dans l’envoi ; fourniture et demande d’usage établies, aucune licence libre supposée.

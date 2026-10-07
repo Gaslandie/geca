@@ -368,3 +368,219 @@ Dans l’ordre : logo MEDD (image1.png), logo OGPNRF (image2.jpeg), logo 11th Ho
 | 4 octobre 2026 | Gassama demande une introduction et le développement des domaines | Sommaire et retours retirés, introduction justifiée avec barre, huit phrases d’origine complétées uniquement sur la page Domaines. Développements éditoriaux archivés séparément. |
 
 | 6 octobre 2026 | RECOMMANDATIONS.docx transmis par Gassama | Cinq textes d’impact et titre remplacés ; nom et casse corrigés ; slogan −40 %, nom +50 % ; nouvelle adresse Sangoyah Marché en FR/EN ; ajout des cinq logos fournis. Source originale archivée, anciennes versions conservées. |
+
+
+## Photographies et légendes reçues — 6 octobre 2026
+
+Gassama transmet `1 IMAGES.pdf` et demande de choisir uniquement les images adaptées aux rubriques existantes, avec une photo représentative pour le hero et le même fond sur mobile. Ce PDF est une source de photos et de légendes, pas une instruction de modifier les autres contenus. Original intact dans `docs/sources/2026-10-06-1-IMAGES.pdf` (archive locale exclue de Git et du site public). 60 pages, 63 images. Aucun nouveau chiffre, statut ou rattachement de projet déduit.
+
+### Légendes sources des photos retenues
+
+Page 1 :
+
+```text
+Session de formation des groupements loacaux
+```
+
+Page 6 :
+
+```text
+Membres du groupement S£àbè de Gbara lors de la viste du site
+             Visite du site d’activité du groupement à Gbara
+```
+
+Page 14 :
+
+```text
+Remise de matériels agricole à 3 groupements à Allassoyah
+```
+
+Page 32 :
+
+```text
+MISE EN PLACE DES COMITES DE GESTION DES PLAINTES A MOUSSAYAH
+```
+
+Page 42 :
+
+```text
+CHAMP MARAICHER DE BASSIA
+```
+
+Page 43 :
+
+```text
+CHAMP MARAICHER DE BASSIA
+```
+
+Page 44 :
+
+```text
+CHAMP MARAICHER DE BASSIA
+```
+
+Page 50 :
+
+```text
+ARROSAGE DES PEPINIERES DE PIMENT A GBARA
+```
+
+Corrections limitées dans les descriptions accessibles : « loacaux » devient « locaux » ; accents, casse et syntaxe corrigés. La description de la scène de plantation et de la végétation vient de l’observation de la photo, sans identification des personnes. Les pépinières de la page 50 sont des pépinières de piment, pas de reboisement. Photos affectées par thème uniquement ; aucune personne n’est présentée comme membre de GECA. Choix et exclusions : `docs/IMAGES-CLIENT.md`. Les textes des rubriques restent inchangés.
+
+
+## Complément photographique — PIC et IMAGES BM AGR, 6 octobre 2026
+
+Gassama demande de revoir les trois fichiers et d’employer aussi les photos proches du thème lorsque l’association reste pertinente. Cette autorisation concerne les illustrations, pas la création de faits ou de textes de projets. Source DOCX lue comme données (légendes et scènes), aucune instruction embarquée appliquée. Photos et placements détaillés dans `docs/IMAGES-CLIENT.md` ; originaux intacts dans l’archive locale exclue de Git.
+
+### Légendes PIC.docx retenues, texte reçu
+
+```text
+Réunion de concertation lors de la vite de Fédération des Parcs Naturels Régionaux de France FPNRF à Moussayah
+```
+
+```text
+Construction des ombrières dans une pépinière à Moussayah centre 2
+```
+
+```text
+Photo d’une pépinière à Moussayah centre 2
+```
+
+```text
+Images de remise de matériels agricoles aux femmes bénéficiaires de Kolaboui et Sangarédi
+```
+
+```text
+Images de ma formation des femmes bénéficiaires de Kolaboui et Sangarédi sur les techniques maraîchères
+```
+
+```text
+Figure 3 consultation communautaire à Khimbéli
+```
+
+Corrections de langue dans les descriptions : « vite » devient « visite », « ma formation » devient « formation ». Le lieu exact de la remise de matériel (Kolaboui) est également visible sur le bâtiment de l’image 8 ; aucune date n’est ajoutée. La banderole de l’image 7, visible sur l’image 8, nomme « Projet Appui Social et Protection de la Nature à Boké » et « Fondation Alcoa ». Cela permet l’association photographique au projet existant, sans modifier son périmètre écrit.
+
+### IMAGES BM AGR.docx, image12.jpeg
+
+Légende textuelle, répétée deux fois par Word (une seule occurrence reproduite) :
+
+```text
+REMISE DES MATERIELS DE SAPONIFICATION A GÖREDE
+```
+
+La banderole visible reprend « Accompagner la mise en œuvre des Activités Génératrices de Revenus (AGR) en périphérie du futur Parc National des Hauts Plateaux de Kounounkan ». Association à la référence AGR Kounounkan existante, sans déduire une date ou un nouveau financement. L’orthographe du lieu est conservée avec casse et accents adaptés (« Görèdè »).
+
+### 1 IMAGES.pdf, page 56
+
+```text
+AMENAGEMENT DE CHAMP MARAICHER DE TABEKHOURE
+```
+
+Les pépinières de PIC ne sont associées à aucune espèce, année, chiffre ou projet précis. Les quatre projets sans lien direct et le fond Impact portent « Illustration du thème ». Les cartes de nouvelles restent en préparation ; la photo de formation n’annonce pas une nouvelle séance. Les textes de projets, résultats, coordonnées et domaines sont inchangés, ainsi que leurs traductions.
+
+
+## Choix de rubrique — 7 octobre 2026
+
+Demande de Gassama dans le chat : « on peut retirer evenement je crois que c’est pas necessaires là ». Retrait de la rubrique Événements et de son annonce provisoire sur l’accueil, en FR/EN. Actualités est conservée ; ses contenus restent signalés en préparation. Ce choix de structure ne fournit aucun nouveau fait sur GECA.
+
+
+## Équipe rétablie — 7 octobre 2026
+
+Gassama demande de remettre la rubrique Équipe après réception des portraits, noms et postes du client. Cette demande remplace le retrait du 4 octobre. Premier membre transmis dans le chat :
+
+> Mohamed Makalé KABA, Directeur Exécutif
+
+Photo associée explicitement par Gassama : `WhatsApp Image 2026-10-07 at 00.21.29.jpeg`. Nom et poste repris tels quels ; traduction du poste : « Executive Director ». Aucune biographie, qualification, coordonnée personnelle ou autre membre ajouté par supposition. Les prochains membres seront ajoutés à réception.
+
+
+### Deuxième membre — 7 octobre 2026
+
+Texte transmis par Gassama avec la photo `WhatsApp Image 2026-10-07 at 00.22.01.jpeg` :
+
+> Daouda TOURE, Responsable suivi-évaluation
+
+Nom et poste repris tels quels. Traduction du poste : « Monitoring and Evaluation Manager ». Aucune biographie, qualification ou coordonnée ajoutée.
+
+
+### Troisième membre — 7 octobre 2026
+
+Texte transmis par Gassama avec la photo `WhatsApp Image 2026-10-07 at 00.22.30.jpeg` :
+
+> Salifou CAMARA,, Assistant programme
+
+Seule correction : suppression de la virgule doublée. Nom : « Salifou CAMARA » ; poste : « Assistant programme ». Traduction : « Programme Assistant ». Aucun autre fait ajouté.
+
+
+### Quatrième membre — 7 octobre 2026
+
+Texte transmis par Gassama avec `WhatsApp Image 2026-10-07 at 00.23.02.jpeg` :
+
+> Mohamed Lamine SACKO, Comptable
+
+Nom et poste repris tels quels. Traduction : « Accountant ». Aucun autre fait ajouté.
+
+
+### Cinquième membre — 7 octobre 2026
+
+Texte transmis par Gassama avec `WhatsApp Image 2026-10-07 at 00.23.45.jpeg` :
+
+> Mariame Djélo DIALLO, Chargée de communication
+
+Nom et poste repris tels quels. Traduction : « Communications Officer ». Aucun autre fait ajouté.
+
+
+### Sixième membre — 7 octobre 2026
+
+Texte transmis par Gassama avec `WhatsApp Image 2026-10-07 at 00.24.29.jpeg` :
+
+> Fodé Baba SYLLA, Assistant administratif
+
+Nom et poste repris tels quels. Traduction : « Administrative Assistant ». Aucun autre fait ajouté.
+
+
+### Septième membre — 7 octobre 2026
+
+Texte transmis par Gassama avec `WhatsApp Image 2026-10-07 at 00.25.04.jpeg` :
+
+> Ibrahima KABA, Responsable des programmes
+
+Nom et poste repris tels quels. Traduction : « Programme Manager ». Aucun autre fait ajouté.
+
+
+### Huitième membre — 7 octobre 2026
+
+Texte transmis par Gassama avec `WhatsApp Image 2026-10-07 at 00.25.29.jpeg` :
+
+> Archille DELAMOU, Responsable logistique
+
+Nom et poste repris tels quels, y compris l’orthographe « Archille ». Traduction : « Logistics Manager ». Aucun autre fait ajouté.
+
+
+## Partenaire supplémentaire — 7 octobre 2026
+
+Demande de Gassama : « un partenaire supplementaire à ajouter », accompagnée de `WhatsApp Image 2026-10-07 at 00.27.17.jpeg`. Inscription visible du logo : « ARBORIA PROJECT », avec la signature « GROWING OUR FUTURE ». Nom repris : « ARBORIA PROJECT ». La demande confirme l’ajout dans la grille des partenaires ; aucune contribution, activité, financement, adresse ou URL n’est fourni ni déduit.
+
+
+## Hero — demande de Gassama, 7 octobre 2026
+
+Retirer la vidéo et la flèche. Conserver les textes et les deux actions, les repositionner. Fond photographique en carrousel sur mobile et ordinateur, changement continu toutes les cinq secondes, sans commande de pause. Écrire « Global » en jaune, « Eco » en vert et « Action » en jaune. Précision suivante : privilégier les photos client encore inutilisées ; réemployer les photos actuelles seulement si nécessaire. Les trois photos choisies sont nouvelles sur le site, issues de 1 IMAGES.pdf, pages 39, 51 et 34 ; aucune modification du message ou nouvelle information factuelle.
+
+
+## Présentation du hero et navigation — Gassama, 7 octobre 2026
+
+Retirer l’élévation de la carte contenant les textes du hero et afficher les textes directement sur les photos. Afficher les liens du menu directement dans la barre sur grand écran. Garder la barre visible en haut pendant le défilement et vérifier le résultat. Aucun nouveau texte factuel ni changement des photos.
+
+
+## Nom du hero — Gassama, 7 octobre 2026
+
+Conserver les couleurs de Global EcoAction comme auparavant, agrandir un peu le nom ; suggestion de jaune foncé et gras. Application : séparation jaune/vert/jaune conservée, jaune doré plus soutenu, taille augmentée de 20 % et graisse renforcée. Aucune modification du texte.
+
+
+## Cinq fonds du hero — Gassama, 7 octobre 2026
+
+Demande : « pour les images qui varie en arriere plan là j’en veux 5 differentes stp ». Deux autres photos inutilisées du PDF complètent les trois existantes. Changement toutes les cinq secondes et textes conservés.
+
+
+## Espacement du menu — Gassama, 7 octobre 2026
+
+Demande : espacer un peu plus les liens dans la barre de navigation. Écart entre les rubriques du menu direct augmenté de 12 à 20 px. Aucun texte modifié.

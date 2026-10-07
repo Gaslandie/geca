@@ -5,54 +5,41 @@ import { homeContent as content, href } from "@/content/site";
 import {
   Button,
   Container,
-  Icon,
   PhotoPlaceholder,
   SectionHeading,
   StatCard,
 } from "./ui";
 import { Projects } from "./Projects";
-import { HeroVideo } from "./HeroVideo";
+import { TeamSection } from "./Team";
+import { HeroSlideshow } from "./HeroSlideshow";
 
 export function Home() {
   return (
     <main id="main-content" tabIndex={-1} className="home-page">
       <section className="hero" aria-labelledby="hero-title">
+        <HeroSlideshow photos={content.hero.slides} />
         <div className="hero-grid">
-          <div className="hero-message">
-            <div className="hero-content">
-              <p className="eyebrow">{content.hero.label}</p>
-              <h1 id="hero-title">
-                <span className="hero-title-line">{content.hero.title}</span>{" "}
-                <span className="hero-title-line">{content.hero.titleSecondLine}</span>
-              </h1>
+          <div className="hero-content">
+            <p className="eyebrow hero-brand">
+              {content.hero.label.split(/(Global|Eco|Action)/).map((part, index) =>
+                /^(Global|Eco|Action)$/.test(part)
+                  ? <span key={index} className={part === "Eco" ? "hero-brand-green" : "hero-brand-gold"}>{part}</span>
+                  : part,
+              )}
+            </p>
+            <h1 id="hero-title">
+              <span className="hero-title-line">{content.hero.title}</span>{" "}
+              <span className="hero-title-line">{content.hero.titleSecondLine}</span>
+            </h1>
+            <div className="hero-copy">
+              <p className="hero-description">{content.hero.description}</p>
+              <p className="hero-introduction">{content.hero.introduction}</p>
             </div>
-            <PhotoPlaceholder
-              label={content.hero.label}
-              photo={content.hero.photo}
-              className="hero-photo"
-              sizes="(max-width: 767px) 100vw, 35vw"
-              priority
-            />
-            <div className="hero-caption">
-              <HeroVideo {...content.hero.video} />
-              <noscript>
-                <style>{".hero-video-toggle { display: none; }"}</style>
-              </noscript>
-              <div className="hero-copy">
-                <p className="hero-description">{content.hero.description}</p>
-                <p className="hero-introduction">{content.hero.introduction}</p>
+            <div className="hero-actions">
+              <div className="hero-action-links">
+                <Button href={href("fr", "projets")}>{content.hero.primary}</Button>
+                <Button href={href("fr", "devenir-partenaire")} variant="secondary">{content.hero.secondary}</Button>
               </div>
-            </div>
-          </div>
-          <div className="hero-actions">
-            <Icon name="arrow-down-right" className="hero-action-arrow" />
-            <div className="hero-action-links">
-              <Button href={href("fr", "projets")}>
-                {content.hero.primary}
-              </Button>
-              <Button href={href("fr", "devenir-partenaire")} variant="secondary">
-                {content.hero.secondary}
-              </Button>
             </div>
           </div>
         </div>
@@ -161,6 +148,8 @@ export function Home() {
         </Container>
       </section>
 
+      <TeamSection locale="fr" />
+
       <section className="news section section--tinted" aria-labelledby="news-title">
         <Container>
           <div className="news-heading section-heading">
@@ -181,7 +170,7 @@ export function Home() {
                     label={item.category}
                     photo={item.photo}
                     className="news-photo"
-                    sizes="(max-width: 599px) 100vw, (max-width: 1023px) 50vw, (max-width: 1535px) 33vw, 470px"
+                    sizes="(max-width: 599px) 100vw, (max-width: 1535px) 50vw, 720px"
                   />
                   <p className="news-badge">{item.category}</p>
                 </div>
@@ -203,22 +192,6 @@ export function Home() {
                 </div>
               </article>
             ))}
-            <aside className="event-card" aria-labelledby="event-title">
-              <PhotoPlaceholder
-                label={content.news.event.label}
-                photo={content.news.event.photo}
-                className="event-photo"
-                sizes="(max-width: 1023px) 100vw, (max-width: 1535px) 33vw, 470px"
-              />
-              <div className="event-content card-content">
-                <p className="news-badge event-badge">{content.news.event.label}</p>
-                <p className="event-date">{content.news.event.date}</p>
-                <h3 id="event-title">{content.news.event.title}</h3>
-                <p className="event-description">{content.news.event.description}</p>
-                <Button href={href("fr", "evenements")}>{content.news.event.cta}</Button>
-                <p className="event-motto">{content.news.event.motto}</p>
-              </div>
-            </aside>
           </div>
         </Container>
       </section>

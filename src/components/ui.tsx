@@ -111,6 +111,9 @@ export function PhotoPlaceholder({
       {photo?.temporary && (
         <span className="temporary-image-label">{temporaryImageLabel}</span>
       )}
+      {photo?.contextLabel && (
+        <span className="photo-context-label">{photo.contextLabel}</span>
+      )}
     </div>
   );
 }

@@ -92,7 +92,7 @@ for (const width of [320, 375, 768, 1024, 1440]) {
     } else {
       expect(form.y).toBeCloseTo(introduction.y + introduction.height, 0);
     }
-    await expect(page.locator("main .temporary-image-label")).toHaveCount(2);
+    await expect(page.locator("main .temporary-image-label")).toHaveCount(0);
     for (const image of await page.locator("main img").all()) {
       await image.scrollIntoViewIfNeeded();
       await expect.poll(() => image.evaluate((node: HTMLImageElement) => node.complete && node.naturalWidth > 0)).toBe(true);
@@ -124,8 +124,10 @@ test("contact : choix au clavier et passage FR vers EN", async ({ page }) => {
   await expect(page.locator("[value=partnership]")).toBeChecked();
   await page.keyboard.press("ArrowDown");
   await expect(page.locator("[value=project]")).toBeChecked();
-  await page.getByRole("button", { name: "Menu", exact: true }).focus();
-  await page.keyboard.press("Enter");
+  if (await page.locator(".menu-toggle").isVisible()) {
+    await page.locator(".menu-toggle").focus();
+    await page.keyboard.press("Enter");
+  }
   const english = page.getByRole("link", { name: "EN", exact: true });
   await expect(english).toHaveAttribute("href", "/en/contact");
   await english.focus();

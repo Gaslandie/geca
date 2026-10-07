@@ -1,4 +1,4 @@
-import { aboutContent, contactContent, getInterventionAreas, getPortfolioProjects, homeContent, href, identity, interfaceText, interventionContent, missionVisionContent, organizationFacts, partnershipContent, portfolioContent, routes, territorialExperience, type Locale } from "./site";
+import { teamContent, teamMembers, clientPhotoSources, aboutContent, contactContent, getInterventionAreas, getPortfolioProjects, homeContent, href, identity, interfaceText, interventionContent, missionVisionContent, organizationFacts, partnershipContent, portfolioContent, routes, territorialExperience, type Locale } from "./site";
 import type { SearchDocument } from "@/lib/search";
 
 // Liste exclusivement publique, construite au rendu serveur. Jamais de fichier interne.
@@ -22,16 +22,16 @@ export function getSearchDocuments(locale: Locale): SearchDocument[] {
   for (const key of ["mission", "vision"] as const) add("a-propos/mission-vision-valeurs", mission[key].title, mission.title, `${mission[key].summary} ${mission[key].paragraphs.join(" ")}`, `notre-${key}`);
   for (const value of mission.values) add("a-propos/mission-vision-valeurs", value.title, mission.valuesLabel, `${value.summary} ${value.detail}`, "nos-valeurs");
   for (const project of getPortfolioProjects(locale)) add("projets", project.title, portfolio.title, `${project.description} ${project.zone} ${project.period} ${project.partner}`, `projet-${project.slug}`);
+  for (const member of teamMembers) add("equipe", member.name, teamContent[locale].pageTitle, member.role[locale], member.id);
   const experience = territorialExperience[locale];
   add("projets", experience.title, portfolio.title, `${experience.introduction} ${experience.achievements.join(" ")}`, "experience-kounounkan-moussayah");
   add("devenir-partenaire", partner.strengthsTitle, locale === "fr" ? "Partenariat" : "Partnership", `${partner.positioning} ${partner.strengths.join(" ")}`);
   add("contact", contact.title, interfaceText[locale].contact, `${contact.description} ${identity.address[locale]} ${identity.phone} ${identity.email}`);
-  add("mentions-legales", locale === "fr" ? "Crédits photo" : "Photo credits", mission.title, `${mission.mission.photo.caption} ${mission.mission.photo.author} ${mission.vision.photo.caption} ${mission.vision.photo.author}`, "credits-photo");
+  add("mentions-legales", locale === "fr" ? "Crédits photo" : "Photo credits", identity.name, Object.values(clientPhotoSources).map((photo) => photo[locale]).join(" "), "credits-photo");
   if (locale === "fr") {
     add("", `${homeContent.impact.title} ${homeContent.impact.titleSecondLine}`, homeContent.impact.label, `${homeContent.impact.stats.map((stat) => `${stat.value} ${stat.label}`).join(" · ")} ${homeContent.impact.achievements.join(" ")}`, "impact-title");
     add("", homeContent.partners.title, homeContent.partners.label, homeContent.partners.items.map((item) => item.name).join(" "), "partners-title");
     for (const item of homeContent.news.items) add("", item.title, homeContent.news.label, item.description, "news-title");
-    add("", homeContent.news.event.title, homeContent.news.event.label, `${homeContent.news.event.date} ${homeContent.news.event.description}`, "event-title");
   }
   return documents;
 }
