@@ -758,6 +758,15 @@ export const homeContent = {
           height: 482,
         },
       },
+      {
+        name: "Parcs naturels régionaux de France",
+        logo: {
+          src: "/images/partners/parcs-naturels-regionaux-france.jpg",
+          alt: "Logo des Parcs naturels régionaux de France",
+          width: 288,
+          height: 340,
+        },
+      },
     ],
   },
   cta: {

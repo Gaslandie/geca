@@ -37,3 +37,7 @@ Le nom complet du CODEC vient du texte client du 4 octobre ; aucun nom complet d
 ## ARBORIA PROJECT — 7 octobre 2026
 
 Logo transmis directement par Gassama : `WhatsApp Image 2026-10-07 at 00.27.17.jpeg`, avec demande d’ajout comme partenaire. Nom lu dans l’image : « ARBORIA PROJECT ». Original JPEG 1007 × 482 intact dans `assets/source-images/images/partners/arboria-project.jpg`. Variantes WebP locales, largeur maximale 640 px et qualité 85 conformément au traitement commun des logos, sans métadonnées privées, servies par le registre fermé. Pas de recadrage, recoloration, redessin ou déformation ; le slogan reste dans le logo. Aucun rôle, financement ou lien externe ajouté. Licence non précisée dans l’envoi ; fourniture et demande d’usage établies, aucune licence libre supposée.
+
+## Parcs naturels régionaux de France — 7 octobre 2026
+
+Logo transmis par Gassama dans `WhatsApp Image 2026-10-07 at 06.47.17.jpeg`, avec demande d’ajout comme partenaire. Original JPEG intact, 288 × 340 px, 19 931 octets, sans EXIF ni XMP, conservé dans `assets/source-images/images/partners/parcs-naturels-regionaux-france.jpg`. Variantes WebP locales de 192 et 288 px, qualité 85, servies par le registre fermé. Aucun agrandissement, recadrage, recoloration ou changement de proportions ; fond fourni conservé. Licence non précisée ; demande d’usage reçue, aucune licence libre supposée. Aucun rôle, financement ou lien externe ajouté. Les onze partenaires précédents restent présents.

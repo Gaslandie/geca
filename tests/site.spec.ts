@@ -292,8 +292,8 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
         return { width: box.width, height: box.height, x: box.x, y: box.y, right: box.right, bottom: box.bottom };
       }),
     );
-    // Dix logos précédents, plus ARBORIA PROJECT fourni le 7 octobre.
-    expect(partnerCards).toHaveLength(11);
+    // Tous les partenaires fournis figurent dans la grille.
+    expect(partnerCards).toHaveLength(homeContent.partners.items.length);
     for (const card of partnerCards) {
       expect(Math.abs(card.width - partnerCards[0].width)).toBeLessThan(1);
       expect(Math.abs(card.height - partnerCards[0].height)).toBeLessThan(1);

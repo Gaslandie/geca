@@ -1506,5 +1506,15 @@
       "width": 640,
       "src": "/images/optimized/images-brand-global-ecoaction-logo-transparent-640-5624a1ccd532.webp"
     }
+  ],
+  "/images/partners/parcs-naturels-regionaux-france.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-partners-parcs-naturels-regionaux-france-192-c8494f9d71d4.webp"
+    },
+    {
+      "width": 288,
+      "src": "/images/optimized/images-partners-parcs-naturels-regionaux-france-288-9326d1a7dc99.webp"
+    }
   ]
 }
