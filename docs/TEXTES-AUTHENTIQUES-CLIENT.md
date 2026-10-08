@@ -695,3 +695,8 @@ Adresse actuelle à reprendre partout : **Kissosso, commune de Matoto, Conakry, 
 ## Retrait des notes éditoriales publiques — 8 octobre 2026
 
 Gassama demande de retirer du site les phrases de préparation comme « Statuts des projets à confirmer par GECA ». Suppression FR/EN de cette note, des mentions de rubrique en préparation (y compris métadonnées), des mentions inutilisées de réseaux sociaux à venir et des notes générales de méthode des archives. « Guinée · zone à préciser » devient « Guinée » ; traduction EN identique. Les lieux et statuts manquants restent à confirmer dans la documentation interne ; aucune confirmation, zone précise ou classification ajoutée. Les dates/périodes gardent leurs libellés explicites et leurs données d’origine. Les informations de fonctionnement du formulaire sans envoi, de la newsletter indisponible et les crédits/limites des illustrations restent visibles. Aucune fonction réelle ajoutée.
+
+
+## Présentation de la newsletter — 8 octobre 2026
+
+Gassama valide la proposition d’un bloc compact Newsletter dans le footer. Titre FR/EN « Newsletter » ; description et autres libellés existants conservés. Ce déplacement ne confirme aucune disponibilité nouvelle ni fréquence d’envoi.

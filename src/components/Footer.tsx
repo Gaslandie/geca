@@ -37,25 +37,6 @@ export function Footer({ locale }: { locale: Locale }) {
     ));
   }
   return (
-    <>
-    <section className="newsletter-section" aria-labelledby="newsletter-title">
-      <Container>
-        <div className="section-heading">
-          <div>
-          <h2 id="newsletter-title">{newsletter.title}</h2>
-          <p className="section-description">{newsletter.description}</p>
-          </div>
-        </div>
-        <form className="newsletter-controls" data-reveal action={newsletterAction} method="post">
-          <div className="newsletter-field">
-            <label htmlFor="newsletter-email">{newsletter.email}</label>
-            <input id="newsletter-email" name="email" type="email" required disabled={!newsletterAction} maxLength={254} autoComplete="email" placeholder="E-mail" />
-          </div>
-          <button type={newsletterAction ? "submit" : "button"} disabled={!newsletterAction} className="button button-primary button-inverse">{newsletter.subscribe}</button>
-        </form>
-        {!newsletterAction && <p className="newsletter-availability" role="status">{newsletter.unavailable}</p>}
-      </Container>
-    </section>
     <footer className="site-footer">
       <Image
         className="footer-background"
@@ -99,6 +80,18 @@ export function Footer({ locale }: { locale: Locale }) {
               {text.contact}
             </Link>
           </div>
+          <section className="footer-newsletter" aria-labelledby="newsletter-title">
+            <h2 id="newsletter-title">{newsletter.title}</h2>
+            <p className="newsletter-description">{newsletter.description}</p>
+            <form className="newsletter-controls" action={newsletterAction} method="post">
+              <div className="newsletter-field">
+                <label htmlFor="newsletter-email">{newsletter.email}</label>
+                <input id="newsletter-email" name="email" type="email" required disabled={!newsletterAction} maxLength={254} autoComplete="email" placeholder="E-mail" />
+              </div>
+              <button type={newsletterAction ? "submit" : "button"} disabled={!newsletterAction} className="button button-primary button-inverse">{newsletter.subscribe}</button>
+            </form>
+            {!newsletterAction && <p className="newsletter-availability" role="status">{newsletter.unavailable}</p>}
+          </section>
         </div>
         <div className="footer-bottom">
           <p>
@@ -112,6 +105,5 @@ export function Footer({ locale }: { locale: Locale }) {
         </div>
       </Container>
     </footer>
-    </>
   );
 }

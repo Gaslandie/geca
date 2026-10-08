@@ -29,7 +29,7 @@ for (const width of [320, 375, 768, 1440]) {
     await page.getByRole('button', { name: 'Next partners' }).focus();
     await page.keyboard.press('Enter');
     await expect(page.locator('.partner-carousel [aria-live]')).toContainText('Partners');
-    await expect(page.locator('.newsletter-controls')).toHaveAttribute('action', /\/newsletter\/en\/commencer$/);
+    await expect(page.locator('.site-footer .newsletter-controls')).toHaveAttribute('action', /\/newsletter\/en\/commencer$/);
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
     await page.addStyleTag({ content: ':root { font-size: 200%; }' });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

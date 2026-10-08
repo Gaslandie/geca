@@ -1427,14 +1427,14 @@ export const routes: readonly { path: string; fr: string; en: string }[] = [
 
 export const newsletterContent = {
   fr: {
-    title: "Abonnez-vous à notre newsletter",
+    title: "Newsletter",
     description: "Soyez informé(e) de nos actualités directement par e-mail.",
     email: "Adresse e-mail",
     subscribe: "S’abonner",
     unavailable: "L’inscription à la newsletter n’est pas encore disponible sur cet aperçu.",
   },
   en: {
-    title: "Subscribe to our newsletter",
+    title: "Newsletter",
     description: "Receive our news directly by email.",
     email: "Email address",
     subscribe: "Subscribe",

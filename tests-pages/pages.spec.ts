@@ -143,8 +143,8 @@ for (const locale of locales) {
 test("export : newsletter interne sans adresse locale ni fausse inscription", async ({ page }) => {
   for (const locale of locales) {
     await page.goto(`/geca/${locale}/`);
-    await expect(page.locator(".newsletter-controls")).not.toHaveAttribute("action", /127\.0\.0\.1|localhost/);
-    await expect(page.locator(".newsletter-controls button")).toBeDisabled();
+    await expect(page.locator(".site-footer .newsletter-controls")).not.toHaveAttribute("action", /127\.0\.0\.1|localhost/);
+    await expect(page.locator(".site-footer .newsletter-controls button")).toBeDisabled();
     await expect(page.locator(".newsletter-availability")).toContainText(locale === "fr" ? "pas encore disponible" : "not yet available");
     await expect(page.locator("#hero-title")).toHaveText(locale === "fr" ? "AGIR POUR UN AVENIR DURABLE" : "ACTING FOR A SUSTAINABLE FUTURE");
     for (const link of await page.locator("#main-content a").all()) {

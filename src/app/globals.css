@@ -116,9 +116,7 @@ img {
   width: 100%;
 }
 #main-content > section + section,
-#main-content + .site-footer,
-#main-content + .newsletter-section,
-.newsletter-section + .site-footer {
+#main-content + .site-footer {
   margin-block-start: var(--section-gap);
 }
 /* Garder le cadre extérieur et réserver de l'espace pour son contenu. */
@@ -1322,20 +1320,9 @@ p, a, button {
   margin-top: 14px;
 }
 
-.newsletter-section {
-  padding-block: var(--section-padding);
-  background: var(--green);
-  color: var(--white);
-}
-.newsletter-section h2,
-.newsletter-section .section-description { color: var(--white); }
-.newsletter-controls {
-  display: flex;
-  align-items: end;
-  gap: 16px;
-  max-width: 760px;
-  margin-inline: auto;
-}
+.footer-newsletter { min-width: 0; }
+.newsletter-description { font-size: var(--text-small); line-height: var(--leading-body); margin-bottom: 16px; }
+.newsletter-controls { display: flex; flex-direction: column; align-items: stretch; gap: 12px; }
 .newsletter-field { flex: 1; min-width: 0; }
 .newsletter-field label { display: block; margin-bottom: 8px; }
 .newsletter-field input {
@@ -1354,13 +1341,13 @@ p, a, button {
   border-color: var(--green-dark);
 }
 .newsletter-field input::placeholder { color: var(--muted); opacity: 1; }
-.newsletter-controls .button {
-  min-height: 52px;
-  flex: 0 1 240px;
+.newsletter-controls .button { min-height: var(--button-height); width: 100%; }
+@media (min-width: 600px) {
+  .footer-newsletter { grid-column: 1 / -1; width: 100%; max-width: 560px; justify-self: center; }
 }
-@media (max-width: 600px) {
-  .newsletter-controls { flex-direction: column; align-items: stretch; }
-  .newsletter-controls .button { flex-basis: auto; }
+@media (min-width: 1280px) {
+  .site-footer .footer-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, .65fr) minmax(0, .85fr) minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px; }
+  .footer-newsletter { grid-column: auto; max-width: none; }
 }
 
 .site-footer {
@@ -2807,4 +2794,4 @@ html { scroll-padding-top: calc(var(--site-header-height, 104px) + 16px); }
 .construction.has-page-hero .construction-body { max-width: none; margin-top: 48px; }
 .construction.has-page-hero .page-intro-copy { margin-block: var(--heading-gap); }
 
-.newsletter-availability { text-align:center; margin-top:16px; }
+.newsletter-availability { text-align: center; margin-top: 12px; font-size: var(--text-small); line-height: var(--leading-body); }

@@ -24,7 +24,7 @@ const targets = [
   ".mission-actions", ".partnership-actions", ".portfolio-closing-actions",
   ".about-closing-actions",
 ].join(",");
-const selector = `main :is(${targets}), .newsletter-section :is(${targets}), .site-footer .footer-grid > *, .site-footer .footer-bottom`;
+const selector = `main :is(${targets}), .site-footer .footer-grid > *, .site-footer .footer-bottom`;
 // Trois accents d'une même famille : titres, cartes/photos, textes/actions.
 const cardSelector = ".stat, .domain, .project-card, .portfolio-project, .news-card, .team-member, .partner-list li, .photo-placeholder, .mission-figure, .about-purpose-card, .mission-value-card, .partnership-strength-card";
 const headingSelector = "h1, h2";

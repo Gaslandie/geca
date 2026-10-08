@@ -295,3 +295,8 @@ Gassama demande de réduire de 10 % la luminosité des images du hero. Appliquer
 ## Notes de préparation retirées — 8 octobre 2026
 
 Gassama demande le retrait des notes éditoriales de préparation/confirmation du contenu public FR/EN. Garder les incertitudes dans la documentation interne, sans inventer de lieu ou de statut. Ne pas réintroduire de mentions de rubrique en préparation. Conserver les indications nécessaires sur les fonctions indisponibles, le formulaire sans envoi, les crédits et illustrations.
+
+
+## Newsletter intégrée au footer — 8 octobre 2026
+
+Gassama valide le déplacement de la newsletter dans le pied de page, sans bandeau séparé. Bloc compact après les coordonnées dans le DOM ; cinquième colonne dès 1280 px, dernière rangée centrée sur tablette, dernier bloc sur mobile. Titre Newsletter, description existante, champ e-mail avec libellé et bouton partagé empilés. Garder configuration et validation de destination, inscription désactivée et information visible sur Pages tant que le service public manque, absence de fausse confirmation et parcours Laravel existant. Même composant FR/EN, animations communes sans cumul.
