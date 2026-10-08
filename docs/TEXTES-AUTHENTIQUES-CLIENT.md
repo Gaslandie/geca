@@ -690,3 +690,8 @@ Gassama demande la version anglaise complète de l’accueil français actuel, a
 Gassama demande : « sil te plait, c'esat cette adresse quon retient partout sil te plait: Kissosso, commune de Matoto, Conakry, République de Guinée ».
 
 Adresse actuelle à reprendre partout : **Kissosso, commune de Matoto, Conakry, République de Guinée**. Traduction fidèle : **Kissosso, municipality of Matoto, Conakry, Republic of Guinea**. Cette instruction remplace l’adresse Sangoyah Marché demandée le 6 octobre. Les demandes précédentes restent archivées plus haut uniquement comme historique. Coordonnées communes, À propos, Contact, pied de page, introductions, métadonnées, index de recherche et destination d’itinéraire suivent l’adresse actuelle. Carte du quartier de Kissosso, sans emplacement exact du bureau fourni ni supposé. Aucun autre fait GECA modifié.
+
+
+## Retrait des notes éditoriales publiques — 8 octobre 2026
+
+Gassama demande de retirer du site les phrases de préparation comme « Statuts des projets à confirmer par GECA ». Suppression FR/EN de cette note, des mentions de rubrique en préparation (y compris métadonnées), des mentions inutilisées de réseaux sociaux à venir et des notes générales de méthode des archives. « Guinée · zone à préciser » devient « Guinée » ; traduction EN identique. Les lieux et statuts manquants restent à confirmer dans la documentation interne ; aucune confirmation, zone précise ou classification ajoutée. Les dates/périodes gardent leurs libellés explicites et leurs données d’origine. Les informations de fonctionnement du formulaire sans envoi, de la newsletter indisponible et les crédits/limites des illustrations restent visibles. Aucune fonction réelle ajoutée.

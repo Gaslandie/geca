@@ -28,7 +28,6 @@ export function News({ locale }: { locale: Locale }) {
       <section className="section section--tinted" aria-label={text.archiveTitle}>
         <Container>
           <SectionHeading label={text.archiveLabel} title={text.archiveTitle} />
-          <p className="news-archive-notice" data-reveal>{text.notice}</p>
           <div className="news-archive-grid">
             {entries.map((entry) => (
               <article className="news-card" id={entry.id} key={entry.id} aria-labelledby={`news-${entry.id}`} tabIndex={-1}>

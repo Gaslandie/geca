@@ -46,19 +46,17 @@ test("routes connues FR / EN, langues et titres", async ({ request }) => {
         expect(html).toContain(missionVisionContent[locale].mission.summary);
       } else if (path === "projets") {
         expect(html).toContain(portfolioContent[locale].catalogTitle);
-        expect(html).toContain(portfolioContent[locale].notice);
+        expect(html).not.toContain(locale === "fr" ? "Statuts des projets à confirmer" : "Project statuses to be confirmed");
       } else if (path === "devenir-partenaire") {
         expect(html).toContain(partnershipContent[locale].strengthsTitle);
         expect(html).toContain(partnershipContent[locale].positioning);
       } else if (!path) {
         expect(html).toContain(getHomeContent(locale).hero.titleSecondLine);
         expect(html).toContain(getHomeContent(locale).impact.titleSecondLine);
-      } else if (path)
-        expect(html).toContain(
-          locale === "fr"
-            ? "Cette rubrique est en préparation."
-            : "This section is being prepared.",
-        );
+      } else if (path) {
+        expect(html).toContain(routes.find(route => route.path === path)![locale]);
+        expect(html).not.toContain(locale === "fr" ? "en préparation" : "being prepared");
+      }
     }
   }
   const root = await request.get("/", { maxRedirects: 0 });

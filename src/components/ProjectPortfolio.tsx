@@ -30,7 +30,6 @@ export function ProjectPortfolio({ locale }: { locale: Locale }) {
       <section id="liste-projets" className="section portfolio-catalog" aria-label={text.catalogLabel} tabIndex={-1}>
         <Container>
           <SectionHeading label={text.catalogLabel} title={text.catalogTitle} />
-          <p className="portfolio-notice">{text.notice}</p>
           <p className="portfolio-count">{projects.length} {text.count}</p>
           <div className="portfolio-list">
             {projects.map((project, index) => <article id={`projet-${project.slug}`} tabIndex={-1} className={`portfolio-project${index % 2 ? " portfolio-project--reverse" : ""}`} key={project.slug} aria-labelledby={`title-${project.slug}`}>

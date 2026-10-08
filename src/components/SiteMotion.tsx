@@ -20,7 +20,7 @@ const targets = [
   ".mission-figure", ".mission-prose", ".about-prose",
   ".photo-placeholder:not(.impact-photo, .contact-photo)",
   ".impact-achievements > li", ".portfolio-experience-list > li",
-  ".project-toolbar", ".portfolio-notice", ".portfolio-count",
+  ".project-toolbar", ".portfolio-count",
   ".mission-actions", ".partnership-actions", ".portfolio-closing-actions",
   ".about-closing-actions",
 ].join(",");

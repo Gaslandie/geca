@@ -52,9 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? portfolioContent[locale].metadata
         : route.path === "devenir-partenaire"
         ? partnershipContent[locale].positioning
-        : locale === "fr"
-        ? `${route.fr} — Cette rubrique du site de Global EcoAction est en préparation.`
-        : `${route.en} — This section of the Global EcoAction website is being prepared.`,
+        : pageIntroductions[locale][route.path as keyof typeof pageIntroductions.fr] ?? `${route[locale]} — Global EcoAction`,
   };
 }
 

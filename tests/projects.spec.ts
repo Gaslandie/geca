@@ -16,7 +16,7 @@ for (const width of [320, 375, 768, 1440, 1920]) {
     await page.evaluate(() => document.fonts.ready);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(portfolioContent.fr.title);
     await expect(page.locator(".portfolio-project")).toHaveCount(7);
-    await expect(page.locator(".portfolio-notice")).toHaveText(portfolioContent.fr.notice);
+    await expect(page.locator(".portfolio-notice")).toHaveCount(0);
     const frame = (await page.locator(".header-inner").boundingBox())!;
     for (const section of await page.locator("main > section").all()) {
       const box = (await section.boundingBox())!;

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { getNewsEntries, getPortfolioProjects, newsContent, newsArticlePath } from "../src/content/site";
+import { getNewsEntries, getPortfolioProjects, newsArticlePath } from "../src/content/site";
 import { getSearchDocuments } from "../src/content/search";
 
 for (const locale of ["fr", "en"] as const) {
@@ -20,7 +20,7 @@ for (const locale of ["fr", "en"] as const) {
     await page.goto(`/${locale}/actualites`);
     await expect(page.locator(".news-card")).toHaveCount(9);
     await expect(page.locator(".news-archive-description").first()).toHaveCSS("text-align", "start");
-    await expect(page.locator(".news-archive-notice")).toHaveText(newsContent[locale].notice);
+    await expect(page.locator(".news-archive-notice")).toHaveCount(0);
     await expect(page.locator("time")).toHaveCount(2);
     await expect(page.locator('time[datetime="2026-08-26"]')).toBeVisible();
     await expect(page.locator('time[datetime="2016-12-14"]')).toHaveCount(1);

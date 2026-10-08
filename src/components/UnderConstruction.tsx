@@ -23,12 +23,8 @@ export function UnderConstruction({
           {title}
         </p>
         <div className="construction-body">
-          <p className="eyebrow">
-            {text.label} · {title}
-          </p>
-          <h1>{introduction ? title : text.title}</h1>
-          {introduction && <><p className="section-description">{text.title}</p><PageIntroduction>{introduction}</PageIntroduction></>}
-          <p>{text.description}</p>
+          <h1>{title}</h1>
+          {introduction && <PageIntroduction>{introduction}</PageIntroduction>}
           <div className="construction-actions">
             <Button href={href(locale)}>{text.back}</Button>
             <Button href={`mailto:${identity.email}`} variant="text">

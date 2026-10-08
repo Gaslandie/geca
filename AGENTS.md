@@ -290,3 +290,8 @@ Gassama demande de réduire de 10 % la luminosité des images du hero. Appliquer
 ## Hero sur grand écran — 8 octobre 2026
 
 À la demande de Gassama, dès 1280 px : agrandissement proportionnel de 10 % des textes du hero (nom, slogan, sous-titre, mission et libellés des actions), via --hero-text-scale: 1.1 ; décalage gauche clamp(24px, 4.4vw, 64px). En dessous, conserver les tailles et le décalage précédents. Même règle FR/EN ; ne pas modifier les textes, médias ou autres sections.
+
+
+## Notes de préparation retirées — 8 octobre 2026
+
+Gassama demande le retrait des notes éditoriales de préparation/confirmation du contenu public FR/EN. Garder les incertitudes dans la documentation interne, sans inventer de lieu ou de statut. Ne pas réintroduire de mentions de rubrique en préparation. Conserver les indications nécessaires sur les fonctions indisponibles, le formulaire sans envoi, les crédits et illustrations.
