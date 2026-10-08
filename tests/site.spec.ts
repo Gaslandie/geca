@@ -195,8 +195,8 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     const hero = (await page.locator(".hero").boundingBox())!;
     expect(visual).toEqual(hero);
     expect(message).not.toBeNull();
-    // Décalage demandé le 8 octobre : 12–48 px vers la gauche, sans modifier la largeur.
-    if (message) expect(message.x + message.width / 2).toBeCloseTo(width / 2 - Math.min(48, Math.max(12, width * 0.033)), 0);
+    // Décalage commun, renforcé sur grand écran à la demande du client.
+    if (message) expect(message.x + message.width / 2).toBeCloseTo(width / 2 - (width >= 1280 ? Math.min(64, Math.max(24, width * 0.044)) : Math.min(48, Math.max(12, width * 0.033))), 0);
     await expect(page.locator(".hero-slide img").first()).toHaveAttribute("alt", "");
     expect(await page.locator(".hero-slide img").first().evaluate((img: HTMLImageElement) => new URL(img.currentSrc).pathname)).toMatch(/images-client-hero-bassia-travail-\d+-[a-f0-9]+\.webp$/);
     await expect(page.locator(".hero-brand")).toHaveText("Global EcoAction");
