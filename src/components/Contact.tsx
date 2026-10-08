@@ -24,11 +24,6 @@ export function Contact({ locale }: { locale: Locale }) {
       </section>
       <section className="contact-split" aria-label={text.form.title}>
         <div className="contact-introduction">
-          <div className="contact-copy">
-            <a className="contact-email" href={`mailto:${identity.email}`}>
-              {identity.email}
-            </a>
-          </div>
           <PhotoPlaceholder locale={locale} label={text.landscape} photo={contactPhotos.landscape[locale]} className="contact-landscape" priority />
         </div>
         <ContactForm locale={locale} />

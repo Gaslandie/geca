@@ -24,7 +24,7 @@ export function Home({ locale }: { locale: Locale }) {
             <p className="eyebrow hero-brand">
               {content.hero.label.split(/(Global|Eco|Action)/).map((part, index) =>
                 /^(Global|Eco|Action)$/.test(part)
-                  ? <span key={index} className={part === "Eco" ? "hero-brand-green" : "hero-brand-gold"}>{part}</span>
+                  ? <span key={index} className="hero-brand-gold">{part}</span>
                   : part,
               )}
             </p>

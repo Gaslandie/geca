@@ -224,3 +224,27 @@ Le bloc `.hero-content` est décalé vers le début de ligne de `clamp(8px, 2.2v
 ## Accueil FR/EN commun — 8 octobre 2026
 
 L’accueil anglais utilise exactement Home, Projects et les composants communs français. Même hiérarchie, médias, couleurs, facteurs 3,6/0,6 du hero, alignement à gauche, décalage, espacements et mouvements. Pas de police ou taille spécifique à l’anglais. Les textes suivent la langue du document ; les libellés des illustrations temporaires, commandes partenaires et descriptions accessibles suivent la langue du composant. Le logo graphique et son slogan intégré restent inchangés.
+
+### Contact — alignement du 8 octobre 2026
+
+Photo et panneau du formulaire démarrent au même niveau dans les deux colonnes dès 768 px. Aucun bloc e-mail au-dessus de la photo. Le bandeau de coordonnées utilise trois colonnes égales sur ordinateur, les valeurs centrées sous les libellés, et les espacements communs. Sur mobile, les blocs s’empilent. Le téléphone et l’e-mail gardent une zone interactive de 44 px minimum ; les premières lignes des valeurs partagent le même niveau sur ordinateur. Règle commune FR/EN, sans changement des informations.
+
+
+## Nom du hero entièrement jaune — 8 octobre 2026
+
+À la demande du client relayée par Gassama, Eco reprend exactement le jaune de Global et Action : --gold (#ebad0e), classe commune hero-brand-gold, FR/EN. Cette règle remplace la couleur verte précédente du seul mot Eco. Taille, poids, absence de contour/ombre et logos conservés.
+
+
+## Hero davantage à gauche — 8 octobre 2026
+
+Gassama demande un léger décalage supplémentaire du contenu du hero vers la gauche. Décalage commun FR/EN : clamp(12px, 3.3vw, 48px), remplaçant clamp(8px, 2.2vw, 32px). Largeur, tailles, textes, jaune et photos conservés ; garder le contenu dans le cadre sur mobile et à 200 %.
+
+
+## Logos partenaires : avance manuelle uniquement — 8 octobre 2026
+
+Le client, via Gassama, demande de supprimer toute avance automatique des logos du bas. Seules les flèches, les touches gauche/droite et le geste tactile déplacent cette rangée. Transition manuelle conservée, déplacement immédiat avec mouvement réduit ou économie de données, grille complète sans JavaScript. Cette consigne remplace les réglages automatiques précédents du carrousel de logos. Le bandeau des noms sous le hero garde son fonctionnement distinct. Même comportement FR/EN, aucun partenaire ajouté ni retiré.
+
+
+## Photos du hero assombries de 10 % — 8 octobre 2026
+
+Gassama demande de réduire de 10 % la luminosité des images du hero. Appliquer brightness(0.9) aux seules photos du carrousel FR/EN, y compris le premier fond sans JavaScript. Conserver le voile existant ; textes, boutons et logos ne reçoivent pas ce filtre. Sources des photos intactes.

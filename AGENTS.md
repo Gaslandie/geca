@@ -265,3 +265,23 @@ Gassama demande l’accueil EN complet à partir du FR actuel. Utiliser Home/Pro
 ## Adresse retenue partout — priorité du 8 octobre 2026
 
 Gassama retient « Kissosso, commune de Matoto, Conakry, République de Guinée ». Cette demande remplace l’adresse Sangoyah Marché du 6 octobre pour toutes les données courantes FR/EN. Réutiliser `identity.address` ; traduction EN fidèle. Anciennes adresses conservées uniquement dans l’historique des textes reçus. Carte du quartier Kissosso sans inventer l’emplacement précis du bureau. Aucun autre fait, commit, push ou déploiement autorisé par cette correction.
+
+
+## Eco en jaune — priorité du 8 octobre 2026
+
+Le client, via Gassama, demande de remettre Eco dans le même jaune que Global dans le hero. Les trois mots Global, Eco et Action partagent désormais --gold en FR/EN. Cette demande remplace le vert foncé précédemment demandé pour Eco ; taille, absence de contour/ombre, photos et logos restent inchangés.
+
+
+## Hero davantage à gauche — 8 octobre 2026
+
+Gassama demande un léger décalage supplémentaire du contenu du hero vers la gauche. Décalage commun FR/EN : clamp(12px, 3.3vw, 48px), remplaçant clamp(8px, 2.2vw, 32px). Largeur, tailles, textes, jaune et photos conservés ; garder le contenu dans le cadre sur mobile et à 200 %.
+
+
+## Logos partenaires : avance manuelle uniquement — 8 octobre 2026
+
+Le client, via Gassama, demande de supprimer toute avance automatique des logos du bas. Seules les flèches, les touches gauche/droite et le geste tactile déplacent cette rangée. Transition manuelle conservée, déplacement immédiat avec mouvement réduit ou économie de données, grille complète sans JavaScript. Cette consigne remplace les réglages automatiques précédents du carrousel de logos. Le bandeau des noms sous le hero garde son fonctionnement distinct. Même comportement FR/EN, aucun partenaire ajouté ni retiré.
+
+
+## Photos du hero assombries de 10 % — 8 octobre 2026
+
+Gassama demande de réduire de 10 % la luminosité des images du hero. Appliquer brightness(0.9) aux seules photos du carrousel FR/EN, y compris le premier fond sans JavaScript. Conserver le voile existant ; textes, boutons et logos ne reçoivent pas ce filtre. Sources des photos intactes.

@@ -1019,3 +1019,41 @@ Base locale SQLite/PHP utilisée : essais MySQL/PHP web Bluehost et concurrence 
 ### Validation locale terminée pour cette étape
 
 81 tests PHP / 782 assertions réussis, contrôles autorisés et refusés maintenus. Restauration d’une sauvegarde SQLite jetable contenant le secret chiffré et les empreintes de secours vérifiée avec la clé existante. Migration additive de la base de travail précédée d’une copie privée ; comptes/mots de passe inchangés par cette migration. Pint, Blade et Composer vérifiés. Suite navigateur complète réussie, captures examinées, axe sans violation sur les états contrôlés ; contrôles 320/768/1440 px et 200 %, connexion/secours/régénération sans JavaScript. Les deux premières tentatives de la suite avaient attendu dans axe sur un navigateur sans JavaScript ; correction du script de test en séparant ce contrôle, sans modifier la protection ni supprimer le parcours. Pas de compte réel modifié pour les essais, pas d’essai de scan avec un téléphone physique. Les serveurs de Gassama sur 8000 et 3000 chargent la version courante et les styles.
+
+## Alignement de la page Contact — 8 octobre 2026
+
+Demande : retirer le doublon e-mail au-dessus de la photo, faire commencer la photo au niveau du panneau du formulaire et aligner les coordonnées du bandeau vert. Les deux captures de Gassama montrent le bloc e-mail qui abaisse la photo et le décalage entre titres centrés et valeurs à gauche.
+
+Comparaison préalable actualisée : [Panthera — Contact](https://panthera.org/contact) regroupe les coordonnées dans des rubriques identifiées et conserve une photographie créditée ; observation de la structure textuelle accessible, aucune mesure de sa mise en page revendiquée. [W3C — Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html) rappelle de conserver lecture et fonctions à largeur réduite sans défilement horizontal. Adaptation GECA : conserver l’e-mail dans le bandeau de coordonnées, supprimer uniquement son doublon supérieur, photo au haut de sa colonne, trois colonnes égales et valeurs centrées sous leurs titres ; empilement sur mobile et espaces partagés conservés. FR/EN via le même composant, mêmes photos et crédits, aucun changement factuel.
+
+Guide CSS de la version Next installée relu. Formulaire de démonstration, absence d’envoi, coordonnées publiques, activation volontaire de la carte et protections existantes conservés. Aucun changement du back-office, des comptes ou des droits. Pas de nouvelle dépendance. Les tests existants de Contact visent désormais le lien e-mail du bandeau et mesurent le haut de la photo elle-même.
+
+Validation : lint, TypeScript et compilation locale (49 pages) réussis. Les 11 tests Contact passent : FR/EN, carte à activation explicite, saisies acceptées/refusées, aucune transmission, aperçu échappé, effacement, clavier, sans JavaScript, cinq largeurs de 320 à 1440 px, axe et texte agrandi à 200 %. Mesure complémentaire FR/EN sur ordinateur : haut photo/panneau identique, valeurs et titres sur le même axe central, premières lignes des trois valeurs au même niveau. Captures du bandeau et de la photo/formulaire examinées. Serveur GECA du port 3000 identifié par PID et dossier puis redémarré après compilation ; accueil et styles courants HTTP 200. Correction locale, sans nouveau commit/push ni déploiement.
+
+
+## Eco dans le jaune commun du hero — 8 octobre 2026
+
+Comparaison préalable : la référence interne Global/Action utilise déjà --gold (#ebad0e), tandis que Eco utilisait --green-dark. La référence [W3C — Contrast Minimum](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html), consultée le 8 octobre 2026, rappelle que la lisibilité dépend du contraste avec le fond. Adaptation demandée par le client : réutiliser exactement le jaune existant pour les trois mots, sans nouvelle couleur ni effet. Ce contrôle ne constitue pas une mesure exhaustive du contraste sur chaque photo du carrousel. Changement de présentation uniquement ; aucune entrée, donnée privée, session ou protection serveur modifiée.
+
+Validation : lint, TypeScript et compilation locale réussis ; six tests existants FR/EN passent (320 à 1440 px, clavier, accessibilité et texte agrandi). Capture du hero examinée et couleur calculée des trois mots identique : rgb(235, 173, 14). Serveur GECA du port 3000 redémarré ; accueil /fr et feuille de styles HTTP 200. Aucun commit ou push pour cette correction.
+
+
+## Décalage supplémentaire du hero — 8 octobre 2026
+
+Comparaison préalable : la composition locale vérifiée ce jour utilise un décalage de 8–32 px. La référence [W3C — Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html), reconsultée le 8 octobre 2026, demande de conserver les fonctions et la lecture sans défilement horizontal à largeur réduite. Adaptation : 12–48 px, soit environ 4 px supplémentaires sur petit mobile et 16 px sur grand écran, sans élargir le bloc. Présentation seule ; aucune modification des données, droits ou sessions.
+
+Validation : lint, TypeScript et compilation locale réussis. Trois tests existants passent : 320 px, 1440 px, texte agrandi à 200 %, clavier et accessibilité. Position mesurée FR/EN à 320, 375, 768 et 1440 px, sans défilement horizontal ; capture ordinateur examinée. Serveur GECA du port 3000 identifié puis redémarré ; accueil et styles HTTP 200. Aucun commit/push.
+
+
+## Logos partenaires commandés par le visiteur — 8 octobre 2026
+
+Comparaison préalable : [W3C WAI — Carousels Tutorial](https://www.w3.org/WAI/tutorials/carousels/), consulté le 8 octobre 2026, recommande commandes clavier, annonces des changements et contrôle du mouvement par le visiteur. Le composant local avançait automatiquement après chaque transition ; cela contredit la nouvelle demande du client. Adaptation : suppression du minuteur et de la reprise automatique, maintien des deux flèches, touches gauche/droite, défilement tactile et annonces accessibles FR/EN. Animation seulement après une commande, interrompue au geste, au focus, aux préférences de mouvement/données et dans un onglet caché. Grille sans JavaScript conservée. Aucun changement de données, de droits, de sessions ou de dépendance.
+
+Validation : lint, TypeScript et compilation locale réussis. Six tests du carrousel passent : absence de mouvement sans commande puis arrêt après déplacement manuel en FR/EN, flèches et clavier à 320/768/1440 px, douze logos, annonces accessibles, axe, texte agrandi à 200 % et grille sans JavaScript. Serveur GECA sur 127.0.0.1:3000 identifié puis redémarré ; accueil /fr et styles HTTP 200. Aucun commit/push.
+
+
+## Luminosité des photos du hero — 8 octobre 2026
+
+Comparaison préalable : [MDN — brightness()](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/filter-function/brightness), consulté le 8 octobre 2026, décrit un multiplicateur linéaire de luminosité ; 0.9 correspond à 90 % de la luminosité initiale. La référence W3C Contrast Minimum consultée ce jour reste pertinente pour distinguer texte et fond. Adaptation demandée : brightness(0.9) sur les images du hero uniquement, sous le voile existant, sans modifier les fichiers source ni les textes. Aucun changement de droits, sessions ou données ; aucune dépendance ajoutée.
+
+Validation : lint, TypeScript et compilation locale réussis. Vérification navigateur FR/EN à 375 et 1440 px : les cinq photos ont brightness(0.9), le contenu du hero ne reçoit pas de filtre. Premier fond sans JavaScript vérifié ; capture ordinateur examinée. Serveur GECA du port 3000 identifié puis redémarré, accueil et styles HTTP 200. Aucun commit/push.

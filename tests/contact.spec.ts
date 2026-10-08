@@ -50,7 +50,7 @@ for (const locale of locales) {
     await expect(button).toBeEnabled();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(text.title);
     await expect(page.locator(".contact-details a").first()).toHaveAttribute("href", identity.phoneHref);
-    await expect(page.locator(".contact-email")).toHaveAttribute("href", `mailto:${identity.email}`);
+    await expect(page.locator('.contact-details a[href^="mailto:"]')).toHaveAttribute("href", `mailto:${identity.email}`);
 
     // Terminer les images locales et préchargements de liens avant de surveiller la saisie.
     await page.locator(".site-footer").scrollIntoViewIfNeeded();
@@ -117,7 +117,7 @@ for (const width of [320, 375, 768, 1024, 1440]) {
     await expect(page.locator(".contact-submit")).toBeEnabled();
     await page.evaluate(() => document.fonts.ready);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    const introduction = (await page.locator(".contact-introduction").boundingBox())!;
+    const introduction = (await page.locator(".contact-landscape").boundingBox())!;
     const form = (await page.locator(".contact-form-panel").boundingBox())!;
     const frame = (await page.locator(".header-inner").boundingBox())!;
     for (const section of await page.locator("#main-content > section, .contact-forest, #main-content .container, .site-footer .container").all()) {
@@ -155,7 +155,7 @@ test("contact : sans JavaScript, saisie désactivée et coordonnées disponibles
   await expect(page.locator("#contact-name")).toBeDisabled();
   await expect(page.locator(".contact-submit")).toBeDisabled();
   await expect(page.getByText(contactContent.fr.form.noScript, { exact: true })).toBeVisible();
-  await expect(page.locator(".contact-email")).toHaveAttribute("href", `mailto:${identity.email}`);
+  await expect(page.locator('.contact-details a[href^="mailto:"]')).toHaveAttribute("href", `mailto:${identity.email}`);
   await context.close();
 });
 

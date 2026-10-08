@@ -195,13 +195,12 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     const hero = (await page.locator(".hero").boundingBox())!;
     expect(visual).toEqual(hero);
     expect(message).not.toBeNull();
-    // Décalage demandé le 8 octobre : 8–32 px vers la gauche, sans modifier la largeur.
-    if (message) expect(message.x + message.width / 2).toBeCloseTo(width / 2 - Math.min(32, Math.max(8, width * 0.022)), 0);
+    // Décalage demandé le 8 octobre : 12–48 px vers la gauche, sans modifier la largeur.
+    if (message) expect(message.x + message.width / 2).toBeCloseTo(width / 2 - Math.min(48, Math.max(12, width * 0.033)), 0);
     await expect(page.locator(".hero-slide img").first()).toHaveAttribute("alt", "");
     expect(await page.locator(".hero-slide img").first().evaluate((img: HTMLImageElement) => new URL(img.currentSrc).pathname)).toMatch(/images-client-hero-bassia-travail-\d+-[a-f0-9]+\.webp$/);
     await expect(page.locator(".hero-brand")).toHaveText("Global EcoAction");
-    await expect(page.locator(".hero-brand-gold")).toHaveText(["Global", "Action"]);
-    await expect(page.locator(".hero-brand-green")).toHaveText("Eco");
+    await expect(page.locator(".hero-brand-gold")).toHaveText(["Global", "Eco", "Action"]);
     await expect(page.locator("#hero-title")).toHaveText(
       "AGIR POUR UN AVENIR DURABLE",
     );

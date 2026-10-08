@@ -15,7 +15,6 @@ for (const width of [320, 768, 1440]) {
     for (const image of await list.locator("img").all()) await expect(image).toHaveAttribute("alt", /Logo/);
     await carousel.getByRole("button", {name:"Partenaires suivants"}).click();
     expect(await list.evaluate(element=>element.scrollLeft)).toBeGreaterThan(0);
-    await expect(carousel).toHaveAttribute("data-paused", "true");
     await list.focus();
     await page.keyboard.press("ArrowLeft");
     expect(await list.evaluate(element=>element.scrollLeft)).toBeLessThan(2);
@@ -29,27 +28,31 @@ for (const width of [320, 768, 1440]) {
   });
 }
 
-test("logos : enchaînement sans attente, arrêt au focus et commandes sans texte supplémentaire", async ({page})=>{
-  await page.setViewportSize({width:1440,height:900});
-  await page.emulateMedia({reducedMotion:"no-preference"});
-  await page.goto("/fr");
-  const carousel=page.locator('.partner-carousel');
-  const list=carousel.locator('.partner-list');
-  await carousel.scrollIntoViewIfNeeded();
-  await page.mouse.move(0,0);
-  await expect.poll(()=>list.evaluate(element=>element.scrollLeft),{timeout:2000}).toBeGreaterThan(1);
-  await expect.poll(()=>list.evaluate(element=>element.scrollLeft), {timeout:4000}).toBeGreaterThan(300);
-  await list.focus();
-  await carousel.hover();
-  await page.mouse.move(0,0);
-  const focusedPosition=await list.evaluate(element=>element.scrollLeft);
-  await page.waitForTimeout(3500);
-  expect(await list.evaluate(element=>element.scrollLeft)).toBeCloseTo(focusedPosition,0);
-  await expect(carousel.getByRole('button')).toHaveCount(2);
-  await expect(carousel.getByText(/Reprendre|Mettre en pause/)).toHaveCount(0);
-  await expect(list).toHaveCSS('scrollbar-width','none');
-
-});
+for (const locale of ["fr", "en"]) {
+  test(`logos ${locale} : immobiles sans commande, déplacement manuel puis arrêt`, async ({page}) => {
+    await page.setViewportSize({width:1440,height:900});
+    await page.emulateMedia({reducedMotion:"no-preference"});
+    await page.goto(`/${locale}`);
+    const carousel=page.locator('.partner-carousel');
+    const list=carousel.locator('.partner-list');
+    await carousel.scrollIntoViewIfNeeded();
+    await expect(carousel).toHaveAttribute('data-ready','true');
+    await page.mouse.move(0,0);
+    const initial=await list.evaluate(element=>element.scrollLeft);
+    await page.waitForTimeout(3500);
+    expect(await list.evaluate(element=>element.scrollLeft)).toBeCloseTo(initial,0);
+    await carousel.getByRole('button', {name:locale === "fr" ? "Partenaires suivants" : "Next partners"}).click();
+    await expect.poll(()=>list.evaluate(element=>element.scrollLeft)).toBeGreaterThan(initial+10);
+    await page.waitForTimeout(1800);
+    await page.locator('#hero-title').focus();
+    await page.mouse.move(0,0);
+    const manualPosition=await list.evaluate(element=>element.scrollLeft);
+    await page.waitForTimeout(3500);
+    expect(await list.evaluate(element=>element.scrollLeft)).toBeCloseTo(manualPosition,0);
+    await expect(carousel.getByRole('button')).toHaveCount(2);
+    await expect(list).toHaveCSS('scrollbar-width','none');
+  });
+}
 
 test("logos sans JavaScript : les douze images restent disponibles",async({browser})=>{
   const context=await browser.newContext({javaScriptEnabled:false});

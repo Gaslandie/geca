@@ -12,7 +12,7 @@ const serverSnapshot = () => false;
 function connection() {
   return (navigator as Navigator & { connection?: EventTarget & { saveData?: boolean } }).connection;
 }
-function canRotate() { return !matchMedia("(prefers-reduced-motion: reduce)").matches && !connection()?.saveData; }
+function canAnimate() { return !matchMedia("(prefers-reduced-motion: reduce)").matches && !connection()?.saveData; }
 function subscribeMotion(callback: () => void) {
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
   const network = connection();
@@ -24,20 +24,15 @@ function subscribeMotion(callback: () => void) {
 export function PartnerCarousel({ items, locale }: { items: readonly Partner[]; locale: Locale }) {
   const text = partnerCarouselText[locale];
   const ready = useSyncExternalStore(subscribeReady, readySnapshot, serverSnapshot);
-  const autoAllowed = useSyncExternalStore(subscribeMotion, canRotate, serverSnapshot);
-  const [inView, setInView] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
   const [announcement, setAnnouncement] = useState("");
   const list = useRef<HTMLUListElement>(null);
-  const region = useRef<HTMLDivElement>(null);
   const scrollFrame = useRef(0);
   const stopScroll = useCallback(() => {
     cancelAnimationFrame(scrollFrame.current);
     scrollFrame.current = 0;
     list.current?.style.removeProperty("scroll-snap-type");
   }, []);
-  const move = useCallback((direction: number, manual = false, onComplete?: () => void) => {
+  const move = useCallback((direction: number) => {
     const viewport = list.current;
     if (!viewport || !viewport.firstElementChild) return;
     stopScroll();
@@ -47,9 +42,8 @@ export function PartnerCarousel({ items, locale }: { items: readonly Partner[]; 
       ? viewport.scrollLeft >= max - 2 ? 0 : Math.min(max, viewport.scrollLeft + step)
       : viewport.scrollLeft <= 2 ? max : Math.max(0, viewport.scrollLeft - step);
     const wrapping = direction > 0 ? viewport.scrollLeft >= max - 2 : viewport.scrollLeft <= 2;
-    if (!canRotate() || wrapping || max <= 2) {
+    if (!canAnimate() || wrapping || max <= 2) {
       viewport.scrollTo({ left: target, behavior: "instant" });
-      onComplete?.();
     }
     else {
       const from = viewport.scrollLeft;
@@ -60,65 +54,43 @@ export function PartnerCarousel({ items, locale }: { items: readonly Partner[]; 
         const fraction = progress * progress * (3 - 2 * progress);
         viewport.scrollLeft = from + (target - from) * fraction;
         if (progress < 1) scrollFrame.current = requestAnimationFrame(tick);
-        else { stopScroll(); onComplete?.(); }
+        else stopScroll();
       };
       scrollFrame.current = requestAnimationFrame(tick);
     }
-    if (manual) {
-      const first = Math.round(target / step);
-      const count = Math.max(1, Math.round(viewport.clientWidth / step));
-      setAnnouncement(text.range(first + 1, Math.min(items.length, first + count), items.length));
-    }
+    const first = Math.round(target / step);
+    const count = Math.max(1, Math.round(viewport.clientWidth / step));
+    setAnnouncement(text.range(first + 1, Math.min(items.length, first + count), items.length));
   }, [items.length, stopScroll, text]);
 
   useEffect(() => {
-    if (!ready || !region.current || typeof IntersectionObserver !== "function") return;
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
-    observer.observe(region.current);
-    return () => observer.disconnect();
-  }, [ready]);
-
-  useEffect(() => {
-    if (!autoAllowed || !inView) { stopScroll(); return; }
-    if (hovered || focused) return;
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    const advance = () => {
-      const viewport = list.current;
-      if (document.hidden || !viewport || viewport.scrollWidth <= viewport.clientWidth + 2) return;
-      move(1, false, () => { timer = setTimeout(advance, 0); });
-    };
-    const schedule = () => {
-      clearTimeout(timer);
+    const unsubscribe = subscribeMotion(stopScroll);
+    const stopWhenHidden = () => { if (document.hidden) stopScroll(); };
+    document.addEventListener("visibilitychange", stopWhenHidden);
+    return () => {
+      unsubscribe();
+      document.removeEventListener("visibilitychange", stopWhenHidden);
       stopScroll();
-      if (!document.hidden) timer = setTimeout(advance, 0);
     };
-    schedule();
-    document.addEventListener("visibilitychange", schedule);
-    return () => { clearTimeout(timer); stopScroll(); document.removeEventListener("visibilitychange", schedule); };
-  }, [autoAllowed, hovered, focused, inView, move, stopScroll]);
-
-  useEffect(() => () => stopScroll(), [stopScroll]);
+  }, [stopScroll]);
 
   return (
-    <div ref={region} className="partner-carousel" data-ready={ready} data-paused={hovered || focused}
+    <div className="partner-carousel" data-ready={ready}
       role="region" aria-label={text.region} aria-roledescription={ready ? text.role : undefined}
-      onMouseEnter={() => { stopScroll(); setHovered(true); }} onMouseLeave={() => setHovered(false)}
-      onFocusCapture={() => { stopScroll(); setFocused(true); }} onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
-      }}>
-      {ready && <button type="button" className="partner-carousel-arrow partner-carousel-prev" aria-label={text.previous} aria-controls="partner-logo-list" onClick={() => move(-1, true)}>
+      onFocusCapture={stopScroll}>
+      {ready && <button type="button" className="partner-carousel-arrow partner-carousel-prev" aria-label={text.previous} aria-controls="partner-logo-list" onClick={() => move(-1)}>
         <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="m14 5-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2" /></svg>
       </button>}
       <ul ref={list} id="partner-logo-list" className="partner-list" tabIndex={ready ? 0 : undefined} aria-label={text.list} data-reveal="off"
         onPointerDown={stopScroll} onKeyDown={(event) => {
-          if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); move(event.key === "ArrowRight" ? 1 : -1, true); }
+          if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); move(event.key === "ArrowRight" ? 1 : -1); }
         }}>
         {items.map((partner) => <li className="card-content" data-reveal="off" key={partner.name}>
           <Image src={assetPath(partner.logo.src)} alt={partner.logo.alt} width={partner.logo.width} height={partner.logo.height}
             sizes="(min-width: 1100px) 220px, (min-width: 700px) 240px, 260px" className="partner-logo" />
         </li>)}
       </ul>
-      {ready && <button type="button" className="partner-carousel-arrow partner-carousel-next" aria-label={text.next} aria-controls="partner-logo-list" onClick={() => move(1, true)}>
+      {ready && <button type="button" className="partner-carousel-arrow partner-carousel-next" aria-label={text.next} aria-controls="partner-logo-list" onClick={() => move(1)}>
         <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="m10 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2" /></svg>
       </button>}
 

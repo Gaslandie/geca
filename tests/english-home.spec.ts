@@ -16,7 +16,7 @@ for (const width of [320, 375, 768, 1440]) {
     await expect(page.locator('.impact-achievements li')).toHaveText(text.impact.achievements);
     await expect(page.locator('.team-member')).toHaveCount(8);
     await expect(page.locator('.hero-slide')).toHaveCount(1);
-    await expect(page.locator('.hero-brand-green')).toHaveCSS('color', 'rgb(0, 63, 27)');
+    await expect(page.locator('.hero-brand-gold').filter({ hasText: /^Eco$/ })).toHaveCSS('color', 'rgb(235, 173, 14)');
     for (const link of await page.locator('#main-content a').all()) {
       expect(await link.getAttribute('href')).toMatch(/^\/en\//);
     }
