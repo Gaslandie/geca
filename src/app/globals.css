@@ -653,16 +653,16 @@ p, a, button {
 .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1000ms ease-in-out; }
 .hero-slide[data-active="true"] { opacity: 1; }
 .hero-slide img { object-fit: cover; object-position: center; }
-.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, #001b10c7, #001b10d9); pointer-events: none; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(0 27 16 / 60%), rgb(0 27 16 / 28%)); pointer-events: none; }
 .hero-grid { display: grid; place-items: center; min-height: 620px; padding: clamp(48px, 6vw, 84px) var(--site-gutter); }
 .hero-content { width: 100%; max-width: 860px; min-width: 0; padding: clamp(24px, 4vw, 48px); background: transparent; border: 0; border-radius: 0; box-shadow: none; text-align: center; }
-.hero-content .eyebrow { display: block; color: var(--gold); margin-bottom: 24px; font-size: calc(var(--text-label) * 1.8); font-weight: 800; text-transform: none; letter-spacing: normal; }
+.hero-content .eyebrow { display: block; color: var(--gold); margin-bottom: 24px; font-size: calc(var(--text-label) * 3.6); font-weight: 800; text-transform: none; letter-spacing: normal; }
 .hero-content .eyebrow::after { display: none; }
 .hero-brand-gold { color: var(--gold); }
-.hero-brand-green { color: #79d795; }
+.hero-brand-green { color: var(--green-dark); -webkit-text-stroke: 1px #edf3ee; paint-order: stroke fill; text-shadow: 0 0 3px #edf3ee; }
 .hero-content h1 { font-size: calc(var(--text-page-title) * 0.6); font-weight: 600; line-height: 1.12; color: var(--white); font-family: var(--font-hero), var(--font-sans), sans-serif; text-wrap: balance; }
 .hero-title-line { display: block; }
-.hero-copy { margin: 28px auto 0; max-width: 720px; }
+.hero-copy { text-shadow: 0 1px 3px #001b10, 0 0 8px #001b10; margin: 28px auto 0; max-width: 720px; }
 .hero-description { font-size: var(--text-body); line-height: var(--leading-body); font-weight: var(--weight-heading); }
 .hero-introduction, .about-content .section-description { text-align: justify; text-align-last: start; hyphens: auto; }
 .hero-introduction { margin-top: 16px; font-size: var(--text-body); line-height: var(--leading-body); }
@@ -1374,8 +1374,8 @@ p, a, button {
   background: linear-gradient(110deg, rgb(8 39 27 / 88%), rgb(8 39 27 / 78%));
   pointer-events: none;
 }
-/* Le slogan noir du logo garde un support clair sur le pied de page sombre. */
-.site-footer .brand { background: var(--white); }
+/* Même logo transparent et même fond sans encadré que dans la navigation. */
+.site-footer .brand { background: transparent; }
 .footer-grid {
   display: grid;
   gap: 36px;

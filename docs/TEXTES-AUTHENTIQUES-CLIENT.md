@@ -630,3 +630,17 @@ Capture Mehad transmise avec demande d’auto-défilement ou défilement manuel 
 ### Texte de présentation des partenaires — 7 octobre 2026
 
 Gassama demande de remplacer « Partenaires cités dans nos documents. » par un texte destiné au visiteur sur la place des partenaires dans les actions de GECA. Reformulation des atouts et du positionnement transmis le 4 octobre, sans rôle attribué à un organisme particulier : « Restaurer les écosystèmes et améliorer les conditions de vie des communautés est un travail collectif. Nos collaborations avec des partenaires institutionnels, techniques et financiers accompagnent ces actions en Guinée. » Les mentions internes de provenance restent dans la référence de contenu, pas dans cette présentation publique.
+
+
+## Suggestions du client — 8 octobre 2026
+
+Texte transmis par Gassama, conservé tel que reçu :
+
+> Bonjour j'ai parcourus la maquette. Franchement elle est bien conçue. SUGGESTIONS:
+> 1. Augmenter la taille de police de Global EcoAction de 100% de la taille actuelle,
+> 2. Mettre "Eco" en vert foncé.
+> 3. Réduire le temps de défilement de la barre des partenaires en bas ; là où il y a les logos des partenaires (ou, si possible mettre l'intervalle de temps à 0).
+> 4. Augmenter la clarté des photos qui défilent en arrière-plan dans hero
+> 5. Mettre le logo au pieds de la page au même format que celui de la page d’accueil,bg transparent, pour ne pas qu’il ait du blanc tout autour
+
+Application autorisée par Gassama : nom du hero doublé (facteur commun de 1,8 à 3,6), Eco vert foncé existant, logos du bas enchaînés sans attente entre les transitions, voile des photos allégé, fond CSS blanc du logo du pied de page retiré. Même fichier transparent partagé avec la navigation. Aucun contenu factuel, partenaire ou photo changé. Le bandeau de noms sous le hero et la cadence de cinq secondes des photos restent distincts du carrousel de logos.

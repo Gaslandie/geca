@@ -281,7 +281,8 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       }),
     );
     // Impact est centré dans sa colonne de récit ; les autres en-têtes sur la section.
-    expect(sectionHeaders).toHaveLength(7);
+    // Les sept rubriques et le bandeau newsletter déjà présent partagent l’en-tête.
+    expect(sectionHeaders).toHaveLength(8);
     await expect(page.locator(".team-member")).toHaveCount(8);
     await expect(page.locator("#mohamed-makale-kaba")).toContainText("Mohamed Makalé KABA");
     await expect(page.locator("#daouda-toure")).toContainText("Daouda TOURE");

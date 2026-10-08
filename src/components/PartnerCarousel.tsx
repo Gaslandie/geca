@@ -35,7 +35,7 @@ export function PartnerCarousel({ items }: { items: readonly Partner[] }) {
     scrollFrame.current = 0;
     list.current?.style.removeProperty("scroll-snap-type");
   }, []);
-  const move = useCallback((direction: number, manual = false) => {
+  const move = useCallback((direction: number, manual = false, onComplete?: () => void) => {
     const viewport = list.current;
     if (!viewport || !viewport.firstElementChild) return;
     stopScroll();
@@ -45,7 +45,10 @@ export function PartnerCarousel({ items }: { items: readonly Partner[] }) {
       ? viewport.scrollLeft >= max - 2 ? 0 : Math.min(max, viewport.scrollLeft + step)
       : viewport.scrollLeft <= 2 ? max : Math.max(0, viewport.scrollLeft - step);
     const wrapping = direction > 0 ? viewport.scrollLeft >= max - 2 : viewport.scrollLeft <= 2;
-    if (!canRotate() || wrapping) viewport.scrollTo({ left: target, behavior: "instant" });
+    if (!canRotate() || wrapping || max <= 2) {
+      viewport.scrollTo({ left: target, behavior: "instant" });
+      onComplete?.();
+    }
     else {
       const from = viewport.scrollLeft;
       const started = performance.now();
@@ -55,7 +58,7 @@ export function PartnerCarousel({ items }: { items: readonly Partner[] }) {
         const fraction = progress * progress * (3 - 2 * progress);
         viewport.scrollLeft = from + (target - from) * fraction;
         if (progress < 1) scrollFrame.current = requestAnimationFrame(tick);
-        else stopScroll();
+        else { stopScroll(); onComplete?.(); }
       };
       scrollFrame.current = requestAnimationFrame(tick);
     }
@@ -76,15 +79,20 @@ export function PartnerCarousel({ items }: { items: readonly Partner[] }) {
   useEffect(() => {
     if (!autoAllowed || !inView) { stopScroll(); return; }
     if (hovered || focused) return;
-    let timer: ReturnType<typeof setInterval> | undefined;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const advance = () => {
+      const viewport = list.current;
+      if (document.hidden || !viewport || viewport.scrollWidth <= viewport.clientWidth + 2) return;
+      move(1, false, () => { timer = setTimeout(advance, 0); });
+    };
     const schedule = () => {
-      clearInterval(timer);
-      if (document.hidden) stopScroll();
-      else timer = setInterval(() => move(1), 3000);
+      clearTimeout(timer);
+      stopScroll();
+      if (!document.hidden) timer = setTimeout(advance, 0);
     };
     schedule();
     document.addEventListener("visibilitychange", schedule);
-    return () => { clearInterval(timer); document.removeEventListener("visibilitychange", schedule); };
+    return () => { clearTimeout(timer); stopScroll(); document.removeEventListener("visibilitychange", schedule); };
   }, [autoAllowed, hovered, focused, inView, move, stopScroll]);
 
   useEffect(() => () => stopScroll(), [stopScroll]);

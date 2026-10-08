@@ -205,3 +205,8 @@ Présentation inspirée de la capture Mehad : fond blanc, cinq paragraphes à ga
 ## Partenaires : logos en carrousel — 7 octobre 2026
 
 La section de logos du bas devient une rangée sur fond blanc, sans encadrement de cartes ni feuillage. Titres, description authentique, couleurs des marques et proportions conservés. Cinq logos dès 1100 px, trois dès 700 px, un en dessous ; flèches 44 px et pause. Sur mobile, flèches sous la rangée. Padding/espaces communs, pas de changement de dimensions au survol ; les logos de cette rangée ne cumulent pas les apparitions de carte avec le défilement. Fallback grille sans JavaScript. Le bandeau des noms sous le hero reste distinct.
+
+
+## Suggestions client — 8 octobre 2026
+
+Le nom Global EcoAction du hero utilise désormais 3,6 × --text-label (double du facteur 1,8 précédent), poids 800 inchangé. Eco reprend --green-dark, avec contour clair de 1 px pour rester identifiable sur les photos. Les autres tailles et textes ne changent pas. Voile du hero allégé ; pas de modification des photos. Le pied de page partage le logo transparent et le fond transparent de la navigation. Les logos du bas enchaînent leurs déplacements de 1 600 ms sans attente programmée ; les arrêts, préférences et commandes précédents restent en place.

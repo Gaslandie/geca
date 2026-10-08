@@ -48,6 +48,10 @@ for (const width of [375, 1440]) {
     await page.goto("/geca/fr/");
     await page.evaluate(() => document.fonts.ready);
     for (const image of await page.locator("img").all()) {
+      // Arrêter les logos par le clavier avant d’inspecter chaque image mobile.
+      if (await image.evaluate((element) => !!element.closest(".partner-list"))) {
+        await page.locator(".partner-list").focus();
+      }
       await image.scrollIntoViewIfNeeded();
       await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
       const source = new URL((await image.getAttribute("src"))!, page.url());

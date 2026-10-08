@@ -29,7 +29,7 @@ for (const width of [320, 768, 1440]) {
   });
 }
 
-test("logos : avance toutes les trois secondes, arrêt au focus et commandes sans texte supplémentaire", async ({page})=>{
+test("logos : enchaînement sans attente, arrêt au focus et commandes sans texte supplémentaire", async ({page})=>{
   await page.setViewportSize({width:1440,height:900});
   await page.emulateMedia({reducedMotion:"no-preference"});
   await page.goto("/fr");
@@ -37,8 +37,8 @@ test("logos : avance toutes les trois secondes, arrêt au focus et commandes san
   const list=carousel.locator('.partner-list');
   await carousel.scrollIntoViewIfNeeded();
   await page.mouse.move(0,0);
-  await expect.poll(()=>list.evaluate(element=>element.scrollLeft),{timeout:6500}).toBeGreaterThan(1);
-  await expect.poll(()=>list.evaluate(element=>element.style.scrollSnapType)).toBe("");
+  await expect.poll(()=>list.evaluate(element=>element.scrollLeft),{timeout:2000}).toBeGreaterThan(1);
+  await expect.poll(()=>list.evaluate(element=>element.scrollLeft), {timeout:4000}).toBeGreaterThan(300);
   await list.focus();
   await carousel.hover();
   await page.mouse.move(0,0);

@@ -236,3 +236,8 @@ Violating this rule (creating unnecessary scaffolding) is considered a failure t
 ## Logos partenaires en carrousel — 7 octobre 2026
 
 Gassama demande la disposition de sa capture Mehad, avec avance automatique et flèches manuelles pour la section des partenaires du bas. Conserver les douze logos, noms, textes authentiques et sources. `PartnerCarousel` affiche 5/3/1 logos selon la largeur, sans cartes ni feuillage, avec pause, flèches, clavier et défilement tactile. Avance toutes les six secondes ; interruption après commande manuelle, survol/focus, hors écran et onglet caché. Pas d’automatique avec mouvement réduit/économie de données, grille complète sans JavaScript. Bandeau des noms sous le hero inchangé. Aucun nouvel organisme, fait, service ou dépendance.
+
+
+## Suggestions du client — 8 octobre 2026
+
+Gassama demande d’appliquer les cinq suggestions client archivées dans docs/TEXTES-AUTHENTIQUES-CLIENT.md : doubler exactement le nom Global EcoAction du hero (facteur 3,6 de --text-label), Eco en vert foncé, supprimer l’attente entre les transitions du carrousel des logos du bas, éclaircir les photos par un voile moins opaque et retirer le support blanc CSS du logo transparent du pied de page. Conserver les textes, photos, noms accessibles, commandes clavier et préférences de mouvement/données. Cette demande remplace les anciennes couleurs/taille du nom et le support clair du logo du pied de page. Aucun commit, push ou déploiement autorisé par cette demande.
