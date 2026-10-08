@@ -29,7 +29,7 @@ export function Contact({ locale }: { locale: Locale }) {
               {identity.email}
             </a>
           </div>
-          <PhotoPlaceholder label={text.landscape} photo={contactPhotos.landscape[locale]} className="contact-landscape" priority />
+          <PhotoPlaceholder locale={locale} label={text.landscape} photo={contactPhotos.landscape[locale]} className="contact-landscape" priority />
         </div>
         <ContactForm locale={locale} />
       </section>
@@ -59,7 +59,7 @@ export function Contact({ locale }: { locale: Locale }) {
             <SectionHeading label={text.closingLabel} title={text.closingTitle} description={text.closingDescription} />
           </Container>
         </div>
-        <PhotoPlaceholder label={text.forest} photo={contactPhotos.forest[locale]} className="contact-forest" sizes="100vw" />
+        <PhotoPlaceholder locale={locale} label={text.forest} photo={contactPhotos.forest[locale]} className="contact-forest" sizes="100vw" />
       </section>
     </main>
   );

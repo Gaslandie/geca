@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { aboutContent, contactContent, homeContent, interventionContent, locales, missionVisionContent, partnershipContent, portfolioContent, newsContent, routes, getNewsEntry } from "../src/content/site";
+import { aboutContent, contactContent, getHomeContent, homeContent, interventionContent, locales, missionVisionContent, partnershipContent, portfolioContent, newsContent, routes, getNewsEntry } from "../src/content/site";
 
 test("routes connues FR / EN, langues et titres", async ({ request }) => {
   for (const locale of locales) {
@@ -50,7 +50,10 @@ test("routes connues FR / EN, langues et titres", async ({ request }) => {
       } else if (path === "devenir-partenaire") {
         expect(html).toContain(partnershipContent[locale].strengthsTitle);
         expect(html).toContain(partnershipContent[locale].positioning);
-      } else if (path || locale === "en")
+      } else if (!path) {
+        expect(html).toContain(getHomeContent(locale).hero.titleSecondLine);
+        expect(html).toContain(getHomeContent(locale).impact.titleSecondLine);
+      } else if (path)
         expect(html).toContain(
           locale === "fr"
             ? "Cette rubrique est en préparation."
@@ -192,7 +195,8 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     const hero = (await page.locator(".hero").boundingBox())!;
     expect(visual).toEqual(hero);
     expect(message).not.toBeNull();
-    if (message) expect(message.x + message.width / 2).toBeCloseTo(width / 2, 0);
+    // Décalage demandé le 8 octobre : 8–32 px vers la gauche, sans modifier la largeur.
+    if (message) expect(message.x + message.width / 2).toBeCloseTo(width / 2 - Math.min(32, Math.max(8, width * 0.022)), 0);
     await expect(page.locator(".hero-slide img").first()).toHaveAttribute("alt", "");
     expect(await page.locator(".hero-slide img").first().evaluate((img: HTMLImageElement) => new URL(img.currentSrc).pathname)).toMatch(/images-client-hero-bassia-travail-\d+-[a-f0-9]+\.webp$/);
     await expect(page.locator(".hero-brand")).toHaveText("Global EcoAction");
@@ -497,7 +501,9 @@ test("clavier, langue anglaise et mouvements réduits", async ({ page }) => {
   expect(results.violations).toEqual([]);
   await page.locator(".site-header .brand").click();
   await expect(page).toHaveURL("/en");
-  await page.getByRole("link", { name: "Visit the French homepage" }).click();
+  await expect(page.locator("#hero-title")).toHaveText("ACTING FOR A SUSTAINABLE FUTURE");
+  if (await page.locator(".menu-toggle").isVisible()) await page.locator(".menu-toggle").click();
+  await page.locator("#main-navigation .language-switch").getByRole("link", { name: "FR", exact: true }).click();
   await expect(page).toHaveURL("/fr");
 });
 

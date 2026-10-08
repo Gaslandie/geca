@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { getSearchDocuments } from "../src/content/search";
-import { normalizeSearch, prepareSearch, searchDocuments } from "../src/lib/search";
+import { normalizeSearch, prepareSearch, searchDocuments, suggestSearchDocuments } from "../src/lib/search";
 
 test("recherche : accents, préfixes, fautes, mots multiples, chiffres et corpus public", () => {
   const docs = getSearchDocuments("fr");
@@ -22,6 +22,48 @@ test("recherche : accents, préfixes, fautes, mots multiples, chiffres et corpus
     expect(doc.text).not.toMatch(/\/home\/|TEXTES-AUTHENTIQUES|SKILL\.md/);
   }
 });
+
+test("sans résultat : suggestions liées aux mots reconnus et pages publiques de départ", () => {
+  const documents = getSearchDocuments("fr");
+  const index = prepareSearch(documents);
+  const fallback = documents.filter((document) => ["/fr/projets", "/fr/contact"].includes(document.href)).slice(0, 2);
+  expect(suggestSearchDocuments(index, "zzzzzzzzzz", fallback)).toEqual(fallback);
+  const suggestions = suggestSearchDocuments(index, "agroecologie zzzzzzzzz", fallback);
+  expect(suggestions[0].href).toContain("#agroecologie");
+  expect(suggestions.length).toBeLessThanOrEqual(4);
+  expect(new Set(suggestions.map((document) => document.href)).size).toBe(suggestions.length);
+  for (const document of suggestions) {
+    const original = documents.find((entry) => entry.href === document.href && entry.title === document.title);
+    expect(original).toBeDefined();
+    expect(document).toEqual(expect.objectContaining(original!));
+  }
+  expect(suggestSearchDocuments(index, '<script>alert(1)</script>', fallback)).toEqual(fallback);
+});
+
+for (const locale of ["fr", "en"]) {
+  test(`sans résultat ${locale} : suggestions, choix explicite et clavier`, async ({ page }) => {
+    await page.goto(`/${locale}/contact`);
+    await page.getByRole("button", { name: locale === "fr" ? "Rechercher" : "Search", exact: true }).click();
+    const dialog = page.getByRole("dialog"), input = dialog.getByRole("searchbox");
+    await input.fill("zzzzzzzzzz");
+    await expect(dialog.getByRole("status")).toContainText(locale === "fr" ? "Aucun résultat" : "No results");
+    await expect(dialog.getByRole("heading", { name: locale === "fr" ? "Ces pages peuvent vous aider" : "These pages may help" })).toBeVisible();
+    await expect(dialog.locator(".search-results a")).toHaveCount(4);
+    await expect(dialog.locator(".search-results a").first()).toHaveAttribute("href", `/${locale}/projets`);
+    await input.press("Enter");
+    await expect(page).toHaveURL(`/${locale}/contact`);
+    await expect(dialog).toBeVisible();
+    expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()).violations).toEqual([]);
+    await page.setViewportSize({ width: 320, height: 640 });
+    await page.addStyleTag({ content: "html { font-size: 200%; }" });
+    expect(await dialog.evaluate((element) => element.scrollWidth <= element.clientWidth)).toBe(true);
+    await input.press("ArrowDown");
+    await expect(dialog.locator(".search-results a").first()).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(page).toHaveURL(`/${locale}/projets`);
+    await expect(dialog).not.toBeVisible();
+  });
+}
 
 for (const width of [320, 768, 1440]) {
   test(`recherche ${width}px : panneau, fond flouté, suggestions et clavier`, async ({ page }) => {

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { partnerCarouselText, type Locale } from "@/content/site";
 import { assetPath } from "@/lib/assets";
 
 type Partner = { name: string; logo: { src: string; alt: string; width: number; height: number } };
@@ -20,7 +21,8 @@ function subscribeMotion(callback: () => void) {
   return () => { motion.removeEventListener("change", callback); network?.removeEventListener?.("change", callback); };
 }
 
-export function PartnerCarousel({ items }: { items: readonly Partner[] }) {
+export function PartnerCarousel({ items, locale }: { items: readonly Partner[]; locale: Locale }) {
+  const text = partnerCarouselText[locale];
   const ready = useSyncExternalStore(subscribeReady, readySnapshot, serverSnapshot);
   const autoAllowed = useSyncExternalStore(subscribeMotion, canRotate, serverSnapshot);
   const [inView, setInView] = useState(false);
@@ -65,9 +67,9 @@ export function PartnerCarousel({ items }: { items: readonly Partner[] }) {
     if (manual) {
       const first = Math.round(target / step);
       const count = Math.max(1, Math.round(viewport.clientWidth / step));
-      setAnnouncement(`Partenaires ${first + 1} à ${Math.min(items.length, first + count)} sur ${items.length}`);
+      setAnnouncement(text.range(first + 1, Math.min(items.length, first + count), items.length));
     }
-  }, [items.length, stopScroll]);
+  }, [items.length, stopScroll, text]);
 
   useEffect(() => {
     if (!ready || !region.current || typeof IntersectionObserver !== "function") return;
@@ -99,15 +101,15 @@ export function PartnerCarousel({ items }: { items: readonly Partner[] }) {
 
   return (
     <div ref={region} className="partner-carousel" data-ready={ready} data-paused={hovered || focused}
-      role="region" aria-label="Logos des partenaires" aria-roledescription={ready ? "carrousel" : undefined}
+      role="region" aria-label={text.region} aria-roledescription={ready ? text.role : undefined}
       onMouseEnter={() => { stopScroll(); setHovered(true); }} onMouseLeave={() => setHovered(false)}
       onFocusCapture={() => { stopScroll(); setFocused(true); }} onBlurCapture={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
       }}>
-      {ready && <button type="button" className="partner-carousel-arrow partner-carousel-prev" aria-label="Partenaires précédents" aria-controls="partner-logo-list" onClick={() => move(-1, true)}>
+      {ready && <button type="button" className="partner-carousel-arrow partner-carousel-prev" aria-label={text.previous} aria-controls="partner-logo-list" onClick={() => move(-1, true)}>
         <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="m14 5-7 7 7 7" fill="none" stroke="currentColor" strokeWidth="2" /></svg>
       </button>}
-      <ul ref={list} id="partner-logo-list" className="partner-list" tabIndex={ready ? 0 : undefined} aria-label="Liste des partenaires" data-reveal="off"
+      <ul ref={list} id="partner-logo-list" className="partner-list" tabIndex={ready ? 0 : undefined} aria-label={text.list} data-reveal="off"
         onPointerDown={stopScroll} onKeyDown={(event) => {
           if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); move(event.key === "ArrowRight" ? 1 : -1, true); }
         }}>
@@ -116,7 +118,7 @@ export function PartnerCarousel({ items }: { items: readonly Partner[] }) {
             sizes="(min-width: 1100px) 220px, (min-width: 700px) 240px, 260px" className="partner-logo" />
         </li>)}
       </ul>
-      {ready && <button type="button" className="partner-carousel-arrow partner-carousel-next" aria-label="Partenaires suivants" aria-controls="partner-logo-list" onClick={() => move(1, true)}>
+      {ready && <button type="button" className="partner-carousel-arrow partner-carousel-next" aria-label={text.next} aria-controls="partner-logo-list" onClick={() => move(1, true)}>
         <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="m10 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2" /></svg>
       </button>}
 

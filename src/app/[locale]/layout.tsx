@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SiteMotion } from "@/components/SiteMotion";
-import { identity, interfaceText, isLocale, locales } from "@/content/site";
+import { homeMetadata, identity, interfaceText, isLocale, locales } from "@/content/site";
 import "../globals.css";
 import { assetPath } from "@/lib/assets";
 import { getSearchDocuments } from "@/content/search";
@@ -31,18 +31,21 @@ const hero = localFont({
   preload: false,
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Global EcoAction — Agir ensemble en Guinée",
-    template: "%s | Global EcoAction",
-  },
-  description:
-    "GECA, ONG guinéenne créée en 2016, agit pour la restauration des écosystèmes, la résilience climatique et le développement communautaire.",
-  applicationName: identity.name,
-  robots: { index: false, follow: false }, // Maquette de présentation, pas le site final.
-  referrer: "strict-origin-when-cross-origin",
-  icons: { icon: assetPath("/icon.svg") },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  return {
+    title: {
+      default: homeMetadata[locale].title,
+      template: "%s | Global EcoAction",
+    },
+    description: homeMetadata[locale].description,
+    applicationName: identity.name,
+    robots: { index: false, follow: false }, // Maquette de présentation, pas le site final.
+    referrer: "strict-origin-when-cross-origin",
+    icons: { icon: assetPath("/icon.svg") },
+  };
+}
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

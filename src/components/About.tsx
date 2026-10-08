@@ -23,7 +23,7 @@ export function About({ locale }: { locale: Locale }) {
           <div className="page-hero-actions"><Button href="#notre-histoire" variant="text">{text.explore}</Button></div>
         </Container>
         <div className="about-intro-band">
-          <PhotoPlaceholder label={text.photoLabel} photo={text.photo} className="about-landscape" priority sizes="(max-width: 767px) 100vw, (min-width: 1600px) 922px, 62vw" />
+          <PhotoPlaceholder locale={locale} label={text.photoLabel} photo={text.photo} className="about-landscape" priority sizes="(max-width: 767px) 100vw, (min-width: 1600px) 922px, 62vw" />
           <div className="about-since card-content">
             <p className="eyebrow">{text.sinceLabel}</p>
             <p className="about-year">{identity.since}</p>
@@ -83,7 +83,7 @@ export function About({ locale }: { locale: Locale }) {
         <Container>
           <SectionHeading label={text.approach.label} title={text.approach.title} description={text.approach.description} />
           <div className="about-method-grid">
-            <PhotoPlaceholder label={text.approach.photoLabel} photo={text.approach.photo} className="about-method-photo" />
+            <PhotoPlaceholder locale={locale} label={text.approach.photoLabel} photo={text.approach.photo} className="about-method-photo" />
             <ol className="about-steps">
               {text.approach.items.map((item, index) => (
                 <li className="card-content" key={item.title}>

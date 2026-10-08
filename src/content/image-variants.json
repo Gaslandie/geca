@@ -1516,5 +1516,23 @@
       "width": 288,
       "src": "/images/optimized/images-partners-parcs-naturels-regionaux-france-288-9326d1a7dc99.webp"
     }
+  ],
+  "/images/brand/global-ecoaction-logo-white-slogan.png": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-brand-global-ecoaction-logo-white-slogan-192-f147e252b0eb.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-brand-global-ecoaction-logo-white-slogan-320-297e6c5ca991.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-brand-global-ecoaction-logo-white-slogan-480-71050665b6f1.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-brand-global-ecoaction-logo-white-slogan-640-1ac1f9874fb9.webp"
+    }
   ]
 }

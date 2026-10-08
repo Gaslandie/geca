@@ -1,5 +1,7 @@
 # Textes authentiques du client — référence GECA
 
+**Adresse actuelle confirmée le 8 octobre 2026 : Kissosso, commune de Matoto, Conakry, République de Guinée.** Les adresses différentes ci-dessous appartiennent à l’historique des demandes et ne sont plus à utiliser. Voir la révision « Adresse définitive retenue » en fin de document.
+
 ## Introductions des pages internes — demande de Gassama, 7 octobre 2026
 
 Gassama demande un paragraphe plus développé sous chaque titre de page, hors accueil, avec la présentation de la page Domaines. Les synthèses FR/EN sont centralisées dans `pageIntroductions` de `src/content/site.ts`. Il s’agit de reformulations éditoriales des informations déjà transmises, pas de nouveaux faits client. À propos reprend l’identité et l’implantation actuelles ; Mission/Vision reprend les résumés validés ; Équipe reprend les capacités administratives et de terrain sans biographie nouvelle ; Partenariat reprend les atouts et le positionnement. Domaines conserve son texte. Les articles conservent leur premier paragraphe exact dans l’introduction, puis la suite du texte sans doublon. Les pages encore en préparation gardent cet état ; aucun paiement, envoi de message ou service nouveau n’est annoncé.
@@ -644,3 +646,47 @@ Texte transmis par Gassama, conservé tel que reçu :
 > 5. Mettre le logo au pieds de la page au même format que celui de la page d’accueil,bg transparent, pour ne pas qu’il ait du blanc tout autour
 
 Application autorisée par Gassama : nom du hero doublé (facteur commun de 1,8 à 3,6), Eco vert foncé existant, logos du bas enchaînés sans attente entre les transitions, voile des photos allégé, fond CSS blanc du logo du pied de page retiré. Même fichier transparent partagé avec la navigation. Aucun contenu factuel, partenaire ou photo changé. Le bandeau de noms sous le hero et la cadence de cinq secondes des photos restent distincts du carrousel de logos.
+
+
+## Eco sans effet — Gassama, 8 octobre 2026
+
+Demande : « retire l'effet que tu as mis sur 'Eco' dans EcoAction juste garde le en Vert foncé ». Retrait du contour clair, de son ordre de peinture et de l’ombre sur Eco. La couleur --green-dark (#003f1b), la taille, les textes et les photos restent identiques.
+
+
+## Champ newsletter et activation demandée — Gassama, 8 octobre 2026
+
+Gassama demande de retirer l’effet du champ e-mail lors de la saisie et de faire fonctionner la newsletter. Champ : grand contour extérieur supprimé ; bordure fine vert foncé indiquant le focus, sans ombre ni changement de dimensions. La demande étend le périmètre à une inscription réelle ; aucun prestataire, compte, liste d’abonnés ou adresse d’expédition n’est encore fourni. Ne pas inventer une inscription ou une confirmation de succès.
+
+
+## Newsletter gérée en interne — Gassama, 8 octobre 2026
+
+Gassama : « voici c'est bien on propose linterne dabord quand c'est possible et de bonne qualité. on gere en interne stp ». Autorisation de réaliser la newsletter dans Laravel avec abonnés privés, confirmation d’adresse, rédaction, envoi et désinscription. Préférer l’interne quand pertinent. Aucun nouveau contenu éditorial GECA n’est fourni : aucun article, campagne ou abonné réel ajouté par cette demande. Les textes techniques FR/EN décrivent uniquement les actions réelles du formulaire.
+
+
+### Textes de fonctionnement newsletter — 8 octobre 2026
+
+Les nouveaux messages techniques ne décrivent pas des activités GECA : ils indiquent saisie, consentement, confirmation, simulation, désinscription et indisponibilité d’un formulaire non configuré. Message d’aperçu : « L’inscription à la newsletter n’est pas encore disponible sur cet aperçu. » Traduction fidèle : « Newsletter subscription is not yet available on this preview. ». Accord du formulaire : « J’accepte de recevoir la newsletter Global EcoAction. Je peux me désinscrire par le lien de chaque message. » Version conservée en base : newsletter-2026-10-08. Information : adresse, état et dates d’accord conservés en privé ; nettoyage des demandes non confirmées après sept jours par la tâche planifiée. La page Confidentialité précise le parcours GECA, la confirmation et la liste privée lorsque le formulaire est disponible. Aucun contenu de newsletter ni destinataire réel inventé.
+
+## Slogan du logo en blanc — Gassama, 8 octobre 2026
+
+Demande : « met le texte du logo en blanc stp car en noir il reste invisible », avec capture du pied de page. Le slogan existant « Agir pour un avenir durable » passe en blanc dans une variante transparente dédiée au fond sombre. Aucun texte ou fait nouveau ; couleurs du nom et symbole conservés.
+
+## Hero légèrement décalé à gauche — Gassama, 8 octobre 2026
+
+Demande : « et deplace un peut les textes de la section hero vers la gauche stp ». Décalage léger du bloc commun de 8 à 32 px selon la largeur, textes et actions solidaires ; tailles, contenus et photos conservés.
+
+## Suggestions après une recherche sans résultat — Gassama, 8 octobre 2026
+
+Demande : « quand je tape un mot qui n'es pas là sur le site, il faudra pas qu'on me laisse comme ça non, qu'on me fasse des suggestions kmm ». Messages techniques FR : « Aucun résultat pour cette recherche. Essayez un autre mot ou explorez les suggestions ci-dessous. », « Ces pages peuvent vous aider ». EN : « No results for this search. Try another word or explore the suggestions below. », « These pages may help ». Les liens reprennent uniquement les pages publiques existantes. Aucun fait GECA ajouté.
+
+
+## Accueil anglais — demande de Gassama, 8 octobre 2026
+
+Gassama demande la version anglaise complète de l’accueil français actuel, avec les mêmes rubriques et médias. Cette demande remplace les mentions historiques « accueil anglais en préparation ». Traductions de travail centralisées dans `getHomeContent` de `src/content/site.ts` ; les sources françaises restent intactes et prioritaires. Titres et actions traduits, cinq paragraphes d’impact dans le même ordre, chiffres 35 000 / 365 000 / 150 000 / 84 inchangés. Réutilisation des traductions existantes des projets et domaines. Aucun nouvel article, statut, membre, partenaire, résultat ou fait. Les noms client des partenaires restent inchangés ; seul le descriptif accessible « Logo » est adapté. Le slogan intégré aux fichiers du logo reste français, avec description accessible traduite. Pages encore en préparation conservées, retour à l’accueil dans la langue choisie. Newsletter locale et ses messages existants préservés, aucune mise en service distante.
+
+
+## Adresse définitive retenue — Gassama, 8 octobre 2026
+
+Gassama demande : « sil te plait, c'esat cette adresse quon retient partout sil te plait: Kissosso, commune de Matoto, Conakry, République de Guinée ».
+
+Adresse actuelle à reprendre partout : **Kissosso, commune de Matoto, Conakry, République de Guinée**. Traduction fidèle : **Kissosso, municipality of Matoto, Conakry, Republic of Guinea**. Cette instruction remplace l’adresse Sangoyah Marché demandée le 6 octobre. Les demandes précédentes restent archivées plus haut uniquement comme historique. Coordonnées communes, À propos, Contact, pied de page, introductions, métadonnées, index de recherche et destination d’itinéraire suivent l’adresse actuelle. Carte du quartier de Kissosso, sans emplacement exact du bureau fourni ni supposé. Aucun autre fait GECA modifié.

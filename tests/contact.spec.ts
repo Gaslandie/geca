@@ -27,7 +27,14 @@ for (const locale of locales) {
     await expect(frame).toBeFocused();
     await expect(frame).toHaveAttribute("referrerpolicy", "no-referrer");
     await expect(frame).toHaveAttribute("title", contactContent[locale].map.description);
-    expect(new URL((await frame.getAttribute("src"))!).searchParams.has("marker")).toBe(false);
+    const mapParams = new URL((await frame.getAttribute("src"))!).searchParams;
+    expect(mapParams.has("marker")).toBe(false);
+    // La vue doit contenir Kissosso, sans attribuer ce repère au bureau GECA.
+    const [west, south, east, north] = mapParams.get("bbox")!.split(",").map(Number);
+    expect(-13.57237).toBeGreaterThan(west);
+    expect(-13.57237).toBeLessThan(east);
+    expect(9.63719).toBeGreaterThan(south);
+    expect(9.63719).toBeLessThan(north);
     expect(external.every((url) => url.startsWith("https://www.openstreetmap.org/export/embed.html?"))).toBe(true);
   });
 }

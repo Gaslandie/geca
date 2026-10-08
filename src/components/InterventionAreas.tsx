@@ -33,7 +33,7 @@ export function InterventionAreas({ locale }: { locale: Locale }) {
           <Container>
             <SectionHeading label={text.label} title={area.title} />
             <div className={`intervention-detail${area.photo ? "" : " intervention-detail--text"}`}>
-              {area.photo && <PhotoPlaceholder label={area.title} photo={area.photo} className="intervention-photo" sizes="(max-width: 767px) 100vw, (min-width: 1480px) 660px, 46vw" />}
+              {area.photo && <PhotoPlaceholder locale={locale} label={area.title} photo={area.photo} className="intervention-photo" sizes="(max-width: 767px) 100vw, (min-width: 1480px) 660px, 46vw" />}
               <div className="intervention-copy card-content">
                 <p>{area.description} {area.detail}</p>
               </div>

@@ -13,8 +13,8 @@ export const identity = {
   foundedOn: { fr: "14 décembre 2016", en: "14 December 2016" },
   renamedOn: { fr: "26 août 2026", en: "26 August 2026" },
   address: {
-    fr: "Sangoyah Marché, commune de Matoto, Conakry, République de Guinée",
-    en: "Sangoyah Marché, municipality of Matoto, Conakry, Republic of Guinea",
+    fr: "Kissosso, commune de Matoto, Conakry, République de Guinée",
+    en: "Kissosso, municipality of Matoto, Conakry, Republic of Guinea",
   },
   phone: "+224 628 40 03 87",
   phoneHref: "tel:+224628400387",
@@ -159,7 +159,7 @@ export const interfaceText = {
       title: "This section is being prepared.",
       description:
         "We are currently working on this part of the new Global EcoAction website.",
-      back: "Visit the French homepage",
+      back: "Back to the homepage",
       contact: "Contact GECA",
     },
   },
@@ -368,7 +368,7 @@ export const contactContent = {
     write: "Nous écrire",
     map: {
       title: "Géolocalisation",
-      description: "Carte du quartier de Sangoyah Marché.",
+      description: "Carte du quartier de Kissosso.",
       show: "Afficher la carte",
       directions: "Ouvrir l’itinéraire",
     },
@@ -414,7 +414,7 @@ export const contactContent = {
     write: "Email us",
     map: {
       title: "Location",
-      description: "Map of the Sangoyah Marché neighbourhood.",
+      description: "Map of the Kissosso neighbourhood.",
       show: "Show the map",
       directions: "Get directions",
     },
@@ -923,7 +923,7 @@ export const aboutContent = {
     photoLabel: "Les territoires au cœur de notre engagement",
     sinceLabel: "Engagés depuis",
     sinceDescription: "Une ONG guinéenne, ancrée dans les réalités de ses territoires.",
-    location: "Sangoyah Marché · Matoto · Conakry · Guinée",
+    location: identity.address.fr,
     explore: "Découvrir notre histoire",
     history: {
       label: "Notre histoire",
@@ -987,7 +987,7 @@ export const aboutContent = {
     photoLabel: "Local landscapes at the heart of our work",
     sinceLabel: "Committed since",
     sinceDescription: "A Guinean NGO rooted in the realities of its local communities and landscapes.",
-    location: "Sangoyah Marché · Matoto · Conakry · Guinea",
+    location: identity.address.en,
     explore: "Discover our story",
     history: {
       label: "Our story",
@@ -1445,12 +1445,14 @@ export const newsletterContent = {
     description: "Soyez informé(e) de nos actualités directement par e-mail.",
     email: "Adresse e-mail",
     subscribe: "S’abonner",
+    unavailable: "L’inscription à la newsletter n’est pas encore disponible sur cet aperçu.",
   },
   en: {
     title: "Subscribe to our newsletter",
     description: "Receive our news directly by email.",
     email: "Email address",
     subscribe: "Subscribe",
+    unavailable: "Newsletter subscription is not yet available on this preview.",
   },
 } as const;
 
@@ -1467,7 +1469,7 @@ export const pageIntroductions = {
     "contact": `${contactContent.fr.description} Nos échanges peuvent porter sur la restauration des écosystèmes, l’agroécologie, l’adaptation climatique ou le renforcement des capacités des communautés. Retrouvez ci-dessous nos coordonnées à Conakry pour nous contacter et discuter des possibilités de travailler ensemble.`,
     "nous-soutenir": `${missionVisionContent.fr.mission.summary} ${homeContent.cta.supportText} ${aboutContent.fr.closing.description}`,
     "mentions-legales": `${aboutContent.fr.introduction} ${organizationFacts.fr.location}`,
-    "confidentialite": "Le formulaire de contact permet de préparer et de prévisualiser un message, sans envoi ni enregistrement de la saisie. Vous pouvez effacer les informations que vous avez renseignées. La recherche du site consulte uniquement les contenus publics, sans conserver les mots recherchés. Pour échanger avec Global EcoAction, vous pouvez utiliser l’adresse e-mail ou le numéro de téléphone indiqués dans la rubrique Contact.",
+    "confidentialite": "Le formulaire de contact permet de préparer et de prévisualiser un message, sans envoi ni enregistrement de la saisie. Vous pouvez effacer les informations que vous avez renseignées. La recherche du site consulte uniquement les contenus publics, sans conserver les mots recherchés. Lorsque le formulaire newsletter est disponible, l’inscription se poursuit sur une page GECA. L’adresse devient active après confirmation par e-mail. La liste des abonnés est privée et chaque newsletter comprend un lien de désinscription. Pour échanger avec Global EcoAction, vous pouvez utiliser l’adresse e-mail ou le numéro de téléphone indiqués dans la rubrique Contact.",
     "plan-du-site": "Découvrez les rubriques du site de Global EcoAction : notre organisation, notre mission, nos domaines d’expertise, notre équipe et nos projets et programmes. Les actualités permettent de retrouver les étapes de notre histoire et les actions présentées sur le site. Les pages Devenir partenaire et Contact vous orientent pour échanger avec nous et envisager des actions utiles à la nature et aux communautés en Guinée.",
   },
   en: {
@@ -1481,7 +1483,128 @@ export const pageIntroductions = {
     "contact": `${contactContent.en.description} Our conversations can focus on ecosystem restoration, agroecology, climate adaptation or strengthening community capacities. Find our contact details in Conakry below to get in touch and discuss opportunities to work together.`,
     "nous-soutenir": `${missionVisionContent.en.mission.summary} Every contribution helps advance our mission. ${aboutContent.en.closing.description}`,
     "mentions-legales": `${aboutContent.en.introduction} ${organizationFacts.en.location}`,
-    "confidentialite": "The contact form lets you prepare and preview a message without sending it or saving your input. You can clear the information you have entered. The website search uses only public content and does not save your search terms. To get in touch with Global EcoAction, use the email address or phone number provided on the Contact page.",
+    "confidentialite": "The contact form lets you prepare and preview a message without sending it or saving your input. You can clear the information you have entered. The website search uses only public content and does not save your search terms. When the newsletter form is available, registration continues on a GECA page. The address becomes active after email confirmation. The subscriber list is private and each newsletter includes an unsubscribe link. To get in touch with Global EcoAction, use the email address or phone number provided on the Contact page.",
     "plan-du-site": "Explore the sections of the Global EcoAction website: our organisation, mission, areas of expertise, team, and projects and programmes. The news pages present milestones in our history and activities featured on the website. The Become a partner and Contact pages help you get in touch and explore actions that serve nature and communities in Guinea.",
   },
+} as const;
+
+
+// English homepage: faithful translations of the current French content.
+// Shared media, project translations and expertise data remain the source of truth.
+export function getHomeContent(locale: Locale) {
+  if (locale === "fr") return {
+    ...homeContent,
+    news: { ...homeContent.news, discover: "Découvrir", discoverLabel: "Découvrir les actualités" },
+  };
+  const translatedProjects = getPortfolioProjects(locale);
+  return {
+    ...homeContent,
+    hero: {
+      ...homeContent.hero,
+      title: "ACTING FOR",
+      titleSecondLine: "A SUSTAINABLE FUTURE",
+      description: "Restoring ecosystems · Strengthening communities",
+      introduction: "In Guinea, we work with communities to restore degraded land and protect forests and biodiversity. Through reforestation, agroecology and capacity building, we help improve living conditions.",
+      primary: "Explore our projects",
+      secondary: "Become a partner",
+    },
+    about: {
+      ...homeContent.about,
+      label: "Our organisation",
+      title: "Who are we?",
+      description: `Global EcoAction (GECA), formerly RENASCEDD, is a Guinean NGO founded on ${identity.foundedOn.en}. We work alongside communities to restore ecosystems, protect biodiversity and improve living conditions.`,
+      cta: "About GECA",
+    },
+    domains: {
+      ...homeContent.domains,
+      label: "Our expertise",
+      title: "Areas of expertise",
+      cta: "Explore this area",
+      description: "Explore our eight areas of expertise.",
+      // Reuse precisely the French homepage media, even when the internal page differs.
+      items: homeContent.domains.items.map((item) => ({
+        ...getInterventionAreas("en").find((area) => area.id === item.id)!,
+        photo: item.photo && {
+          ...item.photo,
+          alt: Object.values(clientPhotoSources).find((source) => source.src === item.photo?.src)?.en
+            ?? `Image for the ${getInterventionAreas("en").find((area) => area.id === item.id)!.title} area of expertise.`,
+        },
+      })),
+    },
+    impact: {
+      ...homeContent.impact,
+      label: "Our impact",
+      title: "Key achievements",
+      titleSecondLine: "and results",
+      stats: homeContent.impact.stats.map((stat, index) => ({
+        ...stat,
+        label: ["trees planted in 2019", "trees planted in 2020", "trees planted in 2021", "local authorities supported"][index],
+      })),
+      achievements: [
+        "Restoration of degraded forests, erosion control, protection of ecosystems and water resources, strengthening of biodiversity and contribution to carbon sequestration.",
+        projectTranslationsEn.protemo.description,
+        projectTranslationsEn["planification-climatique"].description,
+        projectTranslationsEn["appui-social-nature"].description,
+        projectTranslationsEn.kounounkan.description,
+      ],
+    },
+    projects: {
+      label: "Projects & programmes",
+      title: "A selection of recent references",
+      description: "Explore the initiatives we carry out with communities and our partners.",
+      current: "Ongoing",
+      completed: "Completed",
+      filters: "Filter projects",
+      statusCurrent: "Ongoing",
+      statusCompleted: "Completed",
+      partner: "Partner / funder:",
+      view: "View project",
+      all: "View all projects",
+      count: "projects displayed",
+      photo: "GECA project photo",
+    },
+    news: {
+      ...homeContent.news,
+      label: "News",
+      title: "GECA’s story.",
+      description: "Explore milestones in our organisation’s history and activities documented over the years.",
+      cta: "View all news",
+      discover: "Explore",
+      discoverLabel: "Explore the news",
+      items: translatedProjects.slice(0, 2).map((project) => ({
+        title: project.title, description: project.description,
+        path: `actualites/projet-${project.slug}`, category: "Projects & programmes",
+        period: project.period, photo: project.photo,
+      })),
+    },
+    partners: {
+      ...homeContent.partners,
+      label: "Our partners",
+      title: "Together, we go further.",
+      description: "Restoring ecosystems and improving communities’ living conditions is a collective effort. Our collaborations with institutional, technical and financial partners support this work in Guinea.",
+      // Keep the names supplied by the client; only translate the logo descriptor.
+      items: homeContent.partners.items.map((partner) => ({
+        ...partner, logo: { ...partner.logo, alt: `Logo: ${partner.name}` },
+      })),
+    },
+    cta: {
+      label: "Let’s take action",
+      partnerTitle: "Do you have a project in Guinea?",
+      partnerText: "Let’s work together on useful solutions for local areas and communities.",
+      partnerButton: "Become a partner",
+      supportTitle: "Would you like to support our work?",
+      supportText: "Every commitment helps advance our mission.",
+      supportButton: "Support us",
+    },
+  };
+}
+
+export const partnerCarouselText = {
+  fr: { region: "Logos des partenaires", role: "carrousel", previous: "Partenaires précédents", next: "Partenaires suivants", list: "Liste des partenaires", range: (first: number, last: number, total: number) => `Partenaires ${first} à ${last} sur ${total}` },
+  en: { region: "Partner logos", role: "carousel", previous: "Previous partners", next: "Next partners", list: "List of partners", range: (first: number, last: number, total: number) => `Partners ${first} to ${last} of ${total}` },
+};
+
+export const homeMetadata = {
+  fr: { title: "Global EcoAction — Agir ensemble en Guinée", description: "GECA, ONG guinéenne créée en 2016, agit pour la restauration des écosystèmes, la résilience climatique et le développement communautaire." },
+  en: { title: "Global EcoAction — Acting together in Guinea", description: "GECA, a Guinean NGO founded in 2016, works on ecosystem restoration, climate resilience and community development." },
 } as const;

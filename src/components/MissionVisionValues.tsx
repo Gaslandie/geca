@@ -34,7 +34,7 @@ export function MissionVisionValues({ locale }: { locale: Locale }) {
               <SectionHeading label={section.label} title={section.title} description={section.summary} />
               <div className="mission-detail">
                 <figure className="mission-figure">
-                  <PhotoPlaceholder label={section.photo.caption} photo={section.photo} className="mission-photo" sizes="(max-width: 767px) 100vw, (min-width: 1600px) 700px, 50vw" />
+                  <PhotoPlaceholder locale={locale} label={section.photo.caption} photo={section.photo} className="mission-photo" sizes="(max-width: 767px) 100vw, (min-width: 1600px) 700px, 50vw" />
                 </figure>
                 <div className="mission-prose">
                   {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}

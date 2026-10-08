@@ -1,0 +1,667 @@
+{
+  "source": "src/content/site.ts",
+  "sha256": "43083e4fab8576f46c4d8bf1d3226d0e973611328b5f021e7661240315dcd76c",
+  "reference": "docs/TEXTES-AUTHENTIQUES-CLIENT.md",
+  "entries": [
+    {
+      "kind": "projects",
+      "key": "kounounkan",
+      "payload": {
+        "fr": {
+          "title": "Accompagner la mise en œuvre des activités génératrices de revenus (AGR) en périphérie du futur Parc national des plateaux de Kounounkan",
+          "description": "Amélioration des conditions économiques et de la sécurité alimentaire, structuration des groupements, appui technique aux AGR, gestion des plaintes et prévention des VBG.",
+          "zone": "Plateaux de Kounounkan",
+          "period": "2025-2026",
+          "partner": "Banque mondiale"
+        },
+        "en": {
+          "title": "Support the implementation of income-generating activities (IGAs) around the future Kounounkan Plateaux National Park",
+          "description": "Improving economic conditions and food security, structuring groups, providing technical support for IGAs, handling complaints and preventing gender-based violence.",
+          "zone": "Kounounkan Plateaux",
+          "period": "2025-2026",
+          "partner": "World Bank"
+        },
+        "status": "current",
+        "photo": {
+          "fr": {
+            "src": "/images/client/gorede-saponification.jpg",
+            "alt": "Remise de matériels de saponification à Görèdè.",
+            "caption": "Remise de matériels de saponification à Görèdè."
+          },
+          "en": {
+            "src": "/images/client/gorede-saponification.jpg",
+            "alt": "Soap-making equipment being handed over in Görèdè.",
+            "caption": "Remise de matériels de saponification à Görèdè."
+          }
+        }
+      }
+    },
+    {
+      "kind": "projects",
+      "key": "appui-social-nature",
+      "payload": {
+        "fr": {
+          "title": "Projet d’appui social et protection de la nature",
+          "description": "Appui financier et technique aux femmes agricultrices affectées par l’exploitation minière, agriculture adaptée au climat, éducation environnementale et restauration écologique.",
+          "zone": "Guinée · zone à préciser",
+          "period": "2025-2026",
+          "partner": "Fondation ALCOA"
+        },
+        "en": {
+          "title": "Social support and nature protection project",
+          "description": "Financial and technical support for women farmers affected by mining, climate-adapted agriculture, environmental education and ecological restoration.",
+          "zone": "Guinea · location to be confirmed",
+          "period": "2025-2026",
+          "partner": "ALCOA Foundation"
+        },
+        "status": "current",
+        "photo": {
+          "fr": {
+            "src": "/images/client/kolaboui-materiels.jpg",
+            "alt": "Remise de matériels agricoles aux femmes bénéficiaires à Kolaboui.",
+            "caption": "Remise de matériels agricoles aux femmes bénéficiaires à Kolaboui."
+          },
+          "en": {
+            "src": "/images/client/kolaboui-materiels.jpg",
+            "alt": "Agricultural equipment being handed over to women beneficiaries in Kolaboui.",
+            "caption": "Remise de matériels agricoles aux femmes bénéficiaires à Kolaboui."
+          }
+        }
+      }
+    },
+    {
+      "kind": "projects",
+      "key": "planification-climatique",
+      "payload": {
+        "fr": {
+          "title": "Sensibilisation des acteurs locaux (élus, OSC, femmes et jeunes) sur l'intégration du changement climatique dans la planification locale dans la région de la Basse-Guinée",
+          "description": "Sensibilisation, formation et suivi pour l’intégration du changement climatique et de l’inclusion sociale dans les Plans de Développement Local (PDL) de 84 collectivités.",
+          "zone": "Basse-Guinée",
+          "period": "2024-2025",
+          "partner": "ANAFIC"
+        },
+        "en": {
+          "title": "Raising awareness among local stakeholders (elected representatives, civil society organisations, women and young people) about integrating climate change into local planning in the Lower Guinea region",
+          "description": "Awareness raising, training and monitoring to integrate climate change and social inclusion into the Local Development Plans (LDPs) of 84 local authorities.",
+          "zone": "Lower Guinea",
+          "period": "2024-2025",
+          "partner": "ANAFIC"
+        },
+        "status": "completed",
+        "photo": {
+          "fr": {
+            "src": "/images/temporary/fields.jpg",
+            "alt": "Vue aérienne de champs cultivés — image temporaire d’illustration, sans lien avec une action de GECA.",
+            "temporary": true
+          },
+          "en": {
+            "src": "/images/temporary/fields.jpg",
+            "alt": "Temporary illustration, unrelated to a GECA project or its location.",
+            "temporary": true
+          }
+        }
+      }
+    },
+    {
+      "kind": "projects",
+      "key": "protemo",
+      "payload": {
+        "fr": {
+          "title": "Projet de Territoire de Moussayah - PROTEMO",
+          "description": "Développement territorial participatif conciliant gouvernance environnementale, opportunités économiques et préservation des ressources naturelles.",
+          "zone": "Moussayah",
+          "period": "2023-2024",
+          "partner": "Ambassade de France en Guinée et Sierra Leone"
+        },
+        "en": {
+          "title": "Moussayah Territory Project - PROTEMO",
+          "description": "Participatory territorial development combining environmental governance, economic opportunities and the preservation of natural resources.",
+          "zone": "Moussayah",
+          "period": "2023-2024",
+          "partner": "Embassy of France in Guinea and Sierra Leone"
+        },
+        "status": "completed",
+        "photo": {
+          "fr": {
+            "src": "/images/client/moussayah-dialogue.jpg",
+            "alt": "Illustration du thème : Réunion de concertation à Moussayah lors de la visite de la Fédération des Parcs Naturels Régionaux de France.",
+            "caption": "Réunion de concertation à Moussayah lors de la visite de la Fédération des Parcs Naturels Régionaux de France.",
+            "contextLabel": "Illustration du thème"
+          },
+          "en": {
+            "src": "/images/client/moussayah-dialogue.jpg",
+            "alt": "Thematic illustration: Consultation meeting in Moussayah during a visit by the Federation of Regional Nature Parks of France.",
+            "caption": "Réunion de concertation à Moussayah lors de la visite de la Fédération des Parcs Naturels Régionaux de France.",
+            "contextLabel": "Thematic illustration"
+          }
+        }
+      }
+    },
+    {
+      "kind": "projects",
+      "key": "reboisement-communautaire",
+      "payload": {
+        "fr": {
+          "title": "Reboisement communautaire de 550 000 arbres",
+          "description": "Le projet de reboisement communautaire à grande échelle, mis en œuvre sur trois ans dans les régions de Boffa, Kindia, Forécariah, Mamou et Faranah, a permis la plantation de 550 000 arbres : 35 000 en 2019, 365 000 en 2020 et 150 000 en 2021.\n\nLe projet visait à restaurer les terres dégradées, lutter contre l’érosion, protéger les écosystèmes et les ressources en eau, renforcer la biodiversité et contribuer à la séquestration du carbone. Réalisé avec l’implication des communautés locales, il devait également favoriser la création d’activités génératrices de revenus liées aux produits forestiers et à l’écotourisme.",
+          "zone": "Boffa, Kindia, Forécariah, Mamou et Faranah",
+          "period": "2019, 2020 et 2021",
+          "partner": "Reforest’Action"
+        },
+        "en": {
+          "title": "Community reforestation with 550,000 trees",
+          "description": "The large-scale community reforestation project, implemented over three years in the regions of Boffa, Kindia, Forécariah, Mamou and Faranah, resulted in the planting of 550,000 trees: 35,000 in 2019, 365,000 in 2020 and 150,000 in 2021.\n\nThe project aimed to restore degraded land, combat erosion, protect ecosystems and water resources, strengthen biodiversity and contribute to carbon sequestration. Carried out with the involvement of local communities, it was also intended to support the creation of income-generating activities related to forest products and ecotourism.",
+          "zone": "Boffa, Kindia, Forécariah, Mamou and Faranah",
+          "period": "2019, 2020 and 2021",
+          "partner": "Reforest’Action"
+        },
+        "status": null,
+        "photo": {
+          "fr": {
+            "src": "/images/client/moussayah-pepiniere.jpg",
+            "alt": "Illustration du thème : Pépinière à Moussayah centre 2.",
+            "caption": "Pépinière à Moussayah centre 2.",
+            "contextLabel": "Illustration du thème"
+          },
+          "en": {
+            "src": "/images/client/moussayah-pepiniere.jpg",
+            "alt": "Thematic illustration: Plant nursery in Moussayah centre 2.",
+            "caption": "Pépinière à Moussayah centre 2.",
+            "contextLabel": "Thematic illustration"
+          }
+        }
+      }
+    },
+    {
+      "kind": "projects",
+      "key": "piscca",
+      "payload": {
+        "fr": {
+          "title": "Lutte contre la dégradation de l’environnement pour un développement durable dans la sous-préfecture de Moussayah - Projet Innovant des Sociétés Civiles et Coalition d’Acteurs (PISCCA)",
+          "description": "Renforcement de la résilience environnementale à travers le reboisement, la promotion de pratiques agricoles durables, la sensibilisation des communautés, la restauration des écosystèmes et l’amélioration de la gestion des ressources naturelles, avec une forte implication des communautés et des autorités locales.",
+          "zone": "Moussayah",
+          "period": "2021-2022",
+          "partner": "Ambassade de France en Guinée et Sierra Leone"
+        },
+        "en": {
+          "title": "Combating environmental degradation for sustainable development in the sub-prefecture of Moussayah - Innovative Civil Society Projects and Coalitions of Actors (PISCCA)",
+          "description": "Strengthening environmental resilience through reforestation, the promotion of sustainable agricultural practices, community awareness raising, ecosystem restoration and improved natural resource management, with strong involvement from communities and local authorities.",
+          "zone": "Moussayah",
+          "period": "2021-2022",
+          "partner": "Embassy of France in Guinea and Sierra Leone"
+        },
+        "status": null,
+        "photo": {
+          "fr": {
+            "src": "/images/client/moussayah-ombrieres.jpg",
+            "alt": "Illustration du thème : Construction d’ombrières dans une pépinière à Moussayah centre 2.",
+            "caption": "Construction d’ombrières dans une pépinière à Moussayah centre 2.",
+            "contextLabel": "Illustration du thème"
+          },
+          "en": {
+            "src": "/images/client/moussayah-ombrieres.jpg",
+            "alt": "Thematic illustration: Building shade structures in a nursery in Moussayah centre 2.",
+            "caption": "Construction d’ombrières dans une pépinière à Moussayah centre 2.",
+            "contextLabel": "Thematic illustration"
+          }
+        }
+      }
+    },
+    {
+      "kind": "projects",
+      "key": "droits-communautes",
+      "payload": {
+        "fr": {
+          "title": "Défense des droits des communautés impactées par des projets de développement",
+          "description": "Participation au consortium Collectif des Organisations pour la Défense des Droits des communautés (CODEC), visant à renforcer la participation citoyenne et à promouvoir les droits des communautés impactées par les projets de développement en Guinée.",
+          "zone": "Guinée",
+          "period": "Depuis 2018",
+          "partner": "11th HOUR PROJECT"
+        },
+        "en": {
+          "title": "Defending the rights of communities affected by development projects",
+          "description": "Participation in the consortium Collectif des Organisations pour la Défense des Droits des communautés (CODEC), which aims to strengthen civic participation and promote the rights of communities affected by development projects in Guinea.",
+          "zone": "Guinea",
+          "period": "Since 2018",
+          "partner": "11th HOUR PROJECT"
+        },
+        "status": null,
+        "photo": {
+          "fr": {
+            "src": "/images/client/khimbeli-consultation.jpg",
+            "alt": "Illustration du thème : Consultation communautaire à Khimbéli.",
+            "caption": "Consultation communautaire à Khimbéli.",
+            "contextLabel": "Illustration du thème"
+          },
+          "en": {
+            "src": "/images/client/khimbeli-consultation.jpg",
+            "alt": "Thematic illustration: Community consultation in Khimbéli.",
+            "caption": "Consultation communautaire à Khimbéli.",
+            "contextLabel": "Thematic illustration"
+          }
+        }
+      }
+    },
+    {
+      "kind": "news",
+      "key": "nouvelle-denomination",
+      "payload": {
+        "fr": {
+          "title": "RENASCEDD devient Global EcoAction",
+          "description": "Le 26 août 2026, RENASCEDD a adopté la nouvelle dénomination Global EcoAction (GECA), sans changement de mission, d’objectifs ni de continuité opérationnelle.",
+          "period": "26 août 2026"
+        },
+        "en": {
+          "title": "RENASCEDD becomes Global EcoAction",
+          "description": "On 26 August 2026, RENASCEDD adopted the new name Global EcoAction (GECA), with no change to its mission or objectives and no interruption to its operations.",
+          "period": "26 August 2026"
+        },
+        "dateTime": "2026-08-26",
+        "path": "a-propos#notre-histoire",
+        "photo": {
+          "fr": null,
+          "en": null
+        }
+      }
+    },
+    {
+      "kind": "news",
+      "key": "projet-kounounkan",
+      "payload": {
+        "fr": {
+          "title": "Accompagner la mise en œuvre des activités génératrices de revenus (AGR) en périphérie du futur Parc national des plateaux de Kounounkan",
+          "description": "Amélioration des conditions économiques et de la sécurité alimentaire, structuration des groupements, appui technique aux AGR, gestion des plaintes et prévention des VBG.",
+          "period": "2025-2026"
+        },
+        "en": {
+          "title": "Support the implementation of income-generating activities (IGAs) around the future Kounounkan Plateaux National Park",
+          "description": "Improving economic conditions and food security, structuring groups, providing technical support for IGAs, handling complaints and preventing gender-based violence.",
+          "period": "2025-2026"
+        },
+        "dateTime": null,
+        "path": "projets#projet-kounounkan",
+        "photo": {
+          "fr": {
+            "src": "/images/client/gorede-saponification.jpg",
+            "alt": "Remise de matériels de saponification à Görèdè.",
+            "caption": "Remise de matériels de saponification à Görèdè."
+          },
+          "en": {
+            "src": "/images/client/gorede-saponification.jpg",
+            "alt": "Soap-making equipment being handed over in Görèdè.",
+            "caption": "Remise de matériels de saponification à Görèdè."
+          }
+        },
+        "linked_project": "kounounkan"
+      }
+    },
+    {
+      "kind": "news",
+      "key": "projet-appui-social-nature",
+      "payload": {
+        "fr": {
+          "title": "Projet d’appui social et protection de la nature",
+          "description": "Appui financier et technique aux femmes agricultrices affectées par l’exploitation minière, agriculture adaptée au climat, éducation environnementale et restauration écologique.",
+          "period": "2025-2026"
+        },
+        "en": {
+          "title": "Social support and nature protection project",
+          "description": "Financial and technical support for women farmers affected by mining, climate-adapted agriculture, environmental education and ecological restoration.",
+          "period": "2025-2026"
+        },
+        "dateTime": null,
+        "path": "projets#projet-appui-social-nature",
+        "photo": {
+          "fr": {
+            "src": "/images/client/kolaboui-materiels.jpg",
+            "alt": "Remise de matériels agricoles aux femmes bénéficiaires à Kolaboui.",
+            "caption": "Remise de matériels agricoles aux femmes bénéficiaires à Kolaboui."
+          },
+          "en": {
+            "src": "/images/client/kolaboui-materiels.jpg",
+            "alt": "Agricultural equipment being handed over to women beneficiaries in Kolaboui.",
+            "caption": "Remise de matériels agricoles aux femmes bénéficiaires à Kolaboui."
+          }
+        },
+        "linked_project": "appui-social-nature"
+      }
+    },
+    {
+      "kind": "news",
+      "key": "projet-planification-climatique",
+      "payload": {
+        "fr": {
+          "title": "Sensibilisation des acteurs locaux (élus, OSC, femmes et jeunes) sur l'intégration du changement climatique dans la planification locale dans la région de la Basse-Guinée",
+          "description": "Sensibilisation, formation et suivi pour l’intégration du changement climatique et de l’inclusion sociale dans les Plans de Développement Local (PDL) de 84 collectivités.",
+          "period": "2024-2025"
+        },
+        "en": {
+          "title": "Raising awareness among local stakeholders (elected representatives, civil society organisations, women and young people) about integrating climate change into local planning in the Lower Guinea region",
+          "description": "Awareness raising, training and monitoring to integrate climate change and social inclusion into the Local Development Plans (LDPs) of 84 local authorities.",
+          "period": "2024-2025"
+        },
+        "dateTime": null,
+        "path": "projets#projet-planification-climatique",
+        "photo": {
+          "fr": {
+            "src": "/images/temporary/fields.jpg",
+            "alt": "Vue aérienne de champs cultivés — image temporaire d’illustration, sans lien avec une action de GECA.",
+            "temporary": true
+          },
+          "en": {
+            "src": "/images/temporary/fields.jpg",
+            "alt": "Temporary illustration, unrelated to a GECA project or its location.",
+            "temporary": true
+          }
+        },
+        "linked_project": "planification-climatique"
+      }
+    },
+    {
+      "kind": "news",
+      "key": "projet-protemo",
+      "payload": {
+        "fr": {
+          "title": "Projet de Territoire de Moussayah - PROTEMO",
+          "description": "Développement territorial participatif conciliant gouvernance environnementale, opportunités économiques et préservation des ressources naturelles.",
+          "period": "2023-2024"
+        },
+        "en": {
+          "title": "Moussayah Territory Project - PROTEMO",
+          "description": "Participatory territorial development combining environmental governance, economic opportunities and the preservation of natural resources.",
+          "period": "2023-2024"
+        },
+        "dateTime": null,
+        "path": "projets#projet-protemo",
+        "photo": {
+          "fr": {
+            "src": "/images/client/moussayah-dialogue.jpg",
+            "alt": "Illustration du thème : Réunion de concertation à Moussayah lors de la visite de la Fédération des Parcs Naturels Régionaux de France.",
+            "caption": "Réunion de concertation à Moussayah lors de la visite de la Fédération des Parcs Naturels Régionaux de France.",
+            "contextLabel": "Illustration du thème"
+          },
+          "en": {
+            "src": "/images/client/moussayah-dialogue.jpg",
+            "alt": "Thematic illustration: Consultation meeting in Moussayah during a visit by the Federation of Regional Nature Parks of France.",
+            "caption": "Réunion de concertation à Moussayah lors de la visite de la Fédération des Parcs Naturels Régionaux de France.",
+            "contextLabel": "Thematic illustration"
+          }
+        },
+        "linked_project": "protemo"
+      }
+    },
+    {
+      "kind": "news",
+      "key": "projet-piscca",
+      "payload": {
+        "fr": {
+          "title": "Lutte contre la dégradation de l’environnement pour un développement durable dans la sous-préfecture de Moussayah - Projet Innovant des Sociétés Civiles et Coalition d’Acteurs (PISCCA)",
+          "description": "Renforcement de la résilience environnementale à travers le reboisement, la promotion de pratiques agricoles durables, la sensibilisation des communautés, la restauration des écosystèmes et l’amélioration de la gestion des ressources naturelles, avec une forte implication des communautés et des autorités locales.",
+          "period": "2021-2022"
+        },
+        "en": {
+          "title": "Combating environmental degradation for sustainable development in the sub-prefecture of Moussayah - Innovative Civil Society Projects and Coalitions of Actors (PISCCA)",
+          "description": "Strengthening environmental resilience through reforestation, the promotion of sustainable agricultural practices, community awareness raising, ecosystem restoration and improved natural resource management, with strong involvement from communities and local authorities.",
+          "period": "2021-2022"
+        },
+        "dateTime": null,
+        "path": "projets#projet-piscca",
+        "photo": {
+          "fr": {
+            "src": "/images/client/moussayah-ombrieres.jpg",
+            "alt": "Illustration du thème : Construction d’ombrières dans une pépinière à Moussayah centre 2.",
+            "caption": "Construction d’ombrières dans une pépinière à Moussayah centre 2.",
+            "contextLabel": "Illustration du thème"
+          },
+          "en": {
+            "src": "/images/client/moussayah-ombrieres.jpg",
+            "alt": "Thematic illustration: Building shade structures in a nursery in Moussayah centre 2.",
+            "caption": "Construction d’ombrières dans une pépinière à Moussayah centre 2.",
+            "contextLabel": "Thematic illustration"
+          }
+        },
+        "linked_project": "piscca"
+      }
+    },
+    {
+      "kind": "news",
+      "key": "projet-reboisement-communautaire",
+      "payload": {
+        "fr": {
+          "title": "Reboisement communautaire de 550 000 arbres",
+          "description": "Le projet de reboisement communautaire à grande échelle, mis en œuvre sur trois ans dans les régions de Boffa, Kindia, Forécariah, Mamou et Faranah, a permis la plantation de 550 000 arbres : 35 000 en 2019, 365 000 en 2020 et 150 000 en 2021.\n\nLe projet visait à restaurer les terres dégradées, lutter contre l’érosion, protéger les écosystèmes et les ressources en eau, renforcer la biodiversité et contribuer à la séquestration du carbone. Réalisé avec l’implication des communautés locales, il devait également favoriser la création d’activités génératrices de revenus liées aux produits forestiers et à l’écotourisme.",
+          "period": "2019, 2020 et 2021"
+        },
+        "en": {
+          "title": "Community reforestation with 550,000 trees",
+          "description": "The large-scale community reforestation project, implemented over three years in the regions of Boffa, Kindia, Forécariah, Mamou and Faranah, resulted in the planting of 550,000 trees: 35,000 in 2019, 365,000 in 2020 and 150,000 in 2021.\n\nThe project aimed to restore degraded land, combat erosion, protect ecosystems and water resources, strengthen biodiversity and contribute to carbon sequestration. Carried out with the involvement of local communities, it was also intended to support the creation of income-generating activities related to forest products and ecotourism.",
+          "period": "2019, 2020 and 2021"
+        },
+        "dateTime": null,
+        "path": "projets#projet-reboisement-communautaire",
+        "photo": {
+          "fr": {
+            "src": "/images/client/moussayah-pepiniere.jpg",
+            "alt": "Illustration du thème : Pépinière à Moussayah centre 2.",
+            "caption": "Pépinière à Moussayah centre 2.",
+            "contextLabel": "Illustration du thème"
+          },
+          "en": {
+            "src": "/images/client/moussayah-pepiniere.jpg",
+            "alt": "Thematic illustration: Plant nursery in Moussayah centre 2.",
+            "caption": "Pépinière à Moussayah centre 2.",
+            "contextLabel": "Thematic illustration"
+          }
+        },
+        "linked_project": "reboisement-communautaire"
+      }
+    },
+    {
+      "kind": "news",
+      "key": "projet-droits-communautes",
+      "payload": {
+        "fr": {
+          "title": "Défense des droits des communautés impactées par des projets de développement",
+          "description": "Participation au consortium Collectif des Organisations pour la Défense des Droits des communautés (CODEC), visant à renforcer la participation citoyenne et à promouvoir les droits des communautés impactées par les projets de développement en Guinée.",
+          "period": "Depuis 2018"
+        },
+        "en": {
+          "title": "Defending the rights of communities affected by development projects",
+          "description": "Participation in the consortium Collectif des Organisations pour la Défense des Droits des communautés (CODEC), which aims to strengthen civic participation and promote the rights of communities affected by development projects in Guinea.",
+          "period": "Since 2018"
+        },
+        "dateTime": null,
+        "path": "projets#projet-droits-communautes",
+        "photo": {
+          "fr": {
+            "src": "/images/client/khimbeli-consultation.jpg",
+            "alt": "Illustration du thème : Consultation communautaire à Khimbéli.",
+            "caption": "Consultation communautaire à Khimbéli.",
+            "contextLabel": "Illustration du thème"
+          },
+          "en": {
+            "src": "/images/client/khimbeli-consultation.jpg",
+            "alt": "Thematic illustration: Community consultation in Khimbéli.",
+            "caption": "Consultation communautaire à Khimbéli.",
+            "contextLabel": "Thematic illustration"
+          }
+        },
+        "linked_project": "droits-communautes"
+      }
+    },
+    {
+      "kind": "news",
+      "key": "creation-organisation",
+      "payload": {
+        "fr": {
+          "title": "Création de l’organisation",
+          "description": "L’organisation a été créée le 14 décembre 2016.",
+          "period": "14 décembre 2016"
+        },
+        "en": {
+          "title": "The organisation is founded",
+          "description": "The organisation was founded on 14 December 2016.",
+          "period": "14 December 2016"
+        },
+        "dateTime": "2016-12-14",
+        "path": "a-propos#notre-histoire",
+        "photo": {
+          "fr": null,
+          "en": null
+        }
+      }
+    },
+    {
+      "kind": "team",
+      "key": "mohamed-makale-kaba",
+      "payload": {
+        "fr": {
+          "name": "Mohamed Makalé KABA",
+          "role": "Directeur Exécutif"
+        },
+        "en": {
+          "name": "Mohamed Makalé KABA",
+          "role": "Executive Director"
+        },
+        "photo": {
+          "src": "/images/team/mohamed-makale-kaba.jpg",
+          "width": 1300,
+          "height": 1209
+        }
+      }
+    },
+    {
+      "kind": "team",
+      "key": "daouda-toure",
+      "payload": {
+        "fr": {
+          "name": "Daouda TOURE",
+          "role": "Responsable suivi-évaluation"
+        },
+        "en": {
+          "name": "Daouda TOURE",
+          "role": "Monitoring and Evaluation Manager"
+        },
+        "photo": {
+          "src": "/images/team/daouda-toure.jpg",
+          "width": 1024,
+          "height": 1536
+        }
+      }
+    },
+    {
+      "kind": "team",
+      "key": "salifou-camara",
+      "payload": {
+        "fr": {
+          "name": "Salifou CAMARA",
+          "role": "Assistant programme"
+        },
+        "en": {
+          "name": "Salifou CAMARA",
+          "role": "Programme Assistant"
+        },
+        "photo": {
+          "src": "/images/team/salifou-camara.jpg",
+          "width": 1024,
+          "height": 1536
+        }
+      }
+    },
+    {
+      "kind": "team",
+      "key": "mohamed-lamine-sacko",
+      "payload": {
+        "fr": {
+          "name": "Mohamed Lamine SACKO",
+          "role": "Comptable"
+        },
+        "en": {
+          "name": "Mohamed Lamine SACKO",
+          "role": "Accountant"
+        },
+        "photo": {
+          "src": "/images/team/mohamed-lamine-sacko.jpg",
+          "width": 1086,
+          "height": 1448
+        }
+      }
+    },
+    {
+      "kind": "team",
+      "key": "mariame-djelo-diallo",
+      "payload": {
+        "fr": {
+          "name": "Mariame Djélo DIALLO",
+          "role": "Chargée de communication"
+        },
+        "en": {
+          "name": "Mariame Djélo DIALLO",
+          "role": "Communications Officer"
+        },
+        "photo": {
+          "src": "/images/team/mariame-djelo-diallo.jpg",
+          "width": 1536,
+          "height": 1024
+        }
+      }
+    },
+    {
+      "kind": "team",
+      "key": "fode-baba-sylla",
+      "payload": {
+        "fr": {
+          "name": "Fodé Baba SYLLA",
+          "role": "Assistant administratif"
+        },
+        "en": {
+          "name": "Fodé Baba SYLLA",
+          "role": "Administrative Assistant"
+        },
+        "photo": {
+          "src": "/images/team/fode-baba-sylla.jpg",
+          "width": 1292,
+          "height": 1218
+        }
+      }
+    },
+    {
+      "kind": "team",
+      "key": "ibrahima-kaba",
+      "payload": {
+        "fr": {
+          "name": "Ibrahima KABA",
+          "role": "Responsable des programmes"
+        },
+        "en": {
+          "name": "Ibrahima KABA",
+          "role": "Programme Manager"
+        },
+        "photo": {
+          "src": "/images/team/ibrahima-kaba.jpg",
+          "width": 1254,
+          "height": 1254
+        }
+      }
+    },
+    {
+      "kind": "team",
+      "key": "archille-delamou",
+      "payload": {
+        "fr": {
+          "name": "Archille DELAMOU",
+          "role": "Responsable logistique"
+        },
+        "en": {
+          "name": "Archille DELAMOU",
+          "role": "Logistics Manager"
+        },
+        "photo": {
+          "src": "/images/team/archille-delamou.jpg",
+          "width": 1086,
+          "height": 1448
+        }
+      }
+    }
+  ]
+}

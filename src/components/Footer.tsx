@@ -17,6 +17,16 @@ import { assetPath } from "@/lib/assets";
 export function Footer({ locale }: { locale: Locale }) {
   const text = interfaceText[locale];
   const newsletter = newsletterContent[locale];
+  const configuredBase = process.env.GECA_GITHUB_PAGES === "true" ? process.env.NEXT_PUBLIC_NEWSLETTER_PUBLIC_URL : process.env.NEXT_PUBLIC_NEWSLETTER_URL;
+  let newsletterAction: string | undefined;
+  if (configuredBase) {
+    const base = new URL(configuredBase);
+    if ((process.env.GECA_GITHUB_PAGES === "true" && /^(localhost|127\.|\[::1\])/.test(base.hostname)) || base.username || base.password || base.search || base.hash || !/^\/[a-zA-Z0-9/_-]*$/.test(base.pathname) ||
+      (base.protocol !== "https:" && !(base.protocol === "http:" && base.hostname === "127.0.0.1" && process.env.GECA_GITHUB_PAGES !== "true"))) {
+      throw new Error("Adresse du formulaire newsletter invalide.");
+    }
+    newsletterAction = `${base.href.replace(/\/$/, "")}/newsletter/${locale}/commencer`;
+  }
   function links(paths: string[]) {
     return paths.map((path) => (
       <li key={path}>
@@ -36,13 +46,14 @@ export function Footer({ locale }: { locale: Locale }) {
           <p className="section-description">{newsletter.description}</p>
           </div>
         </div>
-        <div className="newsletter-controls" data-reveal>
+        <form className="newsletter-controls" data-reveal action={newsletterAction} method="post">
           <div className="newsletter-field">
             <label htmlFor="newsletter-email">{newsletter.email}</label>
-            <input id="newsletter-email" type="email" autoComplete="email" placeholder="E-mail" />
+            <input id="newsletter-email" name="email" type="email" required disabled={!newsletterAction} maxLength={254} autoComplete="email" placeholder="E-mail" />
           </div>
-          <button type="button" className="button button-primary button-inverse">{newsletter.subscribe}</button>
-        </div>
+          <button type={newsletterAction ? "submit" : "button"} disabled={!newsletterAction} className="button button-primary button-inverse">{newsletter.subscribe}</button>
+        </form>
+        {!newsletterAction && <p className="newsletter-availability" role="status">{newsletter.unavailable}</p>}
       </Container>
     </section>
     <footer className="site-footer">
@@ -62,7 +73,7 @@ export function Footer({ locale }: { locale: Locale }) {
               className="brand"
               aria-label={`${identity.name} — ${text.home}`}
             >
-              <BrandLogo />
+              <BrandLogo locale={locale} darkBackground />
             </Link>
             <p>{text.footerDescription}</p>
           </div>

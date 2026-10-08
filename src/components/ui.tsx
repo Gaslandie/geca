@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { ComponentProps, ReactNode } from "react";
-import { temporaryImageLabel, type LocalPhoto } from "@/content/site";
+import { temporaryImageLabel, type Locale, type LocalPhoto } from "@/content/site";
 import { assetPath } from "@/lib/assets";
 
 export function Icon({ name, className = "" }: {
@@ -77,6 +77,7 @@ export function SectionHeading({
 }
 
 export function PhotoPlaceholder({
+  locale = "fr",
   label,
   note,
   className = "",
@@ -84,6 +85,7 @@ export function PhotoPlaceholder({
   priority = false,
   sizes = "(max-width: 767px) 100vw, (max-width: 1199px) 50vw, 640px",
 }: {
+  locale?: Locale;
   label: string;
   note?: string;
   className?: string;
@@ -111,7 +113,7 @@ export function PhotoPlaceholder({
         </div>
       )}
       {photo?.temporary && (
-        <span className="temporary-image-label">{temporaryImageLabel}</span>
+        <span className="temporary-image-label">{locale === "fr" ? temporaryImageLabel : "Temporary image"}</span>
       )}
       {photo?.contextLabel && (
         <span className="photo-context-label">{photo.contextLabel}</span>

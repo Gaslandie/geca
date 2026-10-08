@@ -113,7 +113,7 @@ function HeaderNavigation({
           aria-label={`${identity.name} — ${text.home}`}
           onClick={close}
         >
-          <BrandLogo preload />
+          <BrandLogo locale={locale} preload />
         </Link>
 
         <nav

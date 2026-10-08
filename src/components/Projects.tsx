@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { homeContent, href, projects, type Project } from "@/content/site";
+import { getHomeContent, getPortfolioProjects, href, type Locale, type Project } from "@/content/site";
 import { Button, PhotoPlaceholder } from "./ui";
 
-export function ProjectCard({ project }: { project: Project }) {
-  const text = homeContent.projects;
+export function ProjectCard({ project, locale }: { project: Project; locale: Locale }) {
+  const text = getHomeContent(locale).projects;
   return (
     <article className="project-card">
       <div className="project-photo">
-        <PhotoPlaceholder label={text.photo} photo={project.photo} />
+        <PhotoPlaceholder locale={locale} label={text.photo} photo={project.photo} />
         {project.status && <span className="project-status">
           <span aria-hidden="true" />
           {project.status === "current"
@@ -30,7 +30,7 @@ export function ProjectCard({ project }: { project: Project }) {
           {text.partner} <strong>{project.partner}</strong>
         </p>
         <Button
-          href={`${href("fr", "projets")}#projet-${project.slug}`}
+          href={`${href(locale, "projets")}#projet-${project.slug}`}
           variant="text"
           aria-label={`${text.view} : ${project.title}`}
         >
@@ -41,12 +41,12 @@ export function ProjectCard({ project }: { project: Project }) {
   );
 }
 
-export function Projects() {
+export function Projects({ locale }: { locale: Locale }) {
   const [filter, setFilter] = useState<NonNullable<Project["status"]>>("current");
-  const visible = projects
+  const visible = getPortfolioProjects(locale)
     .filter((project) => project.status === filter)
     .slice(0, 3);
-  const text = homeContent.projects;
+  const text = getHomeContent(locale).projects;
   return (
     <>
       <div className="project-toolbar">
@@ -74,7 +74,7 @@ export function Projects() {
       </div>
       <div className="project-grid" id="project-list">
         {visible.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+          <ProjectCard key={project.slug} project={project} locale={locale} />
         ))}
       </div>
     </>

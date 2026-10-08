@@ -34,7 +34,7 @@ export function ProjectPortfolio({ locale }: { locale: Locale }) {
           <p className="portfolio-count">{projects.length} {text.count}</p>
           <div className="portfolio-list">
             {projects.map((project, index) => <article id={`projet-${project.slug}`} tabIndex={-1} className={`portfolio-project${index % 2 ? " portfolio-project--reverse" : ""}`} key={project.slug} aria-labelledby={`title-${project.slug}`}>
-              <PhotoPlaceholder className="portfolio-photo" label={text.photo} photo={project.photo} priority={index === 0} sizes="(max-width: 767px) 100vw, (min-width: 1600px) 595px, 42vw" />
+              <PhotoPlaceholder locale={locale} className="portfolio-photo" label={text.photo} photo={project.photo} priority={index === 0} sizes="(max-width: 767px) 100vw, (min-width: 1600px) 595px, 42vw" />
               <div className="portfolio-project-body card-content">
                 {project.status && <span className={`portfolio-status portfolio-status--${project.status}`}><span aria-hidden="true" />{text.statuses[project.status]}</span>}
                 <h3 id={`title-${project.slug}`}>{project.title}</h3>

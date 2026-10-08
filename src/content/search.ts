@@ -1,9 +1,10 @@
-import { newsArticlePath, getNewsEntries, newsContent, teamContent, teamMembers, aboutContent, contactContent, getInterventionAreas, getPortfolioProjects, homeContent, href, identity, interfaceText, interventionContent, missionVisionContent, organizationFacts, partnershipContent, portfolioContent, routes, territorialExperience, type Locale } from "./site";
+import { newsArticlePath, getNewsEntries, newsContent, teamContent, teamMembers, aboutContent, contactContent, getInterventionAreas, getPortfolioProjects, getHomeContent, href, identity, interfaceText, interventionContent, missionVisionContent, organizationFacts, partnershipContent, portfolioContent, routes, territorialExperience, type Locale } from "./site";
 import type { SearchDocument } from "@/lib/search";
 
 // Liste exclusivement publique, construite au rendu serveur. Jamais de fichier interne.
 export function getSearchDocuments(locale: Locale): SearchDocument[] {
   const documents: SearchDocument[] = [];
+  const homeContent = getHomeContent(locale);
   const add = (path: string, title: string, category: string, text: string, anchor = "") => {
     if (path && !routes.some((route) => route.path === path)) return;
     documents.push({ title, category, text, href: `${href(locale, path)}${anchor ? `#${anchor}` : ""}` });
@@ -15,7 +16,7 @@ export function getSearchDocuments(locale: Locale): SearchDocument[] {
     if (route.path === "recherche" || route.path.startsWith("actualites/")) continue;
     add(route.path, route[locale], "Page", route[locale]);
   }
-  add("", interfaceText[locale].home, identity.name, locale === "fr" ? `${homeContent.hero.title} ${homeContent.hero.titleSecondLine} ${homeContent.hero.introduction}` : interfaceText.en.footerDescription);
+  add("", interfaceText[locale].home, identity.name, `${homeContent.hero.title} ${homeContent.hero.titleSecondLine} ${homeContent.hero.introduction}`);
   add("a-propos", about.history.title, about.pageName, `${Object.values(organizationFacts[locale]).join(" ")} ${about.history.paragraphs.join(" ")} ${about.history.conviction}`, "notre-histoire");
   add("a-propos", about.approach.title, about.pageName, about.approach.items.map((item) => `${item.title} ${item.description}`).join(" "));
   for (const area of getInterventionAreas(locale)) add("a-propos/domaines-intervention", area.title, areas.title, `${area.description} ${area.detail}`, area.id);
@@ -28,10 +29,8 @@ export function getSearchDocuments(locale: Locale): SearchDocument[] {
   add("projets", experience.title, portfolio.title, `${experience.introduction} ${experience.achievements.join(" ")}`, "experience-kounounkan-moussayah");
   add("devenir-partenaire", partner.strengthsTitle, locale === "fr" ? "Partenariat" : "Partnership", `${partner.positioning} ${partner.strengths.join(" ")}`);
   add("contact", contact.title, interfaceText[locale].contact, `${contact.description} ${identity.address[locale]} ${identity.phone} ${identity.email}`);
-  if (locale === "fr") {
-    add("", `${homeContent.impact.title} ${homeContent.impact.titleSecondLine}`, homeContent.impact.label, `${homeContent.impact.stats.map((stat) => `${stat.value} ${stat.label}`).join(" · ")} ${homeContent.impact.achievements.join(" ")}`, "impact-title");
-    add("", homeContent.partners.title, homeContent.partners.label, homeContent.partners.items.map((item) => item.name).join(" "), "partners-title");
-    for (const item of homeContent.news.items) add("", item.title, homeContent.news.label, item.description, "news-title");
-  }
+  add("", `${homeContent.impact.title} ${homeContent.impact.titleSecondLine}`, homeContent.impact.label, `${homeContent.impact.stats.map((stat) => `${stat.value} ${stat.label}`).join(" · ")} ${homeContent.impact.achievements.join(" ")}`, "impact-title");
+  add("", homeContent.partners.title, homeContent.partners.label, homeContent.partners.items.map((item) => item.name).join(" "), "partners-title");
+  for (const item of homeContent.news.items) add("", item.title, homeContent.news.label, item.description, "news-title");
   return documents;
 }

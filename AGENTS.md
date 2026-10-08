@@ -241,3 +241,27 @@ Gassama demande la disposition de sa capture Mehad, avec avance automatique et f
 ## Suggestions du client — 8 octobre 2026
 
 Gassama demande d’appliquer les cinq suggestions client archivées dans docs/TEXTES-AUTHENTIQUES-CLIENT.md : doubler exactement le nom Global EcoAction du hero (facteur 3,6 de --text-label), Eco en vert foncé, supprimer l’attente entre les transitions du carrousel des logos du bas, éclaircir les photos par un voile moins opaque et retirer le support blanc CSS du logo transparent du pied de page. Conserver les textes, photos, noms accessibles, commandes clavier et préférences de mouvement/données. Cette demande remplace les anciennes couleurs/taille du nom et le support clair du logo du pied de page. Aucun commit, push ou déploiement autorisé par cette demande.
+
+
+## Eco sans effet — 8 octobre 2026
+
+Gassama demande de garder Eco uniquement en vert foncé (--green-dark), sans contour clair, halo ou ombre. Cette correction remplace l’effet ajouté aux suggestions du client. Ne pas le réintroduire sans demande.
+
+
+## Champ et activation newsletter — 8 octobre 2026
+
+Gassama demande de retirer le grand effet de focus du champ e-mail ; garder seulement une bordure fine sombre, sans ombre, dimensions inchangées et repère clavier visible. Il autorise la réalisation d’une newsletter réelle ; le prestataire et le compte restent à préciser avant connexion. Ne pas afficher de fausse confirmation, exposer de clé privée ni publier d’adresse d’abonné. Cette demande remplace la restriction d’aperçu sans envoi pour ce seul périmètre une fois le service choisi et configuré.
+
+
+## Newsletter interne — 8 octobre 2026
+
+Gassama choisit une gestion interne dans Laravel et préfère d’abord l’interne lorsque c’est pertinent et de bonne qualité. Le module local gère demandes d’inscription, confirmation d’adresse, abonnés privés, campagnes texte, simulations, désinscription et suppression d’adresse. Aucune donnée factuelle GECA inventée. Mode preview par défaut ; aucune connexion SMTP distante ou publication autorisée par cette demande. Le formulaire Next peut transmettre par POST vers une page GECA sans écriture ; la véritable inscription exige consentement et CSRF. Pour Pages, seule NEXT_PUBLIC_NEWSLETTER_PUBLIC_URL peut activer le formulaire : ne jamais publier l’URL locale. Conserver limites d’abus, chiffrement, secrets privés, propriété des campagnes côté serveur, droits recontrôlés et sessions publiques/administration distinctes. Consignes d’usage et limites dans docs/BACKOFFICE.md et backoffice/README.md. Aucun ajout à la référence personnelle du Bureau.
+
+## Accueil anglais — 8 octobre 2026
+
+Gassama demande l’accueil EN complet à partir du FR actuel. Utiliser Home/Projects communs et `getHomeContent(locale)` dans `src/content/site.ts`, les traductions existantes des projets/domaines et les mêmes médias. Traductions fidèles, chiffres et noms client conservés ; ne pas inventer de fait. Menus, métadonnées, recherche, suggestions, commandes et libellés accessibles suivent FR/EN. Le slogan intégré au logo reste inchangé. Cette demande remplace l’accueil anglais en préparation ; les autres rubriques en préparation gardent leur état. Newsletter Laravel locale conservée, sans envoi réel ou configuration distante. Aucun commit, push ou déploiement autorisé par cette demande.
+
+
+## Adresse retenue partout — priorité du 8 octobre 2026
+
+Gassama retient « Kissosso, commune de Matoto, Conakry, République de Guinée ». Cette demande remplace l’adresse Sangoyah Marché du 6 octobre pour toutes les données courantes FR/EN. Réutiliser `identity.address` ; traduction EN fidèle. Anciennes adresses conservées uniquement dans l’historique des textes reçus. Carte du quartier Kissosso sans inventer l’emplacement précis du bureau. Aucun autre fait, commit, push ou déploiement autorisé par cette correction.

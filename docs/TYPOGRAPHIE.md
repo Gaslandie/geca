@@ -209,4 +209,18 @@ La section de logos du bas devient une rangée sur fond blanc, sans encadrement 
 
 ## Suggestions client — 8 octobre 2026
 
-Le nom Global EcoAction du hero utilise désormais 3,6 × --text-label (double du facteur 1,8 précédent), poids 800 inchangé. Eco reprend --green-dark, avec contour clair de 1 px pour rester identifiable sur les photos. Les autres tailles et textes ne changent pas. Voile du hero allégé ; pas de modification des photos. Le pied de page partage le logo transparent et le fond transparent de la navigation. Les logos du bas enchaînent leurs déplacements de 1 600 ms sans attente programmée ; les arrêts, préférences et commandes précédents restent en place.
+Le nom Global EcoAction du hero utilise désormais 3,6 × --text-label (double du facteur 1,8 précédent), poids 800 inchangé. Eco reprend uniquement --green-dark, sans contour ni ombre (correction demandée par Gassama le 8 octobre 2026). Les autres tailles et textes ne changent pas. Voile du hero allégé ; pas de modification des photos. Le pied de page partage le logo transparent et le fond transparent de la navigation. Les logos du bas enchaînent leurs déplacements de 1 600 ms sans attente programmée ; les arrêts, préférences et commandes précédents restent en place.
+
+
+## Focus du champ newsletter — 8 octobre 2026
+
+Au clic et au clavier, conserver l’arrondi de 8 px et la bordure de 1 px ; seule sa couleur devient --green-dark. Pas de grand contour extérieur ni ombre. Le repère discret reste visible pour le clavier.
+
+## Hero décalé à gauche — 8 octobre 2026
+
+Le bloc `.hero-content` est décalé vers le début de ligne de `clamp(8px, 2.2vw, 32px)` par position relative. Les marges de sécurité et la largeur du texte sont conservées ; le déplacement ne modifie pas les transformations de `SiteMotion`.
+
+
+## Accueil FR/EN commun — 8 octobre 2026
+
+L’accueil anglais utilise exactement Home, Projects et les composants communs français. Même hiérarchie, médias, couleurs, facteurs 3,6/0,6 du hero, alignement à gauche, décalage, espacements et mouvements. Pas de police ou taille spécifique à l’anglais. Les textes suivent la langue du document ; les libellés des illustrations temporaires, commandes partenaires et descriptions accessibles suivent la langue du composant. Le logo graphique et son slogan intégré restent inchangés.

@@ -9,8 +9,8 @@ const clientReady = () => true;
 const serverReady = () => false;
 
 // Vue du quartier, sans marqueur qui prétendrait localiser le bureau.
-// Repère du quartier consulté le 7 octobre 2026 : https://mapcarta.com/fr/N481387162.
-const mapUrl = "https://www.openstreetmap.org/export/embed.html?bbox=-13.596%2C9.605%2C-13.569%2C9.630&layer=mapnik";
+// Repère Kissosso consulté le 8 octobre 2026 : https://mapcarta.com/N481387482.
+const mapUrl = "https://www.openstreetmap.org/export/embed.html?bbox=-13.586%2C9.625%2C-13.559%2C9.650&layer=mapnik";
 
 export function ContactMap({ locale }: { locale: Locale }) {
   const text = contactContent[locale].map;

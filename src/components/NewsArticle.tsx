@@ -35,7 +35,7 @@ export function NewsArticle({ locale, entry }: { locale: Locale; entry: NewsEntr
         </section>
         <section className="section">
           <Container>
-            {entry.photo && <PhotoPlaceholder className="news-article-photo" photo={entry.photo} label={entry.title} sizes="(min-width: 1280px) 1144px, 100vw" />}
+            {entry.photo && <PhotoPlaceholder locale={locale} className="news-article-photo" photo={entry.photo} label={entry.title} sizes="(min-width: 1280px) 1144px, 100vw" />}
             <div className="news-article-body" data-reveal>
               {entry.description.split("\n\n").slice(1).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               {(entry.zone || entry.partner) && <dl className="news-article-facts">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { homeContent as content, href } from "@/content/site";
+import { getHomeContent, href, type Locale } from "@/content/site";
 import {
   Button,
   Container,
@@ -13,7 +13,8 @@ import { PartnerCarousel } from "./PartnerCarousel";
 import { PartnerTicker } from "./PartnerTicker";
 import { HeroSlideshow } from "./HeroSlideshow";
 
-export function Home() {
+export function Home({ locale }: { locale: Locale }) {
+  const content = getHomeContent(locale);
   return (
     <main id="main-content" tabIndex={-1} className="home-page">
       <section className="hero" aria-labelledby="hero-title">
@@ -37,8 +38,8 @@ export function Home() {
             </div>
             <div className="hero-actions">
               <div className="hero-action-links">
-                <Button href={href("fr", "projets")} tone="inverse">{content.hero.primary}</Button>
-                <Button href={href("fr", "devenir-partenaire")} variant="secondary" tone="inverse">{content.hero.secondary}</Button>
+                <Button href={href(locale, "projets")} tone="inverse">{content.hero.primary}</Button>
+                <Button href={href(locale, "devenir-partenaire")} variant="secondary" tone="inverse">{content.hero.secondary}</Button>
               </div>
             </div>
           </div>
@@ -59,7 +60,7 @@ export function Home() {
                 )}
               </p>
             </div>
-            <Button href={href("fr", "a-propos")} variant="text">
+            <Button href={href(locale, "a-propos")} variant="text">
               {content.about.cta}
             </Button>
           </div>
@@ -77,12 +78,12 @@ export function Home() {
             {content.domains.items.map((item) => (
               <article className={`domain${item.photo ? "" : " domain--text"}`} key={item.id}>
                 <Link
-                  href={`${href("fr", "a-propos/domaines-intervention")}#${item.id}`}
+                  href={`${href(locale, "a-propos/domaines-intervention")}#${item.id}`}
                   className="domain-link"
                   aria-labelledby={`domain-title-${item.id}`}
                 >
                   <div className="domain-circle">
-                    {item.photo && <PhotoPlaceholder
+                    {item.photo && <PhotoPlaceholder locale={locale}
                       label={item.title}
                       photo={item.photo}
                       className="domain-photo"
@@ -138,15 +139,15 @@ export function Home() {
             title={content.projects.title}
             description={content.projects.description}
           >
-            <Button href={href("fr", "projets")} variant="text">
+            <Button href={href(locale, "projets")} variant="text">
               {content.projects.all}
             </Button>
           </SectionHeading>
-          <Projects />
+          <Projects locale={locale} />
         </Container>
       </section>
 
-      <TeamSection locale="fr" />
+      <TeamSection locale={locale} />
 
       <section className="news section section--tinted" aria-labelledby="news-title">
         <Container>
@@ -156,7 +157,7 @@ export function Home() {
               <h2 id="news-title">{content.news.title}</h2>
               <p className="section-description">{content.news.description}</p>
             </div>
-            <Link href={href("fr", "actualites")} className="button button-text news-all-link">
+            <Link href={href(locale, "actualites")} className="button button-text news-all-link">
               {content.news.cta}
             </Link>
           </div>
@@ -164,7 +165,7 @@ export function Home() {
             {content.news.items.map((item) => (
               <article key={item.title} className="news-card">
                 <div className="news-visual">
-                  <PhotoPlaceholder
+                  <PhotoPlaceholder locale={locale}
                     label={item.category}
                     photo={item.photo}
                     className="news-photo"
@@ -173,18 +174,18 @@ export function Home() {
                   <p className="news-badge">{item.category}</p>
                 </div>
                 <div className="news-card-content card-content">
-                  <h3><Link href={href("fr", item.path)}>{item.title}</Link></h3>
+                  <h3><Link href={href(locale, item.path)}>{item.title}</Link></h3>
                   <p>{item.description}</p>
                   <div className="news-card-footer">
                     <span className="draft-label">
                       {item.period}
                     </span>
                     <Link
-                      href={href("fr", item.path)}
+                      href={href(locale, item.path)}
                       className="button button-text news-card-link"
-                      aria-label={`Découvrir les actualités : ${item.title}`}
+                      aria-label={`${content.news.discoverLabel} : ${item.title}`}
                     >
-                      Découvrir
+                      {content.news.discover}
                     </Link>
                   </div>
                 </div>
@@ -203,7 +204,7 @@ export function Home() {
               <p className="section-description">{content.partners.description}</p>
             </div>
           </div>
-          <PartnerCarousel items={content.partners.items} />
+          <PartnerCarousel locale={locale} items={content.partners.items} />
         </Container>
       </section>
 
@@ -213,14 +214,14 @@ export function Home() {
             <p className="eyebrow">{content.cta.label}</p>
             <h2>{content.cta.partnerTitle}</h2>
             <p>{content.cta.partnerText}</p>
-            <Button href={href("fr", "devenir-partenaire")} tone="inverse">
+            <Button href={href(locale, "devenir-partenaire")} tone="inverse">
               {content.cta.partnerButton}
             </Button>
           </div>
           <div className="support-cta card-content">
             <h3>{content.cta.supportTitle}</h3>
             <p>{content.cta.supportText}</p>
-            <Button href={href("fr", "nous-soutenir")} variant="text" tone="inverse">
+            <Button href={href(locale, "nous-soutenir")} variant="text" tone="inverse">
               {content.cta.supportButton}
             </Button>
           </div>

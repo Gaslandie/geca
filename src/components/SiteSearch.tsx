@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { href, type Locale } from "@/content/site";
-import { prepareSearch, searchDocuments, searchExcerpt, SEARCH_LIMIT, SEARCH_MAX_LENGTH, type SearchDocument } from "@/lib/search";
+import { prepareSearch, searchDocuments, suggestSearchDocuments, searchExcerpt, SEARCH_LIMIT, SEARCH_MAX_LENGTH, type SearchDocument } from "@/lib/search";
 import { Icon } from "./ui";
 
 export function SiteSearch({ locale, documents, onOpen }: { locale: Locale; documents: SearchDocument[]; onOpen: () => void }) {
@@ -21,8 +21,10 @@ export function SiteSearch({ locale, documents, onOpen }: { locale: Locale; docu
   const hasQuery = Boolean(settledQuery.trim());
   const pending = query !== settledQuery || composing;
   const suggested = ["projets", "a-propos/domaines-intervention", "a-propos/mission-vision-valeurs", "contact"];
-  const results = hasQuery ? matches.slice(0, SEARCH_LIMIT).map((result) => result.document)
-    : suggested.flatMap((path) => documents.filter((document) => document.href === href(locale, path)).slice(0, 1));
+  const startingPages = suggested.flatMap((path) => documents.filter((document) => document.href === href(locale, path)).slice(0, 1));
+  const noMatches = hasQuery && !matches.length;
+  const results = noMatches ? suggestSearchDocuments(index, settledQuery, startingPages)
+    : hasQuery ? matches.slice(0, SEARCH_LIMIT).map((result) => result.document) : startingPages;
 
   useEffect(() => {
     if (composing) return;
@@ -42,6 +44,11 @@ export function SiteSearch({ locale, documents, onOpen }: { locale: Locale; docu
   }
 
   function keepFocusInDialog(event: KeyboardEvent<HTMLDialogElement>) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      close();
+      return;
+    }
     if (event.key !== "Tab") return;
     const controls = event.currentTarget.querySelectorAll<HTMLElement>("button:not(:disabled), input:not(:disabled), a[href]");
     const first = controls[0];
@@ -64,7 +71,7 @@ export function SiteSearch({ locale, documents, onOpen }: { locale: Locale; docu
       event.preventDefault();
       if (current <= 0) inputRef.current?.focus();
       else resultRefs.current[current - 1]?.focus();
-    } else if (event.key === "Enter" && current === -1 && hasQuery && results.length) {
+    } else if (event.key === "Enter" && current === -1 && hasQuery && matches.length) {
       event.preventDefault();
       resultRefs.current[0]?.click();
     }
@@ -72,7 +79,7 @@ export function SiteSearch({ locale, documents, onOpen }: { locale: Locale; docu
 
   const status = pending ? (fr ? "Recherche…" : "Searching…") : !hasQuery
     ? (fr ? "Quelques pages à découvrir" : "Pages to explore")
-    : !matches.length ? (fr ? "Aucun résultat. Essayez un autre mot, par exemple « arbres », « climat » ou « contact »." : "No results. Try another word, such as “trees”, “climate” or “contact”.")
+    : !matches.length ? (fr ? "Aucun résultat pour cette recherche. Essayez un autre mot ou explorez les suggestions ci-dessous." : "No results for this search. Try another word or explore the suggestions below.")
     : (fr ? `${matches.length} résultat${matches.length > 1 ? "s" : ""}${matches.length > SEARCH_LIMIT ? ` — les ${SEARCH_LIMIT} plus pertinents` : ""}` : `${matches.length} result${matches.length > 1 ? "s" : ""}${matches.length > SEARCH_LIMIT ? ` — top ${SEARCH_LIMIT} shown` : ""}`);
 
   return (
@@ -106,6 +113,7 @@ export function SiteSearch({ locale, documents, onOpen }: { locale: Locale; docu
         </div>
         <p id="site-search-help" className="search-help">{fr ? "Les résultats s’affinent pendant votre saisie. Flèches pour parcourir, Entrée pour ouvrir, Échap pour fermer." : "Results update as you type. Use arrow keys to browse, Enter to open and Escape to close."}</p>
         <p className="search-status" role="status" aria-live="polite" aria-atomic="true">{status}</p>
+        {!pending && noMatches && <h3 className="search-suggestions-title">{fr ? "Ces pages peuvent vous aider" : "These pages may help"}</h3>}
         <ul id="site-search-results" className="search-results" aria-label={fr ? "Suggestions de recherche" : "Search suggestions"}>
           {!pending && results.map((result, position) => (
             <li key={`${result.href}-${result.title}`}>

@@ -54,6 +54,21 @@ export function searchDocuments(documents: ReturnType<typeof prepareSearch>, que
   }).filter((result) => result.score > 0).sort((a, b) => b.score - a.score);
 }
 
+/** Pages réellement indexées : mots reconnus, puis points de départ publics. */
+export function suggestSearchDocuments(documents: ReturnType<typeof prepareSearch>, query: string, fallback: readonly SearchDocument[]) {
+  const tokens = [...new Set(normalizeSearch(query.slice(0, SEARCH_MAX_LENGTH)).split(" ")
+    .filter((word) => word.length > 2 && !stopWords.has(word)))].slice(0, 12);
+  const scores = new Map<string, { document: SearchDocument; score: number }>();
+  for (const token of tokens) {
+    for (const result of searchDocuments(documents, token)) {
+      const previous = scores.get(result.document.href);
+      scores.set(result.document.href, { document: previous?.document ?? result.document, score: (previous?.score ?? 0) + result.score });
+    }
+  }
+  const related = [...scores.values()].sort((a, b) => b.score - a.score).map((result) => result.document);
+  return (related.length ? related : fallback).slice(0, 4);
+}
+
 export function searchExcerpt(text: string, query: string) {
   const token = normalizeSearch(query).split(" ").find((word) => word.length > 2 && !stopWords.has(word));
   const position = token ? normalizeSearch(text).indexOf(token) : -1;
