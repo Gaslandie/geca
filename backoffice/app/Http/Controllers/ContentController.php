@@ -228,8 +228,12 @@ class ContentController extends Controller
     {
         $photo = $record->source_payload['photo'] ?? null;
         $source = $photo['src'] ?? $photo['fr']['src'] ?? null;
-        $root = dirname(base_path());
-        $manifestPath = $root.'/src/content/image-variants.json';
+        $localRoot = dirname(base_path());
+        $root = config('geca.reference_public_path') ?: $localRoot.'/public';
+        $manifestPath = database_path('reference/image-variants.json');
+        if (! is_file($manifestPath) && app()->environment('local', 'testing')) {
+            $manifestPath = $localRoot.'/src/content/image-variants.json';
+        }
         if (! is_string($source) || ! is_file($manifestPath)) {
             return null;
         }
@@ -241,7 +245,12 @@ class ContentController extends Controller
             return null;
         }
 
-        return is_file($root.'/public'.$path) ? $root.'/public'.$path : null;
+        if (! is_string($root) || realpath($root) !== $root || ! is_file($root.$path)
+            || realpath($root.$path) !== $root.$path) {
+            return null;
+        }
+
+        return $root.$path;
     }
 
     public function photo(string $kind, string $entry, string $size = 'preview')

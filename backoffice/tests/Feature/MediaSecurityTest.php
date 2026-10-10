@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\ContentEntry;
 use App\Models\MediaAsset;
 use App\Models\User;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
@@ -410,6 +411,42 @@ class MediaSecurityTest extends TestCase
         $this->signIn(['is_active' => false]);
         $this->get($photoUrl)->assertForbidden();
         $this->assertSame($files, Storage::disk('media')->allFiles());
+    }
+
+    public function test_packaged_portraits_use_only_the_server_directory_and_closed_registry(): void
+    {
+        $this->signIn();
+        $this->artisan('geca:import-reference')->assertSuccessful();
+        $entry = ContentEntry::where('kind', 'team')->firstOrFail();
+        $source = $entry->source_payload['photo']['src'] ?? $entry->source_payload['photo']['fr']['src'];
+        $database = database_path();
+        $temporary = sys_get_temp_dir().'/geca-reference-'.bin2hex(random_bytes(8));
+        mkdir($temporary.'/reference', 0700, true);
+        mkdir($temporary.'/site/images/optimized', 0700, true);
+        $path = '/images/optimized/portrait-fixture.webp';
+        $image = imagecreatetruecolor(80, 60);
+        imagewebp($image, $temporary.'/site'.$path);
+        $registry = $temporary.'/reference/image-variants.json';
+        file_put_contents($registry, json_encode([$source => [['width' => 192, 'src' => $path]]], JSON_THROW_ON_ERROR));
+        app()->useDatabasePath($temporary);
+        config(['geca.reference_public_path' => $temporary.'/site']);
+        $url = route('content.thumbnail', ['kind' => 'team', 'entry' => $entry->id, 'size' => 'thumbnail']);
+        try {
+            $this->get($url.'?reference_public_path=/etc')->assertOk()->assertHeader('Content-Type', 'image/webp');
+            unlink($temporary.'/site'.$path);
+            symlink($registry, $temporary.'/site'.$path);
+            $this->get($url)->assertNotFound();
+            unlink($temporary.'/site'.$path);
+            file_put_contents($registry, json_encode([$source => [['width' => 192, 'src' => '/images/optimized/../../reference/image-variants.json']]], JSON_THROW_ON_ERROR));
+            $this->get($url)->assertNotFound();
+            file_put_contents($registry, '{}');
+            $this->get($url)->assertNotFound();
+            $this->post('/deconnexion');
+            $this->get($url)->assertRedirect('/connexion');
+        } finally {
+            app()->useDatabasePath($database);
+            (new Filesystem)->deleteDirectory($temporary);
+        }
     }
 
     public function test_failed_history_write_rolls_back_text_photo_and_files(): void

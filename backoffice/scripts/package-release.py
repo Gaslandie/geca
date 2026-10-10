@@ -26,6 +26,19 @@ with tarfile.open(output, 'w:gz') as archive:
         info.size = len(data)
         info.mode = 0o600
         archive.addfile(info, io.BytesIO(data))
+    # Registre fermé des photos publiques importées : aucune source originale.
+    registry = base.parent / 'src/content/image-variants.json'
+    if registry.is_symlink():
+        raise SystemExit('Registre lié refusé')
+    data = registry.read_bytes()
+    relative = 'database/reference/image-variants.json'
+    if relative in manifest:
+        raise SystemExit('Registre déjà présent dans le paquet')
+    manifest[relative] = hashlib.sha256(data).hexdigest()
+    info = tarfile.TarInfo(relative)
+    info.size = len(data)
+    info.mode = 0o600
+    archive.addfile(info, io.BytesIO(data))
     data = (json.dumps(manifest, indent=2)+'\n').encode()
     info = tarfile.TarInfo('MANIFEST.json')
     info.size = len(data)
