@@ -130,3 +130,29 @@ réussis avec chunks dynamiques/RSC ajoutés aux fixtures de succès. Le
 récepteur affiche maintenant une phase fixe en cas d’arrêt, jamais un secret
 ou un message d’exception brut. Mise à jour distante du récepteur requise ;
 automatisation toujours désactivée, première publication non confirmée.
+
+Correctif du récepteur confirmé par Gassama : empreintes ancienne/nouvelle
+OK, outil remplacé sans mise à jour de la vitrine. Nouveau transfert SSH
+réussi le 10 octobre 2026 : sauvegarde publique vérifiée
+`/home2/fnksrwmy/geca-mise-a-jour-t9d_bs4o/sauvegarde-verifiee`, archive du logo
+client installée. Chrome indépendant confirme pages FR/EN HTTP 200, logos
+header/footer tous sur le nouveau fichier, dimensions naturelles 1600×666,
+proportions et absence de débordement à 320/375/1440 pixels. WebP servi de
+SHA256 `c150abe510680a0fa2ea9922cc6d32c65409c09e27f56dd343520a1c9f11c964`.
+Back-office et MySQL exclus de ce transfert.
+
+Variable d’activation GitHub mise à `true` après ce succès. Premier parcours
+complet Actions déclenché manuellement sur main : run 38080882644, commit
+516ec5ae58bab043d202639ad05cac2e5dea08b4. Résultat encore attendu au moment de
+cette note. La rotation proposée des cinq sauvegardes n’est pas encore
+implémentée : les sauvegardes existantes restent conservées.
+
+Résultat confirmé : run 38080882644 terminé avec succès. Lint, compilation,
+TypeScript, neuf essais publics, packaging et transfert SSH réussis depuis
+le runner GitHub. Sauvegarde vérifiée créée sur Bluehost :
+`/home2/fnksrwmy/geca-mise-a-jour-h6dvv9eg/sauvegarde-verifiee`. La publication
+sur push main est active ; aucun secret fourni aux étapes de compilation ou
+tests, pas de publication Laravel/MySQL. Ce circuit reste distinct de la
+future publication des contenus édités dans le back-office et de sa mise à
+jour logicielle. Le logo du back-office n’a pas été changé par cette
+publication limitée à la vitrine.
