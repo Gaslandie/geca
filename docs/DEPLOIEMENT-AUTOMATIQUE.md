@@ -101,3 +101,19 @@ existante, identité serveur strictement vérifiée, est refusé : aucun accès
 authentifié ni changement distant. Une nouvelle clé dédiée est préparée
 localement dans `release/bluehost-ssh` (ignoré par Git, privé). Sa partie
 privée ne sera jamais affichée ni incluse dans une livraison.
+
+L’enregistrement initial de la clé privée dans GitHub a été refusé par la
+vérification automatique faute d’accord explicite pour ce transfert précis.
+Gassama a ensuite donné cet accord dans le chat le 10 octobre 2026. Les deux
+secrets sont enregistrés dans `bluehost-production`, restreint à la branche
+`main`. Les variables sont IP `50.6.153.225`, port `22`, activation `false`.
+Aucune clé privée affichée, ajoutée au dépôt ou envoyée à Bluehost.
+
+`deploy/install-connection.py` prépare l’installation côté serveur à partir
+de deux outils aux empreintes fixées et d’une clé publique ED25519. Il
+contrôle compte, chemins, propriétaires et droits, refuse liens/outils
+modifiés et une même clé préexistante sans restrictions. Il sauvegarde les
+anciennes clés avant un ajout atomique ; une répétition conforme ne duplique
+pas la clé. Cinq fixtures locales réussissent : installation, répétition,
+lien de dossier SSH, clé préexistante non limitée, outil modifié. Installation
+réelle, restrictions effectives et première publication toujours attendues.
