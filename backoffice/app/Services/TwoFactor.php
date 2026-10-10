@@ -42,7 +42,8 @@ class TwoFactor
             return null;
         }
         $stage = $pending['stage'] ?? '';
-        if (($stage === 'setup' && $user->two_factor_confirmed_at)
+        if (! in_array($stage, ['setup', 'challenge', 'recovery'], true)
+            || ($stage === 'setup' && $user->two_factor_confirmed_at)
             || (in_array($stage, ['challenge', 'recovery'], true) && (! $user->two_factor_confirmed_at || ! $user->two_factor_secret))) {
             return null;
         }
@@ -124,7 +125,7 @@ class TwoFactor
         $request->session()->regenerate();
         $request->session()->put([
             'admin_version' => $user->session_version,
-            'two_factor_verified' => ['id' => $user->id, 'version' => $user->session_version],
+            'two_factor_verified' => ['id' => $user->id, 'version' => $user->session_version, 'method' => 'authenticator'],
         ]);
     }
 }

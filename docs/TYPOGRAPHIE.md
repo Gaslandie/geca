@@ -274,3 +274,8 @@ La barre de douze logos avance automatiquement toutes les 3,5 secondes avec les 
 ## Logos partenaires — précision prioritaire du 10 octobre 2026
 
 Aucun bouton pause/reprise, selon la demande finale de Gassama. Arrêt au survol et pendant le focus clavier ; reprise à leur sortie. Deux flèches conservées. Préférences de mouvement/données, grille sans JavaScript, arrêt hors écran/onglet caché conservés. Cette règle remplace la commande de pause décrite précédemment ; limite d'accessibilité documentée dans BENCHMARK.md.
+
+
+## Chargement des médias — 10 octobre 2026
+
+Sans modifier la présentation, BrandLogo utilise les variantes locales du logo transparent adaptées à l’écran. HeroSlideshow garde cinq fonds et sa cadence de cinq secondes, mais charge d’abord le premier fond et le suivant, puis prépare le fond suivant au fil des transitions. Seules les images déjà décodées sont affichées ; un fond cassé est sauté. Premier fond seul si mouvement réduit, économie de données ou absence de JavaScript ; suspension dans l’onglet caché et nettoyage du minuteur conservés. Aucun changement de police, texte, couleur ou animation visible.

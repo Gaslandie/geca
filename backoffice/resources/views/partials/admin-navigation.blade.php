@@ -1,5 +1,4 @@
 <nav class="admin-navigation" aria-label="Navigation de l’administration">
-    <p class="navigation-label">Contenus</p>
     <ul>
         @foreach($navigation as $item)
             <li><a href="{{ $item['url'] }}" @if($activeSection === $item['key']) aria-current="page" @endif>

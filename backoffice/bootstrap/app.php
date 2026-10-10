@@ -9,6 +9,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -29,7 +30,16 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo('/administration');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->dontFlash(['password', 'password_confirmation', 'code', 'recovery_code']);
+        $exceptions->dontFlash(['current_password', 'password', 'password_confirmation', 'code', 'recovery_code']);
+        $exceptions->render(function (HttpExceptionInterface $exception, Request $request) {
+            $status = $exception->getStatusCode();
+            if (! $request->is('newsletter/*') || $request->expectsJson() || ! in_array($status, [403, 404, 419, 429], true)) {
+                return null;
+            }
+            $locale = in_array($request->segment(2), ['fr', 'en'], true) ? $request->segment(2) : 'fr';
+
+            return response()->view('errors.newsletter', ['status' => $status, 'locale' => $locale], $status, $exception->getHeaders());
+        });
         $exceptions->respond(fn ($response) => AdminHeaders::secure($response));
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),

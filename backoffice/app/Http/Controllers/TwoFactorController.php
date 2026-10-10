@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\EmailLogin;
 use App\Services\TwoFactor;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\ImageRenderer;
@@ -24,6 +25,9 @@ class TwoFactorController extends Controller
 
     public function show(Request $request)
     {
+        if (config('login.verification') === 'email') {
+            return app(EmailLoginController::class)->show();
+        }
         if ($this->stage($request) === 'recovery') {
             return redirect()->route('two-factor.recovery');
         }
@@ -36,6 +40,7 @@ class TwoFactorController extends Controller
 
     public function qr(Request $request)
     {
+        abort_unless(config('login.verification') === 'authenticator', 404);
         abort_unless($this->stage($request) === 'setup', 404);
         $user = $this->factor->pending($request);
         $uri = $this->factor->otp($this->factor->setupSecret($request), $user)->getProvisioningUri();
@@ -46,6 +51,9 @@ class TwoFactorController extends Controller
 
     public function verify(Request $request)
     {
+        if (config('login.verification') === 'email') {
+            return app(EmailLoginController::class)->verify($request, app(EmailLogin::class));
+        }
         abort_unless(in_array($this->stage($request), ['setup', 'challenge'], true), 403);
         $data = $request->validate([
             'code' => ['nullable', 'string', 'regex:/\A[0-9]{6}\z/D', 'required_without:recovery_code', 'prohibits:recovery_code'],
@@ -94,6 +102,7 @@ class TwoFactorController extends Controller
 
     public function recovery(Request $request)
     {
+        abort_unless(config('login.verification') === 'authenticator', 404);
         abort_unless($this->stage($request) === 'recovery', 403);
         $encrypted = $request->session()->pull('two_factor_recovery_display');
         $codes = $encrypted ? json_decode(Crypt::decryptString($encrypted), true, flags: JSON_THROW_ON_ERROR) : [];
@@ -103,6 +112,7 @@ class TwoFactorController extends Controller
 
     public function finish(Request $request)
     {
+        abort_unless(config('login.verification') === 'authenticator', 404);
         abort_unless($this->stage($request) === 'recovery', 403);
         $request->validate(['saved' => ['accepted']]);
         DB::transaction(function () use ($request) {
@@ -124,11 +134,20 @@ class TwoFactorController extends Controller
 
     public function settings(Request $request)
     {
-        return view('auth.security', ['remaining' => count($request->user()->two_factor_recovery_hashes ?? [])]);
+        if (config('login.verification') === 'email') {
+            return app(EmailLoginController::class)->settings($request);
+        }
+
+        return view('auth.security', [
+            'remaining' => count($request->user()->two_factor_recovery_hashes ?? []),
+            'accountActionsAvailable' => app(AccountSecurityController::class)->confirmed($request, $request->user()),
+            'normalLoginConfigured' => true,
+        ]);
     }
 
     public function regenerate(Request $request)
     {
+        abort_unless(config('login.verification') === 'authenticator', 404);
         $data = $request->validate(['password' => ['required', 'string', 'max:256'], 'code' => ['required', 'string', 'max:35']]);
         [$user, $codes] = DB::transaction(function () use ($request, $data) {
             $user = User::whereKey($request->user()->id)->lockForUpdate()->firstOrFail();

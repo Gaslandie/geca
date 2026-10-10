@@ -31,6 +31,36 @@ class MediaSecurityTest extends TestCase
         return $user;
     }
 
+    public function test_preview_script_has_a_fresh_nonce_only_on_enabled_edit_pages(): void
+    {
+        $this->signIn();
+        $first = $this->get($this->editUrl())->assertOk();
+        $nonce = $first->viewData('photoPreviewNonce');
+        $this->assertMatchesRegularExpression('/^[A-Za-z0-9+\/]{24}$/', $nonce);
+        $this->assertStringContainsString("script-src 'nonce-$nonce'", $first->headers->get('Content-Security-Policy'));
+        $this->assertStringContainsString("img-src 'self' blob:", $first->headers->get('Content-Security-Policy'));
+        $this->assertStringNotContainsString('unsafe-inline', $first->headers->get('Content-Security-Policy'));
+        $this->assertStringNotContainsString('unsafe-eval', $first->headers->get('Content-Security-Policy'));
+        $first->assertSee('nonce="'.$nonce.'"', false)->assertSee('photo-preview.js');
+        $second = $this->get($this->editUrl())->assertOk();
+        $this->assertNotSame($nonce, $second->viewData('photoPreviewNonce'));
+        foreach (['/administration', '/administration/projects', '/connexion', '/newsletter/fr'] as $path) {
+            $response = $this->get($path);
+            if (str_contains($response->getContent(), 'admin-navigation.js')) {
+                $this->assertMatchesRegularExpression("/script-src 'nonce-[A-Za-z0-9+\/]{24}'; script-src-attr 'none'/", $response->headers->get('Content-Security-Policy'));
+            } else {
+                $this->assertStringNotContainsString('script-src', $response->headers->get('Content-Security-Policy'));
+            }
+            $this->assertStringNotContainsString('blob:', $response->headers->get('Content-Security-Policy'));
+            $response->assertDontSee('photo-preview.js');
+        }
+        config(['geca.media_uploads_enabled' => false]);
+        $disabled = $this->get($this->editUrl())->assertOk()->assertDontSee('photo-preview.js');
+        $this->assertNull($disabled->viewData('photoPreviewNonce'));
+        $this->assertMatchesRegularExpression("/script-src 'nonce-[A-Za-z0-9+\/]{24}'; script-src-attr 'none'/", $disabled->headers->get('Content-Security-Policy'));
+        $this->assertStringNotContainsString('blob:', $disabled->headers->get('Content-Security-Policy'));
+    }
+
     private function project(): ContentEntry
     {
         if (! ContentEntry::where('kind', 'projects')->exists()) {
@@ -72,11 +102,14 @@ class MediaSecurityTest extends TestCase
         $media = MediaAsset::firstOrFail();
         $this->assertSame($user->id, $media->user_id);
         $disk = Storage::disk('media');
-        $disk->assertExists([$media->id.'/original.bin', $media->id.'/preview.webp']);
+        $disk->assertExists([$media->id.'/original.bin', $media->id.'/preview.webp', $media->id.'/thumbnail.webp']);
         $this->assertSame(0600, fileperms($disk->path($media->id.'/original.bin')) & 0777);
         $this->assertSame('image/webp', getimagesize($disk->path($media->id.'/preview.webp'))['mime']);
         $this->assertSame(1280, $media->width);
         $this->assertSame(720, $media->height);
+        $this->assertLessThanOrEqual(250 * 1024, $media->preview_bytes);
+        $this->assertLessThanOrEqual(16 * 1024, $disk->size($media->id.'/thumbnail.webp'));
+        $this->assertSame(192, getimagesize($disk->path($media->id.'/thumbnail.webp'))[0]);
         $this->get("/administration/medias/$media->id/apercu")->assertOk()->assertHeader('Content-Type', 'image/webp');
         $this->get("/storage/$media->id/preview.webp")->assertNotFound();
         $this->get("/administration/medias/$media->id/original")->assertNotFound();
@@ -142,6 +175,7 @@ class MediaSecurityTest extends TestCase
         $disk = Storage::disk('media');
         $this->assertStringContainsString('PRIVATE_LOCATION_MARKER', $disk->get($media->id.'/original.bin'));
         $this->assertStringNotContainsString('PRIVATE_LOCATION_MARKER', $disk->get($media->id.'/preview.webp'));
+        $this->assertStringNotContainsString('PRIVATE_LOCATION_MARKER', $disk->get($media->id.'/thumbnail.webp'));
     }
 
     public function test_missing_processing_capability_fails_closed(): void
@@ -153,31 +187,44 @@ class MediaSecurityTest extends TestCase
         $this->assertDatabaseCount('media_assets', 0);
     }
 
-    public function test_description_is_required_and_optional_information_is_escaped(): void
+    public function test_removed_photo_questions_are_not_required_and_cannot_set_metadata(): void
     {
         $this->signIn();
+        $entry = $this->project();
         $data = $this->data();
-        unset($data['alt_fr']);
-        $this->upload($data)->assertSessionHasErrors('alt_fr');
-        $data = $this->data();
-        $data['credit'] = '<script>alert(1)</script>';
+        $data['payload'] = ['fr' => $entry->source_payload['fr'], 'en' => $entry->source_payload['en']];
+        $data['payload']['fr']['title'] = '<script>alert(1)</script>';
+        $data['credit'] = 'Photographe inventé par une requête';
+        $data['license'] = 'Autorisation inventée';
+        $data['illustrative'] = 0;
         $this->upload($data)->assertSessionHasNoErrors();
+        $asset = MediaAsset::firstOrFail();
+        $this->assertNull($asset->credit);
+        $this->assertSame('Non précisée', $asset->source);
+        $this->assertSame('Non précisée', $asset->license);
+        $this->assertTrue($asset->illustrative);
+        $this->assertStringNotContainsString('Image unie de test', $asset->alt_fr);
         $this->get($this->editUrl())->assertDontSee('<script>', false)->assertSee('&lt;script&gt;', false);
+        $response = $this->get($this->editUrl())->assertOk();
+        foreach (['alt_fr', 'alt_en', 'source', 'credit', 'license', 'illustrative'] as $field) {
+            $response->assertDontSee('name="'.$field.'"', false);
+        }
     }
 
-    public function test_photo_and_description_are_enough_without_inventing_rights_or_translation(): void
+    public function test_photo_alone_is_enough_without_inventing_rights_or_translating_content(): void
     {
         $user = $this->signIn();
         $this->upload([
             'photo' => UploadedFile::fake()->image('test.jpg'),
-            'alt_fr' => 'Image unie de test',
         ])->assertSessionHasNoErrors()->assertRedirect($this->editUrl());
         $asset = MediaAsset::firstOrFail();
-        $this->assertSame('Image unie de test', $asset->title);
+        $entry = $this->project();
+        $this->assertSame(mb_substr($entry->source_payload['fr']['title'], 0, 200), $asset->title);
+        $this->assertSame('Photo associée à la fiche « '.mb_substr($entry->source_payload['fr']['title'], 0, 900).' ».', $asset->alt_fr);
         $this->assertSame('Non précisée', $asset->source);
         $this->assertSame('Non précisée', $asset->license);
         $this->assertNull($asset->credit);
-        $this->assertSame('', $asset->alt_en);
+        $this->assertSame('Photo attached to the record “'.mb_substr($entry->source_payload['en']['title'], 0, 900).'”.', $asset->alt_en);
         $this->assertTrue($asset->illustrative);
         $this->assertSame($user->id, $asset->user_id);
         $this->get("/storage/$asset->id/preview.webp")->assertNotFound();
@@ -196,7 +243,7 @@ class MediaSecurityTest extends TestCase
         }
         DB::table('media_assets')->insert($rows);
         $this->upload($this->data())->assertSessionHasErrors('photo');
-        $this->assertCount(2, Storage::disk('media')->allFiles());
+        $this->assertCount(3, Storage::disk('media')->allFiles());
         $this->assertDatabaseCount('media_assets', 200);
     }
 
@@ -214,6 +261,9 @@ class MediaSecurityTest extends TestCase
     {
         $user = $this->signIn();
         $this->project();
+        $member = ContentEntry::where('kind', 'team')->firstOrFail();
+        $referenceUrl = route('content.thumbnail', ['kind' => 'team', 'entry' => $member->id, 'size' => 'thumbnail']);
+        $this->get('/administration/team')->assertOk()->assertSee($referenceUrl);
         foreach (['projects', 'news', 'team'] as $kind) {
             $entry = ContentEntry::where('kind', $kind)->firstOrFail();
             $payload = array_intersect_key($entry->source_payload, ['fr' => true, 'en' => true]);
@@ -227,6 +277,12 @@ class MediaSecurityTest extends TestCase
             $revision = DB::table('content_revisions')->where('content_entry_id', $entry->id)->first();
             $this->assertSame($asset->id, json_decode($revision->payload, true)['photo_id']);
             $this->get("/administration/$kind/$entry->id/modifier")->assertOk()->assertSee(route('media.preview', $asset));
+            if ($kind === 'team') {
+                $thumbnailUrl = route('media.thumbnail', ['media' => $asset->id, 'size' => 'thumbnail']);
+                $this->get('/administration/team')->assertOk()->assertSee($thumbnailUrl)->assertDontSee($referenceUrl);
+                Storage::disk('media')->delete($asset->id.'/preview.webp');
+                $this->get('/administration/team')->assertOk()->assertDontSee(route('media.preview', $asset))->assertSee('team-entry-avatar-placeholder');
+            }
         }
         $this->assertDatabaseCount('media_assets', 3);
     }
@@ -256,8 +312,12 @@ class MediaSecurityTest extends TestCase
         $this->upload($this->data())->assertSessionHasNoErrors();
         $second = $this->project()->draft_payload['photo_id'];
         $this->assertNotSame($first, $second);
+        $asset = MediaAsset::findOrFail($second);
+        $asset->forceFill(['source' => 'Provenance de test archivée', 'credit' => 'Auteur de test', 'license' => 'Droits de test', 'alt_fr' => 'Ancienne description de test', 'illustrative' => false])->save();
+        $existingMetadata = $asset->fresh()->getAttributes();
         $this->upload([])->assertSessionHasNoErrors();
         $this->assertSame($second, $this->project()->draft_payload['photo_id']);
+        $this->assertSame($existingMetadata, $asset->fresh()->getAttributes());
         Storage::disk('media')->assertExists([$first.'/original.bin', $first.'/preview.webp', $second.'/preview.webp']);
     }
 
@@ -272,7 +332,7 @@ class MediaSecurityTest extends TestCase
         $this->upload($data)->assertSessionHasErrors('payload.fr.title');
         $this->assertSame($before, $this->project()->draft_payload);
         $this->assertDatabaseCount('media_assets', 1);
-        $this->assertCount(2, Storage::disk('media')->allFiles());
+        $this->assertCount(3, Storage::disk('media')->allFiles());
     }
 
     public function test_old_photo_screen_is_absent_and_attachment_identifiers_cannot_be_forged(): void
@@ -299,6 +359,57 @@ class MediaSecurityTest extends TestCase
         $this->get("/administration/team/$entry->id/photo")->assertNotFound();
         $this->signIn(['is_active' => false]);
         $this->get($url)->assertForbidden();
+    }
+
+    public function test_thumbnails_keep_access_checks_and_legacy_fallback_private(): void
+    {
+        $user = $this->signIn();
+        $this->upload($this->data())->assertSessionHasNoErrors();
+        $asset = MediaAsset::firstOrFail();
+        $url = route('media.thumbnail', ['media' => $asset->id, 'size' => 'thumbnail']);
+        $this->get($url)->assertOk()->assertHeader('Content-Type', 'image/webp');
+        $this->get("/administration/medias/$asset->id/apercu/../../original.bin")->assertNotFound();
+        $this->get("/administration/medias/$asset->id/apercu/original")->assertNotFound();
+        Storage::disk('media')->delete($asset->id.'/thumbnail.webp');
+        $this->get($url)->assertOk();
+        $member = ContentEntry::where('kind', 'team')->firstOrFail();
+        $imported = route('content.thumbnail', ['kind' => 'team', 'entry' => $member->id, 'size' => 'thumbnail']);
+        $this->get($imported)->assertOk();
+        $this->get(route('content.thumbnail', ['kind' => 'news', 'entry' => $member->id, 'size' => 'thumbnail']))->assertNotFound();
+        $user->session_version++;
+        $user->save();
+        $this->get($url)->assertForbidden();
+        $this->get($imported)->assertRedirect('/connexion');
+        $this->signIn(['is_admin' => false]);
+        $this->get($url)->assertForbidden();
+    }
+
+    public function test_trash_keeps_private_photos_and_restores_the_attachment(): void
+    {
+        $this->signIn();
+        $this->upload($this->data())->assertSessionHasNoErrors();
+        $entry = $this->project();
+        $payload = $entry->draft_payload;
+        $files = Storage::disk('media')->allFiles();
+        $media = MediaAsset::findOrFail($payload['photo_id']);
+        $photoUrl = route('media.preview', $media);
+        $confirmation = $this->get("/administration/projects/$entry->id/supprimer")->assertOk();
+        $this->delete("/administration/projects/$entry->id", [
+            'revision' => $entry->revision, 'confirm' => 1, 'deletion_state' => $confirmation->viewData('deletionState'),
+        ])->assertSessionHasNoErrors();
+        $this->get("/administration/projects/$entry->id/photo")->assertNotFound();
+        $this->get($photoUrl)->assertOk()->assertHeader('Content-Type', 'image/webp');
+        $this->assertSame($files, Storage::disk('media')->allFiles());
+        $this->assertSame($payload, ContentEntry::withTrashed()->findOrFail($entry->id)->draft_payload);
+        $this->assertDatabaseCount('media_assets', 1);
+        $this->post("/administration/projects/$entry->id/restaurer", ['revision' => $entry->revision + 1])->assertSessionHasNoErrors();
+        $this->assertSame($payload, $entry->fresh()->draft_payload);
+        $this->get("/administration/projects/$entry->id/modifier")->assertOk()->assertSee($photoUrl, false);
+        $this->post('/deconnexion')->assertRedirect();
+        $this->get($photoUrl)->assertRedirect('/connexion');
+        $this->signIn(['is_active' => false]);
+        $this->get($photoUrl)->assertForbidden();
+        $this->assertSame($files, Storage::disk('media')->allFiles());
     }
 
     public function test_failed_history_write_rolls_back_text_photo_and_files(): void

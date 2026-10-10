@@ -112,6 +112,65 @@ class NewsletterTest extends TestCase
         $this->assertArrayNotHasKey('email', $s->toArray());
     }
 
+    public function test_validation_returns_to_get_form_in_both_languages_and_preserves_answers(): void
+    {
+        foreach (['fr', 'en'] as $locale) {
+            $this->from('https://untrusted.example/')->post("/newsletter/$locale/inscription", ['email' => 'invalid', 'consent' => 1])
+                ->assertRedirect(route('newsletter.form', $locale));
+            $response = $this->get("/newsletter/$locale");
+            $response->assertOk()->assertSee('value="invalid"', false)->assertSee('aria-describedby="email-error"', false);
+            $response->assertSee($locale === 'fr' ? 'Indiquez une adresse e-mail valide' : 'Enter a valid email address');
+            $response->assertSee('id="consent"', false)->assertSee('checked', false);
+        }
+        $this->assertDatabaseCount('newsletter_subscribers', 0);
+        $this->assertDatabaseCount('newsletter_deliveries', 0);
+    }
+
+    public function test_invalid_bridge_and_missing_consent_have_safe_recovery_without_losing_email(): void
+    {
+        $this->withHeader('Origin', 'http://127.0.0.1:3000')->post('/newsletter/fr/commencer', ['email' => 'invalid'])
+            ->assertRedirect(route('newsletter.form', 'fr'));
+        $this->get('/newsletter/fr')->assertOk()->assertSee('value="invalid"', false);
+        $this->post('/newsletter/fr/inscription', ['email' => 'x@example.test'])->assertRedirect(route('newsletter.form', 'fr'));
+        $this->get('/newsletter/fr')->assertOk()->assertSee('value="x@example.test"', false)->assertSee('aria-describedby="consent-error"', false);
+        $this->assertDatabaseCount('newsletter_subscribers', 0);
+    }
+
+    public function test_invalid_email_is_escaped_and_oversized_or_array_input_is_not_flashed(): void
+    {
+        $payload = '"><script>alert(1)</script>';
+        $this->post('/newsletter/fr/inscription', ['email' => $payload])->assertSessionHasErrors('email');
+        $this->get('/newsletter/fr')->assertOk()->assertDontSee('<script>', false)->assertSee($payload);
+        foreach ([str_repeat('a', 255), ['x@example.test']] as $email) {
+            $this->post('/newsletter/fr/inscription', ['email' => $email])->assertSessionHasErrors('email')->assertSessionHas('_old_input.email', '');
+        }
+        $this->assertDatabaseCount('newsletter_subscribers', 0);
+    }
+
+    public function test_public_csrf_and_invalid_links_keep_language_without_exposing_admin_navigation(): void
+    {
+        $subscriber = $this->subscriber('invalid-link@example.test');
+        $this->csrf();
+        foreach (['fr', 'en'] as $locale) {
+            $this->post("/newsletter/$locale/inscription", ['email' => 'x@example.test', 'consent' => 1])
+                ->assertStatus(419)->assertSee('lang="'.$locale.'"', false)->assertSee(route('newsletter.form', $locale), false)->assertDontSee('Revenir à la connexion');
+            $this->get("/newsletter/$locale/confirmer/$subscriber->id")
+                ->assertForbidden()->assertSee(route('newsletter.form', $locale), false)->assertDontSee('Ce compte');
+        }
+        $this->assertDatabaseCount('newsletter_subscribers', 1);
+        $this->assertSame('pending', $subscriber->fresh()->status);
+    }
+
+    public function test_public_throttle_keeps_retry_header_status_and_newsletter_recovery(): void
+    {
+        for ($i = 0; $i < 5; $i++) {
+            $this->post('/newsletter/en/inscription', ['email' => 'invalid-'.$i])->assertRedirect(route('newsletter.form', 'en'));
+        }
+        $this->post('/newsletter/en/inscription', ['email' => 'invalid-last'])
+            ->assertStatus(429)->assertHeader('Retry-After')->assertSee('Too many requests')->assertSee(route('newsletter.form', 'en'), false)->assertDontSee('Espace privé');
+        $this->assertDatabaseCount('newsletter_subscribers', 0);
+    }
+
     public function test_confirmation_signature_expiry_and_get_has_no_mutation(): void
     {
         $s = $this->subscriber();

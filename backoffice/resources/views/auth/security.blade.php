@@ -1,10 +1,16 @@
 @extends('layouts.admin')
 @section('title', 'Sécurité du compte')
 @section('content')
-<section class="card login mfa-card">
+<div class="heading">
     <h1>Sécurité du compte</h1>
-    <p>La double authentification est active. Il vous reste {{ $remaining }} codes de secours.</p>
+    <p>Chaque connexion demande votre mot de passe puis un code Authenticator.</p>
+</div>
+<div class="security-sections">
+@include('partials.account-security')
+@if($accountActionsAvailable)
+<section class="card login mfa-card">
     <h2>Créer de nouveaux codes de secours</h2>
+    <p>Il vous reste {{ $remaining }} codes de secours.</p>
     <p>Les anciens codes seront annulés. Vos autres sessions seront fermées.</p>
     <form method="post" action="{{ route('security.regenerate') }}" novalidate>
         @csrf
@@ -16,4 +22,6 @@
     </form>
     <p class="muted">Si vous avez perdu votre téléphone et tous vos codes, contactez le responsable du site. Aucun e-mail seul ne permet de retirer cette protection.</p>
 </section>
+@endif
+</div>
 @endsection

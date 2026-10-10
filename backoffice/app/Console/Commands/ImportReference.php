@@ -18,7 +18,10 @@ class ImportReference extends Command
         $created = 0;
         DB::transaction(function () use ($items, &$created) {
             foreach ($items['entries'] as $item) {
-                if (ContentEntry::where('kind', $item['kind'])->where('source_key', $item['key'])->exists()) {
+                if (ContentEntry::withTrashed()->where('kind', $item['kind'])->where('source_key', $item['key'])->exists()) {
+                    continue;
+                }
+                if (isset($item['payload']['linked_project']) && ContentEntry::onlyTrashed()->where('kind', 'projects')->where('source_key', $item['payload']['linked_project'])->exists()) {
                     continue;
                 }
                 $entry = new ContentEntry;

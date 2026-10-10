@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\ContentEntry;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
@@ -74,7 +75,7 @@ class AdminSecurityTest extends TestCase
         $this->verifiedAdmin($user);
         $this->assertNotSame($before, session()->getId());
         $this->assertNotSame($tokenBefore, session()->token());
-        $this->get('/administration')->assertOk()->assertSee('Vos changements ne sont pas encore visibles sur le site.');
+        $this->get('/administration')->assertOk()->assertSee('<h1>Tableau de bord</h1>', false);
         $this->post('/deconnexion')->assertRedirect('/connexion');
         $this->assertGuest();
         $this->get('/administration')->assertRedirect('/connexion');
@@ -233,6 +234,26 @@ class AdminSecurityTest extends TestCase
         }
     }
 
+    public function test_sidebar_script_has_a_fresh_matching_nonce_without_broad_script_permissions(): void
+    {
+        $this->get('/connexion')->assertDontSee('admin-navigation.js');
+        $this->signedIn();
+        $previous = null;
+        foreach (['/administration', '/administration/projects', '/administration/corbeille'] as $path) {
+            $response = $this->get($path)->assertOk();
+            preg_match('/<script src="[^"]*admin-navigation\.js[^"]*" nonce="([A-Za-z0-9+\/]{24})"/', $response->getContent(), $match);
+            $this->assertCount(2, $match);
+            $this->assertNotSame($previous, $match[1]);
+            $previous = $match[1];
+            $policy = $response->headers->get('Content-Security-Policy');
+            $this->assertStringContainsString("script-src 'nonce-{$match[1]}'; script-src-attr 'none'", $policy);
+            foreach (["script-src 'self'", 'unsafe-inline', 'unsafe-eval', 'blob:'] as $forbidden) {
+                $this->assertStringNotContainsString($forbidden, $policy);
+            }
+            $response->assertSee('aria-controls="admin-sidebar"', false)->assertSee('aria-expanded="true"', false);
+        }
+    }
+
     public function test_authenticated_admin_can_save_a_private_draft_with_server_actor(): void
     {
         $entry = $this->entry();
@@ -255,6 +276,45 @@ class AdminSecurityTest extends TestCase
         $this->put("/administration/team/$entry->id", $this->draft($entry))->assertNotFound();
         $this->get('/administration/projects/999999/modifier')->assertNotFound();
         $this->assertDatabaseCount('content_revisions', 0);
+    }
+
+    public function test_changed_fields_survive_reopening_in_all_content_sections(): void
+    {
+        $this->entry();
+        $user = $this->signedIn();
+        foreach (['projects', 'news', 'team'] as $kind) {
+            $entry = ContentEntry::where('kind', $kind)->get()->first(fn ($entry) => ! isset($entry->source_payload['linked_project']));
+            $original = $entry->source_payload;
+            $data = $this->draft($entry);
+            foreach (['fr', 'en'] as $locale) {
+                foreach (array_keys($entry->fields()) as $field) {
+                    $data['payload'][$locale][$field] = "Contrôle technique $kind $locale $field";
+                }
+            }
+            $this->put("/administration/$kind/$entry->id", $data)->assertSessionHasNoErrors()->assertRedirect();
+            $saved = $entry->fresh();
+            $this->assertSame($data['payload'], $saved->draft_payload);
+            $this->assertSame($original, $saved->source_payload);
+            $this->get("/administration/$kind/$entry->id/modifier")->assertOk()->assertViewHas('payload', $data['payload']);
+            $this->get("/administration/$kind")->assertOk()->assertSee($saved->label());
+            $revision = DB::table('content_revisions')->where('content_entry_id', $entry->id)->first();
+            $this->assertSame($user->id, $revision->user_id);
+            $this->assertSame($data['payload'], json_decode($revision->payload, true));
+        }
+    }
+
+    public function test_linked_news_heading_and_list_follow_the_saved_project(): void
+    {
+        $project = $this->entry();
+        $news = ContentEntry::where('source_key', 'projet-'.$project->source_key)->firstOrFail();
+        $this->signedIn();
+        $data = $this->draft($project);
+        $data['payload']['fr']['title'] = 'Projet renommé pour le contrôle technique';
+        $this->put("/administration/projects/$project->id", $data)->assertSessionHasNoErrors()->assertRedirect();
+        $this->get("/administration/news/$news->id/modifier")->assertOk()
+            ->assertSee('<h1>'.$data['payload']['fr']['title'].'</h1>', false);
+        $this->get('/administration/news')->assertOk()
+            ->assertSee('<h2>'.$data['payload']['fr']['title'].'</h2>', false);
     }
 
     public function test_changing_account_does_not_reuse_previous_access(): void
@@ -332,6 +392,9 @@ class AdminSecurityTest extends TestCase
         $this->put("/administration/projects/$entry->id", $data)->assertSessionHasNoErrors();
         $this->get('/administration/projects')->assertDontSee('<script>', false)->assertSee('&lt;script&gt;', false);
         $this->get("/administration/projects/$entry->id/modifier")->assertDontSee('<script>', false);
+        $news = ContentEntry::where('source_key', 'projet-'.$entry->source_key)->firstOrFail();
+        $this->get('/administration/news')->assertDontSee('<script>', false)->assertSee('&lt;script&gt;', false);
+        $this->get("/administration/news/$news->id/modifier")->assertDontSee('<script>', false)->assertSee('&lt;script&gt;', false);
     }
 
     public function test_linked_news_must_be_edited_in_the_project(): void
@@ -390,6 +453,234 @@ class AdminSecurityTest extends TestCase
                 ->assertFailed();
         }
         $this->assertDatabaseCount('users', 0);
+    }
+
+    private function deletion(ContentEntry $entry): array
+    {
+        $confirmation = $this->get("/administration/$entry->kind/$entry->id/supprimer")->assertOk();
+
+        return ['revision' => $entry->revision, 'confirm' => 1, 'deletion_state' => $confirmation->viewData('deletionState')];
+    }
+
+    public function test_content_deletion_and_restore_keep_original_draft_and_server_actor(): void
+    {
+        $this->entry();
+        $actor = $this->signedIn();
+        foreach (['projects', 'news', 'team'] as $kind) {
+            $entry = ContentEntry::where('kind', $kind)->get()->first(fn ($item) => ! isset($item->source_payload['linked_project']));
+            $this->put("/administration/$kind/$entry->id", $this->draft($entry))->assertSessionHasNoErrors();
+            $entry->refresh();
+            $source = $entry->source_payload;
+            $draft = $entry->draft_payload;
+            $data = $this->deletion($entry);
+            $this->assertSame(1, $entry->fresh()->revision, 'La confirmation GET ne supprime rien');
+            $this->delete("/administration/$kind/$entry->id", $data + ['deleted_by' => 999, 'deletion_batch' => 'forged'])->assertSessionHasNoErrors()->assertRedirect("/administration/$kind");
+            $deleted = ContentEntry::withTrashed()->findOrFail($entry->id);
+            $this->assertTrue($deleted->trashed());
+            $this->assertEquals($actor->id, $deleted->deleted_by);
+            $this->assertNotSame('forged', $deleted->deletion_batch);
+            $this->assertSame($source, $deleted->source_payload);
+            $this->assertSame($draft, $deleted->draft_payload);
+            $this->assertSame(2, $deleted->revision);
+            $this->assertDatabaseHas('content_revisions', ['content_entry_id' => $entry->id, 'revision' => 2, 'user_id' => $actor->id, 'source_note' => 'Suppression de la fiche vers la corbeille.']);
+            $this->get("/administration/$kind/$entry->id/modifier")->assertNotFound();
+            $this->get("/administration/$kind/$entry->id/photo")->assertNotFound();
+            $this->put("/administration/$kind/$entry->id", $this->draft($entry))->assertNotFound();
+            $this->delete("/administration/$kind/$entry->id", $data)->assertNotFound();
+            $this->artisan('geca:import-reference')->assertSuccessful();
+            $this->assertTrue(ContentEntry::withTrashed()->find($entry->id)->trashed(), 'Un nouvel import ne réintroduit pas une fiche supprimée');
+            $this->get("/administration/$kind/corbeille")->assertOk()->assertSee($entry->label());
+            $this->post("/administration/$kind/$entry->id/restaurer", ['revision' => $deleted->revision])->assertSessionHasNoErrors()->assertRedirect("/administration/$kind");
+            $restored = ContentEntry::findOrFail($entry->id);
+            $this->assertSame($source, $restored->source_payload);
+            $this->assertSame($draft, $restored->draft_payload);
+            $this->assertSame(3, $restored->revision);
+            $this->assertNull($restored->deleted_by);
+            $this->get("/administration/$kind/$entry->id/modifier")->assertOk();
+        }
+    }
+
+    public function test_deletion_requires_current_confirmation_and_scoped_identity(): void
+    {
+        $entry = $this->entry();
+        $this->signedIn();
+        $data = $this->deletion($entry);
+        $this->delete("/administration/projects/$entry->id", array_diff_key($data, ['confirm' => true]))->assertSessionHasErrors('confirm');
+        $this->delete("/administration/projects/$entry->id", $data + ['kind' => 'team'])->assertSessionHasNoErrors();
+        $this->get('/administration')->assertOk()->assertViewHas('counts', fn ($counts) => $counts['projects'] === 6 && $counts['news'] === 8);
+        $this->post("/administration/team/$entry->id/restaurer", ['revision' => 1])->assertNotFound();
+        $this->post('/administration/projects/999999/restaurer', ['revision' => 1])->assertNotFound();
+        $this->get('/administration/evenements/corbeille')->assertNotFound();
+        $this->get("/administration/projects/$entry->id/restaurer")->assertStatus(405);
+        $this->delete("/administration/team/$entry->id", $data)->assertNotFound();
+        $this->post("/administration/projects/$entry->id/restaurer", ['revision' => 0])->assertSessionHasErrors('revision');
+        $this->assertTrue(ContentEntry::withTrashed()->find($entry->id)->trashed());
+    }
+
+    public function test_shared_trash_contains_only_removed_items_and_keeps_scoped_restore_links(): void
+    {
+        $this->entry();
+        $this->signedIn();
+        $removed = collect();
+        foreach (['projects', 'news', 'team'] as $kind) {
+            $entry = ContentEntry::where('kind', $kind)->get()->first(fn ($item) => ! isset($item->source_payload['linked_project']));
+            $entry->delete();
+            $removed->push($entry);
+        }
+        $response = $this->get('/administration/corbeille')->assertOk()
+            ->assertViewHas('entries', fn ($entries) => $entries->getCollection()->pluck('id')->sort()->values()->all() === $removed->pluck('id')->sort()->values()->all());
+        foreach ($removed as $entry) {
+            $response->assertSee($entry->label())
+                ->assertSee(route('content.restore', ['kind' => $entry->kind, 'entry' => $entry->id]), false);
+        }
+        $this->assertSame(3, ContentEntry::onlyTrashed()->count());
+    }
+
+    public function test_deletion_and_restore_require_mfa_active_admin_and_current_session(): void
+    {
+        $entry = $this->entry();
+        $dummy = ['revision' => 0, 'confirm' => 1, 'deletion_state' => str_repeat('0', 64)];
+        foreach (["/administration/projects/$entry->id/supprimer", '/administration/projects/corbeille', '/administration/corbeille'] as $url) {
+            $this->get($url)->assertRedirect('/connexion');
+        }
+        $this->delete("/administration/projects/$entry->id", $dummy)->assertRedirect('/connexion');
+        $this->post("/administration/projects/$entry->id/restaurer", ['revision' => 1])->assertRedirect('/connexion');
+        foreach ([['is_admin' => false], ['is_active' => false]] as $attributes) {
+            $user = $this->admin($attributes);
+            foreach ([
+                fn () => $this->get('/administration/projects/corbeille'),
+                fn () => $this->get('/administration/corbeille'),
+                fn () => $this->get("/administration/projects/$entry->id/supprimer"),
+                fn () => $this->delete("/administration/projects/$entry->id", $dummy),
+                fn () => $this->post("/administration/projects/$entry->id/restaurer", ['revision' => 1]),
+            ] as $request) {
+                $this->signedIn($user);
+                $request()->assertForbidden();
+            }
+        }
+        $user = $this->signedIn();
+        $data = $this->deletion($entry);
+        $this->withSession(['two_factor_verified' => null]);
+        $this->delete("/administration/projects/$entry->id", $data)->assertRedirect('/connexion');
+        $this->signedIn($user);
+        User::whereKey($user->id)->update(['session_version' => 2]);
+        $this->delete("/administration/projects/$entry->id", $data)->assertForbidden();
+        $this->signedIn($user->fresh());
+        User::whereKey($user->id)->update(['is_active' => false]);
+        $this->delete("/administration/projects/$entry->id", $data)->assertForbidden();
+        $this->assertFalse($entry->fresh()->trashed());
+        $this->assertDatabaseCount('content_revisions', 0);
+    }
+
+    public function test_shared_trash_refuses_missing_verification_and_revoked_sessions(): void
+    {
+        $user = $this->signedIn();
+        $this->withSession(['two_factor_verified' => null]);
+        $this->get('/administration/corbeille')->assertRedirect('/connexion');
+        $this->signedIn($user);
+        User::whereKey($user->id)->update(['session_version' => 2]);
+        $this->get('/administration/corbeille')->assertForbidden();
+        $this->signedIn($user->fresh());
+        User::whereKey($user->id)->update(['is_active' => false]);
+        $this->get('/administration/corbeille')->assertForbidden();
+    }
+
+    public function test_content_removal_and_restore_require_csrf(): void
+    {
+        $entry = $this->entry();
+        $this->signedIn();
+        $data = $this->deletion($entry);
+        $this->enforceCsrf();
+        $this->delete("/administration/projects/$entry->id", $data)->assertStatus(419);
+        $this->assertFalse($entry->fresh()->trashed());
+        $this->withSession(['_token' => 'delete-test-token'])->delete("/administration/projects/$entry->id", $data + ['_token' => 'delete-test-token'])->assertRedirect();
+        $this->post("/administration/projects/$entry->id/restaurer", ['revision' => 1])->assertStatus(419);
+        $this->assertTrue(ContentEntry::withTrashed()->find($entry->id)->trashed());
+        $this->post("/administration/projects/$entry->id/restaurer", ['revision' => 1, '_token' => 'delete-test-token'])->assertRedirect();
+    }
+
+    public function test_changed_project_or_related_news_blocks_stale_deletion(): void
+    {
+        $project = $this->entry();
+        $this->signedIn();
+        $data = $this->deletion($project);
+        $this->put("/administration/projects/$project->id", $this->draft($project))->assertSessionHasNoErrors();
+        $this->delete("/administration/projects/$project->id", $data)->assertSessionHasErrors('revision');
+        $project->refresh();
+        $data = $this->deletion($project);
+        $news = ContentEntry::where('source_payload->linked_project', $project->source_key)->firstOrFail();
+        $news->revision++;
+        $news->save();
+        $this->delete("/administration/projects/$project->id", $data)->assertSessionHasErrors('revision');
+        $data = $this->deletion($project);
+        $copy = $news->replicate();
+        $copy->source_key = 'related-fixture';
+        $copy->save();
+        $this->delete("/administration/projects/$project->id", $data)->assertSessionHasErrors('revision');
+        $this->assertSame(0, ContentEntry::onlyTrashed()->count());
+    }
+
+    public function test_project_restore_only_restores_news_removed_in_the_same_operation(): void
+    {
+        $project = $this->entry();
+        $this->signedIn();
+        $news = ContentEntry::where('source_payload->linked_project', $project->source_key)->firstOrFail();
+        $this->delete("/administration/news/$news->id", $this->deletion($news))->assertSessionHasNoErrors();
+        $copy = $news->replicate(['deleted_at', 'deleted_by', 'deletion_batch']);
+        $copy->source_key = 'active-related-fixture';
+        $copy->save();
+        $this->delete("/administration/projects/$project->id", $this->deletion($project))->assertSessionHasNoErrors();
+        $this->assertTrue(ContentEntry::withTrashed()->find($copy->id)->trashed());
+        $this->post("/administration/news/$copy->id/restaurer", ['revision' => $copy->revision + 1])->assertSessionHasErrors('project');
+        // Contenus GECA partagés : un autre administrateur actif peut restaurer,
+        // mais l’acteur de l’historique est toujours pris dans sa session serveur.
+        $other = $this->signedIn();
+        $deleted = ContentEntry::withTrashed()->find($project->id);
+        $this->post("/administration/projects/$project->id/restaurer", ['revision' => $deleted->revision, 'user_id' => 999])->assertSessionHasNoErrors();
+        $this->assertTrue(ContentEntry::withTrashed()->find($news->id)->trashed());
+        $this->assertFalse(ContentEntry::findOrFail($copy->id)->trashed());
+        $this->assertDatabaseHas('content_revisions', ['content_entry_id' => $project->id, 'revision' => 2, 'user_id' => $other->id]);
+        $this->assertSame(6, ContentEntry::where('kind', 'projects')->where('id', '!=', $project->id)->count());
+        $this->assertSame(8, ContentEntry::where('kind', 'team')->count());
+    }
+
+    public function test_history_failure_rolls_back_entire_deletion_and_restore(): void
+    {
+        $project = $this->entry();
+        $this->signedIn();
+        foreach (['Suppression', 'Restauration'] as $operation) {
+            DB::statement("CREATE TRIGGER fail_removal_history BEFORE INSERT ON content_revisions WHEN NEW.source_note LIKE '$operation%' BEGIN SELECT RAISE(ABORT, 'fixture history failure'); END");
+            $this->withoutExceptionHandling();
+            try {
+                if ($operation === 'Suppression') {
+                    $this->delete("/administration/projects/$project->id", $this->deletion($project));
+                } else {
+                    $this->post("/administration/projects/$project->id/restaurer", ['revision' => 1]);
+                }
+                $this->fail('La transaction doit être annulée si son historique échoue.');
+            } catch (QueryException $exception) {
+                $this->assertStringContainsString('fixture history failure', $exception->getMessage());
+            }
+            $this->assertSame($operation === 'Suppression' ? 0 : 2, ContentEntry::onlyTrashed()->count());
+            $this->assertSame($operation === 'Suppression' ? 0 : 2, DB::table('content_revisions')->count());
+            DB::statement('DROP TRIGGER fail_removal_history');
+            $this->withExceptionHandling();
+            if ($operation === 'Suppression') {
+                $this->delete("/administration/projects/$project->id", $this->deletion($project))->assertSessionHasNoErrors();
+            }
+        }
+    }
+
+    public function test_repeated_content_removal_requests_are_limited(): void
+    {
+        $entry = $this->entry();
+        $this->signedIn();
+        for ($i = 0; $i < 12; $i++) {
+            $this->delete("/administration/projects/$entry->id", [])->assertSessionHasErrors('confirm');
+        }
+        $this->delete("/administration/projects/$entry->id", [])->assertStatus(429)->assertHeader('Retry-After');
+        $this->assertFalse($entry->fresh()->trashed());
+        $this->assertDatabaseCount('content_revisions', 0);
     }
 
     public function test_terminal_revoke_removes_sessions_and_reset_does_not_reactivate(): void

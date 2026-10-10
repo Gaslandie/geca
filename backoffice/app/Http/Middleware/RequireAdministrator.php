@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\User;
+use App\Services\LocalAccess;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,14 +23,25 @@ class RequireAdministrator
             abort(403, 'Accès administrateur refusé.');
         }
         $verified = $request->session()->get('two_factor_verified');
-        if (! $user->two_factor_confirmed_at || ! $user->two_factor_secret
-            || ! is_array($verified) || ($verified['id'] ?? null) !== $user->id
-            || ($verified['version'] ?? null) !== $user->session_version) {
+        $method = config('login.verification');
+        $valid = is_array($verified) && ($verified['id'] ?? null) === $user->id
+            && ($verified['version'] ?? null) === $user->session_version
+            && ($verified['method'] ?? 'authenticator') === $method;
+        if ($method === 'email') {
+            $valid = $valid && hash_equals($verified['email'] ?? '', hash('sha256', $user->email));
+        } elseif ($method === 'authenticator') {
+            $valid = $valid && $user->two_factor_confirmed_at && $user->two_factor_secret;
+        } else {
+            $valid = false;
+        }
+        // Exception locale explicite : jamais présentée comme une preuve MFA.
+        $valid = $valid || app(LocalAccess::class)->verified($request, $user);
+        if (! $valid) {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            return redirect()->route('login')->with('status', 'La double authentification est nécessaire. Recommencez la connexion.');
+            return redirect()->route('login')->with('status', 'La vérification de connexion est nécessaire. Recommencez la connexion.');
         }
         Auth::setUser($user);
 

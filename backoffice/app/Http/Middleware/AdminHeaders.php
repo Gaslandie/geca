@@ -16,7 +16,19 @@ class AdminHeaders
         $response->headers->set('X-Frame-Options', 'DENY');
         $response->headers->set('Referrer-Policy', 'no-referrer');
         $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
-        $response->headers->set('Content-Security-Policy', "default-src 'none'; style-src 'self'; img-src 'self'; font-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
+        $nonce = request()->attributes->get('photo_preview_nonce');
+        $preview = request()->routeIs('content.edit', 'content.create') && is_string($nonce) && preg_match('/^[A-Za-z0-9+\/]{24}$/', $nonce);
+        $images = $preview ? "'self' blob:" : "'self'";
+        $navigationNonce = request()->attributes->get('navigation_nonce');
+        $scriptSources = [];
+        if ($preview) {
+            $scriptSources[] = "'nonce-$nonce'";
+        }
+        if (is_string($navigationNonce) && preg_match('/^[A-Za-z0-9+\/]{24}$/', $navigationNonce)) {
+            $scriptSources[] = "'nonce-$navigationNonce'";
+        }
+        $scripts = $scriptSources ? '; script-src '.implode(' ', $scriptSources)."; script-src-attr 'none'" : '';
+        $response->headers->set('Content-Security-Policy', "default-src 'none'; style-src 'self'; img-src $images; font-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'$scripts");
 
         return $response;
     }

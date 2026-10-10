@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('title', 'Codes de secours')
 @section('content')
+<div class="heading"><h1>Conservez vos codes de secours</h1></div>
 <section class="card login mfa-card">
-    <h1>Conservez vos codes de secours</h1>
     @if(count($codes))
         <p>Gardez ces dix codes dans un endroit sûr, séparé de votre téléphone. Ils ne seront affichés qu’une fois.</p>
         <ul class="mfa-codes">@foreach($codes as $code)<li><code>{{ $code }}</code></li>@endforeach</ul>

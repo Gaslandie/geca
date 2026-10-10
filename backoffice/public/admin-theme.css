@@ -1,0 +1,134 @@
+/* DESIGN CENTRALISÉ GECA
+   Modifier ce fichier pour changer l'apparence, sans toucher aux formulaires.
+   Les règles de disposition et d'accessibilité restent dans admin.css.
+   Guide : docs/DESIGN-BACKOFFICE.md à la racine du projet.
+*/
+:root {
+  color-scheme: light;
+
+  /* Base partagée : conserve l'apparence des formulaires newsletter publics. */
+  --green: #026a2a;
+  --dark: #003f1b;
+  --gold: #ebad0e;
+  --surface: #fff;
+  --muted: #52645c;
+  --line: #d9e5dc;
+  --page-bg: #f3f6f2;
+  --workspace-bg: #f4f7f4;
+  --workspace-text: #172b23;
+  --heading-color: #10261e;
+  --inverse: #fff;
+  --input-border: #728d7e;
+  --nav-text: #34473e;
+  --hover-bg: #edf4ee;
+  --selected-bg: transparent;
+  --secondary-bg: transparent;
+  --secondary-border: var(--green);
+  --badge-border: #94b79e;
+  --badge-text: #345340;
+  --avatar-bg: #e0eee2;
+  --warning-bg: #fff7de;
+  --warning-text: #654700;
+  --error: #a42020;
+  --error-hover: #761717;
+  --error-bg: #fff0ed;
+  --error-text: #761717;
+  --success-bg: #e7f1e7;
+  --success-border: #d3e7d7;
+  --success-text: #3e6250;
+  --focus-color: #805800;
+  --qr-background: #fff;
+
+  /* Typographie : aucune police externe. */
+  --font-family: system-ui, sans-serif;
+  --text-body: 1rem;
+  --text-small: .9375rem;
+  --text-muted: .9rem;
+  --text-label: .875rem;
+  --text-caption: .75rem;
+  --text-footer: .8rem;
+  --text-brand: 1.3rem;
+  --text-heading: clamp(1.8rem, 4vw, 2.7rem);
+  --text-card-title: 1.35rem;
+  --text-subheading: 1.125rem;
+  --text-count: 2.6rem;
+  --line-body: 1.6;
+  --line-heading: 1.25;
+  --line-control: 1.4;
+
+  /* Espaces et largeurs communs ; tailles minimales des commandes préservées. */
+  --space: clamp(20px, 3vw, 32px);
+  --gap: 20px;
+  --gap-actions: 16px;
+  --heading-gap: 28px;
+  --field-padding: 12px;
+  --page-padding: 32px;
+  --page-padding-desktop: 40px;
+  --button-padding-inline: 22px;
+  --control-height: 48px;
+  --sidebar-width: 280px;
+  --workspace-width: 1360px;
+  --form-width: 56rem;
+  --login-width: 500px;
+  --radius-panel: 12px;
+  --radius-control: 8px;
+  --radius-badge: 10px;
+  --radius-round: 50%;
+
+  /* Relief et mouvement : pas de déplacement des cartes au survol. */
+  --shadow-card: none;
+  --shadow-dashboard: 0 2px 4px #003f1b03;
+  --shadow-button: none;
+  --shadow-button-hover: none;
+  --shadow-navigation: none;
+  --shadow-overlay: 0 12px 32px #003f1b24;
+  --motion-duration: 160ms;
+  --motion-easing: ease;
+}
+
+/* STYLE ACTIF DU BACK-OFFICE : FLAT DESIGN 2.0
+   Ce bloc est l'unique endroit à adapter pour un autre style.
+   Il couvre connexion, double authentification et toutes les pages privées.
+   Les écrans newsletter publics gardent la base ci-dessus.
+*/
+[data-admin-theme] {
+  --green: #08743c;
+  --dark: #065a2f;
+  --surface: #fff;
+  --page-bg: #f5f7f8;
+  --workspace-bg: var(--page-bg);
+  --workspace-text: #20352d;
+  --heading-color: #163a28;
+  --muted: #53655d;
+  --line: #dbe3df;
+  --input-border: #6e8276;
+  --nav-text: #344b3e;
+  --hover-bg: #f0f6f2;
+  --selected-bg: transparent;
+  --secondary-bg: #f0f7f2;
+  --secondary-border: #6e8276;
+  --badge-border: #a7c2b0;
+  --badge-text: var(--green);
+  --avatar-bg: #e5f3e9;
+  --warning-bg: #fff7e2;
+  --error: #b42318;
+  --error-hover: #8a1c13;
+  --error-bg: #fff1ee;
+  --error-text: #8a1c13;
+  --success-bg: #edf7ef;
+  --success-border: #94b9a0;
+  --success-text: #225238;
+  --focus-color: #8b5d00;
+  --radius-panel: 10px;
+  --radius-control: 8px;
+  --radius-badge: 6px;
+  --shadow-card: 0 1px 2px #163a280a, 0 4px 14px #163a2805;
+  --shadow-dashboard: var(--shadow-card);
+  --shadow-button: 0 1px 2px #163a281f;
+  --shadow-button-hover: 0 2px 4px #163a2826;
+  --shadow-navigation: 1px 0 6px #163a2805;
+  --shadow-overlay: 0 4px 8px #163a280d, 0 14px 32px #163a281a;
+  --menu-background: var(--surface);
+  --menu-padding: var(--space);
+  --menu-content-width: var(--form-width);
+}

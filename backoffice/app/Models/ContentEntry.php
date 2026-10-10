@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ContentEntry extends Model
 {
-    protected $guarded = ['id', 'kind', 'source_key', 'source_payload', 'revision'];
+    use SoftDeletes;
+
+    protected $guarded = ['id', 'kind', 'source_key', 'source_payload', 'revision', 'deleted_at', 'deleted_by', 'deletion_batch'];
 
     protected function casts(): array
     {
@@ -28,5 +31,15 @@ class ContentEntry extends Model
         $payload = $this->draft_payload ?? $this->source_payload;
 
         return $payload['fr']['title'] ?? $payload['fr']['name'];
+    }
+
+    public function requiredFields(): array
+    {
+        // Les références importées conservent leurs contraintes existantes.
+        if ($this->exists && ! str_starts_with($this->source_key, 'admin-')) {
+            return array_keys($this->fields());
+        }
+
+        return $this->kind === 'team' ? ['name', 'role'] : ['title', 'description'];
     }
 }

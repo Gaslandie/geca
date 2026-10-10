@@ -24,7 +24,7 @@ for (const relative of (await readdir(root, { recursive: true })).sort()) {
     // Aucun recadrage, agrandissement ou ajout de métadonnées privées.
     const buffer = await sharp(input, { limitInputPixels: 40_000_000 }).rotate()
       .resize({ width, withoutEnlargement: true })
-      .webp({ quality: logo ? 85 : 55, effort: 6 }).toBuffer();
+      .webp({ quality: logo ? 85 : 55, effort: 6, ...(/global-ecoaction-logo-client-transparent-20261010\.png$/.test(relative) ? { lossless: true } : {}) }).toBuffer();
     const hash = createHash("sha256").update(buffer).digest("hex").slice(0, 12);
     const name = `${relative.replace(/\.(jpg|png)$/, "").replaceAll(path.sep, "-")}-${width}-${hash}.webp`;
     const url = `/images/optimized/${name}`;

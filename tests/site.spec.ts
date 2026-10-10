@@ -512,14 +512,17 @@ for (const width of [375, 1440]) {
     await page.goto("/fr");
     const backdrop = page.locator(".hero-backdrop");
     await expect(page.locator(".hero-slide")).toHaveCount(5);
-    expect(await page.locator(".hero-slide img").evaluateAll(images => new Set(images.map(image => image.getAttribute("src"))).size)).toBe(5);
+    await expect(page.locator(".hero-slide img")).toHaveCount(2);
     await expect.poll(() => page.locator(".hero-slide img").evaluateAll((images) => images.every((image) => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth > 0))).toBe(true);
+    await page.locator('.hero-slide img').evaluateAll(async images => { await Promise.all(images.map(image => (image as HTMLImageElement).decode())); });
     await expect(backdrop).toHaveAttribute("data-slide", "0");
     await page.clock.runFor(4999);
     await expect(backdrop).toHaveAttribute("data-slide", "0");
     await page.clock.runFor(1);
     await expect(backdrop).toHaveAttribute("data-slide", "1");
     for (const next of [2, 3, 4, 0]) {
+      await expect.poll(() => page.locator(".hero-slide img").evaluateAll(images => images.every(image => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth > 0))).toBe(true);
+      await page.locator('.hero-slide').nth(next).locator('img').evaluate(async image => { await (image as HTMLImageElement).decode(); });
       await page.clock.runFor(5000);
       await expect(backdrop).toHaveAttribute("data-slide", String(next));
     }
@@ -536,6 +539,7 @@ test("photo indisponible : saut du fond cassé et liens utilisables", async ({ p
     await page.clock.pauseAt(new Date("2026-10-07T12:00:01Z"));
   await page.route("**/*hero-gbara-arrosage*", (route) => route.abort());
   await page.goto("/fr");
+  await expect(page.locator('.hero-slide').nth(2).locator('img')).toHaveCount(1);
   await expect.poll(() => page.locator(".hero-slide img").evaluateAll(images => images.filter(image => !image.getAttribute("src")?.includes("hero-gbara-arrosage")).every(image => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth > 0))).toBe(true);
   await page.clock.runFor(5000);
   await expect(page.locator(".hero-backdrop")).toHaveAttribute("data-slide", "2");

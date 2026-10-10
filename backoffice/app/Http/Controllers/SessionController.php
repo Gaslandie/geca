@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\EmailLogin;
 use App\Services\TwoFactor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -31,7 +32,12 @@ class SessionController extends Controller
 
         $user = Auth::getLastAttempted();
         Auth::getProvider()->rehashPasswordIfRequired($user, $credentials);
-        app(TwoFactor::class)->start($request, $user);
+        abort_unless(in_array(config('login.verification'), ['email', 'authenticator'], true), 503);
+        if (config('login.verification') === 'email') {
+            app(EmailLogin::class)->start($request, $user);
+        } else {
+            app(TwoFactor::class)->start($request, $user);
+        }
 
         return redirect()->route('two-factor.show');
     }

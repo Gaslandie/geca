@@ -37,6 +37,19 @@ return [
 
     'mailers' => [
 
+        // Indépendant du transport de newsletter, sans repli log/array en production.
+        'login' => [
+            'transport' => 'smtp',
+            'scheme' => env('GECA_LOGIN_MAIL_SCHEME'),
+            'host' => env('GECA_LOGIN_MAIL_HOST'),
+            'port' => env('GECA_LOGIN_MAIL_PORT'),
+            'username' => env('GECA_LOGIN_MAIL_USERNAME'),
+            'password' => env('GECA_LOGIN_MAIL_PASSWORD'),
+            'timeout' => 15,
+            'require_tls' => true,
+            'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+        ],
+
         'smtp' => [
             'transport' => 'smtp',
             'scheme' => env('MAIL_SCHEME'),

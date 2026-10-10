@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\EmailLogin;
 use App\Services\TwoFactor;
 use Closure;
 use Illuminate\Http\Request;
@@ -11,7 +12,8 @@ class PendingSecondFactor
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (! app(TwoFactor::class)->pending($request)) {
+        $factor = config('login.verification') === 'email' ? app(EmailLogin::class) : app(TwoFactor::class);
+        if (! $factor->pending($request)) {
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 

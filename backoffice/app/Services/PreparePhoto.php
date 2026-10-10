@@ -50,31 +50,51 @@ class PreparePhoto
         if (! $decoded) {
             $fail('Cette photo est abîmée ou ne peut pas être ouverte.');
         }
-        $scale = min(1, 1280 / max($width, $height));
-        $previewWidth = max(1, (int) round($width * $scale));
-        $previewHeight = max(1, (int) round($height * $scale));
-        $preview = imagecreatetruecolor($previewWidth, $previewHeight);
         try {
-            imagealphablending($preview, false);
-            imagesavealpha($preview, true);
-            imagecopyresampled($preview, $decoded, 0, 0, 0, 0, $previewWidth, $previewHeight, $width, $height);
-            ob_start();
-            try {
-                imagewebp($preview, null, 82);
-                $webp = ob_get_contents();
-            } finally {
-                ob_end_clean();
-            }
-            $encoded = $webp ? @getimagesizefromstring($webp) : false;
-            if (! $encoded || ($encoded['mime'] ?? '') !== 'image/webp') {
-                $fail('La photo n’a pas pu être préparée. Elle n’a pas été enregistrée.');
-            }
+            $preview = $this->encode($decoded, $width, $height, 1280, min(250 * 1024, max(1024, strlen($raw))));
+            $thumbnail = $this->encode($decoded, $width, $height, 192, min(16 * 1024, max(1024, strlen($raw))));
 
             // Nouvelle image GD : aucun transfert d’EXIF, XMP ou profil ICC depuis l’original.
-            return ['original' => $raw, 'preview' => $webp, 'mime' => $mime, 'width' => $previewWidth, 'height' => $previewHeight];
+            return ['original' => $raw, 'preview' => $preview['bytes'], 'thumbnail' => $thumbnail['bytes'], 'mime' => $mime, 'width' => $preview['width'], 'height' => $preview['height']];
         } finally {
             // La libération des objets GdImage est automatique en PHP 8.
-            unset($preview, $decoded);
+            unset($decoded);
         }
+    }
+
+    private function encode(\GdImage $decoded, int $width, int $height, int $edge, int $budget): array
+    {
+        // Travail borné : deux qualités puis une taille moindre, sans agrandissement.
+        for ($attempt = 0; $attempt < 8; $attempt++) {
+            $scale = min(1, $edge / max($width, $height));
+            $outputWidth = max(1, (int) round($width * $scale));
+            $outputHeight = max(1, (int) round($height * $scale));
+            $output = imagecreatetruecolor($outputWidth, $outputHeight);
+            try {
+                imagealphablending($output, false);
+                imagesavealpha($output, true);
+                imagecopyresampled($output, $decoded, 0, 0, 0, 0, $outputWidth, $outputHeight, $width, $height);
+                foreach ([80, 72] as $quality) {
+                    ob_start();
+                    try {
+                        imagewebp($output, null, $quality);
+                        $bytes = ob_get_contents();
+                    } finally {
+                        ob_end_clean();
+                    }
+                    $size = $bytes ? @getimagesizefromstring($bytes) : false;
+                    if (! $size || ($size['mime'] ?? '') !== 'image/webp' || $size[0] !== $outputWidth || $size[1] !== $outputHeight) {
+                        throw ValidationException::withMessages(['photo' => 'La photo n’a pas pu être préparée. Elle n’a pas été enregistrée.']);
+                    }
+                    if (strlen($bytes) <= $budget) {
+                        return ['bytes' => $bytes, 'width' => $outputWidth, 'height' => $outputHeight];
+                    }
+                }
+            } finally {
+                unset($output);
+            }
+            $edge = max(1, (int) floor($edge * .8));
+        }
+        throw ValidationException::withMessages(['photo' => 'Cette photo n’a pas pu être allégée. Choisissez un autre fichier.']);
     }
 }

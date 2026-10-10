@@ -676,13 +676,20 @@ p, a, button {
 .hero-action-links { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--button-gap); }
 
 .hero-actions .button { font-size: calc(var(--text-button) * var(--hero-text-scale)); }
+@media (min-width: 768px) and (max-width: 1279px) {
+  .hero-content { --hero-text-scale: 1.1; max-width: 900px; }
+  .hero-copy { max-width: 800px; }
+}
 @media (min-width: 1280px) {
-  .hero-content { --hero-text-scale: 1.21; }
+  .hero-content { --hero-text-scale: 1.452; max-width: 1040px; }
+  .hero-copy { max-width: 920px; }
 }
 
 .hero :focus-visible { outline-color: var(--gold); }
 .contact-closing .eyebrow { text-transform: none; }
 @media (max-width: 767px) {
+  .hero-content { --hero-text-scale: 1.1; }
+  .hero-content .eyebrow { font-size: min(calc(var(--text-label) * 3.6 * var(--hero-text-scale)), 12.5cqi); }
   .hero::before { background: linear-gradient(90deg, rgb(0 22 14 / 78%), rgb(0 22 14 / 56%)); }
   .hero-grid { padding-block: 56px; }
 }

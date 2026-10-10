@@ -6,8 +6,7 @@ export function BrandLogo({ preload = false, locale = "fr", sizes = "(max-width:
   return (
     <Image
       className="brand-logo"
-      src={assetPath("/images/brand/global-ecoaction-logo-client-transparent-20261010.webp")}
-      unoptimized
+      src={assetPath("/images/brand/global-ecoaction-logo-client-transparent-20261010.png")}
       alt={locale === "fr" ? "Global EcoAction — Agir pour un avenir durable" : "Global EcoAction — Acting for a sustainable future"}
       width={1600}
       height={666}

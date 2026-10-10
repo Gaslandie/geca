@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AccountSecurityController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LocalAccessController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NewsletterAdminController;
 use App\Http\Controllers\NewsletterPublicController;
@@ -10,6 +12,8 @@ use App\Http\Controllers\TwoFactorController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/administration');
+Route::get('/connexion-locale', [LocalAccessController::class, 'show'])->name('local-access');
+Route::post('/connexion-locale', [LocalAccessController::class, 'store'])->middleware('throttle:local-access')->name('local-access.store');
 Route::middleware('guest')->group(function () {
     Route::view('/connexion', 'auth.login')->name('login');
     Route::post('/connexion', [SessionController::class, 'store'])->middleware('throttle:login')->name('login.store');
@@ -25,11 +29,22 @@ Route::middleware(['guest', 'pending-mfa'])->prefix('connexion/double-verificati
 Route::post('/deconnexion', [SessionController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::middleware(['auth', 'admin', 'auth.session'])->group(function () {
     Route::get('/administration/medias/{media}/apercu', [MediaController::class, 'preview'])->whereUuid('media')->name('media.preview');
+    Route::get('/administration/medias/{media}/apercu/{size}', [MediaController::class, 'preview'])->whereUuid('media')->whereIn('size', ['thumbnail'])->name('media.thumbnail');
     Route::get('/administration/securite', [TwoFactorController::class, 'settings'])->name('security');
+    Route::put('/administration/securite/mot-de-passe', [AccountSecurityController::class, 'password'])->middleware('throttle:account-security')->name('security.password');
+    Route::post('/administration/securite/deconnecter', [AccountSecurityController::class, 'logoutAll'])->middleware('throttle:account-security')->name('security.logout-all');
     Route::post('/administration/securite/codes', [TwoFactorController::class, 'regenerate'])->middleware('throttle:mfa')->name('security.regenerate');
     Route::get('/administration', DashboardController::class)->name('dashboard');
+    Route::get('/administration/corbeille', [ContentController::class, 'trashAll'])->name('content.trash-all');
     Route::get('/administration/{kind}', [ContentController::class, 'index'])->whereIn('kind', ['projects', 'news', 'team'])->name('content.index');
+    Route::get('/administration/{kind}/ajouter', [ContentController::class, 'create'])->whereIn('kind', ['projects', 'news', 'team'])->block(120, 10)->name('content.create');
+    Route::post('/administration/{kind}', [ContentController::class, 'store'])->whereIn('kind', ['projects', 'news', 'team'])->middleware(['throttle:content-create', 'throttle:media-upload'])->block(120, 10)->name('content.store');
+    Route::get('/administration/{kind}/corbeille', [ContentController::class, 'trash'])->whereIn('kind', ['projects', 'news', 'team'])->name('content.trash');
+    Route::get('/administration/{kind}/{entry}/supprimer', [ContentController::class, 'confirmDelete'])->whereIn('kind', ['projects', 'news', 'team'])->whereNumber('entry')->name('content.confirm-delete');
+    Route::delete('/administration/{kind}/{entry}', [ContentController::class, 'destroy'])->whereIn('kind', ['projects', 'news', 'team'])->whereNumber('entry')->middleware('throttle:content-removal')->name('content.destroy');
+    Route::post('/administration/{kind}/{entry}/restaurer', [ContentController::class, 'restore'])->whereIn('kind', ['projects', 'news', 'team'])->whereNumber('entry')->middleware('throttle:content-removal')->name('content.restore');
     Route::get('/administration/{kind}/{entry}/photo', [ContentController::class, 'photo'])->whereIn('kind', ['projects', 'news', 'team'])->name('content.photo');
+    Route::get('/administration/{kind}/{entry}/photo/{size}', [ContentController::class, 'photo'])->whereIn('kind', ['projects', 'news', 'team'])->whereNumber('entry')->whereIn('size', ['thumbnail'])->name('content.thumbnail');
     Route::get('/administration/{kind}/{entry}/modifier', [ContentController::class, 'edit'])->whereIn('kind', ['projects', 'news', 'team'])->name('content.edit');
     Route::put('/administration/{kind}/{entry}', [ContentController::class, 'update'])->whereIn('kind', ['projects', 'news', 'team'])->middleware('throttle:media-upload')->name('content.update');
 });
