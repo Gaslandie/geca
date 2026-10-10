@@ -117,3 +117,16 @@ anciennes clés avant un ajout atomique ; une répétition conforme ne duplique
 pas la clé. Cinq fixtures locales réussissent : installation, répétition,
 lien de dossier SSH, clé préexistante non limitée, outil modifié. Installation
 réelle, restrictions effectives et première publication toujours attendues.
+
+Installation cPanel confirmée par Gassama : trois empreintes OK, nouvelle clé
+limitée installée, anciennes clés sauvegardées dans
+`/home2/fnksrwmy/geca-connexion-G4aehq6j/authorized_keys-avant`. Test SSH réel
+avec la clé dédiée : commande générale `id -un` refusée, code de sortie 1.
+Premier transfert de la candidate publique interrompu. La relecture locale
+révèle 95 noms Next.js normaux contenant crochets ou `$`, non admis par le
+filtre initial ; ce défaut est corrigé, sans élargir les types ou les racines
+publiques. Contrôle de tous les noms du ZIP réel réussi et huit essais
+réussis avec chunks dynamiques/RSC ajoutés aux fixtures de succès. Le
+récepteur affiche maintenant une phase fixe en cas d’arrêt, jamais un secret
+ou un message d’exception brut. Mise à jour distante du récepteur requise ;
+automatisation toujours désactivée, première publication non confirmée.

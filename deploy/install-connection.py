@@ -25,7 +25,7 @@ directory(home)
 directory(work)
 check(stat.S_IMODE(work.stat().st_mode) == 0o700)
 check(work.parent == home and work.name.startswith('geca-connexion-'))
-for name, digest in [('receive-public.py', 'e4d22b06b52765e823b2f72f6da0c8f1d4b27525c6a0e33ec5be982222a52bdb'),
+for name, digest in [('receive-public.py', '0217a96cdfb62f167ed9aa69d11168ab7d31d5d89322cf80d83a1564cb776be0'),
                      ('update-public.py', 'f60efe37f55ba6a399eda013f7d4d31fae89c24d3385bf2a8b6103a98d146096')]:
     regular(work / name)
     check(hashlib.sha256((work / name).read_bytes()).hexdigest() == digest)

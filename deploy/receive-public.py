@@ -18,6 +18,7 @@ import zipfile
 HOME = Path('/home2/fnksrwmy')
 TOOLS = HOME / 'geca-deploy'
 LIMIT = 200_000_000
+STEP = 'précontrôle'
 
 
 def require(ok, message):
@@ -32,6 +33,7 @@ def private_file(path):
 
 
 def main():
+    global STEP
     require(getpass.getuser() == 'fnksrwmy', 'Compte incorrect.')
     for folder in (HOME, TOOLS):
         require(folder.is_dir() and folder.resolve() == folder
@@ -42,6 +44,7 @@ def main():
     match = re.fullmatch(r'deploy-public ([a-f0-9]{64})',
                          os.environ.get('SSH_ORIGINAL_COMMAND', ''))
     require(match is not None, 'Commande SSH refusée : vitrine uniquement.')
+    STEP = 'réception de l’archive'
     # Un verrou commun aux publications automatiques. Aucune attente silencieuse.
     descriptor = os.open(TOOLS / 'publication.lock', os.O_CREAT | os.O_RDWR | os.O_NOFOLLOW, 0o600)
     with os.fdopen(descriptor, 'wb') as lock:
@@ -58,12 +61,13 @@ def main():
                     digest.update(chunk)
                     target.write(chunk)
             require(total > 0 and digest.hexdigest() == match[1], 'Livraison différente.')
+            STEP = 'contrôle des fichiers publics'
             # La clé de publication ne peut pas installer PHP, un secret ou modifier
             # les protections Apache. L’outil local reste hors de la vitrine.
             public_root = HOME / 'public_html' / 'website_43934bdf'
             allowed = re.compile(
                 r'(?:_next/static/|images/optimized/|(?:fr|en|404|_not-found)/)'
-                r'[a-zA-Z0-9_./-]+\.(?:html|txt|xml|js|css|webp|ttf|woff2?|ico|json)'
+                r'[a-zA-Z0-9_./\[\]$-]+\.(?:html|txt|xml|js|css|webp|ttf|woff2?|ico|json)'
                 r'|(?:index|404|_not-found)\.(?:html|txt)'
                 r'|(?:robots\.txt|sitemap\.xml|icon\.svg)'
                 r'|images/brand/global-ecoaction-logo-client-transparent-20261010\.webp'
@@ -77,6 +81,7 @@ def main():
                     require(allowed.fullmatch(entry.filename) is not None
                             and not any(part.startswith('.') for part in entry.filename.split('/')),
                             'Fichier hors vitrine refusé.')
+            STEP = 'sauvegarde et installation'
             updater = runpy.run_path(str(TOOLS / 'update-public.py'))
             updater['update'](archive, match[1])
 
@@ -86,5 +91,5 @@ if __name__ == '__main__':
     try:
         main()
     except Exception:
-        print('Publication interrompue. Consulter les sauvegardes privées avant toute relance.', file=sys.stderr)
+        print('Publication interrompue : ' + STEP + '. Consulter les sauvegardes privées avant toute relance.', file=sys.stderr)
         sys.exit(1)

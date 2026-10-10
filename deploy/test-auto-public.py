@@ -48,7 +48,9 @@ class PublicationTest(unittest.TestCase):
     def archive(self, extra=None, apache=b'Protections existantes\n'):
         result = io.BytesIO()
         files = {'.htaccess': apache, 'fr/index.html': b'FR nouveau',
-                 'en/index.html': b'EN nouveau', 'icon.svg': b'<svg/>'}
+                 'en/index.html': b'EN nouveau', 'icon.svg': b'<svg/>',
+                 '_next/static/chunks/app/[locale]/[...slug]/page-test.js': b'JS public',
+                 'fr/__next.$d$locale.$c$slug.__PAGE__.txt': b'RSC public'}
         files.update(extra or {})
         with zipfile.ZipFile(result, 'w') as zipped:
             for name, body in files.items():
