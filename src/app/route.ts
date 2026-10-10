@@ -1,9 +1,10 @@
 import { assetPath } from "@/lib/assets";
+import { publicRelease } from "@/lib/deployment";
 
 export const dynamic = "force-static";
 
 export function GET() {
-  if (process.env.GECA_GITHUB_PAGES !== "true") {
+  if (process.env.GECA_GITHUB_PAGES !== "true" && !publicRelease) {
     return new Response(null, { status: 307, headers: { Location: "/fr" } });
   }
   // Pages ne dispose pas de redirection serveur. Le lien fonctionne aussi sans JS.

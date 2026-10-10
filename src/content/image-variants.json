@@ -1534,5 +1534,31 @@
       "width": 640,
       "src": "/images/optimized/images-brand-global-ecoaction-logo-white-slogan-640-1ac1f9874fb9.webp"
     }
+  ],
+  "/images/client/sensibilisation-acteurs-locaux.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-client-sensibilisation-acteurs-locaux-192-bcedd94d56d3.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-client-sensibilisation-acteurs-locaux-320-14bdb4a7495b.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-client-sensibilisation-acteurs-locaux-480-4cdd08229ded.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-client-sensibilisation-acteurs-locaux-640-b932461ef532.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-client-sensibilisation-acteurs-locaux-960-bcb4cf02a276.webp"
+    },
+    {
+      "width": 1039,
+      "src": "/images/optimized/images-client-sensibilisation-acteurs-locaux-1039-e3b1f823d8d7.webp"
+    }
   ]
 }

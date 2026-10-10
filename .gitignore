@@ -1,8 +1,10 @@
 node_modules/
 .next/
 out/
+release/
 coverage/
 test-results/
+test-results-public/
 playwright-report/
 *.tsbuildinfo
 .env*
@@ -14,3 +16,7 @@ playwright-report/
 /docs/sources/2026-10-06-1-IMAGES.pdf
 /docs/sources/2026-10-06-PIC.docx
 /docs/sources/2026-10-06-IMAGES-BM-AGR.docx
+
+# Caches Python des outils de livraison.
+__pycache__/
+*.pyc

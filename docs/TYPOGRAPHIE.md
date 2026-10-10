@@ -214,7 +214,7 @@ Le nom Global EcoAction du hero utilise désormais 3,6 × --text-label (double d
 
 ## Focus du champ newsletter — 8 octobre 2026
 
-Au clic et au clavier, conserver l’arrondi de 8 px et la bordure de 1 px ; seule sa couleur devient --green-dark. Pas de grand contour extérieur ni ombre. Le repère discret reste visible pour le clavier.
+Au clic et au clavier, conserver une bordure de 1 px dont seule la couleur devient --green-dark. Pas de grand contour extérieur ni ombre. Le repère discret reste visible pour le clavier. Depuis la référence fournie le 9 octobre, le champ et son conteneur ont une forme de capsule ; le bouton rond intégré garde son repère de focus distinct.
 
 ## Hero décalé à gauche — 8 octobre 2026
 
@@ -255,6 +255,22 @@ Gassama demande de réduire de 10 % la luminosité des images du hero. Appliquer
 À la demande de Gassama, dès 1280 px : agrandissement proportionnel de 10 % des textes du hero (nom, slogan, sous-titre, mission et libellés des actions), via --hero-text-scale: 1.1 ; décalage gauche clamp(24px, 4.4vw, 64px). En dessous, conserver les tailles et le décalage précédents. Même règle FR/EN ; ne pas modifier les textes, médias ou autres sections.
 
 
-## Newsletter intégrée au footer — 8 octobre 2026
+## Newsletter intégrée au footer — 9 octobre 2026
 
-Gassama valide le déplacement de la newsletter dans le pied de page, sans bandeau séparé. Bloc compact après les coordonnées dans le DOM ; cinquième colonne dès 1280 px, dernière rangée centrée sur tablette, dernier bloc sur mobile. Titre Newsletter, description existante, champ e-mail avec libellé et bouton partagé empilés. Garder configuration et validation de destination, inscription désactivée et information visible sur Pages tant que le service public manque, absence de fausse confirmation et parcours Laravel existant. Même composant FR/EN, animations communes sans cumul.
+La référence Luminor fournie par Gassama le 9 octobre remplace la disposition du 8 octobre : logo et coordonnées regroupés, deux groupes de liens puis newsletter à droite, quatre colonnes dès 1024 px. Dernière rangée centrée sur tablette, dernier bloc sur mobile. Capsule blanche avec champ e-mail et bouton rond de 44 px intégré, flèche décorative et nom accessible S’abonner/Subscribe ; libellé e-mail conservé pour les lecteurs d’écran. Texte existant, mêmes couleurs et styles centralisés dans globals.css, aucun débordement à 200 %. Garder configuration et validation de destination, inscription désactivée et information visible sur Pages tant que le service public manque, absence de fausse confirmation et parcours Laravel existant. Le profil de première publication continue à masquer la newsletter jusqu’à la livraison de son service. Même composant FR/EN, animations communes sans cumul et survol sans transition avec mouvement réduit.
+
+## Hero sobre et aligné à gauche — priorité du 9 octobre 2026
+
+Gassama demande d’abord le rendu local : retirer les effets sur les textes, assombrir encore les images de 10 % et déplacer complètement le contenu vers la gauche. Le filtre des seules photos passe de brightness(0.9) à brightness(0.81), soit 10 % supplémentaires. Voile dégradé renforcé derrière le texte, sans carte. `.hero-grid` suit le même bord gauche et le même cadre que `.header-inner` ; plus de décalage négatif ni padding de carte. Largeur des paragraphes limitée à 650 px, coupures automatiques retirées dans la mission, espaces verticaux réguliers et actions alignées au début. Noms, slogans, mission, photos, tailles et polices validées conservés. Ombre des paragraphes supprimée ; `data-reveal="off"` sur le contenu exclut tous ses textes et actions des apparitions de SiteMotion. Le fondu des photos et les commandes ailleurs conservent leurs règles. Cette demande remplace les décalages manuels et l’animation des textes du seul hero ; les autres sections gardent leurs animations. Aucune livraison distante demandée pour cette étape.
+
+Précision suivante du 9 octobre : sur ordinateur dès 1280 px, augmenter encore toutes les tailles du hero de 10 %, nom, slogan, sous-titre, mission et libellés des boutons compris. Variable commune `--hero-text-scale` de 1.1 à 1.21 (1.1 × 1.1), sans changement des tailles mobile/tablette, du contenu ou des autres sections. Même rapport FR/EN et même alignement à gauche.
+
+Dernière précision du 9 octobre : « Global EcoAction » doit rester sur une seule ligne. Le bloc du hero est un conteneur de taille ; la taille du nom est plafonnée à 12 % de sa largeur (`12cqi`), avec `white-space: nowrap`. Le nom se réduit seulement quand l’espace l’exige, sans coupure ni points de suspension. Garder les autres tailles et les paragraphes lisibles ; ne pas réduire toute la mission pour faire tenir le seul nom. Le facteur commun 1.21 sur ordinateur reste en place. Règle CSS identique FR/EN et sans JavaScript, sans effets sur les textes.
+
+# Logos partenaires défilants — retour client du 10 octobre 2026
+
+La barre de douze logos avance automatiquement toutes les 3,5 secondes avec les transitions existantes de 1,6 seconde. Cette demande remplace le fonctionnement uniquement manuel du 8 octobre. Flèches et défilement tactile/clavier conservés ; bouton partagé discret de pause/reprise centré sous la barre, traduit FR/EN. Aucun changement des dimensions des logos, des cartes ou des boutons au survol. Suspension au survol/hors écran/onglet caché ; arrêt au focus de la liste ou des flèches et au geste, reprise explicitement commandée. Mouvement réduit et économie de données : déplacement manuel instantané ; sans JavaScript, grille des douze logos.
+
+## Logos partenaires — précision prioritaire du 10 octobre 2026
+
+Aucun bouton pause/reprise, selon la demande finale de Gassama. Arrêt au survol et pendant le focus clavier ; reprise à leur sortie. Deux flèches conservées. Préférences de mouvement/données, grille sans JavaScript, arrêt hors écran/onglet caché conservés. Cette règle remplace la commande de pause décrite précédemment ; limite d'accessibilité documentée dans BENCHMARK.md.

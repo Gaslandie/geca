@@ -7,11 +7,13 @@ export function UnderConstruction({
   title,
   introduction,
   children,
+  actions,
 }: {
   locale: Locale;
   title: string;
   introduction?: string;
   children?: ReactNode;
+  actions?: ReactNode;
 }) {
   const text = interfaceText[locale].construction;
   return (
@@ -26,10 +28,12 @@ export function UnderConstruction({
           <h1>{title}</h1>
           {introduction && <PageIntroduction>{introduction}</PageIntroduction>}
           <div className="construction-actions">
-            <Button href={href(locale)}>{text.back}</Button>
-            <Button href={`mailto:${identity.email}`} variant="text">
-              {text.contact}
-            </Button>
+            {actions ?? <>
+              <Button href={href(locale)}>{text.back}</Button>
+              <Button href={`mailto:${identity.email}`} variant="text">
+                {text.contact}
+              </Button>
+            </>}
           </div>
         </div>
         {children}

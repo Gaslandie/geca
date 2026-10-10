@@ -47,6 +47,8 @@ for (const locale of locales) {
     await page.goto(`/${locale}/contact`);
     const form = page.getByRole("form", { name: text.form.title });
     const button = form.getByRole("button", { name: text.form.submit });
+    await expect(form).toHaveAttribute("method", "post");
+    await expect(form).toHaveAttribute("action", "/api/contact");
     await expect(button).toBeEnabled();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(text.title);
     await expect(page.locator(".contact-details a").first()).toHaveAttribute("href", identity.phoneHref);
@@ -70,12 +72,19 @@ for (const locale of locales) {
     });
     await button.click();
     await expect(page.getByRole("region", { name: text.form.preview })).toHaveCount(0);
+    await expect(form.locator(".contact-error-summary")).toBeFocused();
+    await expect(form.locator(".contact-field-error")).toHaveCount(4);
+    expect((await new AxeBuilder({ page }).include(".contact-form").withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()).violations).toEqual([]);
+    await form.locator('.contact-error-summary a[href="#contact-email"]').click();
+    await expect(form.locator("[name=email]")).toBeFocused();
     await form.locator("[name=name]").fill("Exemple GECA");
     await form.locator("[name=email]").fill("adresse-invalide");
     await form.locator("[value=partnership]").check();
     await form.locator("[name=message]").fill("Un projet de restauration en Guinée.");
     await button.click();
     expect(await form.locator("[name=email]").evaluate((node: HTMLInputElement) => node.validity.typeMismatch)).toBe(true);
+    await expect(form.locator("#contact-email-error")).toHaveText(text.form.errors.email);
+    await expect(form.locator("[name=name]")).toHaveValue("Exemple GECA");
     await expect(page.getByRole("region", { name: text.form.preview })).toHaveCount(0);
     await form.locator("[name=email]").fill("exemple@example.com");
     await form.locator("[name=message]").fill("            ");
@@ -92,6 +101,9 @@ for (const locale of locales) {
     await expect(preview.getByRole("status")).toHaveText(text.form.notSent);
     await expect(preview.locator(".contact-preview-message")).toHaveText(message);
     await expect(preview.locator("script")).toHaveCount(0);
+    await preview.getByRole("button", { name: text.form.edit }).click();
+    await expect(form.locator("[name=message]")).toBeFocused();
+    await expect(form.locator("[name=message]")).toHaveValue(message);
     expect(await page.evaluate(() => "contactInjected" in window)).toBe(false);
     expect(network).toEqual([]);
     expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 });
@@ -100,12 +112,38 @@ for (const locale of locales) {
     await expect(form.locator("[name=email]")).toHaveValue("");
     await expect(form.locator("[name=message]")).toHaveValue("");
     await expect(preview).toHaveCount(0);
+    await expect(form.locator("[name=name]")).toBeFocused();
+    await expect(form.locator(".contact-error-summary")).toHaveCount(0);
     expect(network).toEqual([]);
     const response = await request.post("/api/contact", { data: { message: "Essai refusé" } });
     expect(response.status()).toBe(404);
     expect(errors).toEqual([]);
   });
 }
+
+test("contact : tailles forcées et sujet inconnu refusés, nom international accepté", async ({ page }) => {
+  await page.goto("/fr/contact");
+  const form = page.locator(".contact-form");
+  await form.locator("[name=name]").fill("Aïssatou O’Connor 王");
+  await form.locator("[name=email]").fill("exemple@example.test");
+  await form.locator("[value=project]").check();
+  await form.locator("[name=message]").fill("Message de test technique.");
+  // Simuler le retrait des limites HTML : l’aperçu doit encore refuser les tailles excessives.
+  await form.locator("[name=organization]").evaluate((input: HTMLInputElement) => { input.value = "x".repeat(161); });
+  await form.locator("[name=message]").evaluate((input: HTMLTextAreaElement) => { input.value = "x".repeat(3001); });
+  await form.locator("[value=project]").evaluate((input: HTMLInputElement) => { input.value = "unknown"; });
+  await form.locator("button[type=submit]").click();
+  await expect(form.locator("#contact-organization-error")).toBeVisible();
+  await expect(form.locator("#contact-message-error")).toBeVisible();
+  await expect(form.locator("#contact-reason-error")).toBeVisible();
+  await expect(form.locator(".contact-preview")).toHaveCount(0);
+  await form.locator("[name=organization]").fill("");
+  await form.locator("[name=message]").fill("Message de test technique.");
+  await form.locator("[value=partnership]").check();
+  await form.locator("button[type=submit]").click();
+  await expect(form.locator(".contact-preview")).toContainText("Aïssatou O’Connor 王");
+  await expect(form.locator("#contact-message-count")).toContainText("26");
+});
 
 for (const width of [320, 375, 768, 1024, 1440]) {
   test(`contact ${width}px : disposition, photos et accessibilité`, async ({ page }) => {

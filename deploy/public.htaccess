@@ -1,0 +1,29 @@
+# GECA : site public statique, distinct de l’administration Laravel.
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+RewriteEngine On
+# Préserver les validations de certificat existantes.
+RewriteRule ^\.well-known/ - [L]
+# Domaine de destination fixé, sans utiliser un Host fourni par le visiteur.
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^globalecoaction\.org$ [NC]
+RewriteRule ^ https://globalecoaction.org%{REQUEST_URI} [R=301,L]
+RewriteRule ^$ /fr/ [R=302,L]
+# Le serveur public ne comporte aucun point d’entrée d’administration ou d’envoi.
+RewriteRule ^(?:administration|connexion|newsletter|api)(?:/|$) - [R=404,L]
+RewriteRule (^|/)\. - [R=404,L]
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Content-Security-Policy "object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
+  Header always unset X-Powered-By
+</IfModule>
+
+<FilesMatch "\.(?:php|phar|sqlite|sql|log|bak|zip|gz|map)$">
+  Require all denied
+</FilesMatch>

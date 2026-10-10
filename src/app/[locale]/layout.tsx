@@ -8,6 +8,7 @@ import { homeMetadata, identity, interfaceText, isLocale, locales } from "@/cont
 import "../globals.css";
 import { assetPath } from "@/lib/assets";
 import { getSearchDocuments } from "@/content/search";
+import { publicOrigin, publicRelease } from "@/lib/deployment";
 
 export const dynamicParams = false;
 
@@ -41,9 +42,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     description: homeMetadata[locale].description,
     applicationName: identity.name,
-    robots: { index: false, follow: false }, // Maquette de présentation, pas le site final.
+    robots: { index: publicRelease, follow: publicRelease },
+    ...(publicRelease ? { metadataBase: new URL(publicOrigin), alternates: { canonical: `${publicOrigin}/${locale}/`, languages: { fr: `${publicOrigin}/fr/`, en: `${publicOrigin}/en/` } } } : {}),
     referrer: "strict-origin-when-cross-origin",
-    icons: { icon: assetPath("/icon.svg") },
+    icons: { icon: { url: assetPath("/icon.svg?v=geca-bird-20261010"), type: "image/svg+xml", sizes: "any" } },
   };
 }
 
@@ -62,7 +64,7 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
   return (
     <html lang={locale} className={`${sans.variable} ${display.variable} ${hero.variable}`}>
-      {process.env.GECA_GITHUB_PAGES === "true" && (
+      {(process.env.GECA_GITHUB_PAGES === "true" || publicRelease) && (
         <head>
           <meta httpEquiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'none'" />
         </head>

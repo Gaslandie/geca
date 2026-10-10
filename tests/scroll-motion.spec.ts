@@ -129,7 +129,9 @@ for (const width of [375, 1440]) {
       };
     });
     await page.goto("/fr");
-    await expect.poll(() => page.locator("#hero-title").evaluate((element) =>
+    expect(await page.locator(".hero-content").evaluate((element) => element.getAnimations({ subtree: true }).length)).toBe(0);
+    await page.locator("#about-title").scrollIntoViewIfNeeded();
+    await expect.poll(() => page.locator("#about-title").evaluate((element) =>
       (window as unknown as { coordinatedMotion: { target: Element; duration: number; delay: number; frames: Keyframe[] }[] }).coordinatedMotion
         .filter((entry) => entry.target === element).map((entry) => [entry.duration, entry.delay, entry.frames[0].transform]),
     )).toEqual([[720, 0, "translateY(24px) scale(.96)"]]);

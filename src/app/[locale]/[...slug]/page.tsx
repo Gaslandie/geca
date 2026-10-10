@@ -10,7 +10,10 @@ import { MissionVisionValues } from "@/components/MissionVisionValues";
 import { News } from "@/components/News";
 import { NewsArticle } from "@/components/NewsArticle";
 import { TeamPage } from "@/components/Team";
-import { getNewsEntry, newsContent, teamContent, teamMembers, aboutContent, contactContent, interventionContent, isLocale, locales, missionVisionContent, pageIntroductions, partnershipContent, portfolioContent, routes } from "@/content/site";
+import { Button } from "@/components/ui";
+import { SiteInformation } from "@/components/SiteInformation";
+import { publicOrigin, publicRelease } from "@/lib/deployment";
+import { getNewsEntry, newsContent, teamContent, teamMembers, aboutContent, contactContent, interventionContent, isLocale, locales, missionVisionContent, pageIntroductions, partnershipContent, portfolioContent, publicInformation, routes, identity, supportActions } from "@/content/site";
 
 type Props = { params: Promise<{ locale: string; slug: string[] }> };
 
@@ -35,8 +38,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const entry = route.path.startsWith("actualites/") ? getNewsEntry(locale, route.path.slice("actualites/".length)) : undefined;
   return {
     title: route[locale],
+    ...(publicRelease ? { alternates: { canonical: `${publicOrigin}/${locale}/${route.path}/`, languages: { fr: `${publicOrigin}/fr/${route.path}/`, en: `${publicOrigin}/en/${route.path}/` } } } : {}),
     description:
-      entry ? entry.description.split("\n\n")[0] : route.path === "actualites"
+      publicRelease && route.path === "confidentialite" ? publicInformation[locale].privacy : entry ? entry.description.split("\n\n")[0] : route.path === "actualites"
         ? newsContent[locale].introduction
         : route.path === "equipe"
         ? `${teamContent[locale].pageTitle} — ${teamMembers.map((member) => `${member.name}, ${member.role[locale]}`).join(" ; ")}`
@@ -58,6 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function SectionPage({ params }: Props) {
   const { locale, route } = await resolveRoute(params);
+  if (publicRelease && (route.path === "mentions-legales" || route.path === "confidentialite" || route.path === "plan-du-site")) return <SiteInformation locale={locale} path={route.path} title={route[locale]} />;
   if (route.path === "actualites") return <News locale={locale} />;
   if (route.path.startsWith("actualites/")) {
     const entry = getNewsEntry(locale, route.path.slice("actualites/".length));
@@ -72,5 +77,8 @@ export default async function SectionPage({ params }: Props) {
   if (route.path === "projets") return <ProjectPortfolio locale={locale} />;
   if (route.path === "devenir-partenaire") return <Partnership locale={locale} />;
   const introduction = pageIntroductions[locale][route.path as keyof typeof pageIntroductions.fr];
-  return <UnderConstruction locale={locale} title={route[locale]} introduction={introduction} />;
+  return <UnderConstruction locale={locale} title={route[locale]} introduction={introduction} actions={route.path === "nous-soutenir" ? <>
+    <Button href={supportActions.whatsappHref} prefetch={false} referrerPolicy="no-referrer" rel="noopener noreferrer">{supportActions[locale].whatsapp}</Button>
+    <Button href={identity.phoneHref} variant="secondary" prefetch={false}>{supportActions[locale].call}</Button>
+  </> : undefined} />;
 }

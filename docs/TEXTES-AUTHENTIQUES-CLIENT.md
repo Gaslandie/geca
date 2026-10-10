@@ -1,5 +1,41 @@
 # Textes authentiques du client — référence GECA
 
+## Favicon et précision finale du défilement — 10 octobre 2026
+
+Gassama demande le démarrage local, le favicon correspondant à la partie circulaire du logo (oiseau sur branche), puis autorise explicitement commit, push et déploiement du site. Aucun fait GECA ajouté par cette demande.
+
+Après le retour sur les résultats, Gassama précise : « non le defilement s'arrete que automatique quand on survole stp, met aucun bouton pour mettre pause le defilement stp ». Retrait complet de la commande de pause/reprise visible ; les deux flèches restent. Arrêt au survol puis reprise à la sortie ; suspension pendant l’utilisation au clavier, hors écran/onglet caché et selon les préférences de mouvement/données conservée. Cette précision remplace la commande ajoutée plus tôt le même jour. Limite d’accessibilité de l’absence de commande explicite documentée dans `BENCHMARK.md`.
+
+## Résultats supplémentaires et logos défilants — retour client transmis le 10 octobre 2026
+
+Gassama demande l’intégration exacte, sans invention. Texte reçu :
+
+> Réalisations et résultats marquants
+>
+> Ajouter les éléments suivants :
+>
+> 1. 30 femmes formées en techniques de maraichage et dotés en matériels agricoles
+> 2. Plus de 2000 élèves formés en éducation environnementale
+> 3. 10 groupements formés et dotés en matériels agricoles, apicoles et de saponification
+>
+> Mettre la barre du logo des partenaires en mode défilement ( si possible)
+
+Corrections limitées FR pour le site : « 30 femmes formées aux techniques de maraîchage et dotées de matériels agricoles. » ; « Plus de 2 000 élèves formés en éducation environnementale. » ; « 10 groupements formés et dotés de matériels agricoles, apicoles et de saponification. ». Ajout après les cinq paragraphes existants, dans l’ordre reçu. Aucun lieu, date, partenaire ou lien à un projet ajouté ; aucun regroupement avec les quatre chiffres existants ni cumul supposé entre femmes et groupements.
+
+Traductions EN fidèles : « 30 women trained in market-gardening techniques and provided with agricultural equipment. » ; « More than 2,000 students trained in environmental education. » ; « 10 groups trained and provided with agricultural, beekeeping and soap-making equipment. ».
+
+La demande de défilement remplace le fonctionnement uniquement manuel demandé le 8 octobre : avancement automatique des douze logos existants, flèches/clavier/tactile conservés et commande de pause/reprise FR/EN. Aucun partenaire ni rôle ajouté. Aucun commit, push ou déploiement autorisé par ce retour.
+
+## Photo de sensibilisation des acteurs locaux — Gassama, 10 octobre 2026
+
+Envoi : `WhatsApp Image 2026-10-09 at 23.10.08.jpeg`. Description exacte de Gassama : « Image de sensibilisation des acteurs locaux ».
+
+Cette description autorise le remplacement de l’illustration temporaire de la référence `planification-climatique`, intitulée « Sensibilisation des acteurs locaux… », et sa réutilisation par les archives d’actualités communes. Description accessible FR : « Sensibilisation des acteurs locaux. » ; EN : « Awareness raising among local stakeholders. ». La date du nom de fichier n’est pas une date de prise de vue ou d’activité confirmée. Aucun lieu, identité, effectif, résultat ou rattachement financier déduit de la photo. Textes, période, zone et partenaire du projet restent ceux de la référence client existante. Auteur et licence non précisés ; utilisation demandée par Gassama. Voir `IMAGES-CLIENT.md`.
+
+## Première publication progressive — demande de Gassama, 9 octobre 2026
+
+Gassama demande de préparer la mise en ligne étape par étape après proposition d’une première version publique sans fonctions inachevées. Aucun nouveau fait sur l’organisation reçu. `publicInformation` rassemble les textes techniques FR/EN de cette version : Contact ouvre e-mail/téléphone/WhatsApp ; newsletter et formulaire de démonstration absents ; recherche locale sans transmission ni stockage ; carte externe uniquement après activation. Éditeur, adresse et coordonnées réutilisent `identity`. Hébergement Bluehost déjà choisi et confirmé par le terminal transmis. Photos, auteurs, sources, licences et transformations reprennent les archives `docs/IMAGES-CLIENT.md`, `docs/IMAGES-TEMPORAIRES.md` et `docs/LOGOS-PARTENAIRES.md`, sans inventer de droits. Mentions légales et confidentialité ne sont pas présentées comme une validation juridique exhaustive. Les textes factuels des projets, membres, actualités et missions sont inchangés.
+
 **Adresse actuelle confirmée le 8 octobre 2026 : Kissosso, commune de Matoto, Conakry, République de Guinée.** Les adresses différentes ci-dessous appartiennent à l’historique des demandes et ne sont plus à utiliser. Voir la révision « Adresse définitive retenue » en fin de document.
 
 ## Introductions des pages internes — demande de Gassama, 7 octobre 2026
@@ -700,3 +736,21 @@ Gassama demande de retirer du site les phrases de préparation comme « Statuts 
 ## Présentation de la newsletter — 8 octobre 2026
 
 Gassama valide la proposition d’un bloc compact Newsletter dans le footer. Titre FR/EN « Newsletter » ; description et autres libellés existants conservés. Ce déplacement ne confirme aucune disponibilité nouvelle ni fréquence d’envoi.
+
+
+## Messages techniques des formulaires — 9 octobre 2026
+
+Gassama demande de vérifier et corriger facilité d’utilisation, accessibilité et sécurité du formulaire. Ces ajouts sont des messages de fonctionnement, sans fait GECA ajouté. Contact : « Vérifiez les champs suivants » ; « Indiquez votre nom, entre 2 et 100 caractères. » ; « Indiquez une adresse e-mail valide, de 254 caractères maximum. » ; « Le nom de l’organisation ne doit pas dépasser 160 caractères. » ; « Choisissez le sujet de votre message. » ; « Écrivez un message entre 10 et 3 000 caractères, hors espaces au début et à la fin. » ; compteur « caractères » ; action « Modifier mon message ». Traductions fidèles dans contactContent.
+
+Newsletter : même résumé et message e-mail, « Cochez la case si vous acceptez de recevoir la newsletter. » et « Cette demande ne peut pas être acceptée. Réessayez depuis le formulaire. » ; traductions EN dans la vue et le contrôleur Laravel. Le consentement fourni reste explicite ; aucun succès d’envoi nouveau revendiqué. Mode de simulation et contact sans envoi restent annoncés.
+
+Messages techniques publics complémentaires : « Demande refusée » / « Cette demande ou ce lien ne peut pas être accepté. Ouvrez le formulaire de newsletter pour recommencer. » ; « Page introuvable » / « Utilisez le formulaire de newsletter pour continuer. » ; « Rouvrez le formulaire » / « Cette page n’est plus valide. Rouvrez le formulaire de newsletter, puis réessayez. Votre demande n’a pas été enregistrée. » ; « Trop de demandes » / « Veuillez réessayer plus tard. Votre dernière demande n’a pas été enregistrée. » ; « Retour au formulaire de newsletter ». Traductions fidèles EN dans errors/newsletter.blade.php ; aucun fait GECA ni délai d’envoi ajouté.
+
+
+## Actions de la page Nous soutenir — Gassama, 9 octobre 2026
+
+Gassama demande de remplacer les actions Retour à l’accueil et Contacter GECA par WhatsApp et Appeler, pour faciliter le contact au sujet d’un don. Libellés FR « WhatsApp » et « Appeler GECA » ; EN « WhatsApp » et « Call GECA ». Numéro public existant +224 628 40 03 87 réutilisé pour les deux liens. Aucun autre numéro, instruction de paiement, disponibilité, horaire ou collecte ajouté. Le compte WhatsApp du numéro n’a pas été vérifié ; la demande permet le lien, sans preuve de son activation. Textes de présentation inchangés.
+
+## Cartes Domaines sans libellé d’action — Gassama, 9 octobre 2026
+
+Gassama demande de retirer « Découvrir ce domaine », car les images permettent déjà d’ouvrir le domaine. Retrait du libellé FR et de son équivalent EN « Explore this area » sur les huit cartes de l’accueil. Liens, titres, descriptions et photos conservés ; aucun fait client modifié.

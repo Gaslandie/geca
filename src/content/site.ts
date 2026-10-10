@@ -21,6 +21,12 @@ export const identity = {
   email: "ong.geca@gmail.com",
 };
 
+export const supportActions = {
+  whatsappHref: `https://wa.me/${identity.phoneHref.replace("tel:+", "")}`,
+  fr: { whatsapp: "WhatsApp", call: "Appeler GECA" },
+  en: { whatsapp: "WhatsApp", call: "Call GECA" },
+} as const;
+
 // Précisions fournies par Gassama dans le chat du 4 octobre 2026.
 export const organizationFacts = {
   fr: {
@@ -164,9 +170,10 @@ export type LocalPhoto = {
 
 export const temporaryImageLabel = "Image temporaire";
 
-// Photos extraites des trois fichiers client fournis le 6 octobre 2026.
+// Photos des documents client et des envois séparés de Gassama.
 // Légendes, liens confirmés et illustrations de thème : docs/IMAGES-CLIENT.md.
 export const clientPhotoSources = {
+  "sensibilisation-acteurs-locaux": { src: "/images/client/sensibilisation-acteurs-locaux.jpg", source: "Gassama", reference: "WhatsApp Image 2026-10-09 at 23.10.08.jpeg", fr: "Sensibilisation des acteurs locaux.", en: "Awareness raising among local stakeholders." },
   "hero-gbara-champ": { src: "/images/client/hero-gbara-champ.jpg", source: "1 IMAGES.pdf", reference: "page 47", fr: "Aménagement du champ maraîcher à Gbara.", en: "Preparing the market garden in Gbara." },
   "hero-gbara-entretien": { src: "/images/client/hero-gbara-entretien.jpg", source: "1 IMAGES.pdf", reference: "page 59, figure 1", fr: "Entretien avec le groupement maraîcher de Gbara.", en: "Discussion with the market-gardening group in Gbara." },
   "hero-bassia-travail": { src: "/images/client/hero-bassia-travail.jpg", source: "1 IMAGES.pdf", reference: "page 39", fr: "Travail dans un champ maraîcher à Bassia.", en: "People working in a market garden in Bassia." },
@@ -272,7 +279,7 @@ const expertiseAreas: readonly {
   },
   {
     id: "appui-communautes",
-    photo: { ...interventionPhotos["gouvernance-communautes"], alt: "Illustration réutilisée pour le domaine Appui aux communautés affectées." },
+    photo: clientPhoto("kolaboui-materiels"),
     fr: { title: "Appui aux communautés affectées", description: "Appui aux communautés affectées par les projets miniers et de développement, notamment sur les droits, la gestion foncière et la prévention des conflits.", detail: "Nous contribuons à renforcer la participation citoyenne et la défense des droits des communautés, notamment au sein du CODEC. Notre expérience comprend également un appui financier et technique aux femmes agricultrices affectées par l’exploitation minière, associé à une agriculture adaptée au climat." },
     en: { title: "Support for affected communities", description: "Support for communities affected by mining and development projects, particularly regarding rights, land management and conflict prevention.", detail: "We help strengthen civic participation and the defence of community rights, notably within CODEC. Our experience also includes financial and technical support for women farmers affected by mining, combined with climate-adapted agriculture." },
   },
@@ -298,7 +305,7 @@ export function getInterventionAreas(locale: Locale) {
 
 // Photos d’illustration autorisées par Gassama le 3 octobre 2026.
 // Sources et licences : docs/IMAGES-TEMPORAIRES.md. À remplacer par les photos GECA.
-const temporaryPhotos = {
+export const temporaryPhotos = {
   forest: {
     src: "/images/temporary/forest.jpg",
     alt: "Feuillage tropical — image temporaire d’illustration, sans lien avec une action de GECA.",
@@ -384,6 +391,16 @@ export const contactContent = {
       submit: "Prévisualiser mon message",
       privacy: "Cette démonstration n’enregistre pas votre saisie. N’indiquez pas de mot de passe ni de donnée sensible.",
       invalid: "Merci de compléter ce champ avec un texte, pas seulement des espaces.",
+      errorTitle: "Vérifiez les champs suivants",
+      errors: {
+        name: "Indiquez votre nom, entre 2 et 100 caractères.",
+        email: "Indiquez une adresse e-mail valide, de 254 caractères maximum.",
+        organization: "Le nom de l’organisation ne doit pas dépasser 160 caractères.",
+        reason: "Choisissez le sujet de votre message.",
+        message: "Écrivez un message entre 10 et 3 000 caractères, hors espaces au début et à la fin.",
+      },
+      characters: "caractères",
+      edit: "Modifier mon message",
       preview: "Aperçu de votre message",
       notSent: "Votre message n’a pas été envoyé. Pour contacter GECA, utilisez l’e-mail ou le téléphone indiqué sur cette page.",
       reset: "Effacer ma saisie",
@@ -430,6 +447,16 @@ export const contactContent = {
       submit: "Preview my message",
       privacy: "This demo does not save your input. Do not include passwords or sensitive information.",
       invalid: "Please enter some text, not just spaces.",
+      errorTitle: "Check the following fields",
+      errors: {
+        name: "Enter your name, between 2 and 100 characters.",
+        email: "Enter a valid email address, up to 254 characters.",
+        organization: "The organisation name must not exceed 160 characters.",
+        reason: "Choose the subject of your message.",
+        message: "Write a message between 10 and 3,000 characters, excluding leading and trailing spaces.",
+      },
+      characters: "characters",
+      edit: "Edit my message",
       preview: "Message preview",
       notSent: "Your message has not been sent. To contact GECA, use the email address or phone number on this page.",
       reset: "Clear my input",
@@ -474,7 +501,7 @@ export const projects: readonly Project[] = [
   },
   {
     slug: "planification-climatique",
-    photo: temporaryPhotos.fields,
+    photo: clientPhoto("sensibilisation-acteurs-locaux"),
     zone: "Basse-Guinée",
     status: "completed",
     title: "Sensibilisation des acteurs locaux (élus, OSC, femmes et jeunes) sur l'intégration du changement climatique dans la planification locale dans la région de la Basse-Guinée",
@@ -560,7 +587,6 @@ export const homeContent = {
   domains: {
     label: "Nos expertises",
     title: "Domaines d’expertise",
-    cta: "Découvrir ce domaine",
     description: "Découvrez nos huit domaines d’expertise.",
     items: getInterventionAreas("fr"),
   },
@@ -583,6 +609,9 @@ export const homeContent = {
       "Sensibilisation, formation et suivi pour l’intégration du changement climatique et de l’inclusion sociale dans les Plans de Développement Local (PDL) de 84 collectivités.",
       "Appui financier et technique aux femmes agricultrices affectées par l’exploitation minière, agriculture adaptée au climat, éducation environnementale et restauration écologique.",
       "Amélioration des conditions économiques et de la sécurité alimentaire, structuration des groupements, appui technique aux AGR, gestion des plaintes et prévention des VBG.",
+      "30 femmes formées aux techniques de maraîchage et dotées de matériels agricoles.",
+      "Plus de 2 000 élèves formés en éducation environnementale.",
+      "10 groupements formés et dotés de matériels agricoles, apicoles et de saponification.",
     ],
   },
   projects: {
@@ -1442,6 +1471,41 @@ export const newsletterContent = {
   },
 } as const;
 
+// Première publication : informations existantes et fonctionnement technique réel.
+export const publicInformation = {
+  fr: {
+    publisher: "Éditeur et contact", hosting: "Hébergement", credits: "Crédits photo et logos",
+    clientPhotos: "Les photos transmises pour ce site proviennent des documents 1 IMAGES.pdf, PIC.docx et IMAGES BM AGR.docx, ainsi que d’une photo de sensibilisation des acteurs locaux transmise séparément par Gassama. Les portraits de l’équipe et les logos ont été transmis séparément. Les auteurs et licences de ces fichiers n’ont pas été précisés dans les envois. Les illustrations de thème ne constituent pas une preuve de réalisation d’un projet.",
+    temporaryPhotos: "Les photos temporaires sont des illustrations. Elles ne représentent pas les activités de Global EcoAction. Les variantes sont redimensionnées, compressées en WebP et parfois recadrées à l’affichage.",
+    logos: "Les logos identifient les organismes présentés sur ce site. Ils restent les marques de leurs organismes respectifs.",
+    privacy: "Cette version du site ne propose pas d’inscription à la newsletter ni de formulaire d’envoi de message. Vous pouvez joindre Global EcoAction par e-mail, téléphone ou WhatsApp. Ces liens ouvrent le service ou l’application correspondant. La recherche consulte les contenus publics du site ; elle ne transmet pas votre recherche et ne la conserve pas. La carte externe se charge uniquement lorsque vous choisissez de l’afficher. Le lien d’itinéraire ouvre Google Maps.",
+    sitemap: "Rubriques du site", documentPhotos: "Photos transmises", internetPhotos: "Illustrations temporaires",
+    original: "Source", license: "Licence Unsplash",
+  },
+  en: {
+    publisher: "Publisher and contact", hosting: "Hosting", credits: "Photo and logo credits",
+    clientPhotos: "Photos provided for this website come from 1 IMAGES.pdf, PIC.docx and IMAGES BM AGR.docx, as well as a photograph of awareness raising among local stakeholders provided separately by Gassama. Team portraits and logos were provided separately. Authors and licences were not specified in the submissions. Thematic illustrations are not evidence that a project has been carried out.",
+    temporaryPhotos: "Temporary photographs are illustrations. They do not depict Global EcoAction activities. Versions are resized, compressed to WebP and sometimes cropped for display.",
+    logos: "Logos identify the organisations presented on this website. They remain the trademarks of their respective organisations.",
+    privacy: "This version of the website does not offer newsletter registration or a message submission form. You can contact Global EcoAction by email, telephone or WhatsApp. These links open the corresponding service or application. Search uses the website’s public content; it does not transmit or save your search. The external map loads only when you choose to display it. The directions link opens Google Maps.",
+    sitemap: "Website sections", documentPhotos: "Provided photographs", internetPhotos: "Temporary illustrations",
+    original: "Source", license: "Unsplash licence",
+  },
+} as const;
+
+export const temporaryPhotoCredits = [
+  { author: "Krystal Ng", source: "https://unsplash.com/photos/dense-palm-fronds-in-tropical-forest-O07o2Cd_vX0" },
+  { author: "Jonathan Kemper", source: "https://unsplash.com/photos/gloved-hands-planting-seedling-in-soil-CbZh3kaPxrE" },
+  { author: "Bernd Dittrich", source: "https://unsplash.com/photos/aerial-view-of-green-and-brown-agricultural-fields-3vgvdshL0_0" },
+  { author: "Dan Meyers", source: "https://unsplash.com/photos/a-picture-of-a-cracked-surface-with-plants-growing-on-it-yW9YbBc4YJA" },
+  { author: "Frans Daniels", source: "https://unsplash.com/photos/river-in-forest-Iu6EW0NgejY" },
+  { author: "Zacqueline Baldwin", source: "https://unsplash.com/photos/a-group-of-people-putting-their-hands-together-K7IvqBpE5uY" },
+  { author: "Chandu J S", source: "https://unsplash.com/photos/misty-forest-landscape-with-layered-hills-WmG0GxmyY-k" },
+  { author: "Aaron Burden", source: "https://unsplash.com/photos/green-leaf-with-water-drops-dXYE1d08BiY" },
+  { author: "Caroletravis — Rachel the tireless tree planter, Kenya photo 2", source: "https://commons.wikimedia.org/wiki/File:Rachel_the_tireless_tree_planter,_Kenya_photo_2.jpg", license: { title: "CC BY-SA 4.0", href: "https://creativecommons.org/licenses/by-sa/4.0/" } },
+  { author: "Maarten van der Bent — Fouta Djallon (14604732032)", source: "https://commons.wikimedia.org/wiki/File:Fouta_Djallon_(14604732032).jpg", license: { title: "CC BY-SA 2.0", href: "https://creativecommons.org/licenses/by-sa/2.0/" } },
+] as const;
+
 // Introductions des pages internes : synthèses des contenus client déjà validés.
 export const pageIntroductions = {
   fr: {
@@ -1505,7 +1569,6 @@ export function getHomeContent(locale: Locale) {
       ...homeContent.domains,
       label: "Our expertise",
       title: "Areas of expertise",
-      cta: "Explore this area",
       description: "Explore our eight areas of expertise.",
       // Reuse precisely the French homepage media, even when the internal page differs.
       items: homeContent.domains.items.map((item) => ({
@@ -1532,6 +1595,9 @@ export function getHomeContent(locale: Locale) {
         projectTranslationsEn["planification-climatique"].description,
         projectTranslationsEn["appui-social-nature"].description,
         projectTranslationsEn.kounounkan.description,
+        "30 women trained in market-gardening techniques and provided with agricultural equipment.",
+        "More than 2,000 students trained in environmental education.",
+        "10 groups trained and provided with agricultural, beekeeping and soap-making equipment.",
       ],
     },
     projects: {

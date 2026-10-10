@@ -2116,5 +2116,41 @@
     "width": 640,
     "bytes": 42064,
     "originalBytes": 773283
+  },
+  {
+    "source": "/images/client/sensibilisation-acteurs-locaux.jpg",
+    "width": 192,
+    "bytes": 4390,
+    "originalBytes": 171565
+  },
+  {
+    "source": "/images/client/sensibilisation-acteurs-locaux.jpg",
+    "width": 320,
+    "bytes": 9952,
+    "originalBytes": 171565
+  },
+  {
+    "source": "/images/client/sensibilisation-acteurs-locaux.jpg",
+    "width": 480,
+    "bytes": 19062,
+    "originalBytes": 171565
+  },
+  {
+    "source": "/images/client/sensibilisation-acteurs-locaux.jpg",
+    "width": 640,
+    "bytes": 28230,
+    "originalBytes": 171565
+  },
+  {
+    "source": "/images/client/sensibilisation-acteurs-locaux.jpg",
+    "width": 960,
+    "bytes": 46300,
+    "originalBytes": 171565
+  },
+  {
+    "source": "/images/client/sensibilisation-acteurs-locaux.jpg",
+    "width": 1039,
+    "bytes": 50524,
+    "originalBytes": 171565
   }
 ]

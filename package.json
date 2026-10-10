@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "NEXT_TELEMETRY_DISABLED=1 next dev --hostname 127.0.0.1",
     "build": "NEXT_TELEMETRY_DISABLED=1 next build",
+    "build:public": "node scripts/build-public.mjs",
+    "test:public": "node scripts/test-public.mjs",
+    "package:public": "node scripts/package-public.mjs",
     "optimize:images": "node scripts/optimize-images.mjs",
     "build:pages": "GECA_GITHUB_PAGES=true NEXT_TELEMETRY_DISABLED=1 next build && node scripts/finalize-pages.mjs",
     "preview:pages": "node scripts/preview-pages.mjs",

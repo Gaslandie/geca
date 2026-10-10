@@ -33,7 +33,7 @@ export function News({ locale }: { locale: Locale }) {
               <article className="news-card" id={entry.id} key={entry.id} aria-labelledby={`news-${entry.id}`} tabIndex={-1}>
                 {entry.photo
                   ? <PhotoPlaceholder locale={locale} className="news-photo" photo={entry.photo} label={entry.category} sizes="(max-width: 699px) 100vw, (max-width: 1279px) 50vw, 25vw" />
-                  : <div className="news-milestone-visual"><BrandLogo locale={locale} /></div>}
+                  : <div className="news-milestone-visual"><BrandLogo locale={locale} sizes="(max-width: 767px) 200px, (max-width: 1199px) 164px, 176px" /></div>}
                 <div className="news-card-content card-content">
                   <p className="news-archive-period">
                     {entry.dateTime ? text.date : text.period} : {entry.dateTime

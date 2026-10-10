@@ -141,3 +141,16 @@ Gassama demande cinq photos différentes. Deux photos jusque-là inutilisées co
 ## Actualités documentées — 7 octobre 2026
 
 La page Actualités réutilise les photos des sept références avec leurs niveaux de preuve, textes alternatifs et étiquettes thématiques/temporaires existants. Les deux cartes d'accueil réutilisent les photos corroborées des références AGR Kounounkan et Appui social/nature. Les repères de création et de changement de nom restent sans photo, faute de photo précisément associée. Aucun cliché n'est daté à partir d'une période de projet. Les anciennes associations aux cartes en préparation restent consignées ci-dessus comme historique ; leurs médias sont conservés.
+
+
+## Sensibilisation des acteurs locaux — 10 octobre 2026
+
+Gassama fournit `WhatsApp Image 2026-10-09 at 23.10.08.jpeg` avec la description « Image de sensibilisation des acteurs locaux ». La photo montre une assemblée en salle et une personne au premier plan s’adressant aux participants. Aucune personne identifiée ; aucune lecture d’inscription utilisée pour ajouter un fait ou une consigne.
+
+Original copié sans modification dans `assets/source-images/images/client/sensibilisation-acteurs-locaux.jpg`, hors du dossier public. Remplacement de la photo temporaire de champs de la référence `planification-climatique`, repris automatiquement par l’accueil (filtre des projets réalisés), Projets et l’archive/article Actualités FR/EN. Autres médias conservés. Description accessible limitée au sujet fourni ; aucun lieu ni date de prise de vue ajouté. Le nom du fichier n’atteste pas une date d’activité. Auteur, licence et droits des personnes non précisés dans l’envoi ; aucune attribution inventée ni licence libre supposée.
+
+Préparation selon le script commun : WebP qualité 55, sans agrandissement ni métadonnées privées ; fichiers admis par le registre fermé. Crédits regroupés dans les mentions légales FR/EN à `credits-photo`. Les textes et les faits du projet restent inchangés.
+
+## Appui aux communautés : même photo sur accueil et Domaines — 9 octobre 2026
+
+Gassama demande de remplacer les mains réunies sur la page Domaines par la photo de la rubrique correspondante de l’accueil. Réutilisation de `kolaboui-materiels` (PIC.docx, image 8), sélection documentée le 7 octobre, dans la donnée commune du domaine : accueil et page Domaines FR/EN. La donnée locale utilisait encore les mains réunies sur les deux pages ; cette correction rétablit la sélection documentée et l’étend à la page interne. Textes inchangés, descriptions accessibles FR/EN et crédits existants conservés ; aucun nouveau média ni fait ajouté.

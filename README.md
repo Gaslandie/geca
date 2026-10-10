@@ -1,6 +1,12 @@
 # GECA — Maquette et aperçu GitHub Pages
 
-Maquette de l’accueil institutionnel et des pages À propos, Domaines d’intervention, Projets & programmes et Contact de Global EcoAction. Les autres rubriques affichent une page « en préparation ». Aucun service de paiement, CMS, base de données, suivi d’audience ou envoi de courriel n’est installé.
+Site institutionnel Next.js de Global EcoAction, avec aperçu local et GitHub Pages. L’administration Laravel dans `backoffice/` reste distincte ; sa publication automatique vers le site public et les envois réels ne sont pas encore activés. Pas de paiement en ligne ou de suivi d’audience ajouté.
+
+## Première publication publique sur Bluehost
+
+Préparer une candidate avec `npm run build:public`, vérifier ses fichiers avec `npm run test:public`, puis produire le ZIP avec `npm run package:public`. Le guide et l’état réel de livraison sont dans [docs/MISE-EN-PRODUCTION.md](docs/MISE-EN-PRODUCTION.md). Le mode public masque les formulaires inactifs ; il reste distinct de l’aperçu local et du back-office. Aucune de ces commandes ne livre sur Bluehost.
+
+Première vitrine livrée le 9 octobre 2026 sur [globalecoaction.org](https://globalecoaction.org/fr/) après sauvegarde privée, comparaison de l’archive et installation contrôlée. Vérification réelle dans Chrome : 46 pages FR/EN conformes, styles, images de l’accueil, redirections HTTPS, protections et refus des chemins privés. L’administration, les envois réels et la publication automatique des modifications restent une livraison distincte. Certains outils HTTP reçoivent encore 406 ; le navigateur de Gassama et Chrome affichent le site.
 
 ## Partager l'aperçu avec le client
 

@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { contactContent, contactPhotos, href, identity, interfaceText, pageIntroductions, type Locale } from "@/content/site";
+import { contactContent, contactPhotos, href, identity, interfaceText, pageIntroductions, supportActions, type Locale } from "@/content/site";
 import { ContactForm } from "./ContactForm";
 import { ContactMap } from "./ContactMap";
-import { Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
+import { Button, Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
+import { publicRelease } from "@/lib/deployment";
 
 export function Contact({ locale }: { locale: Locale }) {
   const text = contactContent[locale];
@@ -22,11 +23,18 @@ export function Contact({ locale }: { locale: Locale }) {
           <PageIntroduction>{pageIntroductions[locale].contact}</PageIntroduction>
         </Container>
       </section>
-      <section className="contact-split" aria-label={text.form.title}>
+      <section className="contact-split" aria-label={publicRelease ? text.details : text.form.title}>
         <div className="contact-introduction">
           <PhotoPlaceholder locale={locale} label={text.landscape} photo={contactPhotos.landscape[locale]} className="contact-landscape" priority />
         </div>
-        <ContactForm locale={locale} />
+        {publicRelease ? <div className="contact-form-panel card-content contact-public-actions">
+          <h2>{text.details}</h2>
+          <div className="button-group">
+            <Button href={supportActions.whatsappHref} prefetch={false} referrerPolicy="no-referrer" rel="noopener noreferrer">{supportActions[locale].whatsapp}</Button>
+            <Button href={identity.phoneHref} variant="secondary" prefetch={false}>{supportActions[locale].call}</Button>
+            <Button href={`mailto:${identity.email}`} variant="text" prefetch={false}>{text.write}</Button>
+          </div>
+        </div> : <ContactForm locale={locale} />}
       </section>
 
       <section className="contact-details" aria-label={text.details}>

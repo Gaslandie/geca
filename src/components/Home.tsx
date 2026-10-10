@@ -20,7 +20,7 @@ export function Home({ locale }: { locale: Locale }) {
       <section className="hero" aria-labelledby="hero-title">
         <HeroSlideshow photos={content.hero.slides} />
         <div className="hero-grid">
-          <div className="hero-content">
+          <div className="hero-content" data-reveal="off">
             <p className="eyebrow hero-brand">
               {content.hero.label.split(/(Global|Eco|Action)/).map((part, index) =>
                 /^(Global|Eco|Action)$/.test(part)
@@ -93,7 +93,6 @@ export function Home({ locale }: { locale: Locale }) {
                   </div>
                   <div className="domain-content card-content">
                     <p>{item.description}</p>
-                    <span className="button button-text">{content.domains.cta}</span>
                   </div>
                 </Link>
               </article>
