@@ -23,7 +23,7 @@
         $sectionLabel = collect($navigation)->firstWhere('key', $activeSection)['label'] ?? 'Espace de gestion';
     @endphp
     <aside class="admin-sidebar" aria-label="Menu latéral">
-        <a class="admin-brand" href="{{ route('dashboard') }}"><img src="{{ asset('brand/geca-logo.webp') }}" width="240" height="120" alt="Global EcoAction — Tableau de bord"><span>Espace de gestion</span></a>
+        <a class="admin-brand" href="{{ route('dashboard') }}"><img src="{{ asset('brand/geca-logo-client-20261010.webp') }}" width="1600" height="666" alt="Global EcoAction — Tableau de bord"><span>Espace de gestion</span></a>
         @include('partials.admin-navigation')
     </aside>
     <div class="admin-workspace">
@@ -32,7 +32,7 @@
         <div class="admin-account"><span class="admin-avatar" aria-hidden="true">{{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 2)) }}</span><span>{{ auth()->user()->name }}</span></div>
     </header>
     <header class="mobile-header">
-        <a class="admin-brand" href="{{ route('dashboard') }}"><img src="{{ asset('brand/geca-logo.webp') }}" width="240" height="120" alt="Global EcoAction — Tableau de bord"></a>
+        <a class="admin-brand" href="{{ route('dashboard') }}"><img src="{{ asset('brand/geca-logo-client-20261010.webp') }}" width="1600" height="666" alt="Global EcoAction — Tableau de bord"></a>
         <details class="mobile-navigation">
             <summary><x-admin-icon name="menu" /><span>Menu</span></summary>
             <div class="mobile-navigation-content">@include('partials.admin-navigation')</div>

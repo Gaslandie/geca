@@ -13,7 +13,7 @@ files = [base / name for name in ['artisan', 'composer.json', 'composer.lock', '
 for name in ['app', 'config', 'routes', 'resources/views', 'lang', 'database/migrations', 'database/reference']:
     files += [p for p in (base / name).rglob('*') if p.is_file()]
 # L'entrée HTTP Bluehost et son .htaccess HTTPS existants restent hors de ce paquet.
-files += [base / 'public/admin.css', base / 'public/brand/geca-logo.webp']
+files += [base / 'public/admin.css', base / 'public/brand/geca-logo-client-20261010.webp']
 manifest = {}
 with tarfile.open(output, 'w:gz') as archive:
     for path in sorted(files):

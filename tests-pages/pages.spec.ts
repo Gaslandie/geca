@@ -62,7 +62,7 @@ for (const width of [375, 1440]) {
     await page.screenshot({ path: `test-results/pages-home-${width}.png`, animations: "disabled" });
     await expect(page.locator(".hero-slide img")).toHaveCount(5);
     for (const text of await page.locator(".hero-brand, #hero-title, .hero-description, .hero-introduction").all()) await expect(text).toHaveCSS("text-align", "left");
-    await expect(page.locator(".site-header .brand-logo")).toHaveAttribute("src", /global-ecoaction-logo-transparent-/);
+    await expect(page.locator(".site-header .brand-logo")).toHaveAttribute("src", /global-ecoaction-logo-client-transparent-20261010\.webp/);
     await expect(page.locator(".site-header .brand")).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
     expect(await page.locator(".hero-slide img").evaluateAll(images => new Set(images.map(image => new URL((image as HTMLImageElement).src).pathname)).size)).toBe(5);
     await expect(page.locator(".hero-slide img").first()).toHaveAttribute("alt", "");

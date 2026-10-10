@@ -36,6 +36,9 @@ try {
   await symlink(join(project, "node_modules"), join(work, "node_modules"), "dir");
   await mkdir(join(work, "public", "images", "optimized"), { recursive: true });
   await cp(join(project, "public", "icon.svg"), join(work, "public", "icon.svg"));
+  const clientLogo = "images/brand/global-ecoaction-logo-client-transparent-20261010.webp";
+  await mkdir(join(work, "public", "images", "brand"), { recursive: true });
+  await cp(join(project, "public", clientLogo), join(work, "public", clientLogo));
   const variants = JSON.parse(await readFile(join(project, "src", "content", "image-variants.json"), "utf8"));
   const permitted = new Set(Object.values(variants).flatMap(items => items.map(item => item.src)));
   for (const src of permitted) {
@@ -51,7 +54,7 @@ try {
   await cp(join(project, "deploy", "public.htaccess"), join(files, ".htaccess"));
   const manifest = [];
   for (const path of await walk(files)) {
-    if (path !== ".htaccess" && (path.split("/").some(part => part.startsWith(".")) || !/^(?:_next\/static\/|images\/optimized\/|(?:fr|en|404|_not-found)\/|(?:index|404|_not-found)\.(?:html|txt)$|(?:robots\.txt|sitemap\.xml|icon\.svg)$)/.test(path) || !/\.(?:html|txt|xml|js|css|svg|webp|ttf|woff2?|ico|json)$/.test(path))) {
+    if (path !== ".htaccess" && path !== "images/brand/global-ecoaction-logo-client-transparent-20261010.webp" && (path.split("/").some(part => part.startsWith(".")) || !/^(?:_next\/static\/|images\/optimized\/|(?:fr|en|404|_not-found)\/|(?:index|404|_not-found)\.(?:html|txt)$|(?:robots\.txt|sitemap\.xml|icon\.svg)$)/.test(path) || !/\.(?:html|txt|xml|js|css|svg|webp|ttf|woff2?|ico|json)$/.test(path))) {
       throw new Error(`Fichier hors périmètre public : ${path}`);
     }
     if (/\.(?:php|phar|sqlite|sql|log|bak|zip|gz|map)$/.test(path)) throw new Error(`Fichier privé/interdit : ${path}`);

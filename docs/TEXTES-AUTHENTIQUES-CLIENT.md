@@ -754,3 +754,8 @@ Gassama demande de remplacer les actions Retour à l’accueil et Contacter GECA
 ## Cartes Domaines sans libellé d’action — Gassama, 9 octobre 2026
 
 Gassama demande de retirer « Découvrir ce domaine », car les images permettent déjà d’ouvrir le domaine. Retrait du libellé FR et de son équivalent EN « Explore this area » sur les huit cartes de l’accueil. Liens, titres, descriptions et photos conservés ; aucun fait client modifié.
+
+
+## Logo transmis le 10 octobre 2026 à 17 h 05
+
+Gassama transmet la nouvelle version JPEG du logo, plus fine, et demande son remplacement partout sans retouche du dessin, des lettres ou des couleurs ; précision suivante : retirer uniquement le fond pour le rendre transparent. Nouveau fichier et décisions dans docs/LOGO-GECA.md. Slogan reçu inchangé : « Agir pour un avenir durable ». Ces consignes remplacent les anciennes variantes générées et la recoloration blanche du slogan.

@@ -68,7 +68,7 @@ export function Footer({ locale }: { locale: Locale }) {
               className="brand"
               aria-label={`${identity.name} — ${text.home}`}
             >
-              <BrandLogo locale={locale} darkBackground />
+              <BrandLogo locale={locale} />
             </Link>
             <p>{text.footerDescription}</p>
             {!publicRelease && contactDetails}
