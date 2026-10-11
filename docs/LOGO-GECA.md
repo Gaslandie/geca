@@ -39,3 +39,9 @@ Dérivé PNG source : `assets/source-images/images/brand/global-ecoaction-logo-c
 Gassama autorise l’allègement des images. Cette demande remplace le chargement systématique du logo complet non optimisé, pour la livraison à l’écran seulement. Original client et dérivé transparent 1600 × 666 conservés. Quatre variantes WebP sans perte après redimensionnement proportionnel, depuis le PNG transparent : 192/320/480/640 px, respectivement 18 802/37 746/68 026/103 254 octets. Alpha, couleurs et composition conservés, aucun fond ajouté. Le composant BrandLogo sélectionne ces variantes via le registre fermé ; l’optimiseur conserve cette règle pour les prochaines générations. Pas de nouveau logo ni de transformation par IA.
 
 Copie 480 px pour les trois logos administratifs : backoffice/public/brand/geca-logo-client-20261010-480.webp, incluse dans le paquet de code. L’ancien WebP complet reste conservé. Dimensions HTML naturelles 1600 × 666 et rendu proportionnel inchangés. Favicon et logos partenaires inchangés.
+
+## Favicon et partage — 11 octobre 2026
+
+Vérification demandée par Gassama. L’emblème PNG 96 × 96 déjà intégré dans `public/icon.svg` est extrait à l’identique dans `public/icon.png`, désormais déclaré comme favicon commun FR/EN. Aucun redessin, recadrage ou changement de pixels ; ancien SVG conservé. URL stable, sans paramètre de version.
+
+Aperçu de partage : copie exacte du JPEG client du 10 octobre dans `public/images/brand/geca-share-20261010.jpg` (1600 × 666, 120 145 octets). Ce fichier conserve son fond clair et ses proportions, contrairement au logo transparent utilisé dans le site. Aucun nouveau visuel ni fait ajouté. EXIF, XMP et IPTC absents, dimensions vérifiées. Le texte alternatif reprend uniquement « Global EcoAction ». Titres et résumés FR/EN réutilisés depuis les métadonnées SEO ; aucune date de publication ni identité de compte social inventée. Copie publique limitée à ces deux fichiers explicites dans l’export fermé.

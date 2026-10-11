@@ -29,7 +29,7 @@ for (const width of [320, 768, 1440]) {
 }
 
 for (const locale of ["fr", "en"]) {
-  test(`logos ${locale} : défilement, arrêt au survol et au clavier, sans bouton de pause`, async ({page}) => {
+  test(`logos ${locale} : défilement, arrêt au survol et au clavier, commande de pause`, async ({page}) => {
     await page.clock.install();
     await page.setViewportSize({width:1440,height:900});
     await page.emulateMedia({reducedMotion:"no-preference"});
@@ -56,12 +56,13 @@ for (const locale of ["fr", "en"]) {
     expect(await list.evaluate(element=>element.scrollLeft)).toBeCloseTo(focusedPosition,0);
     await page.keyboard.press('Tab');
     await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
     await expect(carousel).toHaveAttribute('data-autoplay','true');
     await carousel.scrollIntoViewIfNeeded();
     await page.mouse.move(0,0);
     await page.clock.runFor(5200);
     expect(await list.evaluate(element=>element.scrollLeft)).toBeGreaterThan(focusedPosition+10);
-    await expect(carousel.getByRole('button')).toHaveCount(2);
+    await expect(carousel.getByRole('button')).toHaveCount(3);
     await expect(list).toHaveCSS('scrollbar-width','none');
   });
 }

@@ -8,7 +8,7 @@ import {
   identity,
   interfaceText,
   navigation,
-  routes,
+  sectionRoutes,
   type Locale,
 } from "@/content/site";
 import { Container, Icon } from "./ui";
@@ -35,6 +35,7 @@ function HeaderNavigation({
 }) {
   const text = interfaceText[locale];
   const [menuOpen, setMenuOpen] = useState(false);
+  const [compact, setCompact] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLButtonElement>(null);
@@ -50,7 +51,9 @@ function HeaderNavigation({
     const inner = header.querySelector<HTMLElement>(".header-inner");
     const updateMeasurements = () => {
       // Le menu direct garde de la place pour le texte agrandi.
-      header.dataset.compact = String(window.innerWidth < 80 * parseFloat(getComputedStyle(document.documentElement).fontSize));
+      const isCompact = window.innerWidth < 80 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+      header.dataset.compact = String(isCompact);
+      setCompact(isCompact);
       const height = `${header.offsetHeight}px`;
       header.style.setProperty("--header-height", height);
       document.documentElement.style.setProperty("--site-header-height", height);
@@ -88,6 +91,113 @@ function HeaderNavigation({
     setOpenGroup(null);
   }
 
+  // Le panneau suit son bouton dans le DOM mobile : Tab y entre naturellement.
+  const nav = (
+    <nav
+      id="main-navigation"
+      aria-label={text.mainNav}
+      className={`main-nav ${menuOpen ? "is-open" : ""}`}
+    >
+      <ul>
+        {navigation.map((item) => {
+          const isActive = item.path
+            ? pathname === href(locale, item.path) ||
+              pathname.startsWith(`${href(locale, item.path)}/`) ||
+              item.children?.some((path) => pathname === href(locale, path))
+            : pathname === href(locale);
+          return (
+            <li
+              className={`nav-item ${isActive ? "active" : ""}`}
+              key={item.path}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget))
+                  setOpenGroup((current) =>
+                    current === item.path ? null : current,
+                  );
+              }}
+            >
+              {item.children ? (
+                <>
+                  <button
+                    ref={(element) => {
+                      groupRefs.current[item.path] = element;
+                    }}
+                    className="nav-trigger"
+                    aria-expanded={openGroup === item.path}
+                    aria-controls={`nav-${item.path}`}
+                    onClick={() =>
+                      setOpenGroup(
+                        openGroup === item.path ? null : item.path,
+                      )
+                    }
+                  >
+                    {item[locale]}
+                    <Icon name="chevron" className="nav-chevron" />
+                  </button>
+                  <ul
+                    id={`nav-${item.path}`}
+                    className="nav-dropdown"
+                    hidden={openGroup !== item.path}
+                  >
+                    {item.children.map((path) => {
+                      const route = sectionRoutes.find(
+                        (route) => route.path === path,
+                      )!;
+                      return (
+                        <li key={path}>
+                          <Link
+                            href={href(locale, path)}
+                            onClick={close}
+                            aria-current={
+                              pathname === href(locale, path)
+                                ? "page"
+                                : undefined
+                            }
+                          >
+                            {route[locale]}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </>
+              ) : (
+                <Link
+                  href={href(locale, item.path)}
+                  onClick={close}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {item[locale]}
+                </Link>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      <div className="language-switch" role="group" aria-label={text.language}>
+        <Link
+          href={locale === "fr" ? pathname : translatedPath}
+          lang="fr"
+          hrefLang="fr"
+          aria-current={locale === "fr" ? "page" : undefined}
+          onClick={close}
+        >
+          FR
+        </Link>
+        <span aria-hidden="true">/</span>
+        <Link
+          href={locale === "en" ? pathname : translatedPath}
+          lang="en"
+          hrefLang="en"
+          aria-current={locale === "en" ? "page" : undefined}
+          onClick={close}
+        >
+          EN
+        </Link>
+      </div>
+    </nav>
+  );
+
   return (
     <header
       ref={headerRef}
@@ -116,109 +226,7 @@ function HeaderNavigation({
           <BrandLogo locale={locale} preload />
         </Link>
 
-        <nav
-          id="main-navigation"
-          aria-label={text.mainNav}
-          className={`main-nav ${menuOpen ? "is-open" : ""}`}
-        >
-          <ul>
-            {navigation.map((item) => {
-              const isActive = item.path
-                ? pathname === href(locale, item.path) ||
-                  pathname.startsWith(`${href(locale, item.path)}/`) ||
-                  item.children?.some((path) => pathname === href(locale, path))
-                : pathname === href(locale);
-              return (
-                <li
-                  className={`nav-item ${isActive ? "active" : ""}`}
-                  key={item.path}
-                  onBlur={(event) => {
-                    if (!event.currentTarget.contains(event.relatedTarget))
-                      setOpenGroup((current) =>
-                        current === item.path ? null : current,
-                      );
-                  }}
-                >
-                  {item.children ? (
-                    <>
-                      <button
-                        ref={(element) => {
-                          groupRefs.current[item.path] = element;
-                        }}
-                        className="nav-trigger"
-                        aria-expanded={openGroup === item.path}
-                        aria-controls={`nav-${item.path}`}
-                        onClick={() =>
-                          setOpenGroup(
-                            openGroup === item.path ? null : item.path,
-                          )
-                        }
-                      >
-                        {item[locale]}
-                        <Icon name="chevron" className="nav-chevron" />
-                      </button>
-                      <ul
-                        id={`nav-${item.path}`}
-                        className="nav-dropdown"
-                        hidden={openGroup !== item.path}
-                      >
-                        {item.children.map((path) => {
-                          const route = routes.find(
-                            (route) => route.path === path,
-                          )!;
-                          return (
-                            <li key={path}>
-                              <Link
-                                href={href(locale, path)}
-                                onClick={close}
-                                aria-current={
-                                  pathname === href(locale, path)
-                                    ? "page"
-                                    : undefined
-                                }
-                              >
-                                {route[locale]}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </>
-                  ) : (
-                    <Link
-                      href={href(locale, item.path)}
-                      onClick={close}
-                      aria-current={isActive ? "page" : undefined}
-                    >
-                      {item[locale]}
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-          <div className="language-switch" role="group" aria-label={text.language}>
-            <Link
-              href={locale === "fr" ? pathname : translatedPath}
-              lang="fr"
-              hrefLang="fr"
-              aria-current={locale === "fr" ? "page" : undefined}
-              onClick={close}
-            >
-              FR
-            </Link>
-            <span aria-hidden="true">/</span>
-            <Link
-              href={locale === "en" ? pathname : translatedPath}
-              lang="en"
-              hrefLang="en"
-              aria-current={locale === "en" ? "page" : undefined}
-              onClick={close}
-            >
-              EN
-            </Link>
-          </div>
-        </nav>
+        {!compact && nav}
         <div className="header-actions">
           <Link
             className="button button-donate donate-link"
@@ -242,6 +250,7 @@ function HeaderNavigation({
         >
           <Icon name={menuOpen ? "close" : "menu"} />
         </button>
+        {compact && nav}
       </Container>
     </header>
   );

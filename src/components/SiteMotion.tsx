@@ -191,9 +191,23 @@ export function SiteMotion() {
       }
     };
     const handleFocus = (event: FocusEvent) => {
-      if (!(event.target instanceof Node)) return;
+      if (!(event.target instanceof Element)) return;
       for (const [target, animation] of running) {
         if (target.contains(event.target)) {
+          // Au pointeur, figer la position sous le doigt/la souris jusqu’au clic.
+          // Revenir brusquement à zéro ici ferait rater le relâchement du bouton.
+          if (!event.target.matches(":focus-visible")) animation.pause();
+          else {
+            animation.cancel();
+            running.delete(target);
+          }
+        }
+      }
+    };
+    const handleBlur = (event: FocusEvent) => {
+      for (const [target, animation] of running) {
+        if (animation.playState === "paused" &&
+          (!(event.relatedTarget instanceof Node) || !target.contains(event.relatedTarget))) {
           animation.cancel();
           running.delete(target);
         }
@@ -206,12 +220,14 @@ export function SiteMotion() {
     preference.addEventListener("change", start);
     connection?.addEventListener?.("change", start);
     document.addEventListener("focusin", handleFocus);
+    document.addEventListener("focusout", handleBlur);
     return () => {
       stop();
       document.removeEventListener("visibilitychange", handleVisibility);
       preference.removeEventListener("change", start);
       connection?.removeEventListener?.("change", start);
       document.removeEventListener("focusin", handleFocus);
+      document.removeEventListener("focusout", handleBlur);
     };
   }, [pathname]);
 

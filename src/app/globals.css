@@ -2876,3 +2876,8 @@ html { scroll-padding-top: calc(var(--site-header-height, 104px) + 16px); }
 .site-info li { margin-block: 12px; }
 .site-info a { text-decoration: underline; text-underline-offset: 4px; }
 .site-info address { font-style: normal; }
+
+/* Commandes persistantes de pause, accessibles au clavier. */
+.motion-toggle { min-height: 44px; padding: 8px 16px; font-size: var(--text-small); }
+.hero-motion-toggle { display: flex; width: fit-content; margin: 0 var(--site-gutter) 16px auto; background: var(--green-dark); }
+.partner-carousel-toggle { grid-column: 1 / -1; justify-self: center; }

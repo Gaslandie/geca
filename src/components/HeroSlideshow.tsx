@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import type { LocalPhoto } from "@/content/site";
+import { motionControlText, type Locale, type LocalPhoto } from "@/content/site";
 import { assetPath } from "@/lib/assets";
 
 function connection() {
@@ -23,14 +23,16 @@ function subscribe(callback: () => void) {
 }
 const staticOnServer = () => false;
 
-export function HeroSlideshow({ photos }: { photos: readonly LocalPhoto[] }) {
+export function HeroSlideshow({ photos, locale }: { photos: readonly LocalPhoto[]; locale: Locale }) {
+  const [paused, setPaused] = useState(false);
+  const text = motionControlText[locale];
   const enabled = useSyncExternalStore(subscribe, canRotate, staticOnServer);
-  const [slides, setSlides] = useState(() => ({ active: 0, requested: new Set([0, 1]) }));
+  const [slides, setSlides] = useState(() => ({ active: 0, requested: new Set([0]) }));
   const loaded = useRef(new Set<number>());
   const shown = enabled ? slides.active : 0;
 
   useEffect(() => {
-    if (!enabled || photos.length < 2) return;
+    if (!enabled || paused || photos.length < 2) return;
     let timer: ReturnType<typeof setInterval> | undefined;
     const schedule = () => {
       clearInterval(timer);
@@ -51,16 +53,21 @@ export function HeroSlideshow({ photos }: { photos: readonly LocalPhoto[] }) {
       clearInterval(timer);
       document.removeEventListener("visibilitychange", schedule);
     };
-  }, [enabled, photos.length]);
+  }, [enabled, paused, photos.length]);
 
   return (
+    <>
     <div className="hero-backdrop" aria-hidden="true" data-reveal="off" data-slide={shown}>
       {photos.map((photo, index) => (index === 0 || enabled) && (
         <div className="hero-slide" data-active={index === shown} key={photo.src}>
           {(index === 0 || slides.requested.has(index)) && (
           <Image src={assetPath(photo.src)} alt="" fill sizes="100vw" preload={index === 0}
             loading={index === 0 ? undefined : "eager"}
-            onLoad={() => loaded.current.add(index)} onError={() => {
+            fetchPriority={index === 0 ? undefined : "low"}
+            onLoad={() => {
+              loaded.current.add(index);
+              if (index === 0) setSlides((current) => current.requested.has(1) ? current : { ...current, requested: new Set([...current.requested, 1]) });
+            }} onError={() => {
               loaded.current.delete(index);
               const next = (index + 1) % photos.length;
               setSlides((current) => current.requested.has(next) ? current : { ...current, requested: new Set([...current.requested, next]) });
@@ -69,5 +76,7 @@ export function HeroSlideshow({ photos }: { photos: readonly LocalPhoto[] }) {
         </div>
       ))}
     </div>
+    {enabled && photos.length > 1 && <button type="button" data-reveal="off" className="button button-secondary button-inverse motion-toggle hero-motion-toggle" aria-label={`${paused ? text.resume : text.pause} — ${text.photos}`} onClick={() => setPaused(!paused)}>{paused ? text.resume : text.pause}</button>}
+    </>
   );
 }

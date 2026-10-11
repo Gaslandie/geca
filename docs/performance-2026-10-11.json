@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-11",
+  "environment": "Chrome local production; cache disabled; 375x812 DPR2; 200000 B/s; latency150ms; CPU4x; 15s after DOMContentLoaded; carousel active",
+  "before": {
+    "runs": [
+      {
+        "fcpMs": 2584,
+        "lcp": 13856,
+        "cls": 0.019339950010919947,
+        "long": 3030,
+        "resourceBytes": 1397023
+      },
+      {
+        "fcpMs": 2748,
+        "lcp": 13288,
+        "cls": 0.019339950010919947,
+        "long": 2805,
+        "resourceBytes": 1397023
+      },
+      {
+        "fcpMs": 1376,
+        "lcp": 10164,
+        "cls": 0.019339950010919947,
+        "long": 793,
+        "resourceBytes": 1547267
+      }
+    ],
+    "median": {
+      "fcpMs": 2584,
+      "lcpMs": 13288,
+      "cls": 0.019339950010919947,
+      "longTaskExcessMs": 2805,
+      "resourceBytes": 1397023,
+      "jsBytes": 179070,
+      "fontBytes": 586554,
+      "imageBytes": 579638
+    }
+  },
+  "after": {
+    "runs": [
+      {
+        "fcpMs": 2316,
+        "lcp": 9876,
+        "cls": 0,
+        "long": 332,
+        "resourceBytes": 907743
+      },
+      {
+        "fcpMs": 1220,
+        "lcp": 9944,
+        "cls": 0.019339950010919947,
+        "long": 577,
+        "resourceBytes": 907743
+      },
+      {
+        "fcpMs": 1232,
+        "lcp": 10440,
+        "cls": 0.019339950010919947,
+        "long": 645,
+        "resourceBytes": 907743
+      }
+    ],
+    "median": {
+      "fcpMs": 1232,
+      "lcpMs": 9944,
+      "cls": 0.019339950010919947,
+      "longTaskExcessMs": 577,
+      "resourceBytes": 907743,
+      "jsBytes": 177324,
+      "fontBytes": 209640,
+      "imageBytes": 468524
+    }
+  }
+}

@@ -49,6 +49,12 @@
   },
   {
     "source": "/images/client/allassoyah-materiels.jpg",
+    "width": 768,
+    "bytes": 45008,
+    "originalBytes": 99808
+  },
+  {
+    "source": "/images/client/allassoyah-materiels.jpg",
     "width": 960,
     "bytes": 64444,
     "originalBytes": 99808
@@ -81,6 +87,12 @@
     "source": "/images/client/bassia-champ.jpg",
     "width": 640,
     "bytes": 68832,
+    "originalBytes": 1532524
+  },
+  {
+    "source": "/images/client/bassia-champ.jpg",
+    "width": 768,
+    "bytes": 103906,
     "originalBytes": 1532524
   },
   {
@@ -127,6 +139,12 @@
   },
   {
     "source": "/images/client/bassia-maraichage.jpg",
+    "width": 768,
+    "bytes": 88772,
+    "originalBytes": 1003451
+  },
+  {
+    "source": "/images/client/bassia-maraichage.jpg",
     "width": 960,
     "bytes": 147450,
     "originalBytes": 1003451
@@ -165,6 +183,12 @@
     "source": "/images/client/bassia-travail-champ.jpg",
     "width": 640,
     "bytes": 55212,
+    "originalBytes": 926910
+  },
+  {
+    "source": "/images/client/bassia-travail-champ.jpg",
+    "width": 768,
+    "bytes": 80372,
     "originalBytes": 926910
   },
   {
@@ -211,6 +235,12 @@
   },
   {
     "source": "/images/client/formation-groupements.jpg",
+    "width": 768,
+    "bytes": 86042,
+    "originalBytes": 153507
+  },
+  {
+    "source": "/images/client/formation-groupements.jpg",
     "width": 960,
     "bytes": 119068,
     "originalBytes": 153507
@@ -243,6 +273,12 @@
     "source": "/images/client/formation-maraichage.jpg",
     "width": 640,
     "bytes": 46062,
+    "originalBytes": 124008
+  },
+  {
+    "source": "/images/client/formation-maraichage.jpg",
+    "width": 768,
+    "bytes": 62478,
     "originalBytes": 124008
   },
   {
@@ -283,6 +319,12 @@
   },
   {
     "source": "/images/client/gbara-arrosage.jpg",
+    "width": 768,
+    "bytes": 101430,
+    "originalBytes": 350439
+  },
+  {
+    "source": "/images/client/gbara-arrosage.jpg",
     "width": 960,
     "bytes": 153020,
     "originalBytes": 350439
@@ -315,6 +357,12 @@
     "source": "/images/client/gbara-visite.jpg",
     "width": 640,
     "bytes": 63410,
+    "originalBytes": 228989
+  },
+  {
+    "source": "/images/client/gbara-visite.jpg",
+    "width": 768,
+    "bytes": 89274,
     "originalBytes": 228989
   },
   {
@@ -355,6 +403,12 @@
   },
   {
     "source": "/images/client/gorede-saponification.jpg",
+    "width": 768,
+    "bytes": 50636,
+    "originalBytes": 154805
+  },
+  {
+    "source": "/images/client/gorede-saponification.jpg",
     "width": 960,
     "bytes": 69692,
     "originalBytes": 154805
@@ -387,6 +441,12 @@
     "source": "/images/client/hero-bassia-groupe.jpg",
     "width": 640,
     "bytes": 50482,
+    "originalBytes": 938994
+  },
+  {
+    "source": "/images/client/hero-bassia-groupe.jpg",
+    "width": 768,
+    "bytes": 73868,
     "originalBytes": 938994
   },
   {
@@ -433,6 +493,12 @@
   },
   {
     "source": "/images/client/hero-bassia-travail.jpg",
+    "width": 768,
+    "bytes": 75670,
+    "originalBytes": 839255
+  },
+  {
+    "source": "/images/client/hero-bassia-travail.jpg",
     "width": 960,
     "bytes": 121422,
     "originalBytes": 839255
@@ -475,6 +541,12 @@
   },
   {
     "source": "/images/client/hero-gbara-arrosage.jpg",
+    "width": 768,
+    "bytes": 88584,
+    "originalBytes": 325689
+  },
+  {
+    "source": "/images/client/hero-gbara-arrosage.jpg",
     "width": 960,
     "bytes": 142774,
     "originalBytes": 325689
@@ -507,6 +579,12 @@
     "source": "/images/client/hero-gbara-champ.jpg",
     "width": 640,
     "bytes": 60878,
+    "originalBytes": 347132
+  },
+  {
+    "source": "/images/client/hero-gbara-champ.jpg",
+    "width": 768,
+    "bytes": 91226,
     "originalBytes": 347132
   },
   {
@@ -547,6 +625,12 @@
   },
   {
     "source": "/images/client/hero-gbara-entretien.jpg",
+    "width": 768,
+    "bytes": 82996,
+    "originalBytes": 181291
+  },
+  {
+    "source": "/images/client/hero-gbara-entretien.jpg",
     "width": 960,
     "bytes": 118038,
     "originalBytes": 181291
@@ -579,6 +663,12 @@
     "source": "/images/client/khimbeli-consultation.jpg",
     "width": 640,
     "bytes": 46102,
+    "originalBytes": 358038
+  },
+  {
+    "source": "/images/client/khimbeli-consultation.jpg",
+    "width": 768,
+    "bytes": 64610,
     "originalBytes": 358038
   },
   {
@@ -619,6 +709,12 @@
   },
   {
     "source": "/images/client/kolaboui-materiels.jpg",
+    "width": 768,
+    "bytes": 29518,
+    "originalBytes": 74624
+  },
+  {
+    "source": "/images/client/kolaboui-materiels.jpg",
     "width": 960,
     "bytes": 39706,
     "originalBytes": 74624
@@ -651,6 +747,12 @@
     "source": "/images/client/moussayah-concertation.jpg",
     "width": 640,
     "bytes": 37818,
+    "originalBytes": 579322
+  },
+  {
+    "source": "/images/client/moussayah-concertation.jpg",
+    "width": 768,
+    "bytes": 50836,
     "originalBytes": 579322
   },
   {
@@ -697,6 +799,12 @@
   },
   {
     "source": "/images/client/moussayah-dialogue.jpg",
+    "width": 768,
+    "bytes": 17912,
+    "originalBytes": 158355
+  },
+  {
+    "source": "/images/client/moussayah-dialogue.jpg",
     "width": 960,
     "bytes": 24000,
     "originalBytes": 158355
@@ -729,6 +837,12 @@
     "source": "/images/client/moussayah-ombrieres.jpg",
     "width": 640,
     "bytes": 40584,
+    "originalBytes": 585669
+  },
+  {
+    "source": "/images/client/moussayah-ombrieres.jpg",
+    "width": 768,
+    "bytes": 57694,
     "originalBytes": 585669
   },
   {
@@ -775,6 +889,12 @@
   },
   {
     "source": "/images/client/moussayah-pepiniere.jpg",
+    "width": 768,
+    "bytes": 76100,
+    "originalBytes": 668267
+  },
+  {
+    "source": "/images/client/moussayah-pepiniere.jpg",
     "width": 960,
     "bytes": 113490,
     "originalBytes": 668267
@@ -817,6 +937,12 @@
   },
   {
     "source": "/images/client/tabekhoure-champ.jpg",
+    "width": 768,
+    "bytes": 89212,
+    "originalBytes": 235173
+  },
+  {
+    "source": "/images/client/tabekhoure-champ.jpg",
     "width": 960,
     "bytes": 130890,
     "originalBytes": 235173
@@ -849,6 +975,12 @@
     "source": "/images/domaines/agroecologie.jpg",
     "width": 640,
     "bytes": 16406,
+    "originalBytes": 242453
+  },
+  {
+    "source": "/images/domaines/agroecologie.jpg",
+    "width": 768,
+    "bytes": 20984,
     "originalBytes": 242453
   },
   {
@@ -895,6 +1027,12 @@
   },
   {
     "source": "/images/domaines/climat-resilience.jpg",
+    "width": 768,
+    "bytes": 31158,
+    "originalBytes": 282042
+  },
+  {
+    "source": "/images/domaines/climat-resilience.jpg",
     "width": 960,
     "bytes": 40594,
     "originalBytes": 282042
@@ -933,6 +1071,12 @@
     "source": "/images/domaines/education-environnementale.jpg",
     "width": 640,
     "bytes": 18026,
+    "originalBytes": 225569
+  },
+  {
+    "source": "/images/domaines/education-environnementale.jpg",
+    "width": 768,
+    "bytes": 22210,
     "originalBytes": 225569
   },
   {
@@ -979,6 +1123,12 @@
   },
   {
     "source": "/images/domaines/gouvernance-communautes.jpg",
+    "width": 768,
+    "bytes": 12560,
+    "originalBytes": 192666
+  },
+  {
+    "source": "/images/domaines/gouvernance-communautes.jpg",
     "width": 960,
     "bytes": 16804,
     "originalBytes": 192666
@@ -1017,6 +1167,12 @@
     "source": "/images/domaines/ressources-naturelles.jpg",
     "width": 640,
     "bytes": 28372,
+    "originalBytes": 383396
+  },
+  {
+    "source": "/images/domaines/ressources-naturelles.jpg",
+    "width": 768,
+    "bytes": 39034,
     "originalBytes": 383396
   },
   {
@@ -1063,6 +1219,12 @@
   },
   {
     "source": "/images/domaines/restauration-ecosystemes.jpg",
+    "width": 768,
+    "bytes": 13790,
+    "originalBytes": 151581
+  },
+  {
+    "source": "/images/domaines/restauration-ecosystemes.jpg",
     "width": 960,
     "bytes": 17886,
     "originalBytes": 151581
@@ -1105,6 +1267,12 @@
   },
   {
     "source": "/images/hero/plantation.png",
+    "width": 768,
+    "bytes": 33674,
+    "originalBytes": 993398
+  },
+  {
+    "source": "/images/hero/plantation.png",
     "width": 918,
     "bytes": 41314,
     "originalBytes": 993398
@@ -1131,6 +1299,12 @@
     "source": "/images/mission/fouta-djallon.jpg",
     "width": 640,
     "bytes": 44734,
+    "originalBytes": 2023215
+  },
+  {
+    "source": "/images/mission/fouta-djallon.jpg",
+    "width": 768,
+    "bytes": 66612,
     "originalBytes": 2023215
   },
   {
@@ -1173,6 +1347,12 @@
     "source": "/images/mission/plantation-kenya.jpg",
     "width": 640,
     "bytes": 72430,
+    "originalBytes": 4895718
+  },
+  {
+    "source": "/images/mission/plantation-kenya.jpg",
+    "width": 768,
+    "bytes": 108494,
     "originalBytes": 4895718
   },
   {
@@ -1423,6 +1603,12 @@
   },
   {
     "source": "/images/team/archille-delamou.jpg",
+    "width": 768,
+    "bytes": 25910,
+    "originalBytes": 271633
+  },
+  {
+    "source": "/images/team/archille-delamou.jpg",
     "width": 960,
     "bytes": 36024,
     "originalBytes": 271633
@@ -1459,6 +1645,12 @@
   },
   {
     "source": "/images/team/daouda-toure.jpg",
+    "width": 768,
+    "bytes": 30172,
+    "originalBytes": 254320
+  },
+  {
+    "source": "/images/team/daouda-toure.jpg",
     "width": 960,
     "bytes": 41238,
     "originalBytes": 254320
@@ -1491,6 +1683,12 @@
     "source": "/images/team/fode-baba-sylla.jpg",
     "width": 640,
     "bytes": 6802,
+    "originalBytes": 119365
+  },
+  {
+    "source": "/images/team/fode-baba-sylla.jpg",
+    "width": 768,
+    "bytes": 8826,
     "originalBytes": 119365
   },
   {
@@ -1537,6 +1735,12 @@
   },
   {
     "source": "/images/team/ibrahima-kaba.jpg",
+    "width": 768,
+    "bytes": 14930,
+    "originalBytes": 248064
+  },
+  {
+    "source": "/images/team/ibrahima-kaba.jpg",
     "width": 960,
     "bytes": 20612,
     "originalBytes": 248064
@@ -1569,6 +1773,12 @@
     "source": "/images/team/mariame-djelo-diallo.jpg",
     "width": 640,
     "bytes": 16428,
+    "originalBytes": 230839
+  },
+  {
+    "source": "/images/team/mariame-djelo-diallo.jpg",
+    "width": 768,
+    "bytes": 21192,
     "originalBytes": 230839
   },
   {
@@ -1615,6 +1825,12 @@
   },
   {
     "source": "/images/team/mohamed-lamine-sacko.jpg",
+    "width": 768,
+    "bytes": 20292,
+    "originalBytes": 298884
+  },
+  {
+    "source": "/images/team/mohamed-lamine-sacko.jpg",
     "width": 960,
     "bytes": 35038,
     "originalBytes": 298884
@@ -1647,6 +1863,12 @@
     "source": "/images/team/mohamed-makale-kaba.jpg",
     "width": 640,
     "bytes": 16564,
+    "originalBytes": 242977
+  },
+  {
+    "source": "/images/team/mohamed-makale-kaba.jpg",
+    "width": 768,
+    "bytes": 20690,
     "originalBytes": 242977
   },
   {
@@ -1693,6 +1915,12 @@
   },
   {
     "source": "/images/team/salifou-camara.jpg",
+    "width": 768,
+    "bytes": 22618,
+    "originalBytes": 252069
+  },
+  {
+    "source": "/images/team/salifou-camara.jpg",
     "width": 960,
     "bytes": 32058,
     "originalBytes": 252069
@@ -1725,6 +1953,12 @@
     "source": "/images/temporary/climate.jpg",
     "width": 640,
     "bytes": 59074,
+    "originalBytes": 354546
+  },
+  {
+    "source": "/images/temporary/climate.jpg",
+    "width": 768,
+    "bytes": 77604,
     "originalBytes": 354546
   },
   {
@@ -1765,6 +1999,12 @@
   },
   {
     "source": "/images/temporary/community.jpg",
+    "width": 768,
+    "bytes": 13458,
+    "originalBytes": 108395
+  },
+  {
+    "source": "/images/temporary/community.jpg",
     "width": 960,
     "bytes": 17868,
     "originalBytes": 108395
@@ -1801,6 +2041,12 @@
   },
   {
     "source": "/images/temporary/event-leaf.jpg",
+    "width": 768,
+    "bytes": 7054,
+    "originalBytes": 72190
+  },
+  {
+    "source": "/images/temporary/event-leaf.jpg",
     "width": 960,
     "bytes": 9794,
     "originalBytes": 72190
@@ -1833,6 +2079,12 @@
     "source": "/images/temporary/fields.jpg",
     "width": 640,
     "bytes": 41370,
+    "originalBytes": 574451
+  },
+  {
+    "source": "/images/temporary/fields.jpg",
+    "width": 768,
+    "bytes": 67862,
     "originalBytes": 574451
   },
   {
@@ -1879,6 +2131,12 @@
   },
   {
     "source": "/images/temporary/forest.jpg",
+    "width": 768,
+    "bytes": 117150,
+    "originalBytes": 1009863
+  },
+  {
+    "source": "/images/temporary/forest.jpg",
     "width": 960,
     "bytes": 167936,
     "originalBytes": 1009863
@@ -1917,6 +2175,12 @@
     "source": "/images/temporary/impact-forest.jpg",
     "width": 640,
     "bytes": 10032,
+    "originalBytes": 380893
+  },
+  {
+    "source": "/images/temporary/impact-forest.jpg",
+    "width": 768,
+    "bytes": 14616,
     "originalBytes": 380893
   },
   {
@@ -1963,6 +2227,12 @@
   },
   {
     "source": "/images/temporary/planting.jpg",
+    "width": 768,
+    "bytes": 77428,
+    "originalBytes": 532622
+  },
+  {
+    "source": "/images/temporary/planting.jpg",
     "width": 960,
     "bytes": 108500,
     "originalBytes": 532622
@@ -2005,6 +2275,12 @@
   },
   {
     "source": "/images/temporary/water.jpg",
+    "width": 768,
+    "bytes": 154966,
+    "originalBytes": 654002
+  },
+  {
+    "source": "/images/temporary/water.jpg",
     "width": 960,
     "bytes": 214480,
     "originalBytes": 654002
@@ -2037,6 +2313,12 @@
     "source": "/videos/geca-forest-poster.jpg",
     "width": 640,
     "bytes": 27134,
+    "originalBytes": 446646
+  },
+  {
+    "source": "/videos/geca-forest-poster.jpg",
+    "width": 768,
+    "bytes": 37654,
     "originalBytes": 446646
   },
   {
@@ -2139,6 +2421,12 @@
     "source": "/images/client/sensibilisation-acteurs-locaux.jpg",
     "width": 640,
     "bytes": 28230,
+    "originalBytes": 171565
+  },
+  {
+    "source": "/images/client/sensibilisation-acteurs-locaux.jpg",
+    "width": 768,
+    "bytes": 35578,
     "originalBytes": 171565
   },
   {

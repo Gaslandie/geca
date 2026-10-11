@@ -16,6 +16,11 @@ export const identity = {
     fr: "Kissosso, commune de Matoto, Conakry, République de Guinée",
     en: "Kissosso, municipality of Matoto, Conakry, Republic of Guinea",
   },
+  postalAddress: {
+    streetAddress: { fr: "Kissosso, commune de Matoto", en: "Kissosso, municipality of Matoto" },
+    addressLocality: "Conakry",
+    addressCountry: "GN",
+  },
   phone: "+224 628 40 03 87",
   phoneHref: "tel:+224628400387",
   email: "ong.geca@gmail.com",
@@ -42,7 +47,7 @@ export const organizationFacts = {
 } as const;
 
 // Registre fermé : une URL inconnue ne devient jamais une rubrique valide.
-const sectionRoutes = [
+export const sectionRoutes = [
   { path: "a-propos", fr: "Qui sommes-nous ?", en: "About us" },
   {
     path: "a-propos/mission-vision-valeurs",
@@ -61,7 +66,7 @@ const sectionRoutes = [
   {
     path: "devenir-partenaire",
     fr: "Devenir partenaire",
-    en: "Partner with us",
+    en: "Become a partner",
   },
   { path: "contact", fr: "Contact", en: "Contact" },
   { path: "recherche", fr: "Recherche", en: "Search" },
@@ -465,7 +470,7 @@ export const projects: readonly Project[] = [
     photo: clientPhoto("kolaboui-materiels"),
     zone: "Guinée",
     status: "current",
-    title: "Projet d’appui social et protection de la nature",
+    title: "Projet d’appui social et de protection de la nature",
     period: "2025-2026",
     description: "Appui financier et technique aux femmes agricultrices affectées par l’exploitation minière, agriculture adaptée au climat, éducation environnementale et restauration écologique.",
     partner: "Fondation ALCOA",
@@ -475,7 +480,7 @@ export const projects: readonly Project[] = [
     photo: clientPhoto("sensibilisation-acteurs-locaux"),
     zone: "Basse-Guinée",
     status: "completed",
-    title: "Sensibilisation des acteurs locaux (élus, OSC, femmes et jeunes) sur l'intégration du changement climatique dans la planification locale dans la région de la Basse-Guinée",
+    title: "Sensibilisation des acteurs locaux (élus, OSC, femmes et jeunes) sur l’intégration du changement climatique dans la planification locale dans la région de la Basse-Guinée",
     period: "2024-2025",
     description: "Sensibilisation, formation et suivi pour l’intégration du changement climatique et de l’inclusion sociale dans les Plans de Développement Local (PDL) de 84 collectivités.",
     partner: "ANAFIC",
@@ -488,7 +493,7 @@ export const projects: readonly Project[] = [
     title: "Projet de Territoire de Moussayah - PROTEMO",
     period: "2023-2024",
     description: "Développement territorial participatif conciliant gouvernance environnementale, opportunités économiques et préservation des ressources naturelles.",
-    partner: "Ambassade de France en Guinée et Sierra Leone",
+    partner: "Ambassade de France en Guinée et en Sierra Leone",
   },
   {
     slug: "reboisement-communautaire",
@@ -508,7 +513,7 @@ export const projects: readonly Project[] = [
     title: "Lutte contre la dégradation de l’environnement pour un développement durable dans la sous-préfecture de Moussayah - Projet Innovant des Sociétés Civiles et Coalition d’Acteurs (PISCCA)",
     period: "2021-2022",
     description: "Renforcement de la résilience environnementale à travers le reboisement, la promotion de pratiques agricoles durables, la sensibilisation des communautés, la restauration des écosystèmes et l’amélioration de la gestion des ressources naturelles, avec une forte implication des communautés et des autorités locales.",
-    partner: "Ambassade de France en Guinée et Sierra Leone",
+    partner: "Ambassade de France en Guinée et en Sierra Leone",
   },
   {
     slug: "droits-communautes",
@@ -678,7 +683,7 @@ export const homeContent = {
         },
       },
       {
-        name: "Ambassade de France en Guinée et Sierra Leone",
+        name: "Ambassade de France en Guinée et en Sierra Leone",
         logo: {
           src: "/images/partners/ambassade-france.png",
           alt: "Logo de l’Ambassade de France en Guinée et en Sierra Leone",
@@ -1143,7 +1148,7 @@ export const portfolioContent = {
   },
   en: {
     breadcrumb: "Breadcrumb",
-    label: "Restore ecosystems · Strengthen communities",
+    label: "Restore forests · Preserve biodiversity · Strengthen communities",
     title: "Projects & programmes",
     metadata: "Discover the initiatives we carry out with communities and our partners.",
     introduction: "Discover the initiatives we carry out with communities and our partners.",
@@ -1416,14 +1421,15 @@ export function getNewsEntry(locale: Locale, id: string) {
   return getNewsEntries(locale).find((entry) => entry.id === id);
 }
 
-export const routes: readonly { path: string; fr: string; en: string }[] = [
+// Catalogue calculé sans effet de bord : excluable des scripts qui n’utilisent que le menu.
+export const routes: readonly { path: string; fr: string; en: string }[] = /* @__PURE__ */ (() => [
   ...sectionRoutes,
   ...getNewsEntries("fr").map((entry) => ({
     path: newsArticlePath(entry.id),
     fr: entry.title,
     en: getNewsEntry("en", entry.id)!.title,
   })),
-];
+])();
 
 export const newsletterContent = {
   fr: {
@@ -1624,3 +1630,43 @@ export const homeMetadata = {
   fr: { title: "Global EcoAction — Agir ensemble en Guinée", description: "GECA, ONG guinéenne créée en 2016, agit pour la restauration des écosystèmes, la résilience climatique et le développement communautaire." },
   en: { title: "Global EcoAction — Acting together in Guinea", description: "GECA, a Guinean NGO founded in 2016, works on ecosystem restoration, climate resilience and community development." },
 } as const;
+
+// Commandes d’accessibilité, sans ajout de contenu factuel GECA.
+export const motionControlText = {
+  fr: { pause: "Pause", resume: "Reprendre", photos: "les photos", names: "les noms des partenaires", logos: "les logos des partenaires" },
+  en: { pause: "Pause", resume: "Resume", photos: "photos", names: "partner names", logos: "partner logos" },
+} as const;
+
+// Résumés SEO fidèles aux contenus : les titres et textes visibles restent complets.
+export const seoSummaries: Record<Locale, Record<string, { title?: string; description?: string }>> = {
+  fr: {
+    "equipe": {"description": "Découvrez les membres de l’équipe de Global EcoAction et leurs fonctions au sein de l’organisation."},
+    "a-propos/mission-vision-valeurs": {"description": "Découvrez la mission, la vision et les valeurs de Global EcoAction pour la nature et les communautés en Guinée."},
+    "devenir-partenaire": {"description": "Collaborer avec GECA en Guinée : restauration des écosystèmes, adaptation climatique, agroécologie et moyens d’existence des communautés."},
+    "nous-soutenir": {"description": "Soutenir la mission de Global EcoAction pour la nature et les communautés en Guinée. Contactez GECA par téléphone ou WhatsApp."},
+    "mentions-legales": {"description": "Consultez les informations légales de Global EcoAction, ses coordonnées et les crédits des photographies utilisées sur le site."},
+    "confidentialite": {"description": "Informations sur les données personnelles, les moyens de contact, la recherche et les services externes du site Global EcoAction."},
+    "plan-du-site": {"description": "Accédez aux rubriques de Global EcoAction : organisation, mission, domaines d’expertise, équipe, projets, actualités et contact."},
+    "recherche": {"description": "Recherchez les informations publiques de Global EcoAction : domaines d’expertise, projets, histoire et coordonnées."},
+    "actualites/projet-kounounkan": {"title": "Activités génératrices de revenus à Kounounkan"},
+    "actualites/projet-planification-climatique": {"title": "Climat et planification locale en Basse-Guinée"},
+    "actualites/projet-droits-communautes": {"title": "CODEC : droits des communautés", "description": "Participation au consortium CODEC pour renforcer la participation citoyenne et promouvoir les droits des communautés affectées par les projets de développement."},
+    "actualites/projet-piscca": {"title": "PISCCA : environnement à Moussayah", "description": "À Moussayah, le projet PISCCA associe reboisement, pratiques agricoles durables et sensibilisation des communautés pour renforcer la résilience environnementale."},
+    "actualites/projet-reboisement-communautaire": {"description": "Reboisement communautaire de 550 000 arbres à Boffa, Kindia, Forécariah, Mamou et Faranah, entre 2019 et 2021."},
+  },
+  en: {
+    "equipe": {"description": "Meet the members of the Global EcoAction team and discover their roles within the organisation."},
+    "a-propos/mission-vision-valeurs": {"description": "Explore Global EcoAction’s mission, vision and values for nature and communities in Guinea."},
+    "devenir-partenaire": {"description": "Work with GECA in Guinea on ecosystem restoration, climate adaptation, agroecology and community livelihoods."},
+    "nous-soutenir": {"description": "Support Global EcoAction’s mission for nature and communities in Guinea. Contact GECA by phone or WhatsApp."},
+    "mentions-legales": {"description": "Read Global EcoAction’s legal information, contact details and credits for the photographs used on this website."},
+    "confidentialite": {"description": "Information about personal data, contact options, search and external services on the Global EcoAction website."},
+    "plan-du-site": {"description": "Browse Global EcoAction’s website: organisation, mission, areas of expertise, team, projects, news and contact."},
+    "recherche": {"description": "Search Global EcoAction’s public information: areas of expertise, projects, history and contact details."},
+    "actualites/projet-kounounkan": {"title": "Income-generating activities in Kounounkan"},
+    "actualites/projet-planification-climatique": {"title": "Climate and local planning in Lower Guinea"},
+    "actualites/projet-droits-communautes": {"title": "CODEC: community rights", "description": "Participation in the CODEC consortium to strengthen civic participation and promote the rights of communities affected by development projects."},
+    "actualites/projet-piscca": {"title": "PISCCA: environment in Moussayah", "description": "In Moussayah, PISCCA combines reforestation, sustainable farming and community awareness raising to strengthen environmental resilience."},
+    "actualites/projet-reboisement-communautaire": {"description": "Community reforestation with 550,000 trees in Boffa, Kindia, Forécariah, Mamou and Faranah, between 2019 and 2021."},
+  },
+};

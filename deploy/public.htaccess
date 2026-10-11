@@ -10,7 +10,8 @@ RewriteRule ^\.well-known/ - [L]
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} !^globalecoaction\.org$ [NC]
 RewriteRule ^ https://globalecoaction.org%{REQUEST_URI} [R=301,L]
-RewriteRule ^$ /fr/ [R=302,L]
+# Accueil français permanent : même destination que la canonique et le sitemap.
+RewriteRule ^$ /fr/ [R=301,L]
 # Le serveur public ne comporte aucun point d’entrée d’administration ou d’envoi.
 RewriteRule ^(?:administration|connexion|newsletter|api)(?:/|$) - [R=404,L]
 RewriteRule (^|/)\. - [R=404,L]
@@ -22,6 +23,16 @@ RewriteRule (^|/)\. - [R=404,L]
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
   Header always set Content-Security-Policy "object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
   Header always unset X-Powered-By
+
+  # Pages et URL non versionnées : validation auprès du serveur à chaque visite.
+  # Erreurs/refus : ne pas conserver une réponse qui pourrait changer.
+  Header onsuccess unset Cache-Control
+  Header always set Cache-Control "no-store"
+  Header always set Cache-Control "no-cache" "expr=%{REQUEST_STATUS} == 200 || %{REQUEST_STATUS} == 304"
+  # Les noms des variantes et les sorties Next changent à chaque changement de contenu.
+  <If "%{REQUEST_URI} =~ m#^/(?:images/optimized/[a-zA-Z0-9_-]+-[0-9a-f]{12}\.webp|_next/static/[^?]+\.(?:js|css|woff2?|ttf))$#">
+    Header always set Cache-Control "public, max-age=31536000, immutable" "expr=%{REQUEST_STATUS} == 200 || %{REQUEST_STATUS} == 304"
+  </If>
 </IfModule>
 
 <FilesMatch "\.(?:php|phar|sqlite|sql|log|bak|zip|gz|map)$">

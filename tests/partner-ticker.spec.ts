@@ -14,8 +14,8 @@ for (const width of [320, 768, 1440]) {
     await expect(ticker.locator("img")).toHaveCount(0);
     await expect(page.locator(".partners .partner-logo")).toHaveCount(12);
     await expect(ticker.locator(".partner-ticker-track")).toHaveCSS("animation-duration", "180s");
-    await expect(ticker.getByRole("button")).toHaveCount(0);
-    await ticker.focus();
+    await expect(ticker.getByRole("button")).toHaveCount(1);
+    await ticker.getByRole("button").focus();
     await page.mouse.move(0, 0);
     await expect(ticker.locator(".partner-ticker-track")).toHaveCSS("animation-play-state", "paused");
     await page.keyboard.press("Tab");

@@ -18,7 +18,7 @@ for (const relative of (await readdir(root, { recursive: true })).sort()) {
   const metadata = await sharp(input, { limitInputPixels: 40_000_000 }).metadata();
   const logo = /images[\/\\](brand|partners)[\/\\]/.test(relative);
   const maxWidth = Math.min(metadata.width, logo ? 640 : 1600);
-  const widths = [...new Set([192, 320, 480, 640, 960, 1280, 1600].filter((width) => width < maxWidth).concat(maxWidth))];
+  const widths = [...new Set([192, 320, 480, 640, 768, 960, 1280, 1600].filter((width) => width < maxWidth).concat(maxWidth))];
   const variants = [];
   for (const width of widths) {
     // Aucun recadrage, agrandissement ou ajout de métadonnées privées.

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { StructuredData } from "@/components/StructuredData";
+import { sharingMetadata } from "@/lib/sharing";
 import { notFound } from "next/navigation";
 import { UnderConstruction } from "@/components/UnderConstruction";
 import { Contact } from "@/components/Contact";
@@ -13,7 +15,7 @@ import { TeamPage } from "@/components/Team";
 import { Button } from "@/components/ui";
 import { SiteInformation } from "@/components/SiteInformation";
 import { publicOrigin, publicRelease } from "@/lib/deployment";
-import { getNewsEntry, newsContent, teamContent, teamMembers, aboutContent, contactContent, interventionContent, isLocale, locales, missionVisionContent, pageIntroductions, partnershipContent, portfolioContent, publicInformation, routes, identity, supportActions } from "@/content/site";
+import { getNewsEntry, newsContent, seoSummaries, aboutContent, contactContent, interventionContent, isLocale, locales, missionVisionContent, pageIntroductions, partnershipContent, portfolioContent, routes, identity, supportActions } from "@/content/site";
 
 type Props = { params: Promise<{ locale: string; slug: string[] }> };
 
@@ -36,14 +38,12 @@ async function resolveRoute(params: Props["params"]) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, route } = await resolveRoute(params);
   const entry = route.path.startsWith("actualites/") ? getNewsEntry(locale, route.path.slice("actualites/".length)) : undefined;
-  return {
-    title: route[locale],
+  const metadata: Metadata = {
+    title: seoSummaries[locale][route.path]?.title ?? route[locale],
+    robots: { index: publicRelease && route.path !== "recherche", follow: publicRelease },
     ...(publicRelease ? { alternates: { canonical: `${publicOrigin}/${locale}/${route.path}/`, languages: { fr: `${publicOrigin}/fr/${route.path}/`, en: `${publicOrigin}/en/${route.path}/` } } } : {}),
-    description:
-      publicRelease && route.path === "confidentialite" ? publicInformation[locale].privacy : entry ? entry.description.split("\n\n")[0] : route.path === "actualites"
+    description: seoSummaries[locale][route.path]?.description ?? (entry ? entry.description.split("\n\n")[0] : route.path === "actualites"
         ? newsContent[locale].introduction
-        : route.path === "equipe"
-        ? `${teamContent[locale].pageTitle} — ${teamMembers.map((member) => `${member.name}, ${member.role[locale]}`).join(" ; ")}`
         : route.path === "contact"
         ? contactContent[locale].metadata
         : route.path === "a-propos"
@@ -56,12 +56,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ? portfolioContent[locale].metadata
         : route.path === "devenir-partenaire"
         ? partnershipContent[locale].positioning
-        : pageIntroductions[locale][route.path as keyof typeof pageIntroductions.fr] ?? `${route[locale]} — Global EcoAction`,
+        : pageIntroductions[locale][route.path as keyof typeof pageIntroductions.fr] ?? `${route[locale]} — Global EcoAction`),
   };
+  return { ...metadata, ...sharingMetadata(locale, route.path, `${seoSummaries[locale][route.path]?.title ?? route[locale]} | Global EcoAction`, metadata.description ?? "") };
 }
 
-export default async function SectionPage({ params }: Props) {
-  const { locale, route } = await resolveRoute(params);
+function SectionContent({ locale, route }: Awaited<ReturnType<typeof resolveRoute>>) {
   if (publicRelease && (route.path === "mentions-legales" || route.path === "confidentialite" || route.path === "plan-du-site")) return <SiteInformation locale={locale} path={route.path} title={route[locale]} />;
   if (route.path === "actualites") return <News locale={locale} />;
   if (route.path.startsWith("actualites/")) {
@@ -81,4 +81,9 @@ export default async function SectionPage({ params }: Props) {
     <Button href={supportActions.whatsappHref} prefetch={false} referrerPolicy="no-referrer" rel="noopener noreferrer">{supportActions[locale].whatsapp}</Button>
     <Button href={identity.phoneHref} variant="secondary" prefetch={false}>{supportActions[locale].call}</Button>
   </> : undefined} />;
+}
+
+export default async function SectionPage({ params }: Props) {
+  const { locale, route } = await resolveRoute(params);
+  return <><StructuredData locale={locale} path={route.path} /><SectionContent locale={locale} route={route} /></>;
 }

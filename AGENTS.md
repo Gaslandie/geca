@@ -320,3 +320,7 @@ Gassama trouve l’effet à peine visible et peu doux. Nouvelle priorité pour l
 ## Livraison autorisée — 11 octobre 2026
 
 Après validation des textes client, des photos communes et de l’animation du hero, Gassama demande explicitement « commit push et deploies ». Autorisation de committer/pousser ces changements sur main et de publier la vitrine Bluehost et l’aperçu GitHub Pages par les workflows existants. Cette autorisation remplace les mentions « aucun commit/push/déploiement demandé » des étapes locales ci-dessus pour cette livraison uniquement. Contrôler les fichiers publics réellement livrables, les accès refusés et la version distante ; conserver le serveur local sur 127.0.0.1:3000. Back-office, comptes, MySQL, secrets et service mail exclus de cette publication. Les exigences de sécurité, contenu authentique, benchmarking et français simple restent applicables.
+
+## Accessibilité et pauses — 11 octobre 2026
+
+Gassama demande la vérification/correction de l’accessibilité et valide explicitement « Ajouter les boutons pause ». Conserver les commandes Pause/Reprendre FR/EN des photos du hero et des défilements partenaires (noms et logos). Cette validation remplace les anciennes demandes d’absence de pause. L’arrêt choisi persiste après sortie du focus/survol ; préférences de mouvement/données, nettoyage et contenu sans JavaScript conservés. Le menu compact suit son bouton dans l’ordre DOM pour rendre ses liens accessibles par Tab ; ordre ordinateur, Échap et retour au bouton conservés. Aucun fait GECA ajouté, aucune publication autorisée.

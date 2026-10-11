@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
+import { motionControlText, type Locale } from "@/content/site";
+
 function connection() {
   return (navigator as Navigator & { connection?: EventTarget & { saveData?: boolean } }).connection;
 }
@@ -20,7 +22,9 @@ function subscribe(callback: () => void) {
 }
 const staticOnServer = () => false;
 
-export function PartnerTicker({ names, label }: { names: readonly string[]; label: string }) {
+export function PartnerTicker({ names, label, locale }: { names: readonly string[]; label: string; locale: Locale }) {
+  const [paused, setPaused] = useState(false);
+  const text = motionControlText[locale];
   const enabled = useSyncExternalStore(subscribe, canMove, staticOnServer);
   const [visible, setVisible] = useState(true);
   const region = useRef<HTMLElement>(null);
@@ -42,9 +46,10 @@ export function PartnerTicker({ names, label }: { names: readonly string[]; labe
   }, [enabled]);
 
   return (
-    <aside ref={region} className="partner-ticker" aria-label={label} tabIndex={enabled ? 0 : undefined} data-reveal="off" data-enabled={enabled} data-paused={!visible}>
+    <aside ref={region} className="partner-ticker" aria-label={label} data-reveal="off" data-enabled={enabled} data-paused={paused || !visible}>
       <div className="partner-ticker-heading">
         <p>{label}</p>
+        {enabled && <button type="button" className="button button-secondary motion-toggle" aria-label={`${paused ? text.resume : text.pause} — ${text.names}`} onClick={() => setPaused(!paused)}>{paused ? text.resume : text.pause}</button>}
 
       </div>
       <div className="partner-ticker-window">

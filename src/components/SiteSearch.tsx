@@ -16,7 +16,7 @@ export function SiteSearch({ locale, documents, onOpen }: { locale: Locale; docu
   const triggerRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const resultRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const index = useMemo(() => prepareSearch(documents), [documents]);
+  const index = useMemo(() => open ? prepareSearch(documents) : [], [documents, open]);
   const matches = useMemo(() => searchDocuments(index, settledQuery), [index, settledQuery]);
   const hasQuery = Boolean(settledQuery.trim());
   const pending = query !== settledQuery || composing;

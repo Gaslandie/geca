@@ -18,11 +18,16 @@ const config: NextConfig = {
   images: {
     remotePatterns: [], dangerouslyAllowLocalIP: false,
     loader: "custom", loaderFile: "./src/lib/image-loader.ts",
-    deviceSizes: [320, 480, 640, 960, 1280, 1600], imageSizes: [192],
+    deviceSizes: [320, 480, 640, 768, 960, 1280, 1600], imageSizes: [192],
   },
   // Pages ne permet pas de définir ces en-têtes HTTP. Le serveur local les conserve.
   ...(!staticExport ? { async headers() {
     return [
+      {
+        // Le hash change avec le contenu ; seules les variantes versionnées sont durables.
+        source: "/images/optimized/:name([a-zA-Z0-9_-]+-[0-9a-f]{12}\\.webp)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
       {
         source: "/:path*",
         headers: [

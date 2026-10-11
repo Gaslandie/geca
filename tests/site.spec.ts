@@ -543,6 +543,8 @@ test("photo indisponible : saut du fond cassé et liens utilisables", async ({ p
   await expect.poll(() => page.locator(".hero-slide img").evaluateAll(images => images.filter(image => !image.getAttribute("src")?.includes("hero-gbara-arrosage")).every(image => (image as HTMLImageElement).complete && (image as HTMLImageElement).naturalWidth > 0))).toBe(true);
   await page.clock.runFor(5000);
   await expect(page.locator(".hero-backdrop")).toHaveAttribute("data-slide", "2");
+  // Les transitions du routeur utilisent aussi les timers du navigateur.
+  await page.clock.resume();
   for (const [label, path] of [["Découvrir nos projets", "/fr/projets"], ["Devenir partenaire", "/fr/devenir-partenaire"]]) {
     await page.locator(".hero-actions").getByRole("link", { name: label }).click();
     await expect(page).toHaveURL(path);

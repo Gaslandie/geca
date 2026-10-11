@@ -776,3 +776,91 @@ Aucune correction nécessaire. Remplace les deux formulations précédentes du h
 > We support communities in restoring degraded forests, preserving biodiversity and improving living conditions through reforestation, agroecology and capacity building.
 
 Message du client à 23 h 26 le 10 octobre : « dans ' Nos domaines d’expertise ' mettre des photos parmi celles que j'ai partagées. » Gassama précise le 11 octobre : mêmes photos entre l’accueil et la page Domaines, provenant des documents/envois de l’ONG ; remplacer les trois images montrées (ressources naturelles, restauration, climat). Sélection parmi les médias existants : arrosage à Gbara (PDF p. 50), pépinière de Moussayah centre 2 (PIC.docx image 6), sensibilisation des acteurs locaux (envoi séparé reçu le 10 octobre). Les cinq autres domaines ont déjà des photos client communes et les conservent. Aucune nouvelle légende, espèce, personne, date d’activité, résultat ou attribution de projet déduite. Les descriptions et développements des huit domaines restent inchangés ; provenance et limites dans docs/IMAGES-CLIENT.md.
+
+
+## Formulaires visiteurs simplifiés — 11 octobre 2026
+
+Gassama demande de limiter les champs aux informations réellement nécessaires et précise le périmètre : contact et newsletter, pas l’administration. Application : contact FR/EN avec adresse e-mail et message uniquement ; suppression du nom, de l’organisation et du sujet séparé, y compris dans l’aperçu et les erreurs. Aucun fait GECA ajouté. Newsletter déjà minimale : adresse e-mail et accord explicite à l’inscription, conservés. Contact toujours en démonstration sans envoi ni stockage.
+
+Retour demandé par Gassama le 11 octobre 2026 : il préfère le formulaire précédent. Rétablissement exact du contact FR/EN à cinq champs (nom, e-mail, organisation facultative, sujet, message), avec ses validations et son aperçu sans envoi. La simplification ci-dessus est annulée ; newsletter inchangée.
+
+
+## Relecture et uniformité des coordonnées — 11 octobre 2026
+
+À la demande de Gassama, relecture des textes publics FR/EN et contrôle des coordonnées. Corrections de forme uniquement : « Projet d’appui social et protection de la nature » devient « Projet d’appui social et de protection de la nature » ; « Ambassade de France en Guinée et Sierra Leone » devient « Ambassade de France en Guinée et en Sierra Leone » dans les projets et la liste des partenaires ; apostrophe typographique dans le titre sur l’intégration du changement climatique. Sources originales ci-dessus conservées.
+
+Uniformité EN : le lien « Partner with us » reprend « Become a partner », déjà utilisé comme titre et action ; le repère de la page Projets reprend la traduction validée du nouveau sous-titre du hero : « Restore forests · Preserve biodiversity · Strengthen communities ». Aucun fait, chiffre, statut, partenaire ou coordonnée modifié. Adresse retenue : Kissosso, commune de Matoto, Conakry, République de Guinée ; téléphone +224 628 40 03 87 ; e-mail ong.geca@gmail.com.
+
+## Commandes de pause accessibles — 11 octobre 2026
+
+À la demande de vérification d’accessibilité, Gassama choisit explicitement « Ajouter les boutons pause ». Commandes Pause/Reprendre (EN Pause/Resume) sur les photos d’accueil et les défilements des partenaires, avec noms accessibles distinguant photos, noms et logos. Cette validation remplace les demandes précédentes de retrait des commandes. Aucun fait GECA ni texte éditorial modifié.
+
+
+## Résumés SEO — 11 octobre 2026
+
+À la demande de vérification des titres, descriptions et URL, résumés éditoriaux des seules informations déjà validées. Aucun fait nouveau ; titres visibles des projets et URL conservés. Les libellés ci-dessous concernent uniquement les métadonnées pour les moteurs de recherche.
+
+### equipe
+
+FR : Découvrez les membres de l’équipe de Global EcoAction et leurs fonctions au sein de l’organisation.
+EN : Meet the members of the Global EcoAction team and discover their roles within the organisation.
+
+### a-propos/mission-vision-valeurs
+
+FR : Découvrez la mission, la vision et les valeurs de Global EcoAction pour la nature et les communautés en Guinée.
+EN : Explore Global EcoAction’s mission, vision and values for nature and communities in Guinea.
+
+### devenir-partenaire
+
+FR : Collaborer avec GECA en Guinée : restauration des écosystèmes, adaptation climatique, agroécologie et moyens d’existence des communautés.
+EN : Work with GECA in Guinea on ecosystem restoration, climate adaptation, agroecology and community livelihoods.
+
+### nous-soutenir
+
+FR : Soutenir la mission de Global EcoAction pour la nature et les communautés en Guinée. Contactez GECA par téléphone ou WhatsApp.
+EN : Support Global EcoAction’s mission for nature and communities in Guinea. Contact GECA by phone or WhatsApp.
+
+### mentions-legales
+
+FR : Consultez les informations légales de Global EcoAction, ses coordonnées et les crédits des photographies utilisées sur le site.
+EN : Read Global EcoAction’s legal information, contact details and credits for the photographs used on this website.
+
+### confidentialite
+
+FR : Informations sur les données personnelles, les moyens de contact, la recherche et les services externes du site Global EcoAction.
+EN : Information about personal data, contact options, search and external services on the Global EcoAction website.
+
+### plan-du-site
+
+FR : Accédez aux rubriques de Global EcoAction : organisation, mission, domaines d’expertise, équipe, projets, actualités et contact.
+EN : Browse Global EcoAction’s website: organisation, mission, areas of expertise, team, projects, news and contact.
+
+### recherche
+
+FR : Recherchez les informations publiques de Global EcoAction : domaines d’expertise, projets, histoire et coordonnées.
+EN : Search Global EcoAction’s public information: areas of expertise, projects, history and contact details.
+
+### actualites/projet-kounounkan
+
+FR : Activités génératrices de revenus à Kounounkan
+EN : Income-generating activities in Kounounkan
+
+### actualites/projet-planification-climatique
+
+FR : Climat et planification locale en Basse-Guinée
+EN : Climate and local planning in Lower Guinea
+
+### actualites/projet-droits-communautes
+
+FR : CODEC : droits des communautés — Participation au consortium CODEC pour renforcer la participation citoyenne et promouvoir les droits des communautés affectées par les projets de développement.
+EN : CODEC: community rights — Participation in the CODEC consortium to strengthen civic participation and promote the rights of communities affected by development projects.
+
+### actualites/projet-piscca
+
+FR : PISCCA : environnement à Moussayah — À Moussayah, le projet PISCCA associe reboisement, pratiques agricoles durables et sensibilisation des communautés pour renforcer la résilience environnementale.
+EN : PISCCA: environment in Moussayah — In Moussayah, PISCCA combines reforestation, sustainable farming and community awareness raising to strengthen environmental resilience.
+
+### actualites/projet-reboisement-communautaire
+
+FR : Reboisement communautaire de 550 000 arbres à Boffa, Kindia, Forécariah, Mamou et Faranah, entre 2019 et 2021.
+EN : Community reforestation with 550,000 trees in Boffa, Kindia, Forécariah, Mamou and Faranah, between 2019 and 2021.

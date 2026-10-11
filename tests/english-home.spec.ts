@@ -24,12 +24,18 @@ for (const width of [320, 375, 768, 1440]) {
     await page.getByRole('button', { name: 'Completed', exact: true }).click();
     await expect(page.locator('.project-card')).toHaveCount(2);
     await expect(page.locator('.project-status')).toHaveText(['Completed', 'Completed']);
-    await expect(page.locator('.temporary-image-label')).toHaveText('Temporary image');
+    await expect(page.locator('.temporary-image-label')).toHaveCount(0);
     await expect(page.locator('.photo-context-label')).toHaveText('Thematic illustration');
     await page.getByRole('button', { name: 'Next partners' }).focus();
     await page.keyboard.press('Enter');
     await expect(page.locator('.partner-carousel [aria-live]')).toContainText('Partners');
-    await expect(page.locator('.site-footer .newsletter-controls')).toHaveAttribute('action', /\/newsletter\/en\/commencer$/);
+    const newsletter = page.locator('.site-footer .newsletter-controls');
+    const newsletterAction = await newsletter.getAttribute('action');
+    if (newsletterAction) expect(newsletterAction).toMatch(/\/newsletter\/en\/commencer$/);
+    else {
+      await expect(newsletter.locator('input')).toBeDisabled();
+      await expect(newsletter.locator('button')).toBeDisabled();
+    }
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
     await page.addStyleTag({ content: ':root { font-size: 200%; }' });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -70,7 +76,8 @@ test('hero EN : cinq fonds, fondu et mouvement réduit', async ({ page }) => {
   await expect(page.locator('.hero-slide')).toHaveCount(5);
   await expect(page.locator('.hero-backdrop')).toHaveAttribute('data-slide', '0');
   await expect(page.locator('.hero-backdrop')).toHaveAttribute('data-slide', '1', { timeout: 7000 });
-  await expect(page.locator('.hero video, .hero button')).toHaveCount(0);
+  await expect(page.locator('.hero video')).toHaveCount(0);
+  await expect(page.locator('.hero-motion-toggle')).toHaveCount(1);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(page.locator('.hero-slide')).toHaveCount(1);
   await expect(page.locator('.hero-backdrop')).toHaveAttribute('data-slide', '0');

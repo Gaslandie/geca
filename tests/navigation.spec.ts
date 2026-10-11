@@ -85,7 +85,8 @@ test("don : pulsation courte, mouvements réduits et destination sans paiement",
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL("/fr/nous-soutenir");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  await expect(page.locator("form")).toHaveCount(0);
+  // La newsletter du pied de page n’est pas un formulaire de paiement.
+  await expect(page.locator("form:not(.newsletter-controls)")).toHaveCount(0);
 });
 
 for (const width of [375, 1280, 1440, 1920]) {

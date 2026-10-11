@@ -35,6 +35,10 @@
       "src": "/images/optimized/images-client-allassoyah-materiels-640-49274144368e.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-client-allassoyah-materiels-768-dc8f5ffeb14f.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-client-allassoyah-materiels-960-a5411bcb09cb.webp"
     },
@@ -59,6 +63,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-client-bassia-champ-640-3290601d0562.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-client-bassia-champ-768-98ccc5b9364a.webp"
     },
     {
       "width": 960,
@@ -91,6 +99,10 @@
       "src": "/images/optimized/images-client-bassia-maraichage-640-8db7a9203a32.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-client-bassia-maraichage-768-545be6d0d50f.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-client-bassia-maraichage-960-114dfa88d33c.webp"
     },
@@ -119,6 +131,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-client-bassia-travail-champ-640-7b21a4d3d9a0.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-client-bassia-travail-champ-768-1f0d59150e75.webp"
     },
     {
       "width": 960,
@@ -151,6 +167,10 @@
       "src": "/images/optimized/images-client-formation-groupements-640-6fd04c1ad520.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-client-formation-groupements-768-4eb9e93d4707.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-client-formation-groupements-960-c37a4b10599d.webp"
     },
@@ -175,6 +195,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-client-formation-maraichage-640-ed7206908b47.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-client-formation-maraichage-768-948db85fd149.webp"
     },
     {
       "width": 960,
@@ -203,6 +227,10 @@
       "src": "/images/optimized/images-client-gbara-arrosage-640-5eb1ae6a7172.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-client-gbara-arrosage-768-ece316472db9.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-client-gbara-arrosage-960-804a320b6419.webp"
     },
@@ -227,6 +255,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-client-gbara-visite-640-cab773ccc246.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-client-gbara-visite-768-8f14c920952a.webp"
     },
     {
       "width": 960,
@@ -255,6 +287,10 @@
       "src": "/images/optimized/images-client-gorede-saponification-640-63c7e4b09a63.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-client-gorede-saponification-768-b9f55468035e.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-client-gorede-saponification-960-2a96b315c3c5.webp"
     },
@@ -279,6 +315,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-client-hero-bassia-groupe-640-941b1f297d6d.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-client-hero-bassia-groupe-768-3c378cfa8e72.webp"
     },
     {
       "width": 960,
@@ -311,6 +351,10 @@
       "src": "/images/optimized/images-client-hero-bassia-travail-640-009eb81e5655.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-client-hero-bassia-travail-768-4aa4354c6b6a.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-client-hero-bassia-travail-960-a28f7a3284f8.webp"
     },
@@ -341,6 +385,10 @@
       "src": "/images/optimized/images-client-hero-gbara-arrosage-640-ef24b6fbfc5d.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-client-hero-gbara-arrosage-768-0f41c6190f9f.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-client-hero-gbara-arrosage-960-d4678fe1071c.webp"
     },
@@ -365,6 +413,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-client-hero-gbara-champ-640-4c380a17b8e9.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-client-hero-gbara-champ-768-987c5ed2927e.webp"
     },
     {
       "width": 960,
@@ -393,6 +445,10 @@
       "src": "/images/optimized/images-client-hero-gbara-entretien-640-8752dc7ef607.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-client-hero-gbara-entretien-768-fafefb7828ef.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-client-hero-gbara-entretien-960-a8d8684f71ce.webp"
     },
@@ -417,6 +473,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-client-khimbeli-consultation-640-37707c0633e2.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-client-khimbeli-consultation-768-e5f21663cb15.webp"
     },
     {
       "width": 960,
@@ -445,6 +505,10 @@
       "src": "/images/optimized/images-client-kolaboui-materiels-640-443896cda130.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-client-kolaboui-materiels-768-52e5fdf6ef95.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-client-kolaboui-materiels-960-7a253dc265c0.webp"
     },
@@ -469,6 +533,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-client-moussayah-concertation-640-b35654ee15bb.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-client-moussayah-concertation-768-b4adf3f9d1bc.webp"
     },
     {
       "width": 960,
@@ -501,6 +569,10 @@
       "src": "/images/optimized/images-client-moussayah-dialogue-640-89fe4a14e968.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-client-moussayah-dialogue-768-200e17741931.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-client-moussayah-dialogue-960-8c09307b0293.webp"
     },
@@ -525,6 +597,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-client-moussayah-ombrieres-640-855ae9aa23aa.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-client-moussayah-ombrieres-768-94349efde128.webp"
     },
     {
       "width": 960,
@@ -557,6 +633,10 @@
       "src": "/images/optimized/images-client-moussayah-pepiniere-640-5a41db582c34.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-client-moussayah-pepiniere-768-8ddc2fa89d16.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-client-moussayah-pepiniere-960-b1b4ce6672ab.webp"
     },
@@ -587,6 +667,10 @@
       "src": "/images/optimized/images-client-tabekhoure-champ-640-dbbb3ba3a38a.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-client-tabekhoure-champ-768-1ce3471491b8.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-client-tabekhoure-champ-960-7d9ea1973b6c.webp"
     },
@@ -611,6 +695,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-domaines-agroecologie-640-2f154ad77b8e.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-domaines-agroecologie-768-0db5f14063a7.webp"
     },
     {
       "width": 960,
@@ -643,6 +731,10 @@
       "src": "/images/optimized/images-domaines-climat-resilience-640-ba49eab39886.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-domaines-climat-resilience-768-540c88d5f797.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-domaines-climat-resilience-960-70464048a18b.webp"
     },
@@ -671,6 +763,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-domaines-education-environnementale-640-105ac167bcdd.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-domaines-education-environnementale-768-6feea498b6a0.webp"
     },
     {
       "width": 960,
@@ -703,6 +799,10 @@
       "src": "/images/optimized/images-domaines-gouvernance-communautes-640-6a1fed4f21d9.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-domaines-gouvernance-communautes-768-ff1fe7dfc153.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-domaines-gouvernance-communautes-960-eb37b7ab495c.webp"
     },
@@ -731,6 +831,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-domaines-ressources-naturelles-640-17c4dbc63550.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-domaines-ressources-naturelles-768-cba0745d0ddf.webp"
     },
     {
       "width": 960,
@@ -763,6 +867,10 @@
       "src": "/images/optimized/images-domaines-restauration-ecosystemes-640-763bd09e081f.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-domaines-restauration-ecosystemes-768-1109a8f59b53.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-domaines-restauration-ecosystemes-960-2d1547b423c0.webp"
     },
@@ -793,6 +901,10 @@
       "src": "/images/optimized/images-hero-plantation-640-867ee446382e.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-hero-plantation-768-8c9a4691a1d2.webp"
+    },
+    {
       "width": 918,
       "src": "/images/optimized/images-hero-plantation-918-0ad13b0f9e03.webp"
     }
@@ -813,6 +925,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-mission-fouta-djallon-640-24d2adeb3e8e.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-mission-fouta-djallon-768-7947cee9939b.webp"
     },
     {
       "width": 960,
@@ -843,6 +959,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-mission-plantation-kenya-640-8eda35eab26a.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-mission-plantation-kenya-768-b504ba2366fe.webp"
     },
     {
       "width": 960,
@@ -1033,6 +1153,10 @@
       "src": "/images/optimized/images-team-archille-delamou-640-07d8fec0c49d.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-team-archille-delamou-768-ed9eee0e89c3.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-team-archille-delamou-960-25d46b7870fb.webp"
     },
@@ -1059,6 +1183,10 @@
       "src": "/images/optimized/images-team-daouda-toure-640-a5ab884ca326.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-team-daouda-toure-768-48326477410d.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-team-daouda-toure-960-1ce2758eafad.webp"
     },
@@ -1083,6 +1211,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-team-fode-baba-sylla-640-f4942378394d.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-team-fode-baba-sylla-768-2ab3c3798d80.webp"
     },
     {
       "width": 960,
@@ -1115,6 +1247,10 @@
       "src": "/images/optimized/images-team-ibrahima-kaba-640-5b19f3dbb3fa.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-team-ibrahima-kaba-768-adebc236efef.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-team-ibrahima-kaba-960-b40ae1a79ed1.webp"
     },
@@ -1139,6 +1275,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-team-mariame-djelo-diallo-640-a63699a2defe.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-team-mariame-djelo-diallo-768-a192b1877fe4.webp"
     },
     {
       "width": 960,
@@ -1171,6 +1311,10 @@
       "src": "/images/optimized/images-team-mohamed-lamine-sacko-640-0eae81d05029.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-team-mohamed-lamine-sacko-768-b1b0b3a06d1f.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-team-mohamed-lamine-sacko-960-c2975f526426.webp"
     },
@@ -1195,6 +1339,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-team-mohamed-makale-kaba-640-eef1403ddf42.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-team-mohamed-makale-kaba-768-21a25df7e888.webp"
     },
     {
       "width": 960,
@@ -1227,6 +1375,10 @@
       "src": "/images/optimized/images-team-salifou-camara-640-eb20f5c9ea44.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-team-salifou-camara-768-463898f01ba7.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-team-salifou-camara-960-266c5708d533.webp"
     },
@@ -1251,6 +1403,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-temporary-climate-640-bd3f799cab31.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-temporary-climate-768-a110d15c7bb2.webp"
     },
     {
       "width": 960,
@@ -1279,6 +1435,10 @@
       "src": "/images/optimized/images-temporary-community-640-942d533af63f.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-temporary-community-768-348244413ab8.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-temporary-community-960-aa6339e0c92a.webp"
     },
@@ -1305,6 +1465,10 @@
       "src": "/images/optimized/images-temporary-event-leaf-640-bf787dad85c3.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-temporary-event-leaf-768-ed4a1fbdf881.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-temporary-event-leaf-960-9b2d51769025.webp"
     },
@@ -1329,6 +1493,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-temporary-fields-640-17cfb55771db.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-temporary-fields-768-5f11dc86ae02.webp"
     },
     {
       "width": 960,
@@ -1361,6 +1529,10 @@
       "src": "/images/optimized/images-temporary-forest-640-575c959307c1.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-temporary-forest-768-a4cf5f6b1174.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-temporary-forest-960-2d6d3b404abd.webp"
     },
@@ -1389,6 +1561,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-temporary-impact-forest-640-e5e331c30194.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-temporary-impact-forest-768-d70ff80dda22.webp"
     },
     {
       "width": 960,
@@ -1421,6 +1597,10 @@
       "src": "/images/optimized/images-temporary-planting-640-72fb407d0c18.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-temporary-planting-768-ca9f51d92808.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-temporary-planting-960-2ee1bece6e0d.webp"
     },
@@ -1451,6 +1631,10 @@
       "src": "/images/optimized/images-temporary-water-640-3c270b98831e.webp"
     },
     {
+      "width": 768,
+      "src": "/images/optimized/images-temporary-water-768-36a28082b190.webp"
+    },
+    {
       "width": 960,
       "src": "/images/optimized/images-temporary-water-960-707cf8dd4c88.webp"
     },
@@ -1475,6 +1659,10 @@
     {
       "width": 640,
       "src": "/images/optimized/videos-geca-forest-poster-640-4d2ab5ba343f.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/videos-geca-forest-poster-768-4ccf1f8db8fc.webp"
     },
     {
       "width": 960,
@@ -1551,6 +1739,10 @@
     {
       "width": 640,
       "src": "/images/optimized/images-client-sensibilisation-acteurs-locaux-640-b932461ef532.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-client-sensibilisation-acteurs-locaux-768-55f9fdfb3b79.webp"
     },
     {
       "width": 960,

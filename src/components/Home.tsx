@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getHomeContent, href, type Locale } from "@/content/site";
+import { getHomeContent, getPortfolioProjects, href, type Locale } from "@/content/site";
 import {
   Button,
   Container,
@@ -18,7 +18,6 @@ export function Home({ locale }: { locale: Locale }) {
   return (
     <main id="main-content" tabIndex={-1} className="home-page">
       <section className="hero" aria-labelledby="hero-title">
-        <HeroSlideshow photos={content.hero.slides} />
         <div className="hero-grid">
           <div className="hero-content">
             <p className="eyebrow hero-brand">
@@ -44,9 +43,10 @@ export function Home({ locale }: { locale: Locale }) {
             </div>
           </div>
         </div>
+        <HeroSlideshow locale={locale} photos={content.hero.slides} />
       </section>
 
-      <PartnerTicker names={content.partners.items.map((partner) => partner.name)} label={content.partners.label} />
+      <PartnerTicker locale={locale} names={content.partners.items.map((partner) => partner.name)} label={content.partners.label} />
 
       <section className="about section" aria-labelledby="about-title">
         <Container className="about-content">
@@ -142,7 +142,7 @@ export function Home({ locale }: { locale: Locale }) {
               {content.projects.all}
             </Button>
           </SectionHeading>
-          <Projects locale={locale} />
+          <Projects locale={locale} projects={getPortfolioProjects(locale).filter((project) => project.status)} text={content.projects} />
         </Container>
       </section>
 

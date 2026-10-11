@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { partnerCarouselText, type Locale } from "@/content/site";
+import { motionControlText, partnerCarouselText, type Locale } from "@/content/site";
 import { assetPath } from "@/lib/assets";
 
 type Partner = { name: string; logo: { src: string; alt: string; width: number; height: number } };
@@ -26,7 +26,9 @@ export function PartnerCarousel({ items, locale }: { items: readonly Partner[]; 
   const ready = useSyncExternalStore(subscribeReady, readySnapshot, serverSnapshot);
   const motionAllowed = useSyncExternalStore(subscribeMotion, canAnimate, serverSnapshot);
   const [focused, setFocused] = useState(false);
-  const running = ready && motionAllowed && !focused;
+  const [paused, setPaused] = useState(false);
+  const motionText = motionControlText[locale];
+  const running = ready && motionAllowed && !focused && !paused;
   const [announcement, setAnnouncement] = useState("");
   const list = useRef<HTMLUListElement>(null);
   const scrollFrame = useRef(0);
@@ -121,6 +123,7 @@ export function PartnerCarousel({ items, locale }: { items: readonly Partner[]; 
         <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="m10 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2" /></svg>
       </button>}
 
+      {ready && motionAllowed && <button type="button" className="button button-secondary motion-toggle partner-carousel-toggle" aria-label={`${paused ? motionText.resume : motionText.pause} — ${motionText.logos}`} onClick={() => { stopScroll(); setPaused(!paused); }}>{paused ? motionText.resume : motionText.pause}</button>}
       <p className="sr-only" aria-live={running ? "off" : "polite"} aria-atomic="true">{announcement}</p>
     </div>
   );

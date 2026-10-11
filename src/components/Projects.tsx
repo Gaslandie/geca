@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { getHomeContent, getPortfolioProjects, href, type Locale, type Project } from "@/content/site";
+import { href, type getHomeContent, type Locale, type Project } from "@/content/site";
 import { Button, PhotoPlaceholder } from "./ui";
 
-export function ProjectCard({ project, locale }: { project: Project; locale: Locale }) {
-  const text = getHomeContent(locale).projects;
+type ProjectText = ReturnType<typeof getHomeContent>["projects"];
+
+export function ProjectCard({ project, locale, text }: { project: Project; locale: Locale; text: ProjectText }) {
   return (
     <article className="project-card">
       <div className="project-photo">
@@ -41,12 +42,11 @@ export function ProjectCard({ project, locale }: { project: Project; locale: Loc
   );
 }
 
-export function Projects({ locale }: { locale: Locale }) {
+export function Projects({ locale, projects, text }: { locale: Locale; projects: Project[]; text: ProjectText }) {
   const [filter, setFilter] = useState<NonNullable<Project["status"]>>("current");
-  const visible = getPortfolioProjects(locale)
+  const visible = projects
     .filter((project) => project.status === filter)
     .slice(0, 3);
-  const text = getHomeContent(locale).projects;
   return (
     <>
       <div className="project-toolbar">
@@ -74,7 +74,7 @@ export function Projects({ locale }: { locale: Locale }) {
       </div>
       <div className="project-grid" id="project-list">
         {visible.map((project) => (
-          <ProjectCard key={project.slug} project={project} locale={locale} />
+          <ProjectCard key={project.slug} project={project} locale={locale} text={text} />
         ))}
       </div>
     </>

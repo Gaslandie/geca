@@ -13,22 +13,22 @@ import { publicOrigin, publicRelease } from "@/lib/deployment";
 export const dynamicParams = false;
 
 const sans = localFont({
-  src: "../fonts/DMSans.ttf",
+  src: "../fonts/DMSans.woff2",
   variable: "--font-sans",
   display: "swap",
   weight: "100 900",
 });
 const display = localFont({
-  src: "../fonts/DMSerifDisplay.ttf",
+  src: "../fonts/DMSerifDisplay.woff2",
   variable: "--font-display",
   display: "swap",
   weight: "400",
 });
 const hero = localFont({
-  src: "../fonts/UbuntuSans.ttf",
+  src: "../fonts/UbuntuSans.woff2",
   variable: "--font-hero",
   display: "swap",
-  weight: "100 800",
+  weight: "600",
   preload: false,
 });
 
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     robots: { index: publicRelease, follow: publicRelease },
     ...(publicRelease ? { metadataBase: new URL(publicOrigin), alternates: { canonical: `${publicOrigin}/${locale}/`, languages: { fr: `${publicOrigin}/fr/`, en: `${publicOrigin}/en/` } } } : {}),
     referrer: "strict-origin-when-cross-origin",
-    icons: { icon: { url: assetPath("/icon.svg?v=geca-client-20261010"), type: "image/svg+xml", sizes: "any" } },
+    icons: { icon: { url: assetPath("/icon.png"), type: "image/png", sizes: "96x96" } },
   };
 }
 
