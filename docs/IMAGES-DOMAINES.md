@@ -22,3 +22,8 @@ Les textes alternatifs nomment le domaine, en français ou anglais, sans invente
 ## Réutilisation autorisée — 4 octobre 2026
 
 Gassama autorise explicitement la réutilisation des images existantes jusqu’à sa demande de changement. La photo `gouvernance-communautes.jpg` illustre aussi « Appui aux communautés affectées » ; `agroecologie.jpg` illustre aussi « Revenus et résilience socio-économique ». Les variantes optimisées existantes sont réutilisées, sans copie supplémentaire. Aucun lieu, personne, événement ou résultat n’est attribué à ces images. Cette permission remplace l’ancienne restriction de substitution entre domaines. L’illustration temporaire de l’impact conserve son étiquette et sa source.
+
+
+## Remplacement des trois dernières illustrations — 11 octobre 2026
+
+À la demande du client relayée par Gassama, les domaines Ressources naturelles, Restauration et Changement climatique utilisent désormais les photos client gbara-arrosage, moussayah-pepiniere et sensibilisation-acteurs-locaux. Toutes les photos des huit domaines proviennent des documents/envois client et sont communes à l’accueil et à Domaines FR/EN. Voir docs/IMAGES-CLIENT.md pour la sélection, la provenance et les limites. Les six images historiques décrites plus haut et leurs variantes restent conservées ; leur qualification historique n’autorise aucune attribution de scène à GECA.

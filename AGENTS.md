@@ -300,3 +300,23 @@ Gassama demande le retrait des notes éditoriales de préparation/confirmation d
 ## Newsletter intégrée au footer — 8 octobre 2026
 
 Gassama valide le déplacement de la newsletter dans le pied de page, sans bandeau séparé. Bloc compact après les coordonnées dans le DOM ; cinquième colonne dès 1280 px, dernière rangée centrée sur tablette, dernier bloc sur mobile. Titre Newsletter, description existante, champ e-mail avec libellé et bouton partagé empilés. Garder configuration et validation de destination, inscription désactivée et information visible sur Pages tant que le service public manque, absence de fausse confirmation et parcours Laravel existant. Même composant FR/EN, animations communes sans cumul.
+
+
+## Apparition des éléments du hero — 11 octobre 2026
+
+Gassama demande de réanimer les éléments du hero à leur apparition. Cette demande remplace l’exclusion des textes/actions du 9 octobre : retirer `data-reveal="off"` du seul conteneur `.hero-content`. Réutiliser SiteMotion : nom puis slogan (720 ms, montée 24 px et échelle 0,96 vers 1), sous-titre, mission et groupe des deux boutons (560 ms, montée 18 px). Délais dans l’ordre de lecture : 0/70/140/210/280 ms. Conteneurs fixes, aucune animation imbriquée, aucune opacité réduite ni contenu masqué. Apparition unique par visite, pas à chaque changement de photo. Même rendu FR/EN ; conserver préférences mouvement/données, absence de JavaScript/API, annulation au focus et nettoyage. Textes, tailles, alignement à gauche, photos et protections existantes conservés. Aucun commit, push ou déploiement demandé.
+
+
+## Hero client et photos Domaines communes — 11 octobre 2026
+
+Appliquer les deux textes exacts du client reçus le 10 octobre à 23 h 15, archivés dans docs/TEXTES-AUTHENTIQUES-CLIENT.md : sous-titre « Restaurer les forêts · Préserver la biodiversité · Renforcer les communautés » et paragraphe commençant par « Nous accompagnons les communautés ». Traduction EN fidèle sans ajout ; nom, slogan principal, actions, styles et animations conservés. À la demande du client de 23 h 26 précisée par Gassama, les huit domaines emploient des photos client et partagent la même sélection entre accueil et page Domaines FR/EN. Trois remplacements : Ressources → gbara-arrosage ; Restauration → moussayah-pepiniere ; Climat → sensibilisation-acteurs-locaux. Cette demande remplace les exceptions d’images historiques/provisoires de ces domaines. Textes des domaines et cinq autres photos inchangés. Décrire seulement les scènes documentées, sans attribution supplémentaire ; sources, crédits, originaux, variantes et registres fermés conservés. Aucun commit/push ou déploiement demandé.
+
+
+## Apparition du hero plus visible et douce — 11 octobre 2026
+
+Gassama trouve l’effet à peine visible et peu doux. Nouvelle priorité pour le seul hero : glisse verticale de 56 px vers 0, sans zoom, courbe cubic-bezier(.4,0,.2,1) avec départ/arrivée progressifs ; nom/slogan 1400 ms, paragraphes/actions 1200 ms. Délais 0/160/320/480/640 ms dans l’ordre de lecture, ensemble terminé en 1840 ms si visible simultanément. Remplace les durées/distances/délais précédents de ce seul hero. SiteMotion reste partagé, une apparition par visite ; contenu toujours visible, contraste constant, parents fixes, focus et préférences mouvement/données conservés. Autres sections et textes client inchangés. Aucun commit, push ou déploiement demandé.
+
+
+## Livraison autorisée — 11 octobre 2026
+
+Après validation des textes client, des photos communes et de l’animation du hero, Gassama demande explicitement « commit push et deploies ». Autorisation de committer/pousser ces changements sur main et de publier la vitrine Bluehost et l’aperçu GitHub Pages par les workflows existants. Cette autorisation remplace les mentions « aucun commit/push/déploiement demandé » des étapes locales ci-dessus pour cette livraison uniquement. Contrôler les fichiers publics réellement livrables, les accès refusés et la version distante ; conserver le serveur local sur 127.0.0.1:3000. Back-office, comptes, MySQL, secrets et service mail exclus de cette publication. Les exigences de sécurité, contenu authentique, benchmarking et français simple restent applicables.

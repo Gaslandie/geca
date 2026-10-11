@@ -154,3 +154,16 @@ Préparation selon le script commun : WebP qualité 55, sans agrandissement ni m
 ## Appui aux communautés : même photo sur accueil et Domaines — 9 octobre 2026
 
 Gassama demande de remplacer les mains réunies sur la page Domaines par la photo de la rubrique correspondante de l’accueil. Réutilisation de `kolaboui-materiels` (PIC.docx, image 8), sélection documentée le 7 octobre, dans la donnée commune du domaine : accueil et page Domaines FR/EN. La donnée locale utilisait encore les mains réunies sur les deux pages ; cette correction rétablit la sélection documentée et l’étend à la page interne. Textes inchangés, descriptions accessibles FR/EN et crédits existants conservés ; aucun nouveau média ni fait ajouté.
+
+
+## Photos de l’ONG communes à l’accueil et à Domaines — 11 octobre 2026
+
+Retour du client du 10 octobre à 23 h 26, précisé par Gassama le 11 octobre avec deux captures. Remplacer les trois anciennes illustrations des ressources naturelles, de la restauration et du climat par les photos fournies dans les documents/envois de l’ONG. Sélection commune dans expertiseAreas, utilisée par accueil/Domaines FR/EN ; les cinq autres photos client actuelles sont conservées.
+
+| Domaine | Photo existante retenue | Provenance et limite |
+| --- | --- | --- |
+| Gestion durable des ressources naturelles | gbara-arrosage.jpg | PDF page 50 : arrosage de pépinières de piment à Gbara ; illustre eau et sol cultivé, sans parler de pépinière forestière. |
+| Restauration des écosystèmes | moussayah-pepiniere.jpg | PIC.docx image 6 : pépinière à Moussayah centre 2 ; aucune espèce, période, quantité ou réalisation déduite. |
+| Changement climatique | sensibilisation-acteurs-locaux.jpg | Envoi séparé de Gassama documenté le 10 octobre : « Image de sensibilisation des acteurs locaux ». Illustre le volet sensibilisation du domaine ; ne précise ni lieu, ni date d’activité, ni nouveau rattachement. |
+
+Ces trois vues ont été examinées en taille réelle. Réemploi de variantes WebP déjà existantes, sans ajout de fichier public, recadrage uniquement selon les cadres existants, aucune retouche. Mêmes descriptions accessibles documentées en FR/EN, crédits déjà regroupés dans les mentions légales. Les originales et anciennes illustrations restent archivées ; aucune suppression. Cette demande remplace les anciennes limites de la sélection à l’accueil et le maintien de l’image historique du climat. Auteur/licence toujours non précisés par les sources ; aucune attribution ou licence ajoutée.

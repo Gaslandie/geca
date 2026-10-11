@@ -759,3 +759,20 @@ Gassama demande de retirer « Découvrir ce domaine », car les images permetten
 ## Logo transmis le 10 octobre 2026 à 17 h 05
 
 Gassama transmet la nouvelle version JPEG du logo, plus fine, et demande son remplacement partout sans retouche du dessin, des lettres ou des couleurs ; précision suivante : retirer uniquement le fond pour le rendre transparent. Nouveau fichier et décisions dans docs/LOGO-GECA.md. Slogan reçu inchangé : « Agir pour un avenir durable ». Ces consignes remplacent les anciennes variantes générées et la recoloration blanche du slogan.
+
+
+## Retour du client du 10 octobre 2026 — appliqué le 11 octobre 2026
+
+Messages du client relayés par Gassama le 11 octobre. Texte reçu à 23 h 15 le 10 octobre, à reprendre dans le sous-titre et le paragraphe du hero, sans ajout ni reformulation du fond :
+
+> Restaurer les forêts · Préserver la biodiversité · Renforcer les communautés
+>
+> Nous accompagnons les communautés dans la restauration des forêts dégradées, la préservation de la biodiversité et l’amélioration des conditions de vie à travers le reboisement, l’agroécologie et le renforcement des capacités.
+
+Aucune correction nécessaire. Remplace les deux formulations précédentes du hero FR ; nom, slogan principal et actions inchangés. Traduction fidèle EN de travail :
+
+> Restore forests · Preserve biodiversity · Strengthen communities
+>
+> We support communities in restoring degraded forests, preserving biodiversity and improving living conditions through reforestation, agroecology and capacity building.
+
+Message du client à 23 h 26 le 10 octobre : « dans ' Nos domaines d’expertise ' mettre des photos parmi celles que j'ai partagées. » Gassama précise le 11 octobre : mêmes photos entre l’accueil et la page Domaines, provenant des documents/envois de l’ONG ; remplacer les trois images montrées (ressources naturelles, restauration, climat). Sélection parmi les médias existants : arrosage à Gbara (PDF p. 50), pépinière de Moussayah centre 2 (PIC.docx image 6), sensibilisation des acteurs locaux (envoi séparé reçu le 10 octobre). Les cinq autres domaines ont déjà des photos client communes et les conservent. Aucune nouvelle légende, espèce, personne, date d’activité, résultat ou attribution de projet déduite. Les descriptions et développements des huit domaines restent inchangés ; provenance et limites dans docs/IMAGES-CLIENT.md.

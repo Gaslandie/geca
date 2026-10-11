@@ -242,7 +242,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       expect(menuBarBox.y + menuBarBox.height / 2).toBeCloseTo(brandBox.y + brandBox.height / 2, 0);
     }
     await expect(page.locator(".donate-link")).toHaveText("Faire un don");
-    await expect(page.locator(".hero-introduction")).toContainText("En Guinée, nous agissons avec les communautés");
+    await expect(page.locator(".hero-introduction")).toHaveText(homeContent.hero.introduction);
     if (width < 1280) {
       await expect(page.getByRole("navigation", { name: "Navigation principale" })).toBeHidden();
       await menu.click();

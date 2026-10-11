@@ -279,3 +279,13 @@ Aucun bouton pause/reprise, selon la demande finale de Gassama. Arrêt au survol
 ## Chargement des médias — 10 octobre 2026
 
 Sans modifier la présentation, BrandLogo utilise les variantes locales du logo transparent adaptées à l’écran. HeroSlideshow garde cinq fonds et sa cadence de cinq secondes, mais charge d’abord le premier fond et le suivant, puis prépare le fond suivant au fil des transitions. Seules les images déjà décodées sont affichées ; un fond cassé est sauté. Premier fond seul si mouvement réduit, économie de données ou absence de JavaScript ; suspension dans l’onglet caché et nettoyage du minuteur conservés. Aucun changement de police, texte, couleur ou animation visible.
+
+
+## Apparition du hero réactivée — 11 octobre 2026
+
+Nouvelle demande prioritaire de Gassama : animer de nouveau les éléments à leur apparition. Remplace le `data-reveal="off"` du 9 octobre. Le conteneur reste fixe ; SiteMotion anime chaque bloc une seule fois par visite : nom puis slogan avec l’accent titre commun (720 ms, 24 px, échelle 0,96 vers 1), sous-titre, mission puis groupe des deux actions avec l’accent texte (560 ms, 18 px). Délais fixes dans cet ordre : 0, 70, 140, 210 et 280 ms, y compris si les blocs apparaissent après défilement sur petit écran. Courbe commune conservée. Pas de réduction de contraste ou d’opacité, de texte masqué ou d’effet parent/enfant cumulé. FR/EN communs ; mouvement réduit, économie de données et absence de JavaScript/API gardent la présentation fixe. Focus annule l’effet concerné, changements de page nettoient les animations. Aucun changement des textes, photos, tailles ou alignement à gauche.
+
+
+## Hero : mouvement plus ample et progressif — 11 octobre 2026
+
+Correction demandée après retour visuel de Gassama : effet précédent trop discret et peu doux. Le hero garde SiteMotion, mais utilise désormais une glisse de 56 px vers 0 sans changement d’échelle ; départ/arrivée progressifs cubic-bezier(.4,0,.2,1). Nom/slogan : 1400 ms ; paragraphes/groupe des actions : 1200 ms. Délais 0/160/320/480/640 ms dans l’ordre de lecture, durée d’ensemble 1840 ms lorsque les cinq blocs sont visibles ensemble. Ce profil remplace celui de l’entrée précédente pour le seul hero. Opacité et contraste constants, pas de texte masqué, conteneurs fixes, aucun cumul parent/enfant ; autres sections, fond photo et typographie finale inchangés. Animation unique, annulation au focus, mouvement/données réduits et fallback sans JavaScript/API conservés.

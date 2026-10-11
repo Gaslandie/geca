@@ -30,7 +30,12 @@ const cardSelector = ".stat, .domain, .project-card, .portfolio-project, .news-c
 const headingSelector = "h1, h2";
 const easing = "cubic-bezier(.2,.65,.3,1)";
 function motionFor(target: Element) {
-  if (target.matches(headingSelector)) return {
+  if (target.closest(".hero-content")) return {
+    frames: [{ transform: "translateY(56px)" }, { transform: "translateY(0)" }],
+    duration: target.matches(".hero-brand, h1") ? 1400 : 1200,
+    easing: "cubic-bezier(.4,0,.2,1)",
+  };
+  if (target.matches(headingSelector) || target.matches(".hero-brand")) return {
     frames: [{ transform: "translateY(24px) scale(.96)" }, { transform: "translateY(0) scale(1)" }],
     duration: 720,
   };
@@ -121,9 +126,17 @@ export function SiteMotion() {
           const group = target.closest("section, .footer-grid") ?? target.parentElement!;
           const index = groups.get(group) ?? 0;
           groups.set(group, index + 1);
-          const { frames, duration } = motionFor(target);
-          const delay = target.matches(headingSelector) ? 0 : Math.min(index, 4) * 70;
-          const animation = target.animate(frames, { duration, easing, delay, fill: "backwards" });
+          const motion = motionFor(target);
+          // Le hero suit l'ordre de lecture : nom, slogan, textes, actions.
+          // Son conteneur reste fixe pour éviter les mouvements imbriqués.
+          const hero = target.closest(".hero-content");
+          const heroIndex = hero ? [...hero.querySelectorAll(targets)].indexOf(target) : -1;
+          const delay = heroIndex >= 0 ? Math.min(heroIndex, 4) * 160
+            : target.matches(headingSelector) ? 0 : Math.min(index, 4) * 70;
+          const animation = target.animate(motion.frames, {
+            duration: motion.duration, easing: "easing" in motion ? motion.easing : easing,
+            delay, fill: "backwards",
+          });
           running.set(target, animation);
           animation.onfinish = () => running.delete(target);
         }

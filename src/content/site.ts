@@ -203,35 +203,6 @@ function clientPhoto(key: keyof typeof clientPhotoSources, locale: Locale = "fr"
   return { src: photo.src, alt: contextLabel ? `${contextLabel} : ${photo[locale]}` : photo[locale], caption: photo[locale], contextLabel };
 }
 
-// Images définitives fournies par Gassama. Association exacte selon les noms
-// des fichiers ; provenance et préparation : docs/IMAGES-DOMAINES.md.
-const interventionPhotos = {
-  "restauration-ecosystemes": {
-    src: "/images/domaines/restauration-ecosystemes.jpg",
-    alt: "Image du domaine Restauration des écosystèmes.",
-  },
-  "climat-resilience": {
-    src: "/images/domaines/climat-resilience.jpg",
-    alt: "Image du domaine Climat & résilience.",
-  },
-  agroecologie: {
-    src: "/images/domaines/agroecologie.jpg",
-    alt: "Image du domaine Agroécologie & agriculture durable.",
-  },
-  "ressources-naturelles": {
-    src: "/images/domaines/ressources-naturelles.jpg",
-    alt: "Image du domaine Ressources naturelles.",
-  },
-  "education-environnementale": {
-    src: "/images/domaines/education-environnementale.jpg",
-    alt: "Image du domaine Éducation environnementale.",
-  },
-  "gouvernance-communautes": {
-    src: "/images/domaines/gouvernance-communautes.jpg",
-    alt: "Image du domaine Gouvernance & communautés.",
-  },
-} satisfies Record<string, LocalPhoto>;
-
 // Source prioritaire : docs/TEXTES-AUTHENTIQUES-CLIENT.md, reçu le 4 octobre 2026.
 // Les descriptions françaises reprennent les huit phrases intégrales du client.
 // Les titres sont des repères courts ; l’anglais est une traduction fidèle.
@@ -243,19 +214,19 @@ const expertiseAreas: readonly {
 }[] = [
   {
     id: "ressources-naturelles",
-    photo: interventionPhotos["ressources-naturelles"],
+    photo: clientPhoto("gbara-arrosage"),
     fr: { title: "Gestion durable des ressources naturelles", description: "Gestion durable des ressources naturelles : forêts, sols et eau.", detail: "Notre action associe la préservation des forêts, la restauration des terres dégradées et la protection des ressources en eau. Elle s’appuie sur l’implication des communautés et la gouvernance locale pour relier la protection des écosystèmes à l’amélioration des conditions de vie." },
     en: { title: "Sustainable natural resource management", description: "Sustainable management of natural resources: forests, soils and water.", detail: "Our work combines forest conservation, the restoration of degraded land and the protection of water resources. It draws on community involvement and local governance to connect ecosystem protection with improved living conditions." },
   },
   {
     id: "restauration-ecosystemes",
-    photo: interventionPhotos["restauration-ecosystemes"],
+    photo: clientPhoto("moussayah-pepiniere"),
     fr: { title: "Restauration des écosystèmes", description: "Restauration des écosystèmes et reboisement communautaire.", detail: "Nous associons les communautés à la restauration des sites dégradés et à la mise en place de pépinières. Le reboisement contribue à lutter contre l’érosion, à protéger les ressources en eau et à renforcer la biodiversité, tout en étant lié à des activités génératrices de revenus." },
     en: { title: "Ecosystem restoration", description: "Ecosystem restoration and community reforestation.", detail: "We involve communities in restoring degraded sites and establishing nurseries. Reforestation helps combat erosion, protect water resources and strengthen biodiversity, while being linked to income-generating activities." },
   },
   {
     id: "climat-resilience",
-    photo: interventionPhotos["climat-resilience"],
+    photo: clientPhoto("sensibilisation-acteurs-locaux"),
     fr: { title: "Changement climatique", description: "Adaptation et atténuation des effets du changement climatique à l’échelle locale.", detail: "Nous relions la restauration écologique et les pratiques agricoles adaptées au climat au renforcement des capacités locales. La sensibilisation, la formation et le suivi accompagnent aussi l’intégration du changement climatique et de l’inclusion sociale dans les Plans de Développement Local." },
     en: { title: "Climate change", description: "Adaptation to and mitigation of the effects of climate change at the local level.", detail: "We connect ecological restoration and climate-adapted farming practices with local capacity building. Awareness raising, training and monitoring also support the integration of climate change and social inclusion into Local Development Plans." },
   },
@@ -558,9 +529,9 @@ export const homeContent = {
     label: identity.name,
     title: "AGIR POUR",
     titleSecondLine: "UN AVENIR DURABLE",
-    description: "Restaurer les écosystèmes · Renforcer les communautés",
+    description: "Restaurer les forêts · Préserver la biodiversité · Renforcer les communautés",
     introduction:
-      "En Guinée, nous agissons avec les communautés pour restaurer les terres dégradées, protéger les forêts et la biodiversité. Grâce au reboisement, à l’agroécologie et au renforcement des capacités, nous contribuons à améliorer les conditions de vie.",
+      "Nous accompagnons les communautés dans la restauration des forêts dégradées, la préservation de la biodiversité et l’amélioration des conditions de vie à travers le reboisement, l’agroécologie et le renforcement des capacités.",
     photo: clientPhoto("bassia-travail-champ"),
     slides: [clientPhoto("hero-bassia-travail"), clientPhoto("hero-gbara-arrosage"), clientPhoto("hero-bassia-groupe"), clientPhoto("hero-gbara-champ"), clientPhoto("hero-gbara-entretien")],
     primary: "Découvrir nos projets",
@@ -1553,8 +1524,8 @@ export function getHomeContent(locale: Locale) {
       ...homeContent.hero,
       title: "ACTING FOR",
       titleSecondLine: "A SUSTAINABLE FUTURE",
-      description: "Restoring ecosystems · Strengthening communities",
-      introduction: "In Guinea, we work with communities to restore degraded land and protect forests and biodiversity. Through reforestation, agroecology and capacity building, we help improve living conditions.",
+      description: "Restore forests · Preserve biodiversity · Strengthen communities",
+      introduction: "We support communities in restoring degraded forests, preserving biodiversity and improving living conditions through reforestation, agroecology and capacity building.",
       primary: "Explore our projects",
       secondary: "Become a partner",
     },
@@ -1570,15 +1541,8 @@ export function getHomeContent(locale: Locale) {
       label: "Our expertise",
       title: "Areas of expertise",
       description: "Explore our eight areas of expertise.",
-      // Reuse precisely the French homepage media, even when the internal page differs.
-      items: homeContent.domains.items.map((item) => ({
-        ...getInterventionAreas("en").find((area) => area.id === item.id)!,
-        photo: item.photo && {
-          ...item.photo,
-          alt: Object.values(clientPhotoSources).find((source) => source.src === item.photo?.src)?.en
-            ?? `Image for the ${getInterventionAreas("en").find((area) => area.id === item.id)!.title} area of expertise.`,
-        },
-      })),
+      // Même source de photos pour l’accueil et la page Domaines, dans les deux langues.
+      items: getInterventionAreas("en"),
     },
     impact: {
       ...homeContent.impact,

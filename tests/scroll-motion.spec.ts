@@ -38,7 +38,9 @@ for (const locale of ["fr", "en"]) {
         const log = (window as unknown as { motionLog: MotionLog }).motionLog;
         return {
           nested: log.some((entry) => log.some((other) => other.target !== entry.target && other.target.contains(entry.target))),
-          timings: log.every((entry) => [560, 600, 720].includes(entry.duration) && entry.easing === "cubic-bezier(0.2, 0.65, 0.3, 1)"),
+          timings: log.every((entry) => entry.target.closest(".hero-content")
+            ? [1200, 1400].includes(entry.duration) && entry.easing === "cubic-bezier(0.4, 0, 0.2, 1)"
+            : [560, 600, 720].includes(entry.duration) && entry.easing === "cubic-bezier(0.2, 0.65, 0.3, 1)"),
           frames: log.every((entry) => String(entry.frames[0].transform).startsWith("translateY(") && String(entry.frames[1].transform).startsWith("translateY(0)") && entry.frames.every((frame) => frame.opacity === undefined)),
         };
       });
@@ -129,7 +131,20 @@ for (const width of [375, 1440]) {
       };
     });
     await page.goto("/fr");
-    expect(await page.locator(".hero-content").evaluate((element) => element.getAnimations({ subtree: true }).length)).toBe(0);
+    const heroElements = page.locator(".hero-brand, #hero-title, .hero-description, .hero-introduction, .hero-actions");
+    for (const element of await heroElements.all()) {
+      await element.scrollIntoViewIfNeeded();
+      await expect.poll(() => element.evaluate((target) =>
+        (window as unknown as { coordinatedMotion: { target: Element }[] }).coordinatedMotion
+          .filter((entry) => entry.target === target).length,
+      )).toBe(1);
+    }
+    expect(await heroElements.evaluateAll((elements) => elements.map((target) => {
+      const entry = (window as unknown as { coordinatedMotion: { target: Element; duration: number; delay: number }[] })
+        .coordinatedMotion.find((item) => item.target === target)!;
+      return [entry.duration, entry.delay];
+    }))).toEqual([[1400, 0], [1400, 160], [1200, 320], [1200, 480], [1200, 640]]);
+    expect(await page.locator(".hero-content").evaluate((element) => element.getAnimations().length)).toBe(0);
     await page.locator("#about-title").scrollIntoViewIfNeeded();
     await expect.poll(() => page.locator("#about-title").evaluate((element) =>
       (window as unknown as { coordinatedMotion: { target: Element; duration: number; delay: number; frames: Keyframe[] }[] }).coordinatedMotion
@@ -141,7 +156,8 @@ for (const width of [375, 1440]) {
         .find((entry) => entry.target === element)?.duration,
     )).toBe(600);
     expect(await page.evaluate(() =>
-      (window as unknown as { coordinatedMotion: { delay: number }[] }).coordinatedMotion.every((entry) => entry.delay >= 0 && entry.delay <= 280),
+      (window as unknown as { coordinatedMotion: { target: Element; delay: number }[] }).coordinatedMotion
+        .every((entry) => entry.delay >= 0 && entry.delay <= (entry.target.closest(".hero-content") ? 640 : 280)),
     )).toBe(true);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.emulateMedia({ reducedMotion: "reduce" });
