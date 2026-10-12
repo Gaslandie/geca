@@ -13,11 +13,11 @@ export const identity = {
   foundedOn: { fr: "14 décembre 2016", en: "14 December 2016" },
   renamedOn: { fr: "26 août 2026", en: "26 August 2026" },
   address: {
-    fr: "Kissosso, commune de Matoto, Conakry, République de Guinée",
-    en: "Kissosso, municipality of Matoto, Conakry, Republic of Guinea",
+    fr: "Sangoyah, commune de Matoto, Conakry, République de Guinée",
+    en: "Sangoyah, municipality of Matoto, Conakry, Republic of Guinea",
   },
   postalAddress: {
-    streetAddress: { fr: "Kissosso, commune de Matoto", en: "Kissosso, municipality of Matoto" },
+    streetAddress: { fr: "Sangoyah, commune de Matoto", en: "Sangoyah, municipality of Matoto" },
     addressLocality: "Conakry",
     addressCountry: "GN",
   },
@@ -341,7 +341,7 @@ export const contactContent = {
     write: "Nous écrire",
     map: {
       title: "Géolocalisation",
-      description: "Carte du quartier de Kissosso.",
+      description: "Carte du quartier de Sangoyah.",
       show: "Afficher la carte",
       directions: "Ouvrir l’itinéraire",
     },
@@ -397,7 +397,7 @@ export const contactContent = {
     write: "Email us",
     map: {
       title: "Location",
-      description: "Map of the Kissosso neighbourhood.",
+      description: "Map of the Sangoyah neighbourhood.",
       show: "Show the map",
       directions: "Get directions",
     },

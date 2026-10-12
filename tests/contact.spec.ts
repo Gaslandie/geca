@@ -29,12 +29,12 @@ for (const locale of locales) {
     await expect(frame).toHaveAttribute("title", contactContent[locale].map.description);
     const mapParams = new URL((await frame.getAttribute("src"))!).searchParams;
     expect(mapParams.has("marker")).toBe(false);
-    // La vue doit contenir Kissosso, sans attribuer ce repère au bureau GECA.
+    // La vue doit contenir le secteur de Sangoyah, sans le présenter comme le bureau GECA.
     const [west, south, east, north] = mapParams.get("bbox")!.split(",").map(Number);
-    expect(-13.57237).toBeGreaterThan(west);
-    expect(-13.57237).toBeLessThan(east);
-    expect(9.63719).toBeGreaterThan(south);
-    expect(9.63719).toBeLessThan(north);
+    expect(-13.5827844).toBeGreaterThan(west);
+    expect(-13.5827844).toBeLessThan(east);
+    expect(9.6162278).toBeGreaterThan(south);
+    expect(9.6162278).toBeLessThan(north);
     expect(external.every((url) => url.startsWith("https://www.openstreetmap.org/export/embed.html?"))).toBe(true);
   });
 }

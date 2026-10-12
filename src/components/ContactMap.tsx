@@ -9,8 +9,8 @@ const clientReady = () => true;
 const serverReady = () => false;
 
 // Vue du quartier, sans marqueur qui prétendrait localiser le bureau.
-// Repère Kissosso consulté le 8 octobre 2026 : https://mapcarta.com/N481387482.
-const mapUrl = "https://www.openstreetmap.org/export/embed.html?bbox=-13.586%2C9.625%2C-13.559%2C9.650&layer=mapnik";
+// Secteur de Sangoyah consulté le 12 octobre 2026 : https://www.openstreetmap.org/node/481387162.
+const mapUrl = "https://www.openstreetmap.org/export/embed.html?bbox=-13.606%2C9.607%2C-13.569%2C9.630&layer=mapnik";
 
 export function ContactMap({ locale }: { locale: Locale }) {
   const text = contactContent[locale].map;

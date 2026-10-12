@@ -36,7 +36,7 @@ Cette description autorise le remplacement de l’illustration temporaire de la 
 
 Gassama demande de préparer la mise en ligne étape par étape après proposition d’une première version publique sans fonctions inachevées. Aucun nouveau fait sur l’organisation reçu. `publicInformation` rassemble les textes techniques FR/EN de cette version : Contact ouvre e-mail/téléphone/WhatsApp ; newsletter et formulaire de démonstration absents ; recherche locale sans transmission ni stockage ; carte externe uniquement après activation. Éditeur, adresse et coordonnées réutilisent `identity`. Hébergement Bluehost déjà choisi et confirmé par le terminal transmis. Photos, auteurs, sources, licences et transformations reprennent les archives `docs/IMAGES-CLIENT.md`, `docs/IMAGES-TEMPORAIRES.md` et `docs/LOGOS-PARTENAIRES.md`, sans inventer de droits. Mentions légales et confidentialité ne sont pas présentées comme une validation juridique exhaustive. Les textes factuels des projets, membres, actualités et missions sont inchangés.
 
-**Adresse actuelle confirmée le 8 octobre 2026 : Kissosso, commune de Matoto, Conakry, République de Guinée.** Les adresses différentes ci-dessous appartiennent à l’historique des demandes et ne sont plus à utiliser. Voir la révision « Adresse définitive retenue » en fin de document.
+**Adresse actuelle confirmée le 12 octobre 2026 : Sangoyah, commune de Matoto, Conakry, République de Guinée.** Les adresses différentes ci-dessous appartiennent à l’historique des demandes et ne sont plus à utiliser. Voir la révision « Quartier Sangoyah » en fin de document.
 
 ## Introductions des pages internes — demande de Gassama, 7 octobre 2026
 
@@ -864,3 +864,9 @@ EN : PISCCA: environment in Moussayah — In Moussayah, PISCCA combines reforest
 
 FR : Reboisement communautaire de 550 000 arbres à Boffa, Kindia, Forécariah, Mamou et Faranah, entre 2019 et 2021.
 EN : Community reforestation with 550,000 trees in Boffa, Kindia, Forécariah, Mamou and Faranah, between 2019 and 2021.
+
+## Quartier Sangoyah — demande du client relayée le 12 octobre 2026
+
+Gassama transmet : « au niveau de l'adresse le client qu'on mette Sangoyah à la place de kissosso finalement. le reste de l'adresse reste intact, just le quartier qui change partout sur le site stp ».
+
+Adresse actuelle : **Sangoyah, commune de Matoto, Conakry, République de Guinée**. Traduction fidèle : **Sangoyah, municipality of Matoto, Conakry, Republic of Guinea**. Remplacement du seul quartier Kissosso ; ne pas ajouter « Marché ». Les anciennes versions du 4, 6 et 8 octobre restent archivées. Coordonnées communes, À propos, Contact, pied de page, introductions, recherche, itinéraire et données structurées suivent cette correction. Carte du secteur de Sangoyah, sans inventer la position exacte du bureau. Téléphone, e-mail et autres faits inchangés.

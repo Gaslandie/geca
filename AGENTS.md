@@ -324,3 +324,7 @@ Après validation des textes client, des photos communes et de l’animation du 
 ## Accessibilité et pauses — 11 octobre 2026
 
 Gassama demande la vérification/correction de l’accessibilité et valide explicitement « Ajouter les boutons pause ». Conserver les commandes Pause/Reprendre FR/EN des photos du hero et des défilements partenaires (noms et logos). Cette validation remplace les anciennes demandes d’absence de pause. L’arrêt choisi persiste après sortie du focus/survol ; préférences de mouvement/données, nettoyage et contenu sans JavaScript conservés. Le menu compact suit son bouton dans l’ordre DOM pour rendre ses liens accessibles par Tab ; ordre ordinateur, Échap et retour au bouton conservés. Aucun fait GECA ajouté, aucune publication autorisée.
+
+## Quartier Sangoyah — priorité du 12 octobre 2026
+
+Le client, via Gassama, remplace uniquement Kissosso par Sangoyah : « Sangoyah, commune de Matoto, Conakry, République de Guinée ». Ne pas ajouter « Marché ». Le reste de l’adresse, le téléphone et l’e-mail restent inchangés. Appliquer aux données communes FR/EN, coordonnées, recherche, itinéraire et adresse structurée pour Google. Carte du secteur de Sangoyah sans position précise du bureau. Anciennes demandes conservées uniquement dans l’historique des textes client. Les exigences de sécurité, benchmarking, français simple et autorisation explicite avant commit/push restent applicables.
