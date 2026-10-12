@@ -24,7 +24,8 @@ test("livraison : toutes les routes FR/EN et leur référencement", async ({ req
       expect(response.status(), `${locale}/${path}`).toBe(200);
       const html = await response.text();
       expect(html).toContain(`lang="${locale}"`);
-      expect(html).toContain('<meta name="robots" content="index, follow"');
+      const robots = path === "recherche" ? "noindex, follow" : "index, follow";
+      expect(html.match(/<meta name="robots" content="([^"]+)"/)?.[1], `${locale}/${path}`).toBe(robots);
       expect(html).toContain(`https://globalecoaction.org${href(locale, path)}/`);
       expect(html).not.toContain("127.0.0.1:8000");
       expect(html).not.toContain("newsletter-controls");
@@ -36,6 +37,7 @@ test("livraison : toutes les routes FR/EN et leur référencement", async ({ req
   const sitemap = await request.get("/sitemap.xml");
   const xml = await sitemap.text();
   expect(xml).toContain("https://globalecoaction.org/fr/projets/");
+  expect(xml).not.toContain("/recherche/");
   expect(xml).not.toMatch(/localhost|127\.0\.0\.1|\/geca\/|administration|newsletter|<lastmod>/);
 });
 

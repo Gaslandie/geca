@@ -69,8 +69,9 @@ def main():
                 r'(?:_next/static/|images/optimized/|(?:fr|en|404|_not-found)/)'
                 r'[a-zA-Z0-9_./\[\]$-]+\.(?:html|txt|xml|js|css|webp|ttf|woff2?|ico|json)'
                 r'|(?:index|404|_not-found)\.(?:html|txt)'
-                r'|(?:robots\.txt|sitemap\.xml|icon\.svg)'
+                r'|(?:robots\.txt|sitemap\.xml|icon\.svg|icon\.png)'
                 r'|images/brand/global-ecoaction-logo-client-transparent-20261010\.webp'
+                r'|images/brand/geca-share-20261010\.jpg'
             )
             with zipfile.ZipFile(archive) as zipped:
                 require(zipped.read('.htaccess') == (public_root / '.htaccess').read_bytes(),

@@ -13,7 +13,7 @@ ROOT = Path('/home2/fnksrwmy/public_html/website_43934bdf')
 HOME = Path('/home2/fnksrwmy')
 ACCOUNT = 'fnksrwmy'
 PUBLIC = {'.htaccess', '404', '404.html', '_next', '_not-found', 'en', 'fr',
-          'icon.svg', 'images', 'index.html', 'robots.txt', 'sitemap.xml'}
+          'icon.svg', 'icon.png', 'images', 'index.html', 'robots.txt', 'sitemap.xml'}
 PRESERVE = {'.well-known', 'cgi-bin'}
 
 

@@ -5,6 +5,7 @@ import io
 import os
 from pathlib import Path
 import tempfile
+import subprocess
 import unittest
 from unittest.mock import patch
 import zipfile
@@ -91,10 +92,18 @@ class PublicationTest(unittest.TestCase):
 
     def test_private_and_executable_paths_refused(self):
         for path in ['fr/shell.php', 'fr/.env', 'fr/../index.html',
-                     '../outside.html', '/fr/index.html', 'geca-backoffice/file.html']:
+                     '../outside.html', '/fr/index.html', 'geca-backoffice/file.html',
+                     'images/brand/inconnu.jpg', 'inconnu.png']:
             with self.subTest(path=path), self.assertRaises(RuntimeError):
                 self.receive(self.archive({path: b'interdit'}))
             self.unchanged()
+
+    def test_exact_share_image_and_favicon_allowed(self):
+        self.receive(self.archive({'icon.png': b'favicon public',
+                                   'images/brand/geca-share-20261010.jpg': b'image publique'}))
+        self.assertEqual((self.root / 'icon.png').read_bytes(), b'favicon public')
+        self.assertEqual((self.root / 'images/brand/geca-share-20261010.jpg').read_bytes(), b'image publique')
+        self.assertEqual((self.home / 'geca-backoffice' / '.env').read_bytes(), b'SECRET=fixture')
 
     def test_apache_changes_refused(self):
         with self.assertRaises(RuntimeError):
@@ -123,6 +132,110 @@ class PublicationTest(unittest.TestCase):
             with self.assertRaises(BlockingIOError):
                 self.receive(self.archive())
         self.unchanged()
+
+
+spec = importlib.util.spec_from_file_location('upgrade', HERE / 'upgrade-public-delivery.py')
+upgrade = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(upgrade)
+
+
+class UpgradeTest(unittest.TestCase):
+    def setUp(self):
+        self.work = tempfile.TemporaryDirectory()
+        self.addCleanup(self.work.cleanup)
+        self.home = Path(self.work.name)
+        self.tools = self.home / 'geca-deploy'
+        self.tools.mkdir(mode=0o700)
+        self.root = self.home / 'public_html' / 'website_43934bdf'
+        self.root.mkdir(parents=True, mode=0o750)
+        self.root.chmod(0o750)
+        self.payload = {}
+        self.before = {}
+        for name in upgrade.NEW:
+            source = 'public.htaccess' if name == '.htaccess' else name
+            old = subprocess.check_output(['git', 'show', f'fe85aa1:deploy/{source}'], cwd=HERE.parent)
+            if name == '.htaccess':
+                old = old.replace(b'RewriteRule ^$ /fr/ [R=302,L]', b'RewriteRule ^$ /fr/ [R=301,L]')
+            self.assertEqual(upgrade.digest(old), upgrade.OLD[name])
+            path = (self.root if name == '.htaccess' else self.tools) / name
+            path.write_bytes(old)
+            path.chmod(0o644 if name == '.htaccess' else 0o600)
+            self.before[name] = old
+            self.payload[name] = (HERE / source).read_bytes()
+        self.patches = [patch.object(upgrade, 'HOME', self.home),
+                        patch.object(upgrade, 'ROOT', self.root),
+                        patch.object(upgrade, 'TOOLS', self.tools),
+                        patch('getpass.getuser', return_value='fnksrwmy')]
+        for context in self.patches:
+            context.start()
+            self.addCleanup(context.stop)
+
+    def contents(self):
+        return {name: ((self.root if name == '.htaccess' else self.tools) / name).read_bytes()
+                for name in upgrade.NEW}
+
+    def test_upgrade_and_idempotence(self):
+        upgrade.upgrade(self.payload)
+        self.assertEqual(self.contents(), self.payload)
+        backup = list(self.home.glob('geca-outils-sauvegarde-*'))
+        self.assertEqual(len(backup), 1)
+        self.assertEqual(backup[0].stat().st_mode & 0o777, 0o700)
+        for name in self.before:
+            self.assertEqual((backup[0] / name).read_bytes(), self.before[name])
+            self.assertEqual((backup[0] / name).stat().st_mode & 0o777, 0o600)
+        upgrade.upgrade(self.payload)
+        self.assertEqual(len(list(self.home.glob('geca-outils-sauvegarde-*'))), 1)
+
+    def test_wrong_account_refused(self):
+        with patch('getpass.getuser', return_value='autre'), self.assertRaises(RuntimeError):
+            upgrade.upgrade(self.payload)
+        self.assertEqual(self.contents(), self.before)
+
+    def test_modified_source_refused(self):
+        self.payload['receive-public.py'] += b'\n# modification'
+        with self.assertRaises(RuntimeError):
+            upgrade.upgrade(self.payload)
+        self.assertEqual(self.contents(), self.before)
+
+    def test_unknown_apache_refused(self):
+        (self.root / '.htaccess').write_bytes(b'Configuration inconnue')
+        before = self.contents()
+        with self.assertRaises(RuntimeError):
+            upgrade.upgrade(self.payload)
+        self.assertEqual(self.contents(), before)
+
+    def test_partially_updated_tools_refused(self):
+        (self.tools / 'receive-public.py').write_bytes(self.payload['receive-public.py'])
+        before = self.contents()
+        with self.assertRaises(RuntimeError):
+            upgrade.upgrade(self.payload)
+        self.assertEqual(self.contents(), before)
+
+    def test_wrong_permissions_refused(self):
+        (self.tools / 'receive-public.py').chmod(0o644)
+        with self.assertRaises(RuntimeError):
+            upgrade.upgrade(self.payload)
+        self.assertEqual(self.contents(), self.before)
+
+    def test_symlink_refused(self):
+        apache = self.root / '.htaccess'
+        apache.unlink()
+        other = self.home / 'autre'
+        other.write_bytes(self.before['.htaccess'])
+        apache.symlink_to(other)
+        with self.assertRaises(RuntimeError):
+            upgrade.upgrade(self.payload)
+        self.assertEqual(other.read_bytes(), self.before['.htaccess'])
+
+    def test_copy_failure_restores_three_files(self):
+        replace = upgrade.replace
+        def fail(path, body, mode):
+            if path.name == '.htaccess' and body == self.payload['.htaccess']:
+                raise RuntimeError('Erreur simulée')
+            replace(path, body, mode)
+        with patch.object(upgrade, 'replace', side_effect=fail), self.assertRaises(RuntimeError):
+            upgrade.upgrade(self.payload)
+        self.assertEqual(self.contents(), self.before)
 
 
 if __name__ == '__main__':
