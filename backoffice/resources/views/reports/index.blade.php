@@ -22,7 +22,7 @@
 @endif
 </article>
 @empty
-<p>{{ $archived ? 'Aucun rapport retiré.' : 'Aucun rapport pour le moment. Utilisez Ajouter un rapport pour déposer le premier document.' }}</p>
+<p class="heading media-list">{{ $archived ? 'Aucun rapport retiré.' : 'Aucun rapport pour le moment. Utilisez Ajouter un rapport pour déposer le premier document.' }}</p>
 @endforelse
 </div>
 {{ $reports->links('newsletter.pagination', ['label' => 'Pages des rapports']) }}
