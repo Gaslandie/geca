@@ -652,7 +652,7 @@ p, a, button {
 .hero-backdrop { position: absolute; inset: 0; z-index: -2; pointer-events: none; }
 .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1000ms ease-in-out; }
 .hero-slide[data-active="true"] { opacity: 1; }
-.hero-slide img { object-fit: cover; object-position: center; filter: brightness(0.9315); }
+.hero-slide img { object-fit: cover; object-position: center; filter: brightness(1.02465); }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(0 22 14 / 78%) 0%, rgb(0 22 14 / 68%) 40%, rgb(0 22 14 / 24%) 100%); pointer-events: none; }
 .hero-grid {
   display: grid;
@@ -2959,14 +2959,14 @@ body:has(.search-dialog[open]) .whatsapp-floating { visibility: hidden; }
 .contact-mail-details a { width: fit-content; color: white; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 7px; overflow-wrap: anywhere; }
 .contact-mail-details address { font-style: normal; }
 .contact-mail-section .contact-form-panel { background: #0b3023; color: white; border: 1px solid #6b8a7c; border-radius: 12px; }
-.contact-mail-section .contact-form-fields { padding: 0; display: grid; gap: 24px; }
-.contact-input-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+.contact-mail-section .contact-form-fields { padding: 0; display: grid; gap: 18px; }
+.contact-input-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
 .contact-mail-section .contact-field { margin: 0; }
-.contact-mail-section :is(input, select, textarea) { width: 100%; min-width: 0; background: #183e30; color: white; border: 1px solid #779489; border-radius: 8px; padding: 14px; min-height: 48px; font: inherit; }
+.contact-mail-section :is(input, select, textarea) { width: 100%; min-width: 0; background: #183e30; color: white; border: 1px solid #779489; border-radius: 8px; padding: 12px; min-height: 48px; font: inherit; }
 .contact-mail-section label { display: block; color: white; margin-bottom: 10px; }
 .contact-mail-section :is(.contact-field-help,.contact-privacy-note,.contact-required-note) { color: #e0ebe4; }
 .contact-mail-section .contact-submit { background: var(--gold); color: var(--ink); border: 1px solid var(--gold); margin: 0; }
-.contact-email-fallback { color: inherit; overflow-wrap: anywhere; }
+.contact-mail-section .contact-privacy-note { margin-top: 0; }
 .contact-send-status:not(:empty) { padding-block: 20px; font-weight: 700; }
 .contact-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 @media (min-width: 1000px) { .contact-mail-section { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); } .contact-input-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

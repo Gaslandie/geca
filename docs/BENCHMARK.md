@@ -1889,3 +1889,10 @@ Contrôle en ligne de la version précédente b6fb150 : titres uniques, formulai
 Référence : capture du bandeau fournie par Gassama et navigation commune précédemment comparée. Espace entre liens ordinateur augmenté de 20 à 32 px ; séparation entre liens et FR/EN de 12 à 24 px. Conserver le seuil mobile/texte agrandi, liens, sous-menu et focus clavier. Le bouton WhatsApp s’efface pendant l’ouverture du menu mobile pour ne pas passer devant son panneau. Aucun contenu ou droit modifié.
 
 Validation de l’espacement : navigateur FR/EN 375/1280/1440, écarts entre liens de 32 px, absence de chevauchement/débordement, menu mobile/Échap et retour de WhatsApp après fermeture. Dix tests publics, lint, TypeScript et builds publique/local réussis. Serveur local actualisé et capture examinée.
+
+
+## Formulaire compact et hero +10 % — 13 octobre 2026
+
+Références relues : capture client du formulaire Arboria et capture GECA fournie ce jour, comparaison avec le formulaire actuel validé. Retirer l’e-mail répété sous le formulaire ; conserver le lien dans les coordonnées et celui du pied de page, disponibles aussi sans JavaScript. Message de six à quatre lignes, espaces de 24 à 18 px et padding des champs de 14 à 12 px, cibles de 48 px conservées. Aucun champ, contrôle ou envoi modifié. Gassama demande ensuite 10 % supplémentaires de luminosité par rapport à la version actuelle : 0,9315 × 1,10 = 1,02465. Photos sources, voile sombre, textes et défilement conservés. Commit/push autorisés pour l’ensemble.
+
+Validation : dix tests publics réussis, dont envoi simulé et conservation de saisie après échec ; lint, TypeScript, builds locale/publique. Contrôle navigateur FR/EN 375/1440 : adresse unique dans le bloc Contact, textarea quatre lignes, espaces 18 px, luminosité 1,02465, absence de débordement. Capture examinée et serveur local actualisé. Aucun nouveau message réel envoyé ni changement du service serveur.

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useSyncExternalStore, type FormEvent } from "react";
-import { contactContent, identity, type Locale } from "@/content/site";
+import { contactContent, type Locale } from "@/content/site";
 import { publicRelease } from "@/lib/deployment";
 
 const subscribe = () => () => {};
@@ -72,7 +72,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
           <div className="contact-field"><label htmlFor="contact-email">{text.email} *</label><input id="contact-email" name="email" type="email" autoComplete="email" required maxLength={254} /></div>
           <div className="contact-field"><label htmlFor="contact-reason">{text.reason} *</label><select id="contact-reason" name="reason" required defaultValue=""><option value="" disabled>{fr ? "Choisir un sujet" : "Choose a subject"}</option>{text.reasons.map(reason => <option key={reason.value} value={reason.value}>{reason.label}</option>)}</select></div>
         </div>
-        <div className="contact-field"><label htmlFor="contact-message">{text.message} *</label><textarea id="contact-message" name="message" rows={6} required minLength={10} maxLength={3000} aria-describedby="contact-help" /><p id="contact-help" className="contact-field-help">{text.help}</p></div>
+        <div className="contact-field"><label htmlFor="contact-message">{text.message} *</label><textarea id="contact-message" name="message" rows={4} required minLength={10} maxLength={3000} aria-describedby="contact-help" /><p id="contact-help" className="contact-field-help">{text.help}</p></div>
         <div className="contact-honeypot" aria-hidden="true"><label htmlFor="contact-website">Website</label><input id="contact-website" name="website" tabIndex={-1} autoComplete="off" /></div>
         <button type="submit" className="button contact-submit" disabled={busy}>{busy ? (fr ? "Envoi en cours…" : "Sending…") : (fr ? "Envoyer le message" : "Send message")}</button>
         <p className="contact-privacy-note">{fr ? "Les informations saisies seront transmises par e-mail à GECA pour répondre à votre demande." : "Your information will be emailed to GECA to respond to your request."}</p>
@@ -80,7 +80,6 @@ export function ContactForm({ locale }: { locale: Locale }) {
       <p className="contact-send-status" role="status" aria-live="polite">{status}</p>
       {previewOnly && <p>{fr ? "L’envoi est disponible sur le site principal." : "Sending is available on the main website."}</p>}
       <noscript><p>{fr ? "Activez JavaScript pour envoyer le formulaire, ou écrivez-nous par e-mail." : "Enable JavaScript to submit the form, or email us."}</p></noscript>
-      <a className="contact-email-fallback" href={`mailto:${identity.email}`}>{identity.email}</a>
     </form>
   </div>;
 }

@@ -942,3 +942,8 @@ Gassama demande de garder un seul titre par section et de l’agrandir, puis com
 ## Navigation — 13 octobre 2026
 
 Gassama demande davantage d’espace entre les liens de la barre de navigation pendant la livraison en cours. Ajustement visuel sans modification des noms ou destinations ; inclus dans le commit/push de l’ensemble demandé.
+
+
+## Compacité Contact et nouvelle luminosité — 13 octobre 2026
+
+Gassama demande de retirer l’adresse e-mail en doublon et de réduire un peu la hauteur du formulaire ; puis d’éclaircir le fond du hero d’accueil de 10 % par rapport à la version actuelle, avec commit/push. Aucun contenu factuel, destinataire ou protection changé.

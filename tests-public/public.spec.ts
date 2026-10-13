@@ -64,7 +64,7 @@ for (const width of [320, 375, 768, 1440]) {
       await expect(page.locator(".contact-form")).toHaveCount(1);
       await expect(page.locator(".footer-newsletter")).toHaveCount(0);
       await expect(page.locator(".contact-mail-details a").last()).toHaveAttribute("href", supportActions.whatsappHref);
-      await expect(page.locator(".contact-email-fallback")).toHaveAttribute("href", `mailto:${identity.email}`);
+      await expect(page.locator(".contact-mail-details a").first()).toHaveAttribute("href", `mailto:${identity.email}`);
       await expect(page.locator(".contact-form input[name=name]")).toHaveValue("");
       await expect(page.locator(".contact-form select")).toHaveValue("");
       await expect(page.locator(".whatsapp-floating")).toHaveAttribute("href", supportActions.whatsappHref);
