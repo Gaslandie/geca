@@ -932,3 +932,8 @@ Gassama demande « meme pour nos partenaire aussi, on remet la meme sauf les bou
 ## Titres, formulaire et WhatsApp — 13 octobre 2026
 
 Gassama demande de garder un seul titre par section et de l’agrandir, puis commit et push. Il transmet une capture de formulaire et demande la même disposition, sans message prérempli ni ouverture de messagerie : envoi par e-mail. Ajout demandé d’un bouton WhatsApp flottant en bas à droite sur mobile et ordinateur. Réutilisation des coordonnées GECA, des sujets de contact et des descriptions existantes. Nouveaux libellés fonctionnels Envoyer le message/Send message, statuts d’envoi et information de transmission par e-mail ; mise à jour correspondante du texte technique de confidentialité. Aucun fait, projet, contact Arboria ou chiffre inventé.
+
+
+## Luminosité du hero — 13 octobre 2026
+
+« eclaircis le bg de 15% , les images de lasection hero de home,puis tu push tout après stp ». Éclaircissement du filtre des cinq photos de l’accueil, puis commit/push nécessaires à la publication demandée. Textes et sources inchangés.

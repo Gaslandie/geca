@@ -652,7 +652,7 @@ p, a, button {
 .hero-backdrop { position: absolute; inset: 0; z-index: -2; pointer-events: none; }
 .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1000ms ease-in-out; }
 .hero-slide[data-active="true"] { opacity: 1; }
-.hero-slide img { object-fit: cover; object-position: center; filter: brightness(0.81); }
+.hero-slide img { object-fit: cover; object-position: center; filter: brightness(0.9315); }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(0 22 14 / 78%) 0%, rgb(0 22 14 / 68%) 40%, rgb(0 22 14 / 24%) 100%); pointer-events: none; }
 .hero-grid {
   display: grid;
