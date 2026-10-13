@@ -2686,10 +2686,10 @@ html { scroll-padding-top: calc(var(--site-header-height, 104px) + 16px); }
   .site-header:not([data-compact="true"]) .main-nav {
     display: flex; position: static; align-items: center; justify-content: center; flex: 1;
     min-width: 0; width: auto; max-height: none; overflow: visible;
-    padding: 0; border: 0; box-shadow: none; gap: 12px; animation: none;
+    padding: 0; border: 0; box-shadow: none; gap: 24px; animation: none;
   }
   .site-header:not([data-compact="true"]) .main-nav > ul {
-    order: 0; flex-direction: row; align-items: center; gap: 20px; max-width: none; margin: 0;
+    order: 0; flex-direction: row; align-items: center; gap: 32px; max-width: none; margin: 0;
   }
   .site-header:not([data-compact="true"]) .language-switch { order: 1; border: 0; padding: 0; gap: 0; }
   .site-header:not([data-compact="true"]) .language-switch a { min-width: 32px; }
@@ -2972,3 +2972,5 @@ body:has(.search-dialog[open]) .whatsapp-floating { visibility: hidden; }
 @media (min-width: 1000px) { .contact-mail-section { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); } .contact-input-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 .site-footer { padding-bottom: 90px; }
+
+body:has(.site-header .menu-toggle[aria-expanded="true"]) .whatsapp-floating { visibility: hidden; }

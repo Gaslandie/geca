@@ -1882,3 +1882,10 @@ Le cache de preuve conserve au maximum une preuve active par origine/IP, remplac
 Gassama demande d’éclaircir le fond photographique du hero de 15 %, puis de pousser l’ensemble. Référence : composition photographique restaurée et photos client existantes. Filtre de luminosité passant de 0,81 à 0,9315 (0,81 × 1,15), sans altération des sources ni changement des textes. Voile sombre et adaptation mobile conservés pour la lecture. Aucun nouveau fait ou média.
 
 Contrôle en ligne de la version précédente b6fb150 : titres uniques, formulaire vide, WhatsApp FR/EN 375/1440, émission de preuve réelle en HTTP 200 et CORS accepté depuis le site, POST JSON vide refusé en 422 sans e-mail, origine tierce refusée et administration anonyme redirigée. Aperçu Pages chargé, champs désactivés par le fieldset. Aucun message réel envoyé ; réception en boîte toujours à essayer. Cette dernière modification concerne uniquement la luminosité CSS ; dix tests publics, lint, TypeScript et compilations publique/locale réussis.
+
+
+## Navigation plus aérée — 13 octobre 2026
+
+Référence : capture du bandeau fournie par Gassama et navigation commune précédemment comparée. Espace entre liens ordinateur augmenté de 20 à 32 px ; séparation entre liens et FR/EN de 12 à 24 px. Conserver le seuil mobile/texte agrandi, liens, sous-menu et focus clavier. Le bouton WhatsApp s’efface pendant l’ouverture du menu mobile pour ne pas passer devant son panneau. Aucun contenu ou droit modifié.
+
+Validation de l’espacement : navigateur FR/EN 375/1280/1440, écarts entre liens de 32 px, absence de chevauchement/débordement, menu mobile/Échap et retour de WhatsApp après fermeture. Dix tests publics, lint, TypeScript et builds publique/local réussis. Serveur local actualisé et capture examinée.

@@ -937,3 +937,8 @@ Gassama demande de garder un seul titre par section et de l’agrandir, puis com
 ## Luminosité du hero — 13 octobre 2026
 
 « eclaircis le bg de 15% , les images de lasection hero de home,puis tu push tout après stp ». Éclaircissement du filtre des cinq photos de l’accueil, puis commit/push nécessaires à la publication demandée. Textes et sources inchangés.
+
+
+## Navigation — 13 octobre 2026
+
+Gassama demande davantage d’espace entre les liens de la barre de navigation pendant la livraison en cours. Ajustement visuel sans modification des noms ou destinations ; inclus dans le commit/push de l’ensemble demandé.
