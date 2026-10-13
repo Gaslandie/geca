@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountSecurityController;
+use App\Http\Controllers\ActivityReportController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LocalAccessController;
@@ -28,6 +29,17 @@ Route::middleware(['guest', 'pending-mfa'])->prefix('connexion/double-verificati
 });
 Route::post('/deconnexion', [SessionController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::middleware(['auth', 'admin', 'auth.session'])->group(function () {
+    Route::prefix('administration/rapports')->name('reports.')->group(function () {
+        Route::get('/', [ActivityReportController::class, 'index'])->name('index');
+        Route::get('/ajouter', [ActivityReportController::class, 'create'])->block(120, 10)->name('create');
+        Route::post('/', [ActivityReportController::class, 'store'])->middleware('throttle:reports-write')->block(120, 10)->name('store');
+        Route::get('/archives', [ActivityReportController::class, 'archives'])->name('archives');
+        Route::get('/{report}/telecharger', [ActivityReportController::class, 'download'])->whereUuid('report')->name('download');
+        Route::get('/{report}/modifier', [ActivityReportController::class, 'edit'])->whereUuid('report')->name('edit');
+        Route::put('/{report}', [ActivityReportController::class, 'update'])->whereUuid('report')->middleware('throttle:reports-write')->name('update');
+        Route::delete('/{report}', [ActivityReportController::class, 'destroy'])->whereUuid('report')->middleware('throttle:reports-write')->name('destroy');
+        Route::post('/{report}/restaurer', [ActivityReportController::class, 'restore'])->whereUuid('report')->middleware('throttle:reports-write')->name('restore');
+    });
     Route::get('/administration/medias/{media}/apercu', [MediaController::class, 'preview'])->whereUuid('media')->name('media.preview');
     Route::get('/administration/medias/{media}/apercu/{size}', [MediaController::class, 'preview'])->whereUuid('media')->whereIn('size', ['thumbnail'])->name('media.thumbnail');
     Route::get('/administration/securite', [TwoFactorController::class, 'settings'])->name('security');

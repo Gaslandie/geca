@@ -128,13 +128,13 @@ class AdminSecurityTest extends TestCase
     {
         $this->signedIn();
         $this->get('/administration')->assertOk()
-            ->assertViewHas('counts', ['projects' => 0, 'news' => 0, 'team' => 0]);
+            ->assertViewHas('counts', ['projects' => 0, 'news' => 0, 'team' => 0, 'reports' => 0]);
         $this->artisan('geca:import-reference')->assertSuccessful();
         $this->get('/administration')->assertOk()
-            ->assertViewHas('counts', ['projects' => 7, 'news' => 9, 'team' => 8]);
+            ->assertViewHas('counts', ['projects' => 7, 'news' => 9, 'team' => 8, 'reports' => 0]);
         ContentEntry::where('kind', 'team')->firstOrFail()->delete();
         $this->get('/administration')->assertOk()
-            ->assertViewHas('counts', ['projects' => 7, 'news' => 9, 'team' => 7]);
+            ->assertViewHas('counts', ['projects' => 7, 'news' => 9, 'team' => 7, 'reports' => 0]);
     }
 
     public function test_account_name_is_escaped_in_shared_navigation(): void

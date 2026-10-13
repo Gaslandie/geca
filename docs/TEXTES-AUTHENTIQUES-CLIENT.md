@@ -870,3 +870,18 @@ EN : Community reforestation with 550,000 trees in Boffa, Kindia, Forécariah, M
 Gassama transmet : « au niveau de l'adresse le client qu'on mette Sangoyah à la place de kissosso finalement. le reste de l'adresse reste intact, just le quartier qui change partout sur le site stp ».
 
 Adresse actuelle : **Sangoyah, commune de Matoto, Conakry, République de Guinée**. Traduction fidèle : **Sangoyah, municipality of Matoto, Conakry, Republic of Guinea**. Remplacement du seul quartier Kissosso ; ne pas ajouter « Marché ». Les anciennes versions du 4, 6 et 8 octobre restent archivées. Coordonnées communes, À propos, Contact, pied de page, introductions, recherche, itinéraire et données structurées suivent cette correction. Carte du secteur de Sangoyah, sans inventer la position exacte du bureau. Téléphone, e-mail et autres faits inchangés.
+
+## Rapports d’activités dans le back-office — 13 octobre 2026
+
+Demande du client relayée par Gassama : « le client veut qu'on ajoute une rubrique dans le back office ou on pourraitsoumettre ou mettre les rapport d'activités du ONG. vas y ».
+
+Rubrique privée « Rapports d’activités » autorisée pour déposer les documents de l’ONG. Aucun rapport ni contenu de rapport transmis à cette étape. Titres, périodes et descriptions viendront des saisies des administrateurs ; aucun exemple factuel GECA ajouté à la base. Libellés du formulaire et messages d’enregistrement/retrait/restauration sont des textes de fonctionnement. Aucune publication de rapports sur le site public demandée, aucune ancienne rubrique Ressources rétablie.
+
+## Livraison des rapports et futurs rôles — Gassama, 13 octobre 2026
+
+Demande : « on va installer sur bluehost alors gooo, après on donnera la possibilité a l'admin dajouter d'ajouter d'autrepersonne avec different role aussi ». Gassama choisit ensuite « Prépare la commande cPanel ». Installation des rapports autorisée, avec préparation de la commande et du paquet. Gestion des personnes et de leurs rôles à traiter après l’installation confirmée ; aucune liste de personnes, de rôles ou de permissions encore transmise, aucun compte nouveau créé. Aucun fait GECA modifié par cette étape.
+
+
+## Dates des rapports — demande du 13 octobre 2026
+
+Gassama demande de remplacer la période libre par une date de début et une date de fin, toutes deux obligatoires et choisies sur un calendrier. Cette demande concerne le formulaire privé, sans fait nouveau sur GECA. Les anciennes périodes restent conservées ; aucune date exacte n'est déduite automatiquement d'une année ou d'un texte.

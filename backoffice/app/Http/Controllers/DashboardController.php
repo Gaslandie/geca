@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActivityReport;
 use App\Models\ContentEntry;
 
 class DashboardController extends Controller
@@ -14,6 +15,8 @@ class DashboardController extends Controller
             ->selectRaw('kind, COUNT(*) AS total')->groupBy('kind')->get() as $row) {
             $counts[$row->kind] = (int) $row->total;
         }
+
+        $counts['reports'] = ActivityReport::count();
 
         return view('dashboard', ['counts' => $counts]);
     }

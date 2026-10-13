@@ -40,8 +40,13 @@ async function checkAccessibility(page) {
       const visible=element=>element.getClientRects().length>0;
       const center=element=>{const box=element.getBoundingClientRect();return box.x+box.width/2;};
       const headings=[...document.querySelectorAll('main h1,main h2,main h3')].filter(visible).flatMap(element=>{
-        const range=document.createRange();range.selectNodeContents(element);
-        return [...range.getClientRects()].filter(box=>box.width>0).map(box=>Math.abs(box.x+box.width/2-center(element)));
+        // Un portrait/une initiale accompagne le nom : vérifier le groupe centré,
+        // puis les lignes du nom dans leur propre bloc, sans mesurer l'image comme du texte.
+        const text=element.matches('.team-entry-name') ? element.querySelector('span:last-child') : element;
+        const range=document.createRange();range.selectNodeContents(text);
+        const lines=[...range.getClientRects()].filter(box=>box.width>0).map(box=>Math.abs(box.x+box.width/2-center(text)));
+        if(text!==element) lines.push(Math.abs(center(element)-center(element.parentElement)));
+        return lines;
       });
       const actions=[...document.querySelectorAll('main .actions')].filter(visible).map(group=>{
         const boxes=[...group.children].filter(visible).map(element=>element.getBoundingClientRect());
@@ -175,7 +180,7 @@ try {
   await page.getByLabel('J’ai conservé mes codes de secours.').check();
   await page.getByRole('button',{name:'Accéder à mon espace'}).click();
   await page.waitForURL('**/administration');
-  assert.deepEqual(await page.locator('.dashboard-count').allTextContents(),['7','9','8']);
+  assert.deepEqual(await page.locator('.dashboard-count').allTextContents(),['7','9','8','0']);
   await checkCentralTheme(page);
   await page.goto('http://127.0.0.1:8001/administration/newsletter');
   assert.equal(await page.locator('.newsletter-mode').textContent(),'Mode test · aucun e-mail envoyé.');
@@ -759,7 +764,7 @@ try {
   assert.deepEqual(nojsRestored.draft,nojsBeforeRemoval.draft);
   assert.equal(nojsRestored.revision,nojsBeforeRemoval.revision+2);
   await p.goto('http://127.0.0.1:8001/administration/securite');
-  await p.getByLabel('Mot de passe actuel').fill(password);
+  await p.locator('form[action$="/administration/securite/codes"]').getByLabel('Mot de passe actuel').fill(password);
   await p.getByLabel('Code Authenticator ou code de secours inutilisé').fill(recoveryCodes[1]);
   await p.getByRole('button',{name:'Créer mes nouveaux codes'}).click();
   assert.equal(await p.locator('.mfa-codes code').count(),10);

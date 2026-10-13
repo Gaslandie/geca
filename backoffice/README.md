@@ -171,3 +171,23 @@ Le menu compact couvre désormais tout l’écran. Croix et Échap pour fermer, 
 ## Examiner les écrans sans saisie en local — 10 octobre 2026
 
 Entrée temporaire demandée par Gassama : `http://127.0.0.1:8000/connexion-locale`, bouton « Entrer dans le back-office ». Autorisation du terminal, réservée à 127.0.0.1, à l’environnement local et à la base SQLite du projet. Aucun secret dans le lien. Session d’une heure au maximum ; activation initiale de quatre heures. Désactivée sans les variables du processus, en production ou après expiration. Les droits du compte restent contrôlés sur toutes les pages privées. Guide et fermeture dans `docs/BACKOFFICE.md`.
+
+## Déposer les rapports d’activités — 13 octobre 2026
+
+Dans le menu, ouvrir **Rapports d’activités**, puis **Ajouter un rapport**. Saisir le titre et la période du document ; choisir un PDF de 10 Mo maximum. La description est facultative. Les documents restent privés et peuvent être téléchargés uniquement après connexion autorisée.
+
+**Modifier** permet de corriger les informations ou remplacer le PDF. Les versions précédentes restent conservées. Le retrait demande une confirmation ; **Rapports retirés** permet la restauration. Pas de suppression définitive ni de publication publique. Les administrateurs actifs de GECA gèrent les mêmes rapports.
+
+Nouvelle migration additive du 13 octobre et stockage `storage/app/private/reports`, à sauvegarder avec la base. Quota de 250 Mio incluant les anciennes versions. Sur Bluehost, les limites PHP web peuvent réduire les 10 Mo ; code non livré à distance par cette étape. Ne pas remplacer la clé ou la configuration existantes. Détails des contrôles, de la migration locale et des limites dans `../docs/BACKOFFICE.md` et `../docs/BENCHMARK.md`.
+
+Test navigateur isolé : `GECA_PHP="$PWD/backoffice/.local-tools/php" node backoffice/tests/activity-reports-browser.mjs` depuis la racine GECA. Aucun dépôt réel de test dans la base de travail. Les contrôles de format PDF ne sont pas un antivirus.
+
+
+### Dates des rapports (13 octobre 2026)
+
+Le formulaire demande deux dates obligatoires sur calendrier natif : début et fin. La fin doit être le même jour ou après le début. Validation côté serveur ; anciennes périodes conservées sans dates inventées. Aucun changement de schéma. Livrable ciblé et commande distincts : artifacts/geca-rapports-dates-bluehost-20261013.zip et artifacts/commande-rapports-dates-cpanel.sh ; voir docs/MISE-EN-PRODUCTION.md à la racine.
+
+
+### Livraison automatique préparée
+
+Workflow dédié bluehost-backoffice.yml ; seconde clé SSH, indépendante de la vitrine. Mise à jour du code testé avec sauvegarde, configuration/base/documents conservés ; migrations et dépendances exclues. Commande de configuration unique sans ZIP : artifacts/commande-automatisation-backoffice-cpanel.sh. Non activée à ce stade ; étapes et limites dans docs/MISE-EN-PRODUCTION.md.

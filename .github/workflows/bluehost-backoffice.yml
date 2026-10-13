@@ -1,0 +1,69 @@
+name: Mettre à jour le back-office GECA sur Bluehost
+
+on:
+  push:
+    branches: [main]
+    paths: ['backoffice/**', 'deploy/*backoffice*', '.github/workflows/bluehost-backoffice.yml']
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Vérifier la connexion ou installer le code testé
+        type: choice
+        options: [connection, deploy]
+        default: connection
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bluehost-backoffice
+  cancel-in-progress: false
+
+jobs:
+  test:
+    if: github.ref == 'refs/heads/main' && vars.BLUEHOST_BACKOFFICE_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Installer PHP pour les tests
+        uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # 2.36.0
+        with:
+          php-version: '8.4'
+          extensions: mbstring, curl, dom, xml, fileinfo, pdo_sqlite, gd
+          tools: composer:v2
+          coverage: none
+      - name: Installer les dépendances verrouillées
+        working-directory: backoffice
+        run: composer install --no-interaction --prefer-dist
+      - name: Préparer une configuration de test jetable
+        working-directory: backoffice
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+      - name: Vérifier le style et les protections du back-office
+        working-directory: backoffice
+        run: |
+          php vendor/bin/pint --test
+          php artisan test
+      - name: Vérifier les refus de livraison
+        run: python3 deploy/test-auto-backoffice.py
+  publish:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: bluehost-production
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Envoyer le code testé par la connexion dédiée
+        run: python3 deploy/send-backoffice.py "$DEPLOY_MODE"
+        env:
+          DEPLOY_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'deploy' }}
+          BLUEHOST_BACKOFFICE_SSH_KEY: ${{ secrets.BLUEHOST_BACKOFFICE_SSH_KEY }}
+          BLUEHOST_KNOWN_HOSTS: ${{ secrets.BLUEHOST_KNOWN_HOSTS }}
+          BLUEHOST_SSH_HOST: ${{ vars.BLUEHOST_SSH_HOST }}
+          BLUEHOST_SSH_PORT: ${{ vars.BLUEHOST_SSH_PORT }}

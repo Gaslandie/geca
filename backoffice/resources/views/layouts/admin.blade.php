@@ -19,11 +19,12 @@
 <a class="skip" href="#contenu">Aller au contenu</a>
 @auth
     @php
-        $activeSection = request()->routeIs('content.trash', 'content.trash-all') ? 'trash' : (request()->routeIs('security*') ? 'security' : (request()->routeIs('newsletter.*') ? 'newsletter' : (request()->routeIs('dashboard') ? 'dashboard' : request()->route('kind'))));
+        $activeSection = request()->routeIs('reports.*') ? 'reports' : (request()->routeIs('content.trash', 'content.trash-all') ? 'trash' : (request()->routeIs('security*') ? 'security' : (request()->routeIs('newsletter.*') ? 'newsletter' : (request()->routeIs('dashboard') ? 'dashboard' : request()->route('kind')))));
         $navigation = [
             ['key' => 'dashboard', 'label' => 'Accueil', 'icon' => 'home', 'url' => route('dashboard')],
             ['key' => 'projects', 'label' => 'Projets et programmes', 'icon' => 'projects', 'url' => route('content.index', 'projects')],
             ['key' => 'news', 'label' => 'Actualités', 'icon' => 'news', 'url' => route('content.index', 'news')],
+            ['key' => 'reports', 'label' => 'Rapports d’activités', 'icon' => 'projects', 'url' => route('reports.index')],
             ['key' => 'newsletter', 'label' => 'Newsletter', 'icon' => 'newsletter', 'url' => route('newsletter.index')],
             ['key' => 'security', 'label' => 'Sécurité du compte', 'icon' => 'security', 'url' => route('security')],
             ['key' => 'team', 'label' => 'Équipe', 'icon' => 'team', 'url' => route('content.index', 'team')],

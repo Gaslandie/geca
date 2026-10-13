@@ -29,6 +29,14 @@ return [
     */
 
     'disks' => [
+        'reports' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/reports'),
+            'visibility' => 'private',
+            'directory_visibility' => 'private',
+            'throw' => true,
+            'serve' => false,
+        ],
         'media' => [
             'driver' => 'local',
             'root' => storage_path('app/private/media'),
