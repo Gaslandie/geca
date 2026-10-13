@@ -46,6 +46,9 @@ def main(mode):
         builder = importlib.util.module_from_spec(spec); spec.loader.exec_module(builder)
         archive = Path(private) / 'code.zip'
         changes = builder.build(baseline, REPO / 'backoffice', archive)
+        if not changes:
+            print('Code déjà installé et vérifié. Aucun changement ni maintenance nécessaire.')
+            return
         digest = hashlib.sha256(archive.read_bytes()).hexdigest()
         print(str(len(changes)) + ' fichiers de code à livrer.', flush=True)
         with archive.open('rb') as stream:

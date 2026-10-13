@@ -16,6 +16,14 @@ def build(baseline, source, destination):
     old_raw = baseline.read_bytes()
     old = json.loads(old_raw)
     new = dict(old)
+    # Ne pas laisser de côté une nouvelle migration/configuration : les tests
+    # pourraient utiliser un schéma absent de la vraie installation.
+    for folder in ['config', 'database/migrations', 'bootstrap']:
+        actual = {path.relative_to(source).as_posix() for path in (source / folder).rglob('*.php')
+                  if not path.relative_to(source / folder).as_posix().startswith('cache/')}
+        expected = {name for name in old if name.startswith(folder + '/') and name.endswith('.php')}
+        if actual != expected:
+            raise RuntimeError('Ajout ou retrait protégé : ' + folder)
     # Toute modification de dépendance, configuration, migration ou ressource
     # installée doit être préparée séparément, pas ignorée silencieusement.
     for name, digest in old.items():
@@ -34,6 +42,8 @@ def build(baseline, source, destination):
             if not updater.allowed(name) or path.is_symlink() or path.resolve() != path:
                 raise RuntimeError('Chemin refusé : ' + name)
             new[name] = hashlib.sha256(path.read_bytes()).hexdigest()
+    if old == new:
+        return []
     updater.validate_delta(old, new)
     changed = sorted(name for name in new if old.get(name) != new[name])
     record = {'base': hashlib.sha256(old_raw).hexdigest(), 'manifest': new}

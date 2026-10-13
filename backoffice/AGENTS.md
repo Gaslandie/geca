@@ -60,3 +60,8 @@ Gassama autorise maintenant l’installation des rapports sur Bluehost et choisi
 ## Dates des rapports — 13 octobre 2026
 
 Début et fin obligatoires via calendriers natifs. Valider les deux dates côté serveur avant leur comparaison, fin >= début ; ignorer une période injectée. Conserver les anciennes périodes libres sans inventer leurs bornes exactes. Le stockage period existant est conservé sans migration. Paquet dates distinct du paquet initial ; déploiement cPanel accompagné une étape à la fois.
+
+
+## Automatisation en service — 13 octobre 2026
+
+Livraison GitHub main avec seconde clé dédiée, tests puis sauvegardes et maintenance. Installation initiale des calendriers confirmée par workflow ; les secrets ne vont ni dans Git ni dans le chat. Modifications ordinaires limitées à app PHP, vues Blade et routes/web.php ; suppressions, migrations, dépendances, configuration et ressources publiques exclues. Nouveaux fichiers de configuration/migration/bootstrap arrêtent la préparation. Aucun changement de schéma implicite et aucune publication de contenu privé vers Next.js. Ne pas demander de ZIP manuel pour une correction compatible avec ce système. Autorisation explicite avant commit/push toujours applicable.

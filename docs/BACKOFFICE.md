@@ -398,3 +398,8 @@ Vérification locale : 155 tests PHP / 2024 assertions réussis, Pint et compila
 ## Livraison automatique préparée — 13 octobre 2026
 
 Demande de Gassama : arrêter les téléchargements/transferts de ZIP pour chaque correction. Workflow et connexion séparée préparés, tests de refus et restitutions réussis ; détail dans docs/MISE-EN-PRODUCTION.md. Le système vise les corrections ordinaires du code privé, avec tests et sauvegardes. Les changements de schéma/dépendances/configuration s'arrêtent pour une préparation distincte. Ce mécanisme ne publie pas les contenus saisis vers le site public. Automatisation pas encore activée : configuration cPanel, permission explicite pour la clé privée dans GitHub et autorisation commit/push restent requises.
+
+
+## Mise à jour automatique en service — 13 octobre 2026
+
+Connexion dédiée GitHub/Bluehost et première livraison des quatre fichiers des calendriers réussies. Tests et sauvegardes avant installation ; comptes et rapports conservés. Une date de début et une date de fin obligatoires sur le formulaire privé, fin >= début. Les corrections ordinaires du code passent désormais par GitHub sans ZIP manuel. Migrations/dépendances/configuration gardent une préparation distincte ; contenus privés non publiés vers Next.js. Détails, résultats et limites dans docs/MISE-EN-PRODUCTION.md.

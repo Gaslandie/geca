@@ -117,6 +117,21 @@ class Guards(unittest.TestCase):
         (self.root / 'composer.lock').write_bytes(b'changed')
         with self.assertRaises(RuntimeError): builder.build(baseline, self.root, self.home / 'code2.zip')
 
+    def test_builder_stops_on_new_migration_or_config_even_without_app_change(self):
+        baseline = self.home / 'baseline.json'; baseline.write_bytes(self.raw)
+        for name in ['database/migrations/new.php', 'config/new.php', 'bootstrap/new.php']:
+            path = self.root / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_bytes(b'protected')
+            with self.subTest(name=name), self.assertRaises(RuntimeError):
+                builder.build(baseline, self.root, self.home / 'forbidden.zip')
+            self.assertFalse((self.home / 'forbidden.zip').exists())
+            path.unlink()
+
+    def test_builder_no_change_does_not_create_archive(self):
+        baseline = self.home / 'baseline.json'; baseline.write_bytes(self.raw)
+        (self.root / 'resources/views').mkdir(parents=True)
+        self.assertEqual(builder.build(baseline, self.root, self.home / 'noop.zip'), [])
+        self.assertFalse((self.home / 'noop.zip').exists())
+
 
 class Reception(unittest.TestCase):
     def setUp(self):
