@@ -151,7 +151,7 @@ class TwoFactorController extends Controller
         $data = $request->validate(['password' => ['required', 'string', 'max:256'], 'code' => ['required', 'string', 'max:35']]);
         [$user, $codes] = DB::transaction(function () use ($request, $data) {
             $user = User::whereKey($request->user()->id)->lockForUpdate()->firstOrFail();
-            abort_unless($user->is_admin && $user->is_active && $user->session_version === $request->session()->get('admin_version'), 403);
+            abort_unless($user->hasBackofficeAccess() && $user->is_active && $user->session_version === $request->session()->get('admin_version'), 403);
             if (! Hash::check($data['password'], $user->password)) {
                 $this->factor->reject();
             }

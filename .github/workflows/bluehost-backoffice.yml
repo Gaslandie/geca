@@ -9,7 +9,7 @@ on:
       mode:
         description: Vérifier la connexion ou installer le code testé
         type: choice
-        options: [connection, deploy]
+        options: [connection, deploy, test]
         default: connection
 
 permissions:
@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   test:
-    if: github.ref == 'refs/heads/main' && vars.BLUEHOST_BACKOFFICE_DEPLOY_ENABLED == 'true'
+    if: github.ref == 'refs/heads/main' && (vars.BLUEHOST_BACKOFFICE_DEPLOY_ENABLED == 'true' || (github.event_name == 'workflow_dispatch' && inputs.mode == 'test'))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -55,7 +55,7 @@ jobs:
         run: python3 deploy/test-auto-backoffice.py
   publish:
     needs: test
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && !(github.event_name == 'workflow_dispatch' && inputs.mode == 'test')
     runs-on: ubuntu-latest
     environment: bluehost-production
     timeout-minutes: 35

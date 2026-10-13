@@ -6,7 +6,7 @@
 <div class="content-create-action actions">
 @if($archived)
 <a class="button secondary" href="{{ route('reports.index') }}">Retour aux rapports</a>
-@else
+@elseif(auth()->user()->editsContent())
 <a class="button" href="{{ route('reports.create') }}">Ajouter un rapport</a>
 <a class="button secondary" href="{{ route('reports.archives') }}">Rapports retirés</a>
 @endif
@@ -18,11 +18,11 @@
 @if($archived)
 <form method="post" action="{{ route('reports.restore', $report) }}">@csrf<input type="hidden" name="revision" value="{{ $report->revision }}"><button type="submit" class="secondary">Restaurer<span class="visually-hidden"> : {{ $report->title }}</span></button></form>
 @else
-<div class="actions"><a class="button secondary" href="{{ route('reports.download', $report) }}">Télécharger le PDF<span class="visually-hidden"> : {{ $report->title }}</span></a><a class="button secondary" href="{{ route('reports.edit', $report) }}">Modifier<span class="visually-hidden"> : {{ $report->title }}</span></a></div>
+<div class="actions"><a class="button secondary" href="{{ route('reports.download', $report) }}">Télécharger le PDF<span class="visually-hidden"> : {{ $report->title }}</span></a>@if(auth()->user()->editsContent())<a class="button secondary" href="{{ route('reports.edit', $report) }}">Modifier<span class="visually-hidden"> : {{ $report->title }}</span></a>@endif</div>
 @endif
 </article>
 @empty
-<p class="heading media-list">{{ $archived ? 'Aucun rapport retiré.' : 'Aucun rapport pour le moment. Utilisez Ajouter un rapport pour déposer le premier document.' }}</p>
+<p class="heading media-list">{{ $archived ? 'Aucun rapport retiré.' : (auth()->user()->editsContent() ? 'Aucun rapport pour le moment. Utilisez Ajouter un rapport pour déposer le premier document.' : 'Aucun rapport pour le moment.') }}</p>
 @endforelse
 </div>
 {{ $reports->links('newsletter.pagination', ['label' => 'Pages des rapports']) }}

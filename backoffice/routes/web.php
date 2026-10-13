@@ -10,6 +10,7 @@ use App\Http\Controllers\NewsletterAdminController;
 use App\Http\Controllers\NewsletterPublicController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TwoFactorController;
+use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/administration');
@@ -29,6 +30,13 @@ Route::middleware(['guest', 'pending-mfa'])->prefix('connexion/double-verificati
 });
 Route::post('/deconnexion', [SessionController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::middleware(['auth', 'admin', 'auth.session'])->group(function () {
+    Route::prefix('administration/comptes')->name('users.')->group(function () {
+        Route::get('/', [UserManagementController::class, 'index'])->name('index');
+        Route::get('/ajouter', [UserManagementController::class, 'create'])->block(120, 10)->name('create');
+        Route::post('/', [UserManagementController::class, 'store'])->middleware('throttle:users-write')->block(120, 10)->name('store');
+        Route::get('/{user}/modifier', [UserManagementController::class, 'edit'])->whereNumber('user')->name('edit');
+        Route::put('/{user}', [UserManagementController::class, 'update'])->whereNumber('user')->middleware('throttle:users-write')->name('update');
+    });
     Route::prefix('administration/rapports')->name('reports.')->group(function () {
         Route::get('/', [ActivityReportController::class, 'index'])->name('index');
         Route::get('/ajouter', [ActivityReportController::class, 'create'])->block(120, 10)->name('create');
@@ -58,6 +66,7 @@ Route::middleware(['auth', 'admin', 'auth.session'])->group(function () {
     Route::get('/administration/{kind}/{entry}/photo', [ContentController::class, 'photo'])->whereIn('kind', ['projects', 'news', 'team'])->name('content.photo');
     Route::get('/administration/{kind}/{entry}/photo/{size}', [ContentController::class, 'photo'])->whereIn('kind', ['projects', 'news', 'team'])->whereNumber('entry')->whereIn('size', ['thumbnail'])->name('content.thumbnail');
     Route::get('/administration/{kind}/{entry}/modifier', [ContentController::class, 'edit'])->whereIn('kind', ['projects', 'news', 'team'])->name('content.edit');
+    Route::get('/administration/{kind}/{entry}/consulter', [ContentController::class, 'show'])->whereIn('kind', ['projects', 'news', 'team'])->whereNumber('entry')->name('content.show');
     Route::put('/administration/{kind}/{entry}', [ContentController::class, 'update'])->whereIn('kind', ['projects', 'news', 'team'])->middleware('throttle:media-upload')->name('content.update');
 });
 

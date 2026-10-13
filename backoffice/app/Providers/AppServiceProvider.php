@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        RateLimiter::for('users-write', fn (Request $request) => Limit::perMinute(5)->by('users-write:'.$request->user()->id));
         RateLimiter::for('reports-write', fn (Request $request) => Limit::perMinute(6)->by('reports-write:'.$request->user()->id));
         RateLimiter::for('local-access', fn (Request $request) => Limit::perMinute(6)->by('local-access:'.$request->server('REMOTE_ADDR')));
         RateLimiter::for('account-security', fn (Request $request) => Limit::perMinute(5)->by('account-security:'.$request->user()->id));

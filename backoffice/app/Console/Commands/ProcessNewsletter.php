@@ -40,7 +40,7 @@ class ProcessNewsletter extends Command
                 $s = NewsletterSubscriber::find($d->subscriber_id);
                 $c = $d->campaign_id ? NewsletterCampaign::find($d->campaign_id) : null;
                 $owner = $c ? User::find($c->created_by) : null;
-                $valid = $d->kind === 'confirmation' ? $s && $s->status === 'pending' && $s->requested_at->greaterThan(now()->subDay()) && $s->confirmation_version === $d->payload['version'] : $s && $s->status === 'subscribed' && $c && $c->status === 'approved' && $owner && $owner->is_admin && $owner->is_active;
+                $valid = $d->kind === 'confirmation' ? $s && $s->status === 'pending' && $s->requested_at->greaterThan(now()->subDay()) && $s->confirmation_version === $d->payload['version'] : $s && $s->status === 'subscribed' && $c && $c->status === 'approved' && $owner && $owner->managesAccounts() && $owner->is_active;
                 if (! $valid) {
                     $d->update(['status' => 'cancelled']);
 

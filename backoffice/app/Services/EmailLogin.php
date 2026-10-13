@@ -40,7 +40,7 @@ class EmailLogin
             }
             DB::transaction(function () use ($request, $user, $id, $code, $expires) {
                 $current = User::whereKey($user->id)->lockForUpdate()->firstOrFail();
-                if (! $current->is_admin || ! $current->is_active || $current->session_version !== $user->session_version
+                if (! $current->hasBackofficeAccess() || ! $current->is_active || $current->session_version !== $user->session_version
                     || ! hash_equals($current->password, $user->password) || $current->email !== $user->email) {
                     throw new \RuntimeException('Accès changé.');
                 }
@@ -86,7 +86,7 @@ class EmailLogin
             return null;
         }
         $user ??= User::find($pending['id'] ?? null);
-        if (! $user || $user->id !== ($pending['id'] ?? null) || ! $user->is_admin || ! $user->is_active
+        if (! $user || $user->id !== ($pending['id'] ?? null) || ! $user->hasBackofficeAccess() || ! $user->is_active
             || $user->session_version !== ($pending['version'] ?? null)
             || ! hash_equals($pending['password'] ?? '', hash('sha256', $user->password))
             || ! hash_equals($pending['email'] ?? '', hash('sha256', $user->email))) {

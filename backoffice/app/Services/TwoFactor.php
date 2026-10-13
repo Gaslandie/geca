@@ -36,7 +36,7 @@ class TwoFactor
             return null;
         }
         $user ??= User::find($pending['id'] ?? null);
-        if (! $user || $user->id !== ($pending['id'] ?? null) || ! $user->is_admin || ! $user->is_active
+        if (! $user || $user->id !== ($pending['id'] ?? null) || ! $user->hasBackofficeAccess() || ! $user->is_active
             || $user->session_version !== ($pending['version'] ?? null)
             || ! hash_equals($pending['password'] ?? '', hash('sha256', $user->password))) {
             return null;

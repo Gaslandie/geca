@@ -3,7 +3,7 @@
 @section('content')
 <x-admin-back :href="route('dashboard')" />
 <header class="heading content-page-heading"><p class="eyebrow">Fiches enregistrées</p><h1>{{ $label }}</h1></header>
-<div class="content-create-action"><a class="button" href="{{ route('content.create', $kind) }}">{{ match ($kind) { 'projects' => 'Ajouter un projet', 'news' => 'Ajouter une actualité', 'team' => 'Ajouter un membre' } }}</a></div>
+@if(auth()->user()->editsContent())<div class="content-create-action"><a class="button" href="{{ route('content.create', $kind) }}">{{ match ($kind) { 'projects' => 'Ajouter un projet', 'news' => 'Ajouter une actualité', 'team' => 'Ajouter un membre' } }}</a></div>@endif
 <div class="entries">
 @forelse($entries as $entry)
 <article class="card entry">
@@ -22,7 +22,8 @@
         @endif
         @if(isset($entry->source_payload['linked_project']))<p>Cette actualité est liée à un projet.</p>@elseif($entry->draft_payload)<p>{{ str_starts_with($entry->source_key, 'admin-') ? 'Brouillon enregistré' : 'Modifications enregistrées' }}</p>@endif
     </div>
-    <a class="button secondary" href="{{ route('content.edit', ['kind' => $kind, 'entry' => $entry->id]) }}">{{ match ($kind) { 'projects' => 'Modifier le projet', 'news' => 'Modifier l’actualité', 'team' => 'Modifier les informations', default => 'Modifier la fiche' } }}</a>
+    @if(auth()->user()->editsContent())<a class="button secondary" href="{{ route('content.edit', ['kind' => $kind, 'entry' => $entry->id]) }}">{{ match ($kind) { 'projects' => 'Modifier le projet', 'news' => 'Modifier l’actualité', 'team' => 'Modifier les informations', default => 'Modifier la fiche' } }}</a>
+    @else<a class="button secondary" href="{{ route('content.show', ['kind' => $kind, 'entry' => $entry->id]) }}">Consulter<span class="visually-hidden"> : {{ $labels[$entry->id] }}</span></a>@endif
 </article>
 @empty
 <p>Aucune fiche pour le moment. Utilisez le bouton Ajouter pour commencer.</p>

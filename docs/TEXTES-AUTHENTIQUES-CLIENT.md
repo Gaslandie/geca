@@ -885,3 +885,8 @@ Demande : « on va installer sur bluehost alors gooo, après on donnera la possi
 ## Dates des rapports — demande du 13 octobre 2026
 
 Gassama demande de remplacer la période libre par une date de début et une date de fin, toutes deux obligatoires et choisies sur un calendrier. Cette demande concerne le formulaire privé, sans fait nouveau sur GECA. Les anciennes périodes restent conservées ; aucune date exacte n'est déduite automatiquement d'une année ou d'un texte.
+
+
+## Demande de gestion des accès — 13 octobre 2026
+
+Gassama demande que l’administrateur puisse ajouter d’autres personnes avec trois rôles au maximum. Il confirme : Administrateur, Éditeur, Lecteur. Il demande la mise à jour du back-office en production et autorise ensuite le commit, le push et la publication du paquet GitHub. Cette demande décrit une fonction de gestion ; elle ne fournit aucun nouveau nom de personne, adresse e-mail ni fait sur les activités de GECA.

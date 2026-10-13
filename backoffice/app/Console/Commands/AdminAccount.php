@@ -34,7 +34,7 @@ class AdminAccount extends Command
             return self::FAILURE;
         }
         $user = User::where('email', $email)->first();
-        if (($action === 'create' && $user) || ($action !== 'create' && (! $user || ! $user->is_admin))) {
+        if (($action === 'create' && $user) || ($action !== 'create' && (! $user || ! $user->managesAccounts()))) {
             $this->error('Création : compte existant, ou gestion : administrateur introuvable.');
 
             return self::FAILURE;
@@ -85,6 +85,7 @@ class AdminAccount extends Command
             $current->password = $password;
             if ($action === 'create') {
                 $current->is_admin = true;
+                $current->role = 'admin';
                 $current->is_active = true;
             }
             if ($action === 'recover-mfa') {

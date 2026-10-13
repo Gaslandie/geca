@@ -93,7 +93,7 @@ class AccountSecurityController extends Controller
         DB::transaction(function () use ($request, $currentPassword, $password) {
             // Compte de la session uniquement ; droits et preuve relus sous verrou.
             $user = User::whereKey($request->user()->id)->lockForUpdate()->firstOrFail();
-            abort_unless($user->is_admin && $user->is_active
+            abort_unless($user->hasBackofficeAccess() && $user->is_active
                 && $user->session_version === $request->session()->get('admin_version'), 403);
             $this->requireConfirmation($request, $user);
             if (! Hash::check($currentPassword, $user->password)) {

@@ -22,11 +22,10 @@ class SessionController extends Controller
         $credentials = [
             'email' => mb_strtolower(trim($data['email'])),
             'password' => $data['password'],
-            'is_admin' => true,
             'is_active' => true,
         ];
         // Validation Laravel avec sa protection de durée, sans ouvrir de session privée.
-        if (! Auth::validate($credentials)) {
+        if (! Auth::validate($credentials) || ! Auth::getLastAttempted()->hasBackofficeAccess()) {
             throw ValidationException::withMessages(['credentials' => 'Connexion impossible. Vérifiez votre adresse e-mail et votre mot de passe.']);
         }
 

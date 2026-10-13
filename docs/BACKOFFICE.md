@@ -403,3 +403,14 @@ Demande de Gassama : arrêter les téléchargements/transferts de ZIP pour chaqu
 ## Mise à jour automatique en service — 13 octobre 2026
 
 Connexion dédiée GitHub/Bluehost et première livraison des quatre fichiers des calendriers réussies. Tests et sauvegardes avant installation ; comptes et rapports conservés. Une date de début et une date de fin obligatoires sur le formulaire privé, fin >= début. Les corrections ordinaires du code passent désormais par GitHub sans ZIP manuel. Migrations/dépendances/configuration gardent une préparation distincte ; contenus privés non publiés vers Next.js. Détails, résultats et limites dans docs/MISE-EN-PRODUCTION.md.
+
+
+## Comptes et rôles — préparation du 13 octobre 2026
+
+Gassama demande la création de comptes par l’administrateur et confirme exactement trois rôles : Administrateur (comptes et tout le back-office), Éditeur (contenus et rapports), Lecteur (consultation et téléchargement). Création avec mot de passe initial transmis séparément, sans invitation e-mail automatique. Les droits sont contrôlés côté serveur à chaque accès et dans les transactions d’écriture. Modification des droits : anciennes sessions et codes de connexion du compte invalidés ; protection du dernier administrateur actif et refus de modifier ses propres droits. Les anciens administrateurs sans rôle explicite gardent leur accès. Aucun compte réel créé par cette préparation.
+
+Vérifications locales : 171 tests Laravel, 2 275 assertions ; Pint et vues Blade ; parcours Chrome avec et sans JavaScript, mobile et texte agrandi, aucun problème détecté par axe sur les écrans vérifiés. Douze tests du paquet et de l’installation sur base SQLite jetable, avec export SQL substitué ; ces tests ne prouvent pas une restauration MySQL ou un parcours Apache/SMTP réel. Les tests incluent les accès directs refusés, comptes désactivés, droits révoqués, sessions périmées, entrées falsifiées et échec d’audit avec annulation de la transaction.
+
+Le changement ajoute une colonne nullable users.role et une table privée user_access_events. Une commande cPanel télécharge le paquet GitHub épinglé, contrôle ses empreintes, sauvegarde les fichiers et exporte MySQL avant cette migration unique. Après début de migration, un échec conserve la maintenance et interdit tout retour SQL automatique. Deux outils de livraison sont actualisés après les contrôles. La livraison automatique du code est provisoirement désactivée jusqu’au résultat cPanel ; le workflow dispose d’un mode test sans livraison. Mise en production des rôles encore en attente : ne pas confondre tests locaux, publication du paquet et installation réelle.
+
+Gassama autorise explicitement le commit, le push et le paquet GitHub pour cette demande. Commande locale privée : backoffice/artifacts/commande-comptes-roles-cpanel.sh ; aucun secret, fichier .env, compte réel ou sauvegarde inclus dans le paquet public.

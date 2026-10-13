@@ -170,6 +170,12 @@ class Reception(unittest.TestCase):
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
             with self.assertRaises(BlockingIOError): self.receive('deploy-backoffice ' + hashlib.sha256(b'test').hexdigest())
 
+    def test_manifest_is_not_exported_while_maintenance_is_active(self):
+        root = self.home / 'geca-backoffice'; (root / 'storage/framework').mkdir(parents=True, mode=0o700)
+        (root / 'storage/framework/down').write_bytes(b'TEST maintenance')
+        with patch.object(receiver.runpy, 'run_path', return_value={'directory': lambda *args: None}), self.assertRaises(RuntimeError):
+            self.receive('get-backoffice-manifest')
+
 
 class Setup(unittest.TestCase):
     def setUp(self):

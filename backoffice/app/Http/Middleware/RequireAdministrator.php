@@ -15,7 +15,7 @@ class RequireAdministrator
     {
         // Relire les droits : une ancienne session ne constitue pas une autorisation.
         $user = User::find(Auth::id());
-        if (! $user || ! $user->is_admin || ! $user->is_active
+        if (! $user || ! $user->hasBackofficeAccess() || ! $user->is_active
             || $request->session()->get('admin_version') !== $user->session_version) {
             Auth::logout();
             $request->session()->invalidate();
@@ -44,6 +44,7 @@ class RequireAdministrator
             return redirect()->route('login')->with('status', 'La vérification de connexion est nécessaire. Recommencez la connexion.');
         }
         Auth::setUser($user);
+        abort_unless($user->canAccessRoute($request->route()?->getName()), 403, 'Votre rôle ne permet pas cette action.');
 
         return $next($request);
     }

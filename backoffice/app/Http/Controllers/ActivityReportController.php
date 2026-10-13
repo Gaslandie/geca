@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ActivityReport;
-use App\Models\User;
+use App\Services\BackofficeAuthorization;
 use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -166,8 +166,7 @@ class ActivityReportController extends Controller
 
     private function actor(Request $request): void
     {
-        $user = User::whereKey($request->user()->id)->lockForUpdate()->firstOrFail();
-        abort_unless($user->is_admin && $user->is_active && $user->session_version === $request->session()->get('admin_version'), 403);
+        app(BackofficeAuthorization::class)->writer($request);
     }
 
     private function checkRevision(ActivityReport $report, mixed $revision): void

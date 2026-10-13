@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContentEntry;
 use App\Models\MediaAsset;
+use App\Services\BackofficeAuthorization;
 use App\Services\PreparePhoto;
 use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Http\Request;
@@ -16,6 +17,15 @@ use Illuminate\Validation\ValidationException;
 class ContentController extends Controller
 {
     private const LABELS = ['projects' => 'Projets et programmes', 'news' => 'Actualités', 'team' => 'Équipe'];
+
+    public function show(string $kind, string $entry)
+    {
+        $record = $this->entry($kind, $entry);
+        $payload = $this->texts($record, $this->linkedProject($record));
+
+        return view('content.show', ['entry' => $record, 'label' => self::LABELS[$kind], 'payload' => $payload,
+            'currentLabel' => $payload['fr']['title'] ?? $payload['fr']['name']]);
+    }
 
     public function index(string $kind)
     {
@@ -149,6 +159,7 @@ class ContentController extends Controller
         $this->entry($kind, $entry);
         $data = $request->validate(['revision' => 'required|integer|min:0', 'deletion_state' => ['required', 'string', 'regex:/^[a-f0-9]{64}$/'], 'confirm' => 'accepted']);
         DB::transaction(function () use ($request, $kind, $entry, $data) {
+            app(BackofficeAuthorization::class)->writer($request);
             $current = ContentEntry::where('kind', $kind)->whereKey($entry)->lockForUpdate()->firstOrFail();
             $related = $kind === 'projects' ? $this->linkedNews($current)->lockForUpdate()->get() : collect();
             if ($current->revision !== (int) $data['revision'] || ! hash_equals($this->deletionState($current, $related), $data['deletion_state'])) {
@@ -173,6 +184,7 @@ class ContentController extends Controller
         $record = ContentEntry::onlyTrashed()->where('kind', $kind)->findOrFail($entry);
         $data = $request->validate(['revision' => 'required|integer|min:0']);
         DB::transaction(function () use ($request, $record, $data) {
+            app(BackofficeAuthorization::class)->writer($request);
             if (isset($record->source_payload['linked_project'])) {
                 $project = ContentEntry::withTrashed()->where('kind', 'projects')->where('source_key', $record->source_payload['linked_project'])->lockForUpdate()->firstOrFail();
                 if ($project->trashed()) {
@@ -318,6 +330,7 @@ class ContentController extends Controller
         $newMediaId = null;
         $save = function () use ($record, $data, $request, $fields, $photo, $creating, &$newMediaId) {
             DB::transaction(function () use ($record, $data, $request, $fields, $photo, $creating, &$newMediaId) {
+                app(BackofficeAuthorization::class)->writer($request);
                 // Même ordre que la suppression/restauration : projet, puis actualité liée.
                 $project = $this->linkedProject($record);
                 if ($project) {

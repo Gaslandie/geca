@@ -41,6 +41,7 @@ def main():
         updater = runpy.run_path(str(TOOLS / 'update-backoffice.py'))
         root = HOME / 'geca-backoffice'
         updater['directory'](root, True)
+        require(not (root / 'storage/framework/down').exists())
         raw = (root / 'MANIFEST.json').read_bytes()
         entries = json.loads(raw)
         updater['manifest'](root, hashlib.sha256(raw).hexdigest(), len(entries))

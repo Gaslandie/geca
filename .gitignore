@@ -20,3 +20,6 @@ playwright-report/
 # Caches Python des outils de livraison.
 __pycache__/
 *.pyc
+
+# Configuration locale privée, hors livraisons.
+/.aws
