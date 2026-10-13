@@ -1,3 +1,4 @@
+import { PageHero } from "./PageHero";
 import Link from "next/link";
 import { contactContent, contactPhotos, href, identity, interfaceText, pageIntroductions, supportActions, type Locale } from "@/content/site";
 import { ContactForm } from "./ContactForm";
@@ -9,23 +10,23 @@ export function Contact({ locale }: { locale: Locale }) {
   const text = contactContent[locale];
   return (
     <main id="main-content" tabIndex={-1} className="contact-page">
-      <section className="page-hero" aria-labelledby="contact-title">
-        <Container>
-            <nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
+      <PageHero locale={locale} title={text.title} id="contact-title" theme="contact" breadcrumbs={<nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
               <Link href={href(locale)}>{interfaceText[locale].home}</Link>
               <span aria-hidden="true">/</span>
               <span aria-current="page">Contact</span>
-            </nav>
+            </nav>}>
+
           <div className="section-heading"><div>
             <p className="eyebrow">{text.label}</p>
-            <h1 id="contact-title">{text.title}</h1>
+
           </div></div>
           <PageIntroduction>{pageIntroductions[locale].contact}</PageIntroduction>
-        </Container>
-      </section>
+
+      </PageHero>
+
       <section className="contact-split" aria-label={publicRelease ? text.details : text.form.title}>
         <div className="contact-introduction">
-          <PhotoPlaceholder locale={locale} label={text.landscape} photo={contactPhotos.landscape[locale]} className="contact-landscape" priority />
+          <PhotoPlaceholder locale={locale} label={text.landscape} photo={contactPhotos.landscape[locale]} className="contact-landscape" />
         </div>
         {publicRelease ? <div className="contact-form-panel card-content contact-public-actions">
           <h2>{text.details}</h2>

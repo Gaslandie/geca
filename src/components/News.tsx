@@ -1,3 +1,4 @@
+import { PageHero } from "./PageHero";
 import Link from "next/link";
 import { getNewsEntries, href, interfaceText, newsArticlePath, newsContent, pageIntroductions, type Locale } from "@/content/site";
 import { BrandLogo } from "./BrandLogo";
@@ -8,23 +9,23 @@ export function News({ locale }: { locale: Locale }) {
   const entries = getNewsEntries(locale);
   return (
     <main id="main-content" className="news-page" tabIndex={-1}>
-      <section className="section page-hero" aria-labelledby="news-page-title">
-        <Container>
-          <nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
+      <PageHero locale={locale} title={text.title} id="news-page-title" theme="news" breadcrumbs={<nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
             <Link href={href(locale)}>{interfaceText[locale].home}</Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{text.title}</span>
-          </nav>
+          </nav>}>
+
           <div className="section-heading">
             <div>
               <p className="eyebrow">{text.label}</p>
-              <h1 id="news-page-title">{text.title}</h1>
+
               <p className="section-description">{text.introduction}</p>
             </div>
           </div>
           <PageIntroduction>{pageIntroductions[locale].actualites}</PageIntroduction>
-        </Container>
-      </section>
+
+      </PageHero>
+
       <section className="section section--tinted" aria-label={text.archiveTitle}>
         <Container>
           <SectionHeading label={text.archiveLabel} title={text.archiveTitle} />
@@ -42,7 +43,6 @@ export function News({ locale }: { locale: Locale }) {
                   </p>
                   <p className="news-category">{entry.category}</p>
                   <h3 id={`news-${entry.id}`}><Link href={href(locale, newsArticlePath(entry.id))}>{entry.title}</Link></h3>
-                  <p className="news-archive-description">{entry.description.split("\n\n")[0]}</p>
                   <div className="news-card-footer">
                     <Link className="button button-text news-card-link" href={href(locale, newsArticlePath(entry.id))} aria-label={`${text.readArticle} : ${entry.title}`}>{text.readArticle}</Link>
                   </div>

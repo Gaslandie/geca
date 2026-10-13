@@ -156,3 +156,10 @@ tests, pas de publication Laravel/MySQL. Ce circuit reste distinct de la
 future publication des contenus édités dans le back-office et de sa mise à
 jour logicielle. Le logo du back-office n’a pas été changé par cette
 publication limitée à la vitrine.
+
+
+## Livraison visuelle autorisée — 13 octobre 2026
+
+Gassama demande « maintenant mettons à jour la prod stp », après validation locale du hero La feuille, du nom jaune/Eco vert, du bouton Faire un don avec cœur, des commandes photo et du bandeau partenaires. Cette livraison inclut les modifications visuelles précédemment demandées : heroes intérieurs illustrés avec introduction dessous, cartes Actualités sans résumés, domaines de l’accueil avec photos claires et titres dessous, panneau Impact et page Nous soutenir enrichie. Textes client et médias autorisés conservés. Publication du site public par le workflow Bluehost existant et de l’aperçu Pages ; aucun fichier du back-office, compte, rapport, configuration privée ou schéma SQL modifié.
+
+Contrôle du paquet public : neuf tests réussis, fichiers publics et routes FR/EN, accès privés refusés, navigation/recherche, texte à 200 %, contacts et crédits. Correction du débordement des longs mots du récit Impact sur 320 px à 200 %. Tests adaptés aux emplacements actuels des actions de don et photo d’article ; icône de navigateur PNG explicitement distinguée des originaux photographiques interdits. Compilation publique, contrôles de types et lint vérifiés ; état Git à jour avec origin/main avant livraison. Résultat distant à confirmer après le push.

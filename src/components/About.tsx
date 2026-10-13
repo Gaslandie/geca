@@ -1,3 +1,4 @@
+import { PageHero } from "./PageHero";
 import Link from "next/link";
 import { aboutContent, href, identity, interfaceText, pageIntroductions, type Locale } from "@/content/site";
 import { Button, Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
@@ -6,24 +7,24 @@ export function About({ locale }: { locale: Locale }) {
   const text = aboutContent[locale];
   return (
     <main id="main-content" tabIndex={-1} className="about-page">
-      <section className="about-intro page-hero" aria-labelledby="about-page-title">
-        <Container>
-          <nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
+      <PageHero locale={locale} title={text.title} id="about-page-title" theme="about" breadcrumbs={<nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
             <Link href={href(locale)}>{interfaceText[locale].home}</Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{text.pageName}</span>
-          </nav>
+          </nav>}>
+
           <div className="about-intro-heading section-heading">
             <div>
               <p className="eyebrow">{text.label}</p>
-              <h1 id="about-page-title">{text.title}</h1>
+
             </div>
           </div>
           <PageIntroduction>{pageIntroductions[locale]["a-propos"]}</PageIntroduction>
           <div className="page-hero-actions"><Button href="#notre-histoire" variant="text">{text.explore}</Button></div>
-        </Container>
+
+      </PageHero>
         <div className="about-intro-band">
-          <PhotoPlaceholder locale={locale} label={text.photoLabel} photo={text.photo} className="about-landscape" priority sizes="(max-width: 767px) 100vw, (min-width: 1600px) 922px, 62vw" />
+          <PhotoPlaceholder locale={locale} label={text.photoLabel} photo={text.photo} className="about-landscape" sizes="(max-width: 767px) 100vw, (min-width: 1600px) 922px, 62vw" />
           <div className="about-since card-content">
             <p className="eyebrow">{text.sinceLabel}</p>
             <p className="about-year">{identity.since}</p>
@@ -31,7 +32,7 @@ export function About({ locale }: { locale: Locale }) {
             <span className="about-location">{text.location}</span>
           </div>
         </div>
-      </section>
+
 
       <section id="notre-histoire" className="section about-history" aria-label={text.history.label}>
         <Container>

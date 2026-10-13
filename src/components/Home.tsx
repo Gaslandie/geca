@@ -1,3 +1,4 @@
+import { ResultsFigures } from "./ResultsFigures";
 import Link from "next/link";
 import { getHomeContent, getPortfolioProjects, href, type Locale } from "@/content/site";
 import {
@@ -5,7 +6,6 @@ import {
   Container,
   PhotoPlaceholder,
   SectionHeading,
-  StatCard,
 } from "./ui";
 import { Projects } from "./Projects";
 import { TeamSection } from "./Team";
@@ -17,14 +17,12 @@ export function Home({ locale }: { locale: Locale }) {
   const content = getHomeContent(locale);
   return (
     <main id="main-content" tabIndex={-1} className="home-page">
-      <section className="hero" aria-labelledby="hero-title">
+      <section className="hero hero-leaf" aria-labelledby="hero-title">
         <div className="hero-grid">
           <div className="hero-content">
             <p className="eyebrow hero-brand">
-              {content.hero.label.split(/(Global|Eco|Action)/).map((part, index) =>
-                /^(Global|Eco|Action)$/.test(part)
-                  ? <span key={index} className="hero-brand-gold">{part}</span>
-                  : part,
+              {content.hero.label.split(/(Eco)/).map((part, index) =>
+                part === "Eco" ? <span className="hero-brand-eco" key={index}>{part}</span> : part,
               )}
             </p>
             <h1 id="hero-title">
@@ -37,16 +35,21 @@ export function Home({ locale }: { locale: Locale }) {
             </div>
             <div className="hero-actions">
               <div className="hero-action-links">
-                <Button href={href(locale, "projets")} tone="inverse">{content.hero.primary}</Button>
-                <Button href={href(locale, "devenir-partenaire")} variant="secondary" tone="inverse">{content.hero.secondary}</Button>
+                <Button href={href(locale, "projets")}>{content.hero.primary}</Button>
+                <Button href={href(locale, "nous-soutenir")} className="hero-donate">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></svg>
+                  {content.hero.secondary}
+                </Button>
               </div>
             </div>
           </div>
+          <div className="hero-leaf-visual" data-reveal="off">
+            <HeroSlideshow photos={content.hero.slides} locale={locale} />
+          </div>
         </div>
-        <HeroSlideshow locale={locale} photos={content.hero.slides} />
       </section>
 
-      <PartnerTicker locale={locale} names={content.partners.items.map((partner) => partner.name)} label={content.partners.label} />
+      <PartnerTicker names={content.partners.items.map((partner) => partner.name)} label={content.partners.label} />
 
       <section className="about section" aria-labelledby="about-title">
         <Container className="about-content">
@@ -89,10 +92,9 @@ export function Home({ locale }: { locale: Locale }) {
                       className="domain-photo"
                       sizes="(max-width: 699px) 360px, (max-width: 1279px) 50vw, 25vw"
                     />}
-                    <h3 id={`domain-title-${item.id}`}>{item.title}</h3>
                   </div>
                   <div className="domain-content card-content">
-                    <p>{item.description}</p>
+                    <h3 id={`domain-title-${item.id}`}>{item.title}</h3>
                   </div>
                 </Link>
               </article>
@@ -101,32 +103,22 @@ export function Home({ locale }: { locale: Locale }) {
         </Container>
       </section>
 
-      <section className="impact" aria-labelledby="impact-title">
+      <section className="home-impact section support-results" aria-labelledby="impact-title">
         <Container>
-          <div className="impact-layout">
-            <div className="impact-copy">
-              <div className="impact-heading section-heading">
-                <div>
-                  <p className="eyebrow">{content.impact.label}</p>
-                  <h2 id="impact-title">
-                    <span>{content.impact.title}</span>{" "}
-                    <span>{content.impact.titleSecondLine}</span>
-                  </h2>
-                </div>
-              </div>
-              <ul className="impact-achievements">
-                {content.impact.achievements.map((achievement) => (
-                  <li key={achievement}>{achievement}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="impact-results">
-              <div className="stats-grid">
-                {content.impact.stats.map((stat) => (
-                  <StatCard key={stat.value} {...stat} />
-                ))}
+          <div className="support-results-panel">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">{content.impact.label}</p>
+                <h2 id="impact-title">{content.impact.title} {content.impact.titleSecondLine}</h2>
               </div>
             </div>
+            <ResultsFigures stats={content.impact.stats} />
+            <div className="support-results-action">
+              <Button href={href(locale, "projets")} variant="text">{content.projects.all}</Button>
+            </div>
+            <ul className="home-impact-details">
+              {content.impact.achievements.map(achievement => <li key={achievement} data-reveal>{achievement}</li>)}
+            </ul>
           </div>
         </Container>
       </section>

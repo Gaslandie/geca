@@ -18,8 +18,11 @@ for (const width of [320, 375, 768, 1440, 1920]) {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(interventionContent.fr.title);
     await expect(page.locator(".intervention-area")).toHaveCount(8);
     const frame = (await page.locator(".header-inner").boundingBox())!;
-    const sections = await page.locator("main > section").all();
-    const gap = await page.locator("main > section").nth(1).evaluate((element) => parseFloat(getComputedStyle(element).marginBlockStart));
+    const sections = await page.locator("main > section:not(.interior-hero)").all();
+    const gap = await page.locator("main > section:not(.interior-hero)").nth(1).evaluate((element) => parseFloat(getComputedStyle(element).marginBlockStart));
+    const hero = (await page.locator(".interior-hero").boundingBox())!;
+    const introduction = (await page.locator(".interior-introduction").boundingBox())!;
+    expect(introduction.y).toBeGreaterThanOrEqual(hero.y + hero.height - 1);
     let previousBottom: number | undefined;
     for (const section of sections) {
       const box = (await section.boundingBox())!;

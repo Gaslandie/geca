@@ -71,7 +71,7 @@ for (const width of [320, 375, 768, 1440]) {
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
       await page.locator(".contact-public-actions").screenshot({ path: `/tmp/geca-public-contact-${locale}-${width}.png` });
       await page.goto(`/${locale}/nous-soutenir/`);
-      await expect(page.locator(".construction-actions a").first()).toHaveAttribute("href", supportActions.whatsappHref);
+      await expect(page.locator(".support-donation-actions a").first()).toHaveAttribute("href", supportActions.whatsappHref);
       await page.goto(`/${locale}/`);
       if (width < 1280) {
         await page.locator(".menu-toggle").click();

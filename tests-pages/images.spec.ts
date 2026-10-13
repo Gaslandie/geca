@@ -39,12 +39,14 @@ test("export : taille selon l’écran, photos réutilisées, aucun original té
   await expect.poll(() => sharedPhoto.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
   const firstSrc = await sharedPhoto.evaluate((img: HTMLImageElement) => img.currentSrc);
   await page.goto("/geca/fr/actualites/projet-kounounkan/");
-  const articlePhoto = page.locator(".news-article-photo img");
+  const articlePhoto = page.locator(".interior-hero-photo");
   await articlePhoto.scrollIntoViewIfNeeded();
   await expect.poll(() => articlePhoto.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
-  expect(await articlePhoto.evaluate((img: HTMLImageElement) => img.currentSrc)).toBe(firstSrc);
+  // Même photo source, variante adaptée à la largeur du hero.
+  const sourceKey = (src: string) => new URL(src).pathname.replace(/-\d+-[a-f0-9]+\.webp$/, "");
+  expect(sourceKey(await articlePhoto.evaluate((img: HTMLImageElement) => img.currentSrc))).toBe(sourceKey(firstSrc));
   expect(requests.every((url) => url.startsWith("http://127.0.0.1:3100/"))).toBe(true);
-  expect(requests.filter((url) => /\.(jpg|png)(\?|$)/.test(url))).toEqual([]);
+  expect(requests.filter((url) => /\.(jpg|png)(\?|$)/.test(url) && new URL(url).pathname !== "/geca/icon.png")).toEqual([]);
   for (const path of ["assets/source-images/images/temporary/forest.jpg", "assets/source-images/images/hero/plantation.png", "images/hero/plantation.png", "assets/source-videos/geca-forest.mp4", "images/temporary/forest.jpg"]) {
     expect((await request.get(`/geca/${path}`)).status()).toBe(404);
   }

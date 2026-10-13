@@ -890,3 +890,28 @@ Gassama demande de remplacer la période libre par une date de début et une dat
 ## Demande de gestion des accès — 13 octobre 2026
 
 Gassama demande que l’administrateur puisse ajouter d’autres personnes avec trois rôles au maximum. Il confirme : Administrateur, Éditeur, Lecteur. Il demande la mise à jour du back-office en production et autorise ensuite le commit, le push et la publication du paquet GitHub. Cette demande décrit une fonction de gestion ; elle ne fournit aucun nouveau nom de personne, adresse e-mail ni fait sur les activités de GECA.
+
+
+## Présentation des heroes intérieurs — demande du 13 octobre 2026
+
+Gassama demande pour les pages autres que l’accueil : une photo adaptée et seulement le titre dans le hero, avec les paragraphes actuels déplacés après le hero. Référence : capture « Notre expertise » fournie dans le chat. Textes actuels conservés, aucune reformulation ni fait ajouté. Photos choisies dans le fonds client autorisé. Demande limitée à un aperçu local ; aucune publication demandée.
+
+
+## Page de don — demande du 13 octobre 2026
+
+Gassama demande deux sections après les actions de don, inspirées des captures CARE transmises : découverte de l’organisation par cartes et résultats chiffrés. Réutilisation des textes existants Organisation/Domaines/Projets et des quatre chiffres communs (35 000 arbres en 2019, 365 000 en 2020, 150 000 en 2021, 84 collectivités accompagnées). Titres fonctionnels nouveaux : « Mieux connaître notre action », « Des réalisations concrètes », avec traduction fidèle. Aucun chiffre CARE repris, aucune promesse financière ou d’affectation des dons inventée. Photo de remise de matériels à Kolaboui déjà autorisée en fond du hero. Aperçu local uniquement.
+
+
+## Hero d’accueil retenu — Gassama, 13 octobre 2026
+
+« je veux que le bouton devenir partenaire soit remplacé par faire un don avec un coeur comme icone. je prefere la feuille 2 oui ». Intégration locale de la proposition 02 ; tous les textes de présentation du hero conservés. Seul libellé d’action remplacé par « Faire un don » / « Donate », vers la page de soutien existante. Aucun fait GECA ajouté.
+
+
+## Nom et commandes du hero — 13 octobre 2026
+
+Gassama demande les flèches et le compteur du prototype, le bandeau partenaires avec titre fixe et noms défilant derrière, puis Global EcoAction aussi grand que dans l’ancien hero et en jaune, avec petite barre verte. Aucun texte factuel changé ; jaune doré assombri sur fond crème pour préserver la lisibilité.
+
+
+## Couleurs du nom et taille du bandeau — 13 octobre 2026
+
+Gassama demande le jaune exact du bouton de don pour Global et Action, et Eco en vert. Cette demande remplace le jaune assombri du nom. Noms et titre du bandeau partenaires agrandis avec la taille commune du texte courant. Aucun texte ou fait ajouté.

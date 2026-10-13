@@ -1,3 +1,4 @@
+import { PageHero } from "./PageHero";
 import Image from "next/image";
 import Link from "next/link";
 import { href, interfaceText, pageIntroductions, teamContent, teamMembers, type Locale } from "@/content/site";
@@ -45,21 +46,21 @@ export function TeamPage({ locale }: { locale: Locale }) {
   const text = teamContent[locale];
   return (
     <main id="main-content" tabIndex={-1}>
-      <section className="mission-intro page-hero" aria-labelledby="team-page-title">
-        <Container>
-          <nav className="contact-breadcrumb" aria-label={locale === "fr" ? "Fil d’Ariane" : "Breadcrumb"}>
+      <PageHero locale={locale} title={text.pageTitle} id="team-page-title" theme="team" breadcrumbs={<nav className="contact-breadcrumb" aria-label={locale === "fr" ? "Fil d’Ariane" : "Breadcrumb"}>
             <Link href={href(locale)}>{interfaceText[locale].home}</Link>
             <span aria-hidden="true">/</span>
             <Link href={href(locale, "a-propos")}>{locale === "fr" ? "À propos" : "About"}</Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{text.pageTitle}</span>
-          </nav>
+          </nav>}>
+
           <div className="mission-intro-heading section-heading">
-            <div><p className="eyebrow">Global EcoAction</p><h1 id="team-page-title">{text.pageTitle}</h1></div>
+            <div><p className="eyebrow">Global EcoAction</p></div>
           </div>
           <PageIntroduction>{pageIntroductions[locale].equipe}</PageIntroduction>
-        </Container>
-      </section>
+
+      </PageHero>
+
       <section className="section" aria-label={text.title}>
         <Container>
           <SectionHeading label={text.label} title={text.title} />

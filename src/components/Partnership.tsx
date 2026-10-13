@@ -1,3 +1,4 @@
+import { PageHero } from "./PageHero";
 import Link from "next/link";
 import { href, interfaceText, pageIntroductions, partnershipContent, type Locale } from "@/content/site";
 import { Button, Container, PageIntroduction, SectionHeading } from "./ui";
@@ -6,22 +7,22 @@ export function Partnership({ locale }: { locale: Locale }) {
   const text = partnershipContent[locale];
   return (
     <main id="main-content" className="partnership-page" tabIndex={-1}>
-      <section className="partnership-intro page-hero" aria-labelledby="partnership-title">
-        <Container>
-          <nav className="contact-breadcrumb" aria-label={locale === "fr" ? "Fil d’Ariane" : "Breadcrumb"}>
+      <PageHero locale={locale} title={text.title} id="partnership-title" theme="partnership" breadcrumbs={<nav className="contact-breadcrumb" aria-label={locale === "fr" ? "Fil d’Ariane" : "Breadcrumb"}>
             <Link href={href(locale)}>{interfaceText[locale].home}</Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{text.title}</span>
-          </nav>
+          </nav>}>
+
           <div className="partnership-intro-heading section-heading">
             <div>
               <p className="eyebrow">{text.label}</p>
-              <h1 id="partnership-title">{text.title}</h1>
+
             </div>
           </div>
           <PageIntroduction>{pageIntroductions[locale]["devenir-partenaire"]}</PageIntroduction>
-        </Container>
-      </section>
+
+      </PageHero>
+
       <section className="section" aria-label={text.strengthsTitle}>
         <Container>
           <SectionHeading label={text.label} title={text.strengthsTitle} />

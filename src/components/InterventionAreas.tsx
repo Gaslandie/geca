@@ -1,3 +1,4 @@
+import { PageHero } from "./PageHero";
 import Link from "next/link";
 import { getInterventionAreas, href, interfaceText, interventionContent, type Locale } from "@/content/site";
 import { Button, Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
@@ -8,25 +9,25 @@ export function InterventionAreas({ locale }: { locale: Locale }) {
 
   return (
     <main id="main-content" tabIndex={-1} className="intervention-page">
-      <section className="intervention-intro page-hero" aria-labelledby="intervention-title">
-        <Container>
-          <nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
+      <PageHero locale={locale} title={text.title} id="intervention-title" theme="domains" breadcrumbs={<nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
             <Link href={href(locale)}>{interfaceText[locale].home}</Link>
             <span aria-hidden="true">/</span>
             <Link href={href(locale, "a-propos")}>{text.about}</Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{text.title}</span>
-          </nav>
+          </nav>}>
+
           <div className="intervention-intro-heading section-heading">
             <div>
               <p className="eyebrow">{text.label}</p>
-              <h1 id="intervention-title">{text.title}</h1>
+
               <p className="section-description">{text.introduction}</p>
             </div>
           </div>
           <PageIntroduction id="domaines">{text.overview}</PageIntroduction>
-        </Container>
-      </section>
+
+      </PageHero>
+
 
       {areas.map((area, index) => (
         <section key={area.id} id={area.id} tabIndex={-1} className={`section intervention-area${index % 2 ? " section--tinted intervention-area--reverse" : ""}`} aria-label={area.title}>

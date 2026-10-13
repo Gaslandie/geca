@@ -94,7 +94,7 @@ for (const locale of ["fr", "en"] as const) {
       else await expect(card.locator(".portfolio-status")).toHaveCount(0);
     }
     if (locale === "fr") {
-      await expect(page.locator(".portfolio-intro .section-description")).toHaveText(homeContent.projects.description);
+      await expect(page.locator(".interior-introduction .section-description")).toHaveText(homeContent.projects.description);
       await expect(page.locator(".portfolio-closing .section-description")).toHaveText(homeContent.cta.partnerText);
     }
     await expect(page.locator(`a[href^='/${locale}/projets/']`)).toHaveCount(0);

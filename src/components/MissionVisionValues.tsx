@@ -1,3 +1,4 @@
+import { PageHero } from "./PageHero";
 import Link from "next/link";
 import { href, interfaceText, missionVisionContent, pageIntroductions, type Locale } from "@/content/site";
 import { Button, Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
@@ -6,25 +7,25 @@ export function MissionVisionValues({ locale }: { locale: Locale }) {
   const text = missionVisionContent[locale];
   return (
     <main id="main-content" className="mission-page" tabIndex={-1}>
-      <section className="mission-intro page-hero" aria-labelledby="mission-page-title">
-        <Container>
-          <nav className="contact-breadcrumb" aria-label={locale === "fr" ? "Fil d’Ariane" : "Breadcrumb"}>
+      <PageHero locale={locale} title={text.title} id="mission-page-title" theme="mission" breadcrumbs={<nav className="contact-breadcrumb" aria-label={locale === "fr" ? "Fil d’Ariane" : "Breadcrumb"}>
             <Link href={href(locale)}>{interfaceText[locale].home}</Link>
             <span aria-hidden="true">/</span>
             <Link href={href(locale, "a-propos")}>{locale === "fr" ? "À propos" : "About"}</Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{text.title}</span>
-          </nav>
+          </nav>}>
+
           <div className="mission-intro-heading section-heading">
             <div>
               <p className="eyebrow">{text.label}</p>
-              <h1 id="mission-page-title">{text.title}</h1>
+
               <p className="section-description">{text.introduction}</p>
             </div>
           </div>
           <PageIntroduction>{pageIntroductions[locale]["a-propos/mission-vision-valeurs"]}</PageIntroduction>
-        </Container>
-      </section>
+
+      </PageHero>
+
 
       {(["mission", "vision"] as const).map((key) => {
         const section = text[key];

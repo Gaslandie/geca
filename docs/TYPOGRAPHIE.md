@@ -293,3 +293,13 @@ Correction demandée après retour visuel de Gassama : effet précédent trop di
 ## Livraison allégée des polices — 11 octobre 2026
 
 Les trois polices actives sont désormais servies en WOFF2 local. Les TTF et licences restent les sources conservées ; aucun caractère supprimé. DM Sans garde ses axes variables et DM Serif Display son dessin régulier. Ubuntu Sans est préparée à la seule graisse 600 et largeur 100 utilisée par le h1 du hero ; toute nouvelle graisse demanderait une variante correspondante. Taille des trois fichiers : 209 640 octets au lieu de 1 397 644. Préparation reproductible : `scripts/optimize-fonts.py`, avec `fonttools[woff]==4.66.1` dans un environnement de travail isolé (aucune dépendance navigateur). Les dimensions, polices et réglages CSS restent inchangés.
+
+
+## Hero photographique intérieur — 13 octobre 2026
+
+Composant commun PageHero : photo fixe locale, h1 unique centré vers le bas avec cartouche blanc opaque et texte sombre. Taille commune --text-page-title, adaptation mobile ; hauteur minimale, jamais hauteur fermée qui coupe les titres longs. Fil d’Ariane au-dessus, labels et paragraphes existants dans interior-introduction après la photo. Animations communes, aucun texte incrusté dans le fichier image. Accueil exclu. FR/EN, aperçu local uniquement.
+
+
+## Accueil — La feuille, 13 octobre 2026
+
+Proposition 02 validée : texte à gauche, photo lumineuse à droite dans une forme végétale, fond crème, filet et ombre vert pâle. Sous 768 px : photo au-dessus, contenu dessous. Ubuntu Sans du titre et polices locales conservées ; tailles adaptées à la colonne, titre 36–68 px. Boutons communs, projet vert et don doré avec cœur décoratif masqué aux lecteurs d’écran. Textes du client inchangés, contraste sur fond uni. Photos et protections du carrousel conservées.

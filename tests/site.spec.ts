@@ -132,7 +132,8 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     await expect(domains).toHaveCount(8);
     for (const [index, domain] of (await domains.all()).entries()) {
       const area = homeContent.domains.items[index];
-      await expect(domain.locator(".domain-content > p")).toHaveText(area.description);
+      await expect(domain.locator(".domain-content > p")).toHaveCount(0);
+      await expect(domain.locator(".domain-content > h3")).toHaveText(area.title);
       if (area.photo) {
         expect(await domain.locator("img").evaluate((image: HTMLImageElement) => new URL(image.currentSrc || image.src).pathname)).toMatch(new RegExp(`/images/optimized/${area.photo.src.slice(1).replaceAll("/", "-").replace(/\.jpg$/, "")}-\\d+-[a-f0-9]+\\.webp$`));
         await expect(domain.locator(".temporary-image-label")).toHaveCount(0);
@@ -149,9 +150,9 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
           expect(title).not.toBeNull();
           if (title) {
             expect(title.x).toBeGreaterThanOrEqual(photo.x - 1);
-            expect(title.y).toBeGreaterThanOrEqual(photo.y - 1);
+            expect(title.y).toBeGreaterThanOrEqual(photo.y + photo.height);
             expect(title.x + title.width).toBeLessThanOrEqual(photo.x + photo.width + 1);
-            expect(title.y + title.height).toBeLessThanOrEqual(photo.y + photo.height + 1);
+            expect(title.y + title.height).toBeLessThanOrEqual(text.y + text.height + 1);
           }
         }
       } else {
@@ -190,15 +191,18 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
       expect(box.x).toBe(0);
       expect(box.width).toBe(width);
     }
-    const hero = (await page.locator(".hero").boundingBox())!;
-    expect(visual).toEqual(hero);
+    expect(visual).not.toBeNull();
     expect(message).not.toBeNull();
-    // Décalage commun, renforcé sur grand écran à la demande du client.
-    if (message) expect(message.x + message.width / 2).toBeCloseTo(width / 2 - (width >= 1280 ? Math.min(64, Math.max(24, width * 0.044)) : Math.min(48, Math.max(12, width * 0.033))), 0);
+    if (visual && message) {
+      if (width < 768) expect(message.y).toBeGreaterThanOrEqual(visual.y + visual.height);
+      else expect(visual.x).toBeGreaterThanOrEqual(message.x + message.width);
+    }
+    const heroDonate = page.locator(".hero-actions").getByRole("link", { name: "Faire un don", exact: true });
+    await expect(heroDonate).toHaveAttribute("href", "/fr/nous-soutenir");
+    await expect(heroDonate.locator("svg[aria-hidden=true]")).toHaveCount(1);
     await expect(page.locator(".hero-slide img").first()).toHaveAttribute("alt", "");
     expect(await page.locator(".hero-slide img").first().evaluate((img: HTMLImageElement) => new URL(img.currentSrc).pathname)).toMatch(/images-client-hero-bassia-travail-\d+-[a-f0-9]+\.webp$/);
     await expect(page.locator(".hero-brand")).toHaveText("Global EcoAction");
-    await expect(page.locator(".hero-brand-gold")).toHaveText(["Global", "Eco", "Action"]);
     await expect(page.locator("#hero-title")).toHaveText(
       "AGIR POUR UN AVENIR DURABLE",
     );
@@ -445,7 +449,7 @@ test("texte agrandi à 200 % : contenus et navigation restent dans le cadre", as
     await page.goto("/fr");
     await page.evaluate(() => document.fonts.ready);
     await page.addStyleTag({ content: ":root { font-size: 200%; }" });
-    for (const circle of await page.locator(".domain-circle").all()) {
+    for (const circle of await page.locator(".domain-content").all()) {
       const frame = (await circle.boundingBox())!;
       const title = (await circle.locator("h3").boundingBox())!;
       expect(title.x).toBeGreaterThanOrEqual(frame.x - 1);

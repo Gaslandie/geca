@@ -1795,3 +1795,58 @@ Validation réelle : compilation Blade réussie et diff limité au paragraphe vi
 ## Comptes et trois rôles — 13 octobre 2026
 
 Avant conception : comparaison [WordPress — rôles et capacités](https://wordpress.org/documentation/article/roles-and-capabilities/) (séparation administration/édition) et [OWASP — autorisations](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) (moindre privilège, refus par défaut, contrôle de chaque requête). Adaptation GECA : exactement trois choix, Administrateur, Éditeur et Lecteur ; accès serveur et session relus, gestion des comptes administrateur seulement, pas d'inscription publique. Les libellés sont fonctionnels, sans fait GECA nouveau. Les comptes existants restent administrateurs selon leur accès actuel ; autres comptes sans accès restent refusés. Connexion par mot de passe et code conservée pour tous.
+
+
+## Heroes intérieurs photographiques — 13 octobre 2026
+
+Référence visuelle prioritaire : capture fournie par Gassama (« Notre expertise »), photo panoramique avec titre noir sur cartouche blanc en bas au centre. Comparaison consultée : https://www.msf.org/who-we-are — image d’ouverture, titre puis présentation distincte ; lecture de structure seulement, interactions non testées. W3C https://www.w3.org/WAI/tutorials/images/decorative/ : une photo de décoration peut avoir un alt vide ; pour nos scènes documentées, conserver une description factuelle quand utile, sans identifier les personnes. Adaptation : composant serveur commun, titre HTML unique, photo locale déjà autorisée et registre fermé, introduction après le hero. Aucun nouveau fait, service, média distant ou changement du hero Home. Crédit des photos dans les mentions existantes. Aperçu local FR/EN seulement.
+
+
+Vérifications de cet aperçu : TypeScript, ESLint et compilation Next réussis. Serveur local reconstruit/redémarré sur 127.0.0.1:3000 ; accueil et CSS courants HTTP 200. Parcours de 24 pages FR/EN : réponse 200, h1 unique, image chargée, introduction après le hero ; captures de six pages à 1440/375 px et absence de débordement vérifiée à 320/375/768/1440 px. Captures Domaines/Partenariat/À propos/Mission inspectées ; cadrage Domaines remonté ensuite. Suite existante : 37/47 tests réussis ; cinq assertions d’espacement Domaines et une cible d’introduction Projets adaptées au déplacement demandé (non relancées). Quatre autres échecs Projets pendant une recompilation concurrente : capture montrant les styles absents ; compilation terminée, serveur redémarré et CSS HTTP 200 confirmés ensuite. Dernier contrôle Chrome/axe/zoom refusé par l’utilisateur, pas de nouvelle tentative. Le contrôle axe du script ponctuel n’a pas abouti (contexte navigateur incorrect), aucun résultat axe global revendiqué. L’aperçu final reste à valider visuellement par Gassama ; aucun commit, push ou déploiement.
+
+
+## Cartes Actualités plus courtes — 13 octobre 2026
+
+Comparaison du jour réutilisée : https://www.msf.org/ — les listes « Featured » et « Latest » présentent des titres et repères sans long extrait systématique. Ce principe reste pertinent pour la demande illustrée de Gassama : retirer uniquement les paragraphes des cartes de la page Actualités FR/EN. Photos, périodes, catégories, titres et liens Lire l’article conservés. Description intégrale conservée dans les données, la recherche et les articles ; hauteur naturelle réduite, sans espace réservé à l’ancien extrait. Aperçu local, aucune publication.
+
+
+## Retrait de deux pauses — 13 octobre 2026
+
+Demande explicite de Gassama, repérée par l’ordre « Pause / Nos partenaires / Pause / noms » : retirer la commande des photos du hero et celle du bandeau des noms. Commande du carrousel des logos en bas conservée. Référence W3C WCAG 2.2.2 déjà comparée le 11 octobre, toujours pertinente : le retrait de ces deux commandes réduit la possibilité de suspendre durablement les mouvements automatiques ; cette limite n’est pas résolue par les seuls réglages de mouvement réduit. La nouvelle demande prime sur la validation antérieure des boutons. Animation, suspension onglet masqué, économie de données, mouvement réduit, contenu sans JavaScript conservés. Modification locale FR/EN, aucun changement de texte ou partenaire.
+
+
+## Page de soutien enrichie — 13 octobre 2026
+
+Comparaison avant réalisation des deux captures CARE transmises par Gassama : première section, trois cartes avec photographie au-dessus d’un panneau blanc ; seconde, panneau blanc de résultats sur fond coloré. Captures observées, aucun comportement interactif CARE déduit. Adaptation GECA : trois entrées vers Organisation, Domaines et Projets ; fond crème, vert et accents dorés existants ; quatre chiffres déjà validés au lieu des trois indicateurs CARE. Don existant par contact conservé, aucune caisse de paiement ou destination bancaire ajoutée. Les chiffres décrivent des réalisations passées, sans promesse d’affectation ou de rendement d’un don. Photo du hero : remise de matériels à Kolaboui, fonds client autorisé.
+
+
+Validation page de soutien : défaut de chevauchement des titres signalé par Gassama et corrigé en supprimant le recouvrement négatif du corps des cartes ; padding commun conservé. Compilation, TypeScript et lint réussis ; Chrome FR/EN à 320, 768 et 1440 px : trois cartes, quatre chiffres exacts, photos chargées, liens de détail HTTP 200, aucun débordement, titres entièrement sous les images. Axe sans violation sur les deux pages à 1440 px ; accueil et styles HTTP 200. Captures locales inspectées, serveur 127.0.0.1:3000 actualisé. Publication non demandée.
+
+
+## Domaines de l’accueil : photos claires et titres dessous — 13 octobre 2026
+
+Référence directe : capture de la grille GECA transmise par Gassama, comparée aux cartes CARE avec titre hors image déjà étudiées ce jour. Adaptation demandée : supprimer le voile sombre, garder les huit photos circulaires et déplacer les titres dans le corps sous la photo. Retirer les descriptions de la seule grille de l’accueil FR/EN ; elles restent intégrales sur la page Domaines. Liens d’ancre, noms accessibles, focus et photos client conservés. Aucun fait ni média ajouté, aperçu local.
+
+
+## Impact de l’accueil en panneau clair — 13 octobre 2026
+
+Gassama prend pour référence la capture du bloc de résultats de la page Nous soutenir, lui-même adapté des captures CARE comparées ce jour. Réutilisation du fond vert/crème, du panneau blanc, des quatre chiffres et séparateurs dorés. Conserver titre, huit réalisations et données communes de l’accueil FR/EN ; placer les développements sous les chiffres. Aucun total calculé ni résultat inventé. Réutiliser les mêmes éléments de chiffres sur accueil et soutien. Aperçu local seulement.
+
+
+## Hero « La feuille » retenu — 13 octobre 2026
+
+Comparaison revue avant intégration : captures utilisateur du 13 octobre (panneau clair devant photo, puis composition caritative texte à gauche/photo à droite et empilement mobile) et prototype local 02 `release/hero-proposals`. Observations : séparation du texte et de la photographie, lisibilité indépendante des changements de photo, photo en premier sur mobile. Adaptation GECA : fond crème, découpe végétale avec filet et ombre vert pâle, photos client existantes sans voile sombre. Aucune photographie ni information des ONG de référence copiée. Gassama choisit explicitement la proposition 02 et remplace Devenir partenaire par Faire un don avec un cœur. Liens locaux FR/EN vers la page de soutien existante ; aucune collecte ni paiement ajouté. Le carrousel existant conserve mouvement réduit, économie de données, arrêt en onglet masqué et nettoyage. Limite déjà documentée : absence de bouton pause selon la demande antérieure. Navigation commune intacte.
+
+Vérifications de cette intégration : TypeScript, lint et compilation réussis. Serveur local reconstruit et redémarré sur 127.0.0.1:3000. Contrôle navigateur FR/EN à 320, 375, 768 et 1440 px : empilement mobile, colonnes ordinateur, absence de débordement, cœur décoratif, destination de don HTTP 200, styles HTTP 200, photo fixe en mouvement réduit et rotation normale. Axe sur le hero : aucune anomalie détectée ; cela ne constitue pas un audit complet du site. Captures mobile/ordinateur examinées. Aucun compte, droit ou flux serveur modifié ; aucun déploiement.
+
+
+## Commandes de la feuille et bandeau partenaires — 13 octobre 2026
+
+Références comparées avant adaptation : commande précédente/compteur/suivante du prototype 02 (capture utilisateur), puis capture fournie du bandeau caritatif avec intitulé fixe à gauche et noms sur une ligne. Adaptation : pilule claire au bas de la feuille, flèches avec noms accessibles FR/EN et cibles 44 px ; compteur basé sur les cinq photos client. Le choix manuel suspend la rotation automatique pour garder la photo choisie ; chargement préalable avant changement, sans écran vide. En mouvement réduit/économie de données, seules les photos demandées sont chargées et aucune rotation automatique ne démarre. Sans JavaScript, première photo et liste complète des partenaires. Bandeau animé avec intitulé fixe masquant les noms entrants, duplicata masqué aux lecteurs d’écran, arrêt au survol/focus, hors écran et en onglet masqué conservés. Noms authentiques inchangés, aucun service ni droit modifié.
+
+Validation : lint, TypeScript et compilation réussis ; serveur local reconstruit et redémarré. Navigateur FR/EN à 375 et 1440 px : flèches dans les deux sens, boucle première/dernière photo, compteur synchronisé, navigation manuelle malgré mouvement réduit et absence de débordement. Axe sur les commandes : aucune anomalie détectée. Bandeau animé vérifié : titre et noms sur la même ligne, titre fixe, piste mobile et masquage dans la fenêtre. Captures mobile/ordinateur examinées, nom agrandi doré et barre verte visibles. Aucun déploiement.
+
+
+## Taille du bandeau et identité du hero — 13 octobre 2026
+
+Référence relue avant adaptation : capture utilisateur du bandeau actuel et couleurs du bouton de don/identité GECA. Le titre et les noms du bandeau utilisent désormais --text-body au lieu de --text-small ; noms en poids 500. Global/Action utilisent --gold, Eco --green, selon la demande explicite. Le jaune clair sur crème présente un contraste limité pour ces portions du nom ; demande visuelle conservée, sans prétendre à une conformité complète. Boutons, titres de contenu, paragraphes et noms de partenaires gardent leurs contrastes existants.

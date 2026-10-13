@@ -1,6 +1,7 @@
+import { PageHero } from "./PageHero";
 import Link from "next/link";
 import { getNewsEntries, href, interfaceText, newsArticlePath, newsContent, type Locale, type NewsEntry } from "@/content/site";
-import { Button, Container, PageIntroduction, PhotoPlaceholder } from "./ui";
+import { Button, Container, PageIntroduction } from "./ui";
 
 export function NewsArticle({ locale, entry }: { locale: Locale; entry: NewsEntry }) {
   const text = newsContent[locale];
@@ -12,30 +13,29 @@ export function NewsArticle({ locale, entry }: { locale: Locale; entry: NewsEntr
   return (
     <main id="main-content" className="news-article-page" tabIndex={-1}>
       <article>
-        <section className="section page-hero" aria-labelledby="article-title">
-          <Container>
-            <nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
+        <PageHero locale={locale} title={entry.title} id="article-title" theme="news" photo={entry.photo} breadcrumbs={<nav className="contact-breadcrumb" aria-label={text.breadcrumb}>
               <Link href={href(locale)}>{interfaceText[locale].home}</Link>
               <span aria-hidden="true">/</span>
               <Link href={href(locale, "actualites")}>{text.title}</Link>
               <span aria-hidden="true">/</span>
               <span aria-current="page">{entry.title}</span>
-            </nav>
+            </nav>}>
+
             <header className="section-heading">
               <div>
                 <p className="eyebrow">{entry.category}</p>
-                <h1 id="article-title">{entry.title}</h1>
+
                 <p className="news-article-period" data-reveal>{entry.dateTime ? text.date : text.period} : {entry.dateTime
                   ? <time dateTime={entry.dateTime}>{entry.period}</time>
                   : entry.period}</p>
               </div>
             </header>
             <PageIntroduction>{entry.description.split("\n\n")[0]}</PageIntroduction>
-          </Container>
-        </section>
+
+      </PageHero>
+
         <section className="section">
           <Container>
-            {entry.photo && <PhotoPlaceholder locale={locale} className="news-article-photo" photo={entry.photo} label={entry.title} sizes="(min-width: 1280px) 1144px, 100vw" />}
             <div className="news-article-body" data-reveal>
               {entry.description.split("\n\n").slice(1).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               {(entry.zone || entry.partner) && <dl className="news-article-facts">

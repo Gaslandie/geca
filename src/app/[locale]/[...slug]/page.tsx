@@ -1,3 +1,4 @@
+import { Support } from "@/components/Support";
 import type { Metadata } from "next";
 import { StructuredData } from "@/components/StructuredData";
 import { sharingMetadata } from "@/lib/sharing";
@@ -12,10 +13,9 @@ import { MissionVisionValues } from "@/components/MissionVisionValues";
 import { News } from "@/components/News";
 import { NewsArticle } from "@/components/NewsArticle";
 import { TeamPage } from "@/components/Team";
-import { Button } from "@/components/ui";
 import { SiteInformation } from "@/components/SiteInformation";
 import { publicOrigin, publicRelease } from "@/lib/deployment";
-import { getNewsEntry, newsContent, seoSummaries, aboutContent, contactContent, interventionContent, isLocale, locales, missionVisionContent, pageIntroductions, partnershipContent, portfolioContent, routes, identity, supportActions } from "@/content/site";
+import { getNewsEntry, newsContent, seoSummaries, aboutContent, contactContent, interventionContent, isLocale, locales, missionVisionContent, pageIntroductions, partnershipContent, portfolioContent, routes } from "@/content/site";
 
 type Props = { params: Promise<{ locale: string; slug: string[] }> };
 
@@ -63,6 +63,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function SectionContent({ locale, route }: Awaited<ReturnType<typeof resolveRoute>>) {
   if (publicRelease && (route.path === "mentions-legales" || route.path === "confidentialite" || route.path === "plan-du-site")) return <SiteInformation locale={locale} path={route.path} title={route[locale]} />;
+  if (route.path === "nous-soutenir") return <Support locale={locale} title={route[locale]} />;
   if (route.path === "actualites") return <News locale={locale} />;
   if (route.path.startsWith("actualites/")) {
     const entry = getNewsEntry(locale, route.path.slice("actualites/".length));
@@ -77,10 +78,7 @@ function SectionContent({ locale, route }: Awaited<ReturnType<typeof resolveRout
   if (route.path === "projets") return <ProjectPortfolio locale={locale} />;
   if (route.path === "devenir-partenaire") return <Partnership locale={locale} />;
   const introduction = pageIntroductions[locale][route.path as keyof typeof pageIntroductions.fr];
-  return <UnderConstruction locale={locale} title={route[locale]} introduction={introduction} actions={route.path === "nous-soutenir" ? <>
-    <Button href={supportActions.whatsappHref} prefetch={false} referrerPolicy="no-referrer" rel="noopener noreferrer">{supportActions[locale].whatsapp}</Button>
-    <Button href={identity.phoneHref} variant="secondary" prefetch={false}>{supportActions[locale].call}</Button>
-  </> : undefined} />;
+  return <UnderConstruction path={route.path} locale={locale} title={route[locale]} introduction={introduction} />;
 }
 
 export default async function SectionPage({ params }: Props) {

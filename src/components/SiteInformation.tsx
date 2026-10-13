@@ -1,3 +1,4 @@
+import { PageHero } from "./PageHero";
 import Link from "next/link";
 import { clientPhotoSources, href, identity, interfaceText, pageIntroductions, publicInformation, routes, temporaryPhotoCredits, type Locale } from "@/content/site";
 import { Container, PageIntroduction } from "./ui";
@@ -5,13 +6,13 @@ import { Container, PageIntroduction } from "./ui";
 export function SiteInformation({ locale, path, title }: { locale: Locale; path: "mentions-legales" | "confidentialite" | "plan-du-site"; title: string }) {
   const text = publicInformation[locale];
   return <main id="main-content" tabIndex={-1}>
-    <section className="page-hero"><Container>
-      <nav className="contact-breadcrumb" aria-label={locale === "fr" ? "Fil d’Ariane" : "Breadcrumb"}>
+    <PageHero locale={locale} title={title} id="information-title" theme="information" breadcrumbs={<nav className="contact-breadcrumb" aria-label={locale === "fr" ? "Fil d’Ariane" : "Breadcrumb"}>
         <Link href={href(locale)}>{interfaceText[locale].home}</Link><span aria-hidden="true">/</span><span aria-current="page">{title}</span>
-      </nav>
-      <div className="section-heading"><div><h1>{title}</h1></div></div>
+      </nav>}>
+
       <PageIntroduction>{path === "confidentialite" ? text.privacy : pageIntroductions[locale][path]}</PageIntroduction>
-    </Container></section>
+
+      </PageHero>
     <section className="section"><Container><div className="site-info">
       {path === "plan-du-site" ? <article className="card-content">
         <h2>{text.sitemap}</h2><ul>

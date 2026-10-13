@@ -540,7 +540,7 @@ export const homeContent = {
     photo: clientPhoto("bassia-travail-champ"),
     slides: [clientPhoto("hero-bassia-travail"), clientPhoto("hero-gbara-arrosage"), clientPhoto("hero-bassia-groupe"), clientPhoto("hero-gbara-champ"), clientPhoto("hero-gbara-entretien")],
     primary: "Découvrir nos projets",
-    secondary: "Devenir partenaire",
+    secondary: "Faire un don",
     video: {
       src: "/videos/geca-forest.mp4",
       poster: "/videos/geca-forest-poster.jpg",
@@ -1533,7 +1533,7 @@ export function getHomeContent(locale: Locale) {
       description: "Restore forests · Preserve biodiversity · Strengthen communities",
       introduction: "We support communities in restoring degraded forests, preserving biodiversity and improving living conditions through reforestation, agroecology and capacity building.",
       primary: "Explore our projects",
-      secondary: "Become a partner",
+      secondary: "Donate",
     },
     about: {
       ...homeContent.about,
