@@ -1850,3 +1850,17 @@ Validation : lint, TypeScript et compilation réussis ; serveur local reconstrui
 ## Taille du bandeau et identité du hero — 13 octobre 2026
 
 Référence relue avant adaptation : capture utilisateur du bandeau actuel et couleurs du bouton de don/identité GECA. Le titre et les noms du bandeau utilisent désormais --text-body au lieu de --text-small ; noms en poids 500. Global/Action utilisent --gold, Eco --green, selon la demande explicite. Le jaune clair sur crème présente un contraste limité pour ces portions du nom ; demande visuelle conservée, sans prétendre à une conformité complète. Boutons, titres de contenu, paragraphes et noms de partenaires gardent leurs contrastes existants.
+
+
+## Retour au hero photographique — 13 octobre 2026
+
+À la demande du client relayée par Gassama, comparaison de la version enregistrée 6a6018d et de La feuille : restauration de la composition plein fond, voile sombre, textes à gauche, mêmes proportions et tailles qu’avant. Les benchmarks antérieurs du hero restent pertinents pour cette restauration ; aucune nouvelle référence factuelle utilisée. Bouton Faire un don avec cœur et commandes manuelles conservés. Global/Action dorés, Eco vert clair adapté au fond sombre. Autres sections inchangées. Vérification locale avant toute publication ; Gassama souhaite regarder et valider puis commit/push/déploiement.
+
+Précision suivante : restauration complète demandée, y compris Devenir partenaire. Nom entièrement doré et styles d’actions précédents rétablis, flèches/compteur retirés ; le carrousel conserve ses cinq photos et ses protections de mouvement/données. Compilation, lint et TypeScript réussis. Serveur local reconstruit et redémarré ; publication en attente de la validation visuelle demandée.
+
+
+## Retour au bandeau précédent — 13 octobre 2026
+
+Comparaison avec le CSS enregistré dans 6a6018d : suppression des adaptations en ligne de La feuille, retour au titre centré au-dessus de la fenêtre de noms. Styles antérieurs réutilisés, aucun contenu changé. Mouvement réduit, économie de données, onglet masqué, observation de visibilité, doublon inaccessible et interruption au survol conservés. Absence de bouton Pause selon demande explicite. Publication autorisée avec la restauration du hero et du bouton Devenir partenaire. Périmètre public uniquement ; aucun compte, rapport, secret ou schéma serveur modifié.
+
+Vérifications de la restauration : lint, TypeScript et compilation réussis ; neuf tests de livraison publique réussis avec refus des routes privées et fichiers sensibles, FR/EN, 320/375/768/1440 px et texte à 200 %. Contrôle navigateur complémentaire FR/EN 375/1440 : hero plein fond, lien Devenir partenaire, titre du bandeau au-dessus des noms, absence des commandes Pause retirées et absence de débordement. Capture examinée ; serveur local actualisé sur 127.0.0.1:3000. Publication par les workflows existants autorisée.

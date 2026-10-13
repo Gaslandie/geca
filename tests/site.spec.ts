@@ -194,12 +194,12 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     expect(visual).not.toBeNull();
     expect(message).not.toBeNull();
     if (visual && message) {
-      if (width < 768) expect(message.y).toBeGreaterThanOrEqual(visual.y + visual.height);
-      else expect(visual.x).toBeGreaterThanOrEqual(message.x + message.width);
+      const heroBox = (await page.locator(".hero").boundingBox())!;
+      expect(visual).toEqual(heroBox);
+      expect(message.x).toBeGreaterThanOrEqual(heroBox.x);
+      expect(message.y).toBeGreaterThanOrEqual(heroBox.y);
     }
-    const heroDonate = page.locator(".hero-actions").getByRole("link", { name: "Faire un don", exact: true });
-    await expect(heroDonate).toHaveAttribute("href", "/fr/nous-soutenir");
-    await expect(heroDonate.locator("svg[aria-hidden=true]")).toHaveCount(1);
+    await expect(page.locator(".hero-actions").getByRole("link", { name: "Devenir partenaire", exact: true })).toHaveAttribute("href", "/fr/devenir-partenaire");
     await expect(page.locator(".hero-slide img").first()).toHaveAttribute("alt", "");
     expect(await page.locator(".hero-slide img").first().evaluate((img: HTMLImageElement) => new URL(img.currentSrc).pathname)).toMatch(/images-client-hero-bassia-travail-\d+-[a-f0-9]+\.webp$/);
     await expect(page.locator(".hero-brand")).toHaveText("Global EcoAction");

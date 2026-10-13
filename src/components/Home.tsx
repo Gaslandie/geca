@@ -17,12 +17,14 @@ export function Home({ locale }: { locale: Locale }) {
   const content = getHomeContent(locale);
   return (
     <main id="main-content" tabIndex={-1} className="home-page">
-      <section className="hero hero-leaf" aria-labelledby="hero-title">
+      <section className="hero" aria-labelledby="hero-title">
         <div className="hero-grid">
           <div className="hero-content">
             <p className="eyebrow hero-brand">
-              {content.hero.label.split(/(Eco)/).map((part, index) =>
-                part === "Eco" ? <span className="hero-brand-eco" key={index}>{part}</span> : part,
+              {content.hero.label.split(/(Global|Eco|Action)/).map((part, index) =>
+                /^(Global|Eco|Action)$/.test(part)
+                  ? <span key={index} className="hero-brand-gold">{part}</span>
+                  : part,
               )}
             </p>
             <h1 id="hero-title">
@@ -35,18 +37,13 @@ export function Home({ locale }: { locale: Locale }) {
             </div>
             <div className="hero-actions">
               <div className="hero-action-links">
-                <Button href={href(locale, "projets")}>{content.hero.primary}</Button>
-                <Button href={href(locale, "nous-soutenir")} className="hero-donate">
-                  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /></svg>
-                  {content.hero.secondary}
-                </Button>
+                <Button href={href(locale, "projets")} tone="inverse">{content.hero.primary}</Button>
+                <Button href={href(locale, "devenir-partenaire")} variant="secondary" tone="inverse">{content.hero.secondary}</Button>
               </div>
             </div>
           </div>
-          <div className="hero-leaf-visual" data-reveal="off">
-            <HeroSlideshow photos={content.hero.slides} locale={locale} />
-          </div>
         </div>
+        <HeroSlideshow locale={locale} photos={content.hero.slides} />
       </section>
 
       <PartnerTicker names={content.partners.items.map((partner) => partner.name)} label={content.partners.label} />

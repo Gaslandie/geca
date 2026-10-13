@@ -915,3 +915,15 @@ Gassama demande les flèches et le compteur du prototype, le bandeau partenaires
 ## Couleurs du nom et taille du bandeau — 13 octobre 2026
 
 Gassama demande le jaune exact du bouton de don pour Global et Action, et Eco en vert. Cette demande remplace le jaune assombri du nom. Noms et titre du bandeau partenaires agrandis avec la taille commune du texte courant. Aucun texte ou fait ajouté.
+
+
+## Retour au hero précédent — 13 octobre 2026
+
+« le client veut que la section hero soit comme avant, donc on change, je vois en local que tout est ok puis on commit push et deploies biensur ». Restauration locale de la composition photographique antérieure, sans modification des textes authentiques. Publication conditionnée à la validation locale demandée par Gassama.
+
+Précision de Gassama : « on met vraimen comme avant meme le bouton on remet devenir partenaire stp ». Anciennes actions et ancien nom entièrement doré restaurés. Les commandes ajoutées avec La feuille sont retirées ; absence de Pause demandée précédemment conservée. Autres sections inchangées.
+
+
+## Bandeau partenaires restauré et livraison — 13 octobre 2026
+
+Gassama demande « meme pour nos partenaire aussi, on remet la meme sauf les bouton pause là stp après tu commit push et deploies ». Restauration du titre centré au-dessus des noms du bandeau, tailles et couleurs antérieures, sans bouton Pause dans ce bandeau ni le hero. Cette demande autorise le commit, le push et le déploiement après vérifications, sans attendre une confirmation supplémentaire. Rubrique de logos située plus bas et autres sections conservées.
