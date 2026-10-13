@@ -46,6 +46,8 @@ jobs:
           touch database/local.sqlite
       - name: Vérifier le style et les protections du back-office
         working-directory: backoffice
+        env:
+          APP_URL: http://127.0.0.1:8000
         run: |
           php vendor/bin/pint --test
           php artisan test

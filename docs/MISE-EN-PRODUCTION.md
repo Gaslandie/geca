@@ -315,3 +315,8 @@ Sortie cPanel transmise : « Connexion automatique du back-office installée. An
 ### Publication autorisée — 13 octobre 2026
 
 Gassama autorise explicitement commit et push de l'automatisation et de la correction des calendriers, puis vérification de la connexion et première livraison. Vérifications finales : 155 tests PHP / 2024 assertions réussis, Pint, 20 essais de réception/configuration et préparation ciblée des quatre fichiers réussis. setup-php 2.36.0 épinglé au commit réel 44454db4f0199b8b9685a5d763dc37cbf79108e1 (tag annoté résolu par API). Livraison encore désactivée au moment du push ; connexion seule à essayer avant déploiement.
+
+
+### Premiers essais GitHub — 13 octobre 2026
+
+Commit 3c3c527e5a9c21f03b7cbb0d61bb6375162f9acc publié. Trois essais de connexion arrêtés dans le job de tests, avant accès SSH/livraison : 38378336888 (dossier Unit vide absent), 38378958825 (fichier local.sqlite absent), 38379490357 (URL de production héritée de .env.example pour des requêtes simulées locales). Corrections de préparation seules : .gitkeep, fichier SQLite vide dans le runner, APP_URL loopback dans le seul job PHP. Le service LocalAccess n'est pas modifié et les refus en production restent testés. Reproduction locale : mêmes trois échecs avec APP_URL de production, puis 19 tests / 224 assertions réussis avec l'URL locale. Chaque push correctif a été fait avec l'activation false, puis essai manuel connection ; aucune installation encore démarrée.
