@@ -15,7 +15,7 @@ export function About({ locale }: { locale: Locale }) {
 
           <div className="about-intro-heading section-heading">
             <div>
-              <p className="eyebrow">{text.label}</p>
+
 
             </div>
           </div>

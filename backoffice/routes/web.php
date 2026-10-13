@@ -8,10 +8,17 @@ use App\Http\Controllers\LocalAccessController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NewsletterAdminController;
 use App\Http\Controllers\NewsletterPublicController;
+use App\Http\Controllers\PublicContactController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Middleware\PublicContactOrigin;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 Route::redirect('/', '/administration');
 Route::get('/connexion-locale', [LocalAccessController::class, 'show'])->name('local-access');
@@ -90,3 +97,12 @@ Route::middleware(['auth', 'admin', 'auth.session', 'throttle:newsletter-admin']
     Route::post('/{campaign}/preparer', [NewsletterAdminController::class, 'approve'])->whereUuid('campaign')->name('newsletter.approve');
     Route::post('/{campaign}/arreter', [NewsletterAdminController::class, 'cancel'])->whereUuid('campaign')->name('newsletter.cancel');
 });
+
+// Point public séparé : origine fermée et jeton unique, aucun cookie d'administration.
+Route::middleware([PublicContactOrigin::class])
+    ->withoutMiddleware([PreventRequestForgery::class, StartSession::class, ShareErrorsFromSession::class, EncryptCookies::class, AddQueuedCookiesToResponse::class])
+    ->prefix('contact-public')->group(function () {
+        Route::options('/{path?}', fn () => response('', 204))->where('path', '.*');
+        Route::get('/jeton', [PublicContactController::class, 'token'])->middleware('throttle:contact-token');
+        Route::post('/', [PublicContactController::class, 'send'])->middleware('throttle:contact-send');
+    });

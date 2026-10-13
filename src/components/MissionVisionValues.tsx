@@ -17,7 +17,7 @@ export function MissionVisionValues({ locale }: { locale: Locale }) {
 
           <div className="mission-intro-heading section-heading">
             <div>
-              <p className="eyebrow">{text.label}</p>
+
 
               <p className="section-description">{text.introduction}</p>
             </div>

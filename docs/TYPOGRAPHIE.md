@@ -303,3 +303,8 @@ Composant commun PageHero : photo fixe locale, h1 unique centré vers le bas ave
 ## Accueil — La feuille, 13 octobre 2026
 
 Proposition 02 validée : texte à gauche, photo lumineuse à droite dans une forme végétale, fond crème, filet et ombre vert pâle. Sous 768 px : photo au-dessus, contenu dessous. Ubuntu Sans du titre et polices locales conservées ; tailles adaptées à la colonne, titre 36–68 px. Boutons communs, projet vert et don doré avec cœur décoratif masqué aux lecteurs d’écran. Textes du client inchangés, contraste sur fond uni. Photos et protections du carrousel conservées.
+
+
+## Titres uniques — 13 octobre 2026
+
+Un seul titre descriptif par en-tête de section ; petit repère supprimé des SectionHeading et des en-têtes manuels de l’accueil. H2 partagés 36–56 px (--text-section-title), mêmes polices/centrage et retours à la ligne. Identité du hero, catégories d’articles et intitulés nécessaires de cartes gardent leur fonction. Formulaire Contact en deux colonnes dès 1000 px, une colonne sur petit écran ; aucun champ prérempli. Bouton WhatsApp partagé fixe 56 px, bas/droite avec marges de zone sûre, nom accessible et retrait lorsque le dialogue de recherche est ouvert.

@@ -61,15 +61,16 @@ for (const width of [320, 375, 768, 1440]) {
     for (const locale of locales) {
       await page.goto(`/${locale}/contact/`);
       await page.evaluate(() => document.fonts.ready);
-      await expect(page.locator(".contact-form")).toHaveCount(0);
+      await expect(page.locator(".contact-form")).toHaveCount(1);
       await expect(page.locator(".footer-newsletter")).toHaveCount(0);
-      await expect(page.locator(".contact-public-actions a")).toHaveCount(3);
-      await expect(page.locator(".contact-public-actions a").first()).toHaveAttribute("href", supportActions.whatsappHref);
-      await expect(page.locator(".contact-public-actions a").nth(1)).toHaveAttribute("href", identity.phoneHref);
-      await expect(page.locator(".contact-public-actions a").last()).toHaveAttribute("href", `mailto:${identity.email}`);
+      await expect(page.locator(".contact-mail-details a").last()).toHaveAttribute("href", supportActions.whatsappHref);
+      await expect(page.locator(".contact-email-fallback")).toHaveAttribute("href", `mailto:${identity.email}`);
+      await expect(page.locator(".contact-form input[name=name]")).toHaveValue("");
+      await expect(page.locator(".contact-form select")).toHaveValue("");
+      await expect(page.locator(".whatsapp-floating")).toHaveAttribute("href", supportActions.whatsappHref);
       expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()).violations).toEqual([]);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-      await page.locator(".contact-public-actions").screenshot({ path: `/tmp/geca-public-contact-${locale}-${width}.png` });
+      await page.locator(".contact-mail-section").screenshot({ path: `/tmp/geca-public-contact-${locale}-${width}.png` });
       await page.goto(`/${locale}/nous-soutenir/`);
       await expect(page.locator(".support-donation-actions a").first()).toHaveAttribute("href", supportActions.whatsappHref);
       await page.goto(`/${locale}/`);
@@ -111,7 +112,39 @@ test("livraison : navigation et contact directs sans JavaScript", async ({ brows
   await page.goto("http://127.0.0.1:3110/");
   await expect(page).toHaveURL(/\/fr\/$/);
   await page.goto("http://127.0.0.1:3110/en/contact/");
-  await expect(page.locator(".contact-public-actions a")).toHaveCount(3);
-  await expect(page.locator(".contact-form, .footer-newsletter")).toHaveCount(0);
+  await expect(page.locator(".contact-form")).toHaveCount(1);
+  await expect(page.locator(".contact-form fieldset")).toHaveAttribute("disabled", "");
+  for (const field of await page.locator(".contact-form input, .contact-form select, .contact-form textarea, .contact-form button").all()) await expect(field).toBeDisabled();
+  await expect(page.locator(".footer-newsletter")).toHaveCount(0);
   await context.close();
+});
+
+test("livraison : formulaire vide, succès et échec sans fausse confirmation", async ({ page }) => {
+  let fail = false;
+  let sent = 0;
+  await page.route("https://admin.globalecoaction.org/contact-public**", async route => {
+    const headers = { "Access-Control-Allow-Origin": "http://127.0.0.1:3110", "Access-Control-Allow-Headers": "Content-Type, Accept", "Access-Control-Allow-Methods": "GET, POST, OPTIONS" };
+    if (route.request().method() === "OPTIONS") return route.fulfill({ status: 204, headers });
+    if (route.request().method() === "GET") return route.fulfill({ headers, json: { token: "a".repeat(64) } });
+    sent++;
+    return route.fulfill({ status: fail ? 503 : 200, headers, json: fail ? { error: "delivery" } : { sent: true } });
+  });
+  await page.goto("/fr/contact/");
+  await expect(page.locator("#contact-name")).toHaveValue("");
+  await expect(page.locator("#contact-reason")).toHaveValue("");
+  const fill = async () => {
+    await page.locator("#contact-name").fill("Test isolé");
+    await page.locator("#contact-email").fill("sender@example.com");
+    await page.locator("#contact-reason").selectOption("other");
+    await page.locator("#contact-message").fill("Message simulé sans envoi réel.");
+  };
+  await fill();
+  await page.locator(".contact-submit").click();
+  await expect(page.locator(".contact-send-status")).toHaveText("Votre message a été envoyé à GECA.");
+  expect(sent).toBe(1);
+  fail = true;
+  await fill();
+  await page.locator(".contact-submit").click();
+  await expect(page.locator(".contact-send-status")).toContainText("Le message n’a pas été envoyé");
+  await expect(page.locator("#contact-name")).toHaveValue("Test isolé");
 });

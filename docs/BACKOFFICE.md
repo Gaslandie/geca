@@ -414,3 +414,8 @@ Vérifications locales : 171 tests Laravel, 2 275 assertions ; Pint et vues Blad
 Le changement ajoute une colonne nullable users.role et une table privée user_access_events. Une commande cPanel télécharge le paquet GitHub épinglé, contrôle ses empreintes, sauvegarde les fichiers et exporte MySQL avant cette migration unique. Après début de migration, un échec conserve la maintenance et interdit tout retour SQL automatique. Deux outils de livraison sont actualisés après les contrôles. La livraison automatique du code est provisoirement désactivée jusqu’au résultat cPanel ; le workflow dispose d’un mode test sans livraison. Mise en production des rôles encore en attente : ne pas confondre tests locaux, publication du paquet et installation réelle.
 
 Gassama autorise explicitement le commit, le push et le paquet GitHub pour cette demande. Commande locale privée : backoffice/artifacts/commande-comptes-roles-cpanel.sh ; aucun secret, fichier .env, compte réel ou sauvegarde inclus dans le paquet public.
+
+
+## Formulaire public de contact — 13 octobre 2026
+
+Route publique séparée /contact-public/jeton (GET), /contact-public (POST JSON) et OPTIONS pour le domaine public exact. Sans accès à l’administration ni cookie privé ; preuve unique liée à origine/IP et limites anti-abus. Destinataire fixe ong.geca@gmail.com, expéditeur depuis la configuration mail existante, réponse possible vers le Reply-To validé du visiteur. Transport SMTP existant conservé ; aucune migration. La réussite indique que le transport accepte l’envoi, sans garantir la réception en boîte. Réception réelle à vérifier avec un message autorisé. Les tests utilisent Mail::fake et ne contactent aucune boîte réelle.

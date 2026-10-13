@@ -927,3 +927,8 @@ Précision de Gassama : « on met vraimen comme avant meme le bouton on remet de
 ## Bandeau partenaires restauré et livraison — 13 octobre 2026
 
 Gassama demande « meme pour nos partenaire aussi, on remet la meme sauf les bouton pause là stp après tu commit push et deploies ». Restauration du titre centré au-dessus des noms du bandeau, tailles et couleurs antérieures, sans bouton Pause dans ce bandeau ni le hero. Cette demande autorise le commit, le push et le déploiement après vérifications, sans attendre une confirmation supplémentaire. Rubrique de logos située plus bas et autres sections conservées.
+
+
+## Titres, formulaire et WhatsApp — 13 octobre 2026
+
+Gassama demande de garder un seul titre par section et de l’agrandir, puis commit et push. Il transmet une capture de formulaire et demande la même disposition, sans message prérempli ni ouverture de messagerie : envoi par e-mail. Ajout demandé d’un bouton WhatsApp flottant en bas à droite sur mobile et ordinateur. Réutilisation des coordonnées GECA, des sujets de contact et des descriptions existantes. Nouveaux libellés fonctionnels Envoyer le message/Send message, statuts d’envoi et information de transmission par e-mail ; mise à jour correspondante du texte technique de confidentialité. Aucun fait, projet, contact Arboria ou chiffre inventé.

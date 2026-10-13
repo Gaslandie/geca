@@ -52,7 +52,6 @@ export function Home({ locale }: { locale: Locale }) {
         <Container className="about-content">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">{content.about.label}</p>
               <h2 id="about-title">{content.about.title}</h2>
               <p className="section-description">
                 {content.about.description.split(/(Global EcoAction \(GECA\)|RENASCEDD)/).map((part, index) =>
@@ -105,7 +104,6 @@ export function Home({ locale }: { locale: Locale }) {
           <div className="support-results-panel">
             <div className="section-heading">
               <div>
-                <p className="eyebrow">{content.impact.label}</p>
                 <h2 id="impact-title">{content.impact.title} {content.impact.titleSecondLine}</h2>
               </div>
             </div>
@@ -141,7 +139,6 @@ export function Home({ locale }: { locale: Locale }) {
         <Container>
           <div className="news-heading section-heading">
             <div>
-              <p className="eyebrow">{content.news.label}</p>
               <h2 id="news-title">{content.news.title}</h2>
               <p className="section-description">{content.news.description}</p>
             </div>
@@ -187,7 +184,6 @@ export function Home({ locale }: { locale: Locale }) {
         <Container>
           <div className="partners-heading section-heading">
             <div>
-              <p className="eyebrow">{content.partners.label}</p>
               <h2 id="partners-title">{content.partners.title}</h2>
               <p className="section-description">{content.partners.description}</p>
             </div>
@@ -199,7 +195,6 @@ export function Home({ locale }: { locale: Locale }) {
       <section className="cta-section" aria-label={content.cta.label}>
         <Container className="cta-grid">
           <div className="partner-cta card-content">
-            <p className="eyebrow">{content.cta.label}</p>
             <h2>{content.cta.partnerTitle}</h2>
             <p>{content.cta.partnerText}</p>
             <Button href={href(locale, "devenir-partenaire")} tone="inverse">

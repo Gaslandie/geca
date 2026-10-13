@@ -15,7 +15,7 @@ export function Partnership({ locale }: { locale: Locale }) {
 
           <div className="partnership-intro-heading section-heading">
             <div>
-              <p className="eyebrow">{text.label}</p>
+
 
             </div>
           </div>

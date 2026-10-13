@@ -28,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        RateLimiter::for('contact-token', fn (Request $request) => [Limit::perMinute(10)->by('contact-token:'.$request->ip()), Limit::perMinute(100)->by('contact-token-global')]);
+        RateLimiter::for('contact-send', fn (Request $request) => [Limit::perHour(3)->by('contact-send:'.$request->ip()), Limit::perHour(30)->by('contact-global')]);
         RateLimiter::for('users-write', fn (Request $request) => Limit::perMinute(5)->by('users-write:'.$request->user()->id));
         RateLimiter::for('reports-write', fn (Request $request) => Limit::perMinute(6)->by('reports-write:'.$request->user()->id));
         RateLimiter::for('local-access', fn (Request $request) => Limit::perMinute(6)->by('local-access:'.$request->server('REMOTE_ADDR')));

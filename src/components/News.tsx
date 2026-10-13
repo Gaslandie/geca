@@ -17,7 +17,7 @@ export function News({ locale }: { locale: Locale }) {
 
           <div className="section-heading">
             <div>
-              <p className="eyebrow">{text.label}</p>
+
 
               <p className="section-description">{text.introduction}</p>
             </div>

@@ -19,7 +19,7 @@ export function InterventionAreas({ locale }: { locale: Locale }) {
 
           <div className="intervention-intro-heading section-heading">
             <div>
-              <p className="eyebrow">{text.label}</p>
+
 
               <p className="section-description">{text.introduction}</p>
             </div>

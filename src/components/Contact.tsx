@@ -3,8 +3,7 @@ import Link from "next/link";
 import { contactContent, contactPhotos, href, identity, interfaceText, pageIntroductions, supportActions, type Locale } from "@/content/site";
 import { ContactForm } from "./ContactForm";
 import { ContactMap } from "./ContactMap";
-import { Button, Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
-import { publicRelease } from "@/lib/deployment";
+import { Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
 
 export function Contact({ locale }: { locale: Locale }) {
   const text = contactContent[locale];
@@ -17,42 +16,22 @@ export function Contact({ locale }: { locale: Locale }) {
             </nav>}>
 
           <div className="section-heading"><div>
-            <p className="eyebrow">{text.label}</p>
+
 
           </div></div>
           <PageIntroduction>{pageIntroductions[locale].contact}</PageIntroduction>
 
       </PageHero>
 
-      <section className="contact-split" aria-label={publicRelease ? text.details : text.form.title}>
-        <div className="contact-introduction">
-          <PhotoPlaceholder locale={locale} label={text.landscape} photo={contactPhotos.landscape[locale]} className="contact-landscape" />
+      <section className="contact-split contact-mail-section" aria-label={text.form.title}>
+        <div className="contact-mail-details">
+          <h2>{locale === "fr" ? "Nous contacter" : "Contact us"}</h2>
+          <p>{text.description}</p>
+          <a href={`mailto:${identity.email}`}>{identity.email}</a>
+          <a href={supportActions.whatsappHref} rel="noopener noreferrer" referrerPolicy="no-referrer">{identity.phone} · WhatsApp</a>
+          <address>{identity.address[locale]}</address>
         </div>
-        {publicRelease ? <div className="contact-form-panel card-content contact-public-actions">
-          <h2>{text.details}</h2>
-          <div className="button-group">
-            <Button href={supportActions.whatsappHref} prefetch={false} referrerPolicy="no-referrer" rel="noopener noreferrer">{supportActions[locale].whatsapp}</Button>
-            <Button href={identity.phoneHref} variant="secondary" prefetch={false}>{supportActions[locale].call}</Button>
-            <Button href={`mailto:${identity.email}`} variant="text" prefetch={false}>{text.write}</Button>
-          </div>
-        </div> : <ContactForm locale={locale} />}
-      </section>
-
-      <section className="contact-details" aria-label={text.details}>
-        <Container className="contact-details-grid">
-          <div className="card-content">
-            <p className="contact-detail-label">{text.visit}</p>
-            <address>{identity.address[locale]}</address>
-          </div>
-          <div className="card-content">
-            <p className="contact-detail-label">{text.call}</p>
-            <a href={identity.phoneHref}>{identity.phone}</a>
-          </div>
-          <div className="card-content">
-            <p className="contact-detail-label">{text.write}</p>
-            <a href={`mailto:${identity.email}`}>{identity.email}</a>
-          </div>
-        </Container>
+        <ContactForm locale={locale} />
       </section>
 
       <ContactMap locale={locale} />

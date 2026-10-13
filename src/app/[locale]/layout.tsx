@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
+import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SiteMotion } from "@/components/SiteMotion";
@@ -77,6 +78,7 @@ export default async function LocaleLayout({
         {children}
         <Footer locale={locale} />
         <SiteMotion />
+        <WhatsAppLink locale={locale} />
       </body>
     </html>
   );

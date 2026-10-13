@@ -124,8 +124,8 @@ test("export : entrée et contact utilisables sans JavaScript", async ({ browser
   for (const field of await fields.all()) await expect(field).toBeDisabled();
   const emails = page.locator('a[href^="mailto:"]');
   // Le doublon au-dessus de la photo a été retiré à la demande du client.
-  await expect(emails).toHaveCount(2);
-  await expect(page.locator('.contact-details a[href^="mailto:"]')).toHaveCount(1);
+  await expect(emails).toHaveCount(3);
+  await expect(page.locator('.contact-mail-details a[href^="mailto:"]')).toHaveCount(1);
   for (const email of await emails.all()) await expect(email).toBeVisible();
   await context.close();
 });

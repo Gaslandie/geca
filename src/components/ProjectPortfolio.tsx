@@ -18,7 +18,7 @@ export function ProjectPortfolio({ locale }: { locale: Locale }) {
 
           <div className="portfolio-intro-heading section-heading">
             <div>
-              <p className="eyebrow">{text.label}</p>
+
 
               <p className="section-description">{text.introduction}</p>
             </div>
