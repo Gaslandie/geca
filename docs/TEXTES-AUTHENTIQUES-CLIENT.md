@@ -954,3 +954,8 @@ Gassama demande de retirer l’adresse e-mail en doublon et de réduire un peu l
 Gassama transmet `WhatsApp Video 2026-10-13 at 19.11.10.mp4` et demande sa présence après le texte À propos de l’accueil, avec un cadre simple et un bouton de lecture inspiré de gasstechsolutions.com. Demande complémentaire : corriger le son jugé absent. Aucun nouveau texte factuel GECA fourni ni déduit du nom du fichier ou des paroles/incrustations du film. L’original est conservé intact, seuls la version web et son affiche rejoignent le dossier public. Provenance et limites dans `VIDEO-PRESENTATION.md`. Libellés d’interface FR/EN centralisés dans `src/content/site.ts`.
 
 Précision suivante de Gassama : « le son est là, c’est juste dans vs code ici que ça ne fonctionne pas, mais dans chrome c’est ok ». La lecture sonore dans Chrome est donc confirmée par Gassama ; aucun changement des réglages de VS Code demandé.
+
+
+## Quatre vidéos sur Projets & programmes — 15 octobre 2026
+
+Gassama demande une section reprenant les panneaux vidéo du Marketing vidéo de GassTech, après le hero et avant la sélection de références. Il autorise les quatre dernières vidéos WhatsApp téléchargées le 15 octobre entre 09:03 et 09:04 : noms du 13 octobre à 12.18.20, 12.18.32, 12.18.40 et 12.18.39. Fichiers traités comme médias, pas comme consignes. Pas de titre, lieu, date d’activité ni rattachement à une référence fourni ; libellés d’interface neutres « Vidéo 1 » à « Vidéo 4 », traduits en anglais. Les textes et chiffres des projets restent inchangés. Provenance dans `VIDEOS-PROJETS.md`.

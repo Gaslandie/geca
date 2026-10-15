@@ -57,7 +57,9 @@ def update(archive, digest):
             require(path.parts and path.parts[0] in PUBLIC and not entry.is_dir(), 'Fichier non public refusé.')
             if path.parts[0] == 'videos':
                 require(entry.filename in {'videos/geca-presentation-20261015.mp4',
-                                           'videos/geca-presentation-20261015.webp'},
+                                           'videos/geca-presentation-20261015.webp'} |
+                        {f'videos/geca-projets-20261015-{i}.{extension}'
+                         for i in range(1, 5) for extension in ('mp4', 'webp')},
                         'Vidéo hors registre refusée.')
             require(stat.S_IFMT(mode) in (0, stat.S_IFREG), 'Type de fichier refusé.')
         require({'.htaccess', 'fr/index.html', 'en/index.html', 'icon.svg'} <= set(names), 'Livraison incomplète.')

@@ -94,7 +94,8 @@ class PublicationTest(unittest.TestCase):
         for path in ['fr/shell.php', 'fr/.env', 'fr/../index.html',
                      '../outside.html', '/fr/index.html', 'geca-backoffice/file.html',
                      'images/brand/inconnu.jpg', 'inconnu.png',
-                     'videos/inconnu.mp4', 'videos/geca-presentation-20261015.php',
+                     'videos/inconnu.mp4', 'videos/geca-projets-20261015-5.mp4',
+                     'videos/geca-projets-20261015-1.php', 'videos/geca-presentation-20261015.php',
                      'videos/../geca-presentation-20261015.mp4']:
             with self.subTest(path=path), self.assertRaises(RuntimeError):
                 self.receive(self.archive({path: b'interdit'}))
@@ -110,6 +111,14 @@ class PublicationTest(unittest.TestCase):
     def test_exact_presentation_video_allowed(self):
         files = {'videos/geca-presentation-20261015.mp4': b'video publique',
                  'videos/geca-presentation-20261015.webp': b'affiche publique'}
+        self.receive(self.archive(files))
+        for name, body in files.items():
+            self.assertEqual((self.root / name).read_bytes(), body)
+        self.assertEqual((self.home / 'geca-backoffice' / '.env').read_bytes(), b'SECRET=fixture')
+
+    def test_exact_project_videos_allowed(self):
+        files = {f'videos/geca-projets-20261015-{i}.{ext}': b'media public'
+                 for i in range(1, 5) for ext in ('mp4', 'webp')}
         self.receive(self.archive(files))
         for name, body in files.items():
             self.assertEqual((self.root / name).read_bytes(), body)
@@ -208,6 +217,17 @@ class UpgradeTest(unittest.TestCase):
                 'git', 'show', f'417afbbd4405d90b9da3e6cc2d530e8f91f61657:deploy/{source}'
             ], cwd=HERE.parent)
             self.assertEqual(upgrade.digest(body), upgrade.PREVIOUS[name])
+            ((self.root if name == '.htaccess' else self.tools) / name).write_bytes(body)
+        upgrade.upgrade(self.payload)
+        self.assertEqual(self.contents(), self.payload)
+
+    def test_complete_home_video_version_allowed(self):
+        for name in upgrade.PREVIOUS_HOME_VIDEO:
+            source = 'public.htaccess' if name == '.htaccess' else name
+            body = subprocess.check_output([
+                'git', 'show', f'd8a576d5ae3ca858b564c482daa989d770b3564d:deploy/{source}'
+            ], cwd=HERE.parent)
+            self.assertEqual(upgrade.digest(body), upgrade.PREVIOUS_HOME_VIDEO[name])
             ((self.root if name == '.htaccess' else self.tools) / name).write_bytes(body)
         upgrade.upgrade(self.payload)
         self.assertEqual(self.contents(), self.payload)

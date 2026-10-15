@@ -45,8 +45,9 @@ try {
   const variants = JSON.parse(await readFile(join(project, "src", "content", "image-variants.json"), "utf8"));
   const permitted = new Set(Object.values(variants).flatMap(items => items.map(item => item.src)));
   const homeVideo = JSON.parse(await readFile(join(project, "src", "content", "home-video.json"), "utf8"));
-  const videoFiles = new Set([homeVideo.src, homeVideo.poster].map(src => {
-    if (!/^\/videos\/geca-presentation-20261015\.(?:mp4|webp)$/.test(src)) throw new Error("Vidéo hors registre autorisé.");
+  const projectVideos = JSON.parse(await readFile(join(project, "src", "content", "project-videos.json"), "utf8"));
+  const videoFiles = new Set([homeVideo, ...projectVideos].flatMap(video => [video.src, video.poster]).map(src => {
+    if (!/^\/videos\/(?:geca-presentation-20261015|geca-projets-20261015-[1-4])\.(?:mp4|webp)$/.test(src)) throw new Error("Vidéo hors registre autorisé.");
     return src.slice(1);
   }));
   await mkdir(join(work, "public", "videos"), { recursive: true });

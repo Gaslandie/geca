@@ -1,0 +1,26 @@
+[
+  {
+    "src": "/videos/geca-projets-20261015-1.mp4",
+    "poster": "/videos/geca-projets-20261015-1.webp",
+    "width": 832,
+    "height": 464
+  },
+  {
+    "src": "/videos/geca-projets-20261015-2.mp4",
+    "poster": "/videos/geca-projets-20261015-2.webp",
+    "width": 832,
+    "height": 464
+  },
+  {
+    "src": "/videos/geca-projets-20261015-3.mp4",
+    "poster": "/videos/geca-projets-20261015-3.webp",
+    "width": 640,
+    "height": 360
+  },
+  {
+    "src": "/videos/geca-projets-20261015-4.mp4",
+    "poster": "/videos/geca-projets-20261015-4.webp",
+    "width": 640,
+    "height": 360
+  }
+]

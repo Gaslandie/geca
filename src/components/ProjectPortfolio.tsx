@@ -1,4 +1,5 @@
 import { PageHero } from "./PageHero";
+import { ProjectVideos } from "./ProjectVideos";
 import Link from "next/link";
 import { getPortfolioProjects, href, interfaceText, pageIntroductions, portfolioContent, territorialExperience, type Locale } from "@/content/site";
 import { Button, Container, PageIntroduction, PhotoPlaceholder, SectionHeading } from "./ui";
@@ -27,6 +28,7 @@ export function ProjectPortfolio({ locale }: { locale: Locale }) {
 
       </PageHero>
 
+      <ProjectVideos locale={locale} />
 
       <section id="liste-projets" className="section portfolio-catalog" aria-label={text.catalogLabel} tabIndex={-1}>
         <Container>

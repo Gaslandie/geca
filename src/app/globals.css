@@ -813,6 +813,48 @@ p, a, button {
 .presentation-video-controls { display: flex; justify-content: center; padding-top: 8px; }
 .presentation-video-controls button:focus-visible { outline-color: var(--green-dark); box-shadow: none; }
 @media (prefers-reduced-motion: reduce) { .presentation-video-play { transition: none; } }
+
+/* Panneaux vidéo Projets : référence GassTech, couleurs et commandes GECA. */
+.project-videos { background: #edf8ef; }
+.project-video-panels { display: flex; gap: 10px; height: clamp(320px, 34vw, 470px); }
+.project-video-panel {
+  position: relative; display: block; min-width: 0; flex: 1 1 0;
+  overflow: hidden; background-color: var(--green-dark); background-size: cover;
+  background-position: center; border-radius: 4px;
+  transition: flex-grow 500ms cubic-bezier(.2,.65,.3,1);
+}
+.project-video-panel.is-active { flex-grow: 5.35; }
+.project-video-panel:focus-visible { outline: 3px solid var(--green-dark); outline-offset: 4px; }
+.project-video-play {
+  position: absolute; top: 30px; right: 30px; display: grid; place-items: center;
+  width: 70px; height: 70px; border-radius: 50%; color: white; background: var(--green);
+  box-shadow: 0 0 0 15px rgb(255 255 255 / 25%); opacity: 0;
+  transition: opacity 180ms ease;
+}
+.project-video-play .icon { fill: currentColor; margin-left: 3px; }
+.project-video-panel.is-active .project-video-play { opacity: 1; }
+.project-video-number { position: absolute; bottom: 16px; left: 16px; color: white; background: rgb(0 40 24 / 85%); padding: 3px 9px; border-radius: 4px; font-variant-numeric: tabular-nums; }
+.project-video-dialog {
+  margin: auto; padding: 0; width: min(1100px, calc(100% - 32px)); max-width: none;
+  max-height: calc(100dvh - 32px); overflow: auto; border: 1px solid #d8e7da;
+  border-radius: 12px; color: var(--green-dark); background: white;
+}
+.project-video-dialog::backdrop { background: rgb(0 20 12 / 82%); }
+.project-video-modal-content { padding: clamp(12px, 2vw, 24px); }
+.project-video-modal-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.project-video-modal-header h2 { margin: 0; font-size: var(--text-body); }
+.project-video-close { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #c7d8cd; border-radius: 50%; background: #edf8ef; color: var(--green-dark); cursor: pointer; flex-shrink: 0; }
+.project-video-dialog video { display: block; width: 100%; height: auto; max-height: calc(100dvh - 190px); object-fit: contain; background: #101b14; }
+.project-video-direct { display: inline-block; margin-top: 12px; text-decoration: underline; }
+.project-video-dialog :is(button, a, video):focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+body:has(.project-video-dialog[open]) { overflow: hidden; }
+@media (max-width: 767px), (hover: none) {
+  .project-video-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); height: auto; gap: 16px; }
+  .project-video-panel { aspect-ratio: 16 / 9; }
+  .project-video-play { width: 54px; height: 54px; top: 22px; right: 22px; opacity: 1; box-shadow: 0 0 0 10px rgb(255 255 255 / 25%); }
+}
+@media (max-width: 479px) { .project-video-panels { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .project-video-panel, .project-video-play { transition: none; } }
 /* Accueil : huit domaines illustrés, inspirés des cercles transmis. */
 .domains-grid {
   display: grid;

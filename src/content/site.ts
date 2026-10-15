@@ -1,4 +1,10 @@
 import homeVideo from "./home-video.json";
+import projectVideos from "./project-videos.json";
+
+export const projectVideoContent = {
+  fr: { title: "Vidéos", play: "Lire la vidéo", video: "Vidéo", close: "Fermer la vidéo", open: "Ouvrir la vidéo directement", error: "La lecture n’a pas démarré. Utilisez les commandes du lecteur ou ouvrez la vidéo directement.", items: projectVideos },
+  en: { title: "Videos", play: "Play video", video: "Video", close: "Close video", open: "Open video directly", error: "Playback did not start. Use the player controls or open the video directly.", items: projectVideos },
+};
 
 export const locales = ["fr", "en"] as const;
 export type Locale = (typeof locales)[number];

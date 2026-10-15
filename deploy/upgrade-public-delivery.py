@@ -25,9 +25,16 @@ PREVIOUS = {
 }
 
 
-NEW = {
+PREVIOUS_HOME_VIDEO = {
     'receive-public.py': 'a922920ec4a638cae9a1428926e92678230517016d1330e575eef552d589e81e',
     'update-public.py': 'fff16e08de65d655b66964a4c5b5257905eac1646d1b6dc1ad3a3a50ba655b8c',
+    '.htaccess': '36df22233acad5d8deecb93bcb9f6d4389577d7b50c38d2c5ee6e929a7d20540',
+}
+
+
+NEW = {
+    'receive-public.py': '63811df2249dc340e2b90528bb439e596302b859c212327dfcc636ee276fc89d',
+    'update-public.py': '5f6b4bed38caa3bcda7aaa3105d9c03372c22ee74b8ca49f468664a3b632558b',
     '.htaccess': '36df22233acad5d8deecb93bcb9f6d4389577d7b50c38d2c5ee6e929a7d20540',
 }
 
@@ -87,7 +94,7 @@ def upgrade(payload):
         # cPanel peut conserver CRLF ou une ligne vide finale ; directives inchangées.
         observed['.htaccess'] = observed['.htaccess'].replace(b'\r\n', b'\n').rstrip() + b'\n'
         require(any(all(digest(observed[name]) == version[name] for name in version)
-                    for version in (OLD, PREVIOUS)),
+                    for version in (OLD, PREVIOUS, PREVIOUS_HOME_VIDEO)),
                 'Version distante inattendue ou partielle : arrêt sans remplacement.')
         backup = Path(tempfile.mkdtemp(prefix='geca-outils-sauvegarde-', dir=HOME))
         backup.chmod(0o700)
