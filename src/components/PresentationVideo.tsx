@@ -1,20 +1,28 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import type { getHomeContent } from "@/content/site";
 import { assetPath } from "@/lib/assets";
 import { Icon } from "./ui";
 
+const subscribeToHydration = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
+
 export function PresentationVideo({ video }: { video: ReturnType<typeof getHomeContent>["about"]["video"] }) {
   const player = useRef<HTMLVideoElement>(null);
+  // Le HTML reste utilisable sans JS ; un seul jeu de commandes après hydratation.
+  const hydrated = useSyncExternalStore(subscribeToHydration, clientSnapshot, serverSnapshot);
   const [started, setStarted] = useState(false);
   const [failed, setFailed] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
+  const nativeControls = !hydrated || started || failed;
 
   const play = async () => {
     const element = player.current;
     if (!element) return;
     setFailed(false);
+    setStarted(true);
     element.muted = false;
     element.volume = 1;
     setSoundOn(true);
@@ -45,10 +53,10 @@ export function PresentationVideo({ video }: { video: ReturnType<typeof getHomeC
           poster={assetPath(video.poster)}
           width={video.width}
           height={video.height}
-          controls
+          controls={nativeControls}
           playsInline
           preload="none"
-          tabIndex={0}
+          tabIndex={nativeControls ? 0 : -1}
           aria-label={video.title}
           onPlay={() => { setStarted(true); setFailed(false); }}
           onError={() => setFailed(true)}
@@ -56,7 +64,7 @@ export function PresentationVideo({ video }: { video: ReturnType<typeof getHomeC
         >
           <a href={assetPath(video.src)}>{video.open}</a>
         </video>
-        {!started && !failed && (
+        {hydrated && !started && !failed && (
           <button type="button" className="presentation-video-play" aria-label={video.play} onClick={play}>
             <Icon name="play" />
           </button>
@@ -68,7 +76,6 @@ export function PresentationVideo({ video }: { video: ReturnType<typeof getHomeC
         </button>
       </div>}
       {failed && <p className="presentation-video-error" role="status">{video.error} <a href={assetPath(video.src)}>{video.open}</a></p>}
-      <noscript><style>{`.presentation-video-play { display: none; }`}</style></noscript>
     </div>
   );
 }

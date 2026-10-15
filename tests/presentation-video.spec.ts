@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { devices, expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
 test("vidéo accueil : placement FR/EN, petit écran, clavier et lecture réelle", async ({ page }) => {
@@ -14,6 +14,8 @@ test("vidéo accueil : placement FR/EN, petit écran, clavier et lecture réelle
       const frame = page.locator(".presentation-video");
       await frame.scrollIntoViewIfNeeded();
       await expect(frame.getByRole("button")).toHaveAccessibleName(locale === "fr" ? "Lire la vidéo de présentation" : "Play the presentation video");
+      await expect(frame.locator("video")).toHaveJSProperty("controls", false);
+      await expect(frame.locator("video")).toHaveAttribute("tabindex", "-1");
       const copy = await page.locator(".about-content").boundingBox();
       const box = await frame.boundingBox();
       const actions = await page.locator(".about-video-actions").boundingBox();
@@ -54,7 +56,29 @@ test("vidéo accueil : fichier indisponible, repli lisible", async ({ page }) =>
   await page.goto("/fr");
   await page.getByRole("button", { name: "Lire la vidéo de présentation" }).click();
   await expect(page.locator(".presentation-video").getByRole("status")).toContainText("La vidéo n’a pas pu démarrer.");
+  await expect(page.locator(".presentation-video video")).toHaveJSProperty("controls", true);
+  await expect(page.locator(".presentation-video-play")).toBeHidden();
   await expect(page.locator(".presentation-video").getByRole("link", { name: "Ouvrir la vidéo" })).toHaveAttribute("href", /\/videos\/geca-presentation-20261015\.mp4$/);
+});
+
+test("vidéo accueil : un seul bouton sur mobile tactile, puis commandes natives", async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ ...devices["Pixel 7"], baseURL });
+  const page = await context.newPage();
+  await page.goto("/fr");
+  const button = page.getByRole("button", { name: "Lire la vidéo de présentation" });
+  const video = page.locator(".presentation-video video");
+  await expect(button).toBeVisible();
+  await expect(video).toHaveJSProperty("controls", false);
+  const box = await button.boundingBox();
+  expect(Math.abs(box!.width - box!.height)).toBeLessThan(1);
+  await button.tap();
+  await expect(button).toBeHidden();
+  await expect(video).toHaveJSProperty("controls", true);
+  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.paused && element.currentTime > 0 && !element.muted), { timeout: 15000 }).toBe(true);
+  await video.evaluate((element: HTMLVideoElement) => element.pause());
+  await expect(button).toBeHidden();
+  await expect(video).toHaveJSProperty("controls", true);
+  await context.close();
 });
 
 test("vidéo accueil : commandes utilisables sans JavaScript", async ({ browser, baseURL }) => {

@@ -22,6 +22,8 @@ FFmpeg 7.0.2 fourni par `imageio-ffmpeg` 0.6.0 sous `/tmp/geca-video-tools`. Auc
 
 Lecture au clic, `preload="none"`, commandes natives de pause, volume, progression et plein écran. Pas de lecteur tiers ni de suivi ajouté. Focus transféré au lecteur après activation au clavier. Commandes natives sans JavaScript ; message et lien direct en cas d’erreur. Ce média public ne donne aucun accès au back-office.
 
+Correction après la capture du téléphone de Gassama : le bouton vert et les commandes natives ne sont plus affichés ensemble avant la lecture. Le HTML initial conserve le lecteur natif ; après activation de JavaScript, seul le bouton vert est visible jusqu’à l’appui. Les commandes natives prennent ensuite le relais et restent disponibles après pause ou erreur. Aucun masquage des commandes internes propre à Chrome, aucune modification du son ou du fichier vidéo.
+
 Après le signalement « le son ne marche pas » : le bouton principal réactive explicitement le son et règle le lecteur à 100 %, puis commande visible « Couper le son / Activer le son », synchronisée avec les commandes natives. Le volume système n’est pas modifié. Les 30 premières secondes contiennent bien un signal audio : moyenne source -21,4 dB, dérivé -21,5 dB (FFmpeg). Le signal audio décodé par Chrome a aussi été mesuré : AudioContext actif, amplitude maximale 0,171, lecteur non muet, volume 1. Gassama confirme ensuite que le son fonctionne dans Chrome et que le problème concerne seulement l’aperçu VS Code. Aucun réglage système ou VS Code modifié.
 
 Sous-titres/transcription non fournis : aucun texte inventé. Les contrôles automatiques ne prouvent pas l’accessibilité du contenu sonore. Résolution source limitée sur grand écran.
