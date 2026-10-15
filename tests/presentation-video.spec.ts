@@ -5,7 +5,7 @@ test("vidéo accueil : placement FR/EN, petit écran, clavier et lecture réelle
   const errors: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
   const videoRequests: string[] = [];
-  page.on("request", request => { if (request.url().endsWith("geca-presentation-20261015.mp4")) videoRequests.push(request.url()); });
+  page.on("request", request => { if (new URL(request.url()).pathname.endsWith("geca-presentation-20261015.mp4")) videoRequests.push(request.url()); });
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const locale of ["fr", "en"]) {
     for (const width of [320, 768, 1440]) {
@@ -34,6 +34,7 @@ test("vidéo accueil : placement FR/EN, petit écran, clavier et lecture réelle
   await page.keyboard.press("Enter");
   await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.paused && element.currentTime > 0), { timeout: 15000 }).toBe(true);
   await expect(video).toBeFocused();
+  expect(await video.evaluate((element: HTMLVideoElement) => element.duration)).toBeCloseTo(299.82, 1);
   expect(await video.evaluate((element: HTMLVideoElement) => element.controls && !element.muted && !element.autoplay)).toBe(true);
   const sound = page.locator(".presentation-video-controls button");
   await expect(sound).toHaveText("Couper le son");
@@ -52,13 +53,13 @@ test("vidéo accueil : placement FR/EN, petit écran, clavier et lecture réelle
 });
 
 test("vidéo accueil : fichier indisponible, repli lisible", async ({ page }) => {
-  await page.route("**/videos/geca-presentation-20261015.mp4", route => route.abort());
+  await page.route(url => url.pathname.endsWith("/videos/geca-presentation-20261015.mp4"), route => route.abort());
   await page.goto("/fr");
   await page.getByRole("button", { name: "Lire la vidéo de présentation" }).click();
   await expect(page.locator(".presentation-video").getByRole("status")).toContainText("La vidéo n’a pas pu démarrer.");
   await expect(page.locator(".presentation-video video")).toHaveJSProperty("controls", true);
   await expect(page.locator(".presentation-video-play")).toBeHidden();
-  await expect(page.locator(".presentation-video").getByRole("link", { name: "Ouvrir la vidéo" })).toHaveAttribute("href", /\/videos\/geca-presentation-20261015\.mp4$/);
+  await expect(page.locator(".presentation-video").getByRole("link", { name: "Ouvrir la vidéo" })).toHaveAttribute("href", /\/videos\/geca-presentation-20261015\.mp4\?v=c4d3c03005f8$/);
 });
 
 test("vidéo accueil : un seul bouton sur mobile tactile, puis commandes natives", async ({ browser, baseURL }) => {

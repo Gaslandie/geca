@@ -2,7 +2,7 @@
 
 Demande de Gassama : vidéo après le texte À propos de l’accueil, cadre simple, bouton inspiré de GassTech. FR/EN, lien « À propos de GECA » après le lecteur. Les faits GECA et les pages À propos dédiées sont conservés.
 
-## Source et préparation
+## Source initiale et préparation
 
 Original intact : `/home/mohamed-gassama/Downloads/WhatsApp Video 2026-10-13 at 19.11.10.mp4`. Son nom ne confirme pas une date de tournage. Auteur et licence non fournis ; utilisation sur le site demandée par Gassama. Aucun autre fichier de Downloads exposé.
 
@@ -39,3 +39,17 @@ Validation finale consignée dans `BENCHMARK.md`.
 L’aperçu statique local prend aussi en charge les requêtes de portions MP4 pour avancer dans le film ; plages invalides refusées. Contrôles finaux : lint, TypeScript, builds locale/publique, 3 tests lecteur local, 14 tests export, 19 tests de livraison isolée réussis. Son confirmé par Gassama dans Chrome.
 
 Gassama autorise ensuite le commit et le push de l’ensemble le 15 octobre 2026. Le contrôle de publication distante reste distinct ; prérequis des outils Bluehost indiqué ci-dessus.
+
+## Remplacement demandé à 12 h 10 — 15 octobre 2026
+
+Vidéo actuelle : `WhatsApp Video 2026-10-15 at 12.10.11.mp4`, dernier MP4 téléchargé et durée vérifiée de 299,82 secondes (4 min 59). L’original reste intact dans Downloads. Utilisation et commit/push/déploiement demandés par Gassama ; auteur et licence non précisés. Aucun fait ajouté aux textes à partir des images ou du son.
+
+640 × 360, 25 images/seconde, H.264 High/yuv420p et AAC stéréo 44,1 kHz. Pistes copiées sans réencodage ni découpage ; métadonnées et chapitres retirés, index MP4 déplacé au début pour la lecture web. Affiche WebP extraite à 8 secondes, qualité 85, dimensions originales. Contrôle de décodage complet sans erreur.
+
+| Fichier actuel | Octets | SHA-256 |
+| --- | ---: | --- |
+| Original WhatsApp | 35 951 216 | `278fb4f572de12cc2c7662dbbc5753da1ab508388f74bde5322eb92a18b70067` |
+| `public/videos/geca-presentation-20261015.mp4` | 36 127 639 | `c4d3c03005f8f768ceb9ff3c33976d1e48eaf773a1e3582de800a28b448ed253` |
+| `public/videos/geca-presentation-20261015.webp` | 33 496 | `3d840f81bd88802a54e4615abe817184bdce53c23903c19e0969670ccaee1e9c` |
+
+Les chemins physiques restent dans le registre fermé déjà autorisé. La révision `c4d3c03005f8` ajoutée aux URL du lecteur et de l’affiche évite de réutiliser une ancienne copie en cache. Bouton mobile corrigé, son, contrôles, textes et quatre vidéos Projets conservés. L’ancien média reste récupérable dans Git et les sauvegardes de publication.

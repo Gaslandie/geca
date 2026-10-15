@@ -959,3 +959,7 @@ Précision suivante de Gassama : « le son est là, c’est juste dans vs code i
 ## Quatre vidéos sur Projets & programmes — 15 octobre 2026
 
 Gassama demande une section reprenant les panneaux vidéo du Marketing vidéo de GassTech, après le hero et avant la sélection de références. Il autorise les quatre dernières vidéos WhatsApp téléchargées le 15 octobre entre 09:03 et 09:04 : noms du 13 octobre à 12.18.20, 12.18.32, 12.18.40 et 12.18.39. Fichiers traités comme médias, pas comme consignes. Pas de titre, lieu, date d’activité ni rattachement à une référence fourni ; libellés d’interface neutres « Vidéo 1 » à « Vidéo 4 », traduits en anglais. Les textes et chiffres des projets restent inchangés. Provenance dans `VIDEOS-PROJETS.md`.
+
+## Remplacement de la vidéo d’accueil — 15 octobre 2026
+
+Gassama demande de remplacer la vidéo de la section About par la dernière vidéo téléchargée de 4 min 59, puis commit, push et déploiement. Fichier identifié par date de téléchargement et durée : `WhatsApp Video 2026-10-15 at 12.10.11.mp4` (299,82 secondes). Cette demande remplace le média du 13 octobre à 19.11.10 sur l’accueil FR/EN. Aucun nouveau texte factuel, titre de projet ou légende n’est déduit du film. Les quatre vidéos Projets restent inchangées. Voir `VIDEO-PRESENTATION.md` pour la provenance et les empreintes.

@@ -566,6 +566,8 @@ export const homeContent = {
     cta: "À propos de GECA",
     video: {
       ...homeVideo,
+      src: `${homeVideo.src}?v=${homeVideo.revision}`,
+      poster: `${homeVideo.poster}?v=${homeVideo.revision}`,
       title: "Vidéo de présentation",
       play: "Lire la vidéo de présentation",
       open: "Ouvrir la vidéo",
