@@ -75,7 +75,6 @@ export function ProjectVideos({ locale }: { locale: Locale }) {
           <video ref={player} controls playsInline preload="none" width={text.items[selected].width} height={text.items[selected].height}
             aria-label={`${text.video} ${selected + 1}`} onError={() => setFailed(true)} onPlay={() => setFailed(false)} />
           {failed && <p role="status">{text.error}</p>}
-          <a className="project-video-direct" href={assetPath(text.items[selected].src)}>{text.open}</a>
         </div>
       </dialog>
     </section>

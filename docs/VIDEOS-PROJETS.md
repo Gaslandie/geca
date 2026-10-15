@@ -36,7 +36,9 @@ Les pistes H.264 et AAC d’origine sont copiées sans réencodage : qualité, c
 
 Données fermées dans `src/content/project-videos.json`, libellés FR/EN dans `src/content/site.ts`. Les scripts d’export et de réception autorisent ces huit noms précis en plus de la vidéo d’accueil ; fichiers inconnus, exécutables et chemins privés restent refusés. Mise à niveau des outils distants préparée avec empreintes attendues ; aucun outil Bluehost changé à distance par cette tâche.
 
-Lecture en fenêtre native dialog, Échap et fermeture arrêtent le son et libèrent le fichier ; focus rendu au panneau. Repli vers le fichier direct sans JavaScript ou si la lecture échoue. Sous-titres et transcription non fournis. Vérification Chrome sur ordinateur avec tailles mobiles simulées ; aucune affirmation de test sur téléphone réel.
+Lecture en fenêtre native dialog, Échap et fermeture arrêtent le son et libèrent le fichier ; focus rendu au panneau. Repli vers le fichier direct sans JavaScript. Sous-titres et transcription non fournis. Vérification Chrome sur ordinateur avec tailles mobiles simulées ; aucune affirmation de test sur téléphone réel.
+
+Avant le déploiement du remplacement de la vidéo d’accueil, Gassama demande le retrait de « Ouvrir la vidéo directement » sous les quatre lecteurs Projets. Lien retiré en FR/EN et message d’erreur adapté aux commandes restantes. Les panneaux de lecture, commandes natives, son, fermeture, clavier et accès sans JavaScript restent disponibles.
 
 ## Vérifications locales du 15 octobre 2026
 

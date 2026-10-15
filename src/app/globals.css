@@ -845,7 +845,6 @@ p, a, button {
 .project-video-modal-header h2 { margin: 0; font-size: var(--text-body); }
 .project-video-close { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #c7d8cd; border-radius: 50%; background: #edf8ef; color: var(--green-dark); cursor: pointer; flex-shrink: 0; }
 .project-video-dialog video { display: block; width: 100%; height: auto; max-height: calc(100dvh - 190px); object-fit: contain; background: #101b14; }
-.project-video-direct { display: inline-block; margin-top: 12px; text-decoration: underline; }
 .project-video-dialog :is(button, a, video):focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
 body:has(.project-video-dialog[open]) { overflow: hidden; }
 @media (max-width: 767px), (hover: none) {

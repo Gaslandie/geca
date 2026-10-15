@@ -37,6 +37,7 @@ test("projets : les quatre vidéos jouent, clavier, son, fermeture et focus", as
     await panels.nth(index).focus();
     await page.keyboard.press("Enter");
     await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole("link")).toHaveCount(0);
     await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.paused && element.currentTime > 0), { timeout: 15000 }).toBe(true);
     expect(await video.evaluate((element: HTMLVideoElement) => !element.muted && element.volume === 1 && element.controls)).toBe(true);
     expect(await dialog.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
@@ -64,7 +65,10 @@ test("projets : média absent, repli et mouvement réduit", async ({ page }) => 
   expect(await panel.evaluate(element => getComputedStyle(element).transitionDuration)).toBe("0s");
   await panel.click();
   await expect(page.locator(".project-video-dialog").getByRole("status")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Ouvrir la vidéo directement" })).toHaveAttribute("href", /geca-projets-20261015-1\.mp4$/);
+  await expect(page.locator(".project-video-dialog").getByRole("link")).toHaveCount(0);
+  await expect(page.locator(".project-video-dialog video")).toHaveJSProperty("controls", true);
+  await page.getByRole("button", { name: "Fermer la vidéo" }).click();
+  await expect(panel).toBeFocused();
 });
 
 test("projets : quatre vidéos accessibles sans JavaScript", async ({ browser, baseURL }) => {
