@@ -308,3 +308,8 @@ Proposition 02 validée : texte à gauche, photo lumineuse à droite dans une fo
 ## Titres uniques — 13 octobre 2026
 
 Un seul titre descriptif par en-tête de section ; petit repère supprimé des SectionHeading et des en-têtes manuels de l’accueil. H2 partagés 36–56 px (--text-section-title), mêmes polices/centrage et retours à la ligne. Identité du hero, catégories d’articles et intitulés nécessaires de cartes gardent leur fonction. Formulaire Contact en deux colonnes dès 1000 px, une colonne sur petit écran ; aucun champ prérempli. Bouton WhatsApp partagé fixe 56 px, bas/droite avec marges de zone sûre, nom accessible et retrait lorsque le dialogue de recherche est ouvert.
+
+
+## Compteurs de l’accueil — 15 octobre 2026
+
+Les quatre chiffres de `ResultsFigures` sur l’accueil FR/EN utilisent `countUp` et `data-count-group`, reconnus par `SiteMotion`. Ils progressent ensemble de zéro aux valeurs validées en 1 800 ms lors de leur première apparition. Ne pas rattacher ce déclenchement à des classes de mise en page qui peuvent changer. Conserver les chiffres définitifs dans le HTML, leur espace réservé et la valeur accessible fixe ; mouvement réduit, économie de données et absence de JavaScript/API gardent un affichage final immédiat. Le cadre, les tailles et les séparateurs restent inchangés.

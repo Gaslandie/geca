@@ -178,7 +178,7 @@ export function SiteMotion() {
           counterObserver?.unobserve(entry.target);
         }
       }, { threshold: 0 });
-      document.querySelectorAll(".impact .stats-grid").forEach((group) => {
+      document.querySelectorAll("[data-count-group]").forEach((group) => {
         if (!counted.has(group)) counterObserver?.observe(group);
       });
       const main = document.querySelector("main");

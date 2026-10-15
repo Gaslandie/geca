@@ -768,6 +768,51 @@ p, a, button {
 .about .section-heading {
   margin-bottom: 0;
 }
+.presentation-video {
+  width: min(100%, 960px);
+  margin: var(--heading-gap) auto 0;
+  padding: clamp(6px, 1vw, 10px);
+  border: 1px solid #c7d8cd;
+  border-radius: 18px;
+  background: #f4f7f2;
+  box-shadow: 0 12px 32px rgb(0 63 27 / 9%);
+}
+.presentation-video-frame { position: relative; }
+.presentation-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #101b14;
+}
+.presentation-video-play {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: clamp(60px, 7vw, 80px);
+  height: clamp(60px, 7vw, 80px);
+  padding: 0;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: var(--green);
+  color: white;
+  box-shadow: 0 0 0 12px rgb(255 255 255 / 24%), 0 6px 24px rgb(0 0 0 / 18%);
+  cursor: pointer;
+  transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+.presentation-video-play .icon { width: 28px; height: 28px; fill: currentColor; margin-left: 3px; }
+.presentation-video-play:hover { background: var(--green-dark); box-shadow: 0 0 0 16px rgb(255 255 255 / 24%), 0 6px 24px rgb(0 0 0 / 18%); }
+.presentation-video :is(button, video):focus-visible { outline: 3px solid white; outline-offset: 4px; box-shadow: 0 0 0 7px var(--green-dark); }
+.about-video-actions { display: flex; justify-content: center; margin-top: var(--heading-gap); }
+.presentation-video-error { padding: 12px; }
+.presentation-video-error a { text-decoration: underline; }
+.presentation-video-controls { display: flex; justify-content: center; padding-top: 8px; }
+.presentation-video-controls button:focus-visible { outline-color: var(--green-dark); box-shadow: none; }
+@media (prefers-reduced-motion: reduce) { .presentation-video-play { transition: none; } }
 /* Accueil : huit domaines illustrés, inspirés des cercles transmis. */
 .domains-grid {
   display: grid;

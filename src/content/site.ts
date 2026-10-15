@@ -1,3 +1,5 @@
+import homeVideo from "./home-video.json";
+
 export const locales = ["fr", "en"] as const;
 export type Locale = (typeof locales)[number];
 export const isLocale = (value: string): value is Locale =>
@@ -556,6 +558,15 @@ export const homeContent = {
     description:
       `Global EcoAction (GECA), anciennement RENASCEDD, est une ONG guinéenne créée le ${identity.foundedOn.fr}. Nous agissons aux côtés des communautés pour restaurer les écosystèmes, protéger la biodiversité et améliorer les conditions de vie.`,
     cta: "À propos de GECA",
+    video: {
+      ...homeVideo,
+      title: "Vidéo de présentation",
+      play: "Lire la vidéo de présentation",
+      open: "Ouvrir la vidéo",
+      error: "La vidéo n’a pas pu démarrer.",
+      mute: "Couper le son",
+      unmute: "Activer le son",
+    },
     sideLabel: "Notre signature",
     sideText: "Global EcoAction — Agir pour un avenir durable.",
     since: "Aux côtés des communautés depuis",
@@ -1541,6 +1552,15 @@ export function getHomeContent(locale: Locale) {
       title: "Who are we?",
       description: `Global EcoAction (GECA), formerly RENASCEDD, is a Guinean NGO founded on ${identity.foundedOn.en}. We work alongside communities to restore ecosystems, protect biodiversity and improve living conditions.`,
       cta: "About GECA",
+      video: {
+        ...homeContent.about.video,
+        title: "Presentation video",
+        play: "Play the presentation video",
+        open: "Open the video",
+        error: "The video could not start.",
+        mute: "Mute sound",
+        unmute: "Enable sound",
+      },
     },
     domains: {
       ...homeContent.domains,

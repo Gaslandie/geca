@@ -1,4 +1,5 @@
 import { createServer } from "node:http";
+import { createReadStream } from "node:fs";
 import { readFile, realpath, stat } from "node:fs/promises";
 import { resolve, sep, extname } from "node:path";
 
@@ -54,6 +55,45 @@ createServer(async (request, response) => {
     }
     file = await realpath(file);
     if (!file.startsWith(`${root}${sep}`)) throw new Error("Accès refusé");
+    if (extname(file) === ".mp4") {
+      const { size } = await stat(file);
+      let start = 0;
+      let end = size - 1;
+      const range = request.method === "GET" ? request.headers.range : undefined;
+      if (range) {
+        const match = /^bytes=(\d*)-(\d*)$/.exec(range);
+        let valid = Boolean(match && (match[1] || match[2]));
+        if (valid) {
+          if (!match[1]) {
+            const suffix = Number(match[2]);
+            valid = Number.isSafeInteger(suffix) && suffix > 0;
+            start = Math.max(0, size - suffix);
+          } else {
+            start = Number(match[1]);
+            const last = match[2] ? Number(match[2]) : size - 1;
+            valid = Number.isSafeInteger(start) && Number.isSafeInteger(last);
+            end = Math.min(last, size - 1);
+          }
+          valid = valid && start >= 0 && start < size && end >= start;
+        }
+        if (!valid) {
+          response.writeHead(416, { "Content-Range": `bytes */${size}`, "Accept-Ranges": "bytes" }).end();
+          return;
+        }
+      }
+      response.writeHead(range ? 206 : 200, {
+        "Content-Type": "video/mp4", "Accept-Ranges": "bytes", "Content-Length": end - start + 1,
+        ...(range ? { "Content-Range": `bytes ${start}-${end}/${size}` } : {}),
+      });
+      if (request.method === "HEAD") response.end();
+      else {
+        const stream = createReadStream(file, { start, end });
+        stream.on("error", () => response.destroy());
+        response.on("close", () => stream.destroy());
+        stream.pipe(response);
+      }
+      return;
+    }
     const body = await readFile(file);
     response.writeHead(200, { "Content-Type": mime[extname(file)] ?? "application/octet-stream" });
     response.end(request.method === "HEAD" ? undefined : body);

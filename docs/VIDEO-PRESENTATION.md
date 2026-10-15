@@ -1,0 +1,39 @@
+# Vidéo de l’accueil — 15 octobre 2026
+
+Demande de Gassama : vidéo après le texte À propos de l’accueil, cadre simple, bouton inspiré de GassTech. FR/EN, lien « À propos de GECA » après le lecteur. Les faits GECA et les pages À propos dédiées sont conservés.
+
+## Source et préparation
+
+Original intact : `/home/mohamed-gassama/Downloads/WhatsApp Video 2026-10-13 at 19.11.10.mp4`. Son nom ne confirme pas une date de tournage. Auteur et licence non fournis ; utilisation sur le site demandée par Gassama. Aucun autre fichier de Downloads exposé.
+
+| Fichier | Octets | SHA-256 |
+| --- | ---: | --- |
+| Original WhatsApp | 37 533 231 | `29c02d641d8a3efff22fe2ab924f0b8ee2af9c4b984b7b06fedee8a44f855ffc` |
+| `public/videos/geca-presentation-20261015.mp4` | 34 310 332 | `f2f32a531278a7ad9581f24256534887f66b71cb74f8b802f0d2697e156322b1` |
+| `public/videos/geca-presentation-20261015.webp` | 34 314 | `7fa2b00a68ad8ce692e062b1d847f2c00d4586700b9cece6f66d1ea7df0f417f` |
+
+Source : 313,01 secondes, 640 × 360, 25 images/seconde, H.264 et AAC stéréo. Version web H.264 CRF 22, AAC 96 kbit/s, sans changement de cadrage ni de durée, métadonnées et chapitres retirés, index MP4 placé en début (`faststart`). Affiche extraite à 8 secondes et convertie en WebP. Pas d’image générée ni d’agrandissement artificiel. Le texte de l’affiche appartient au film ; aucune information de celui-ci ajoutée aux textes GECA.
+
+FFmpeg 7.0.2 fourni par `imageio-ffmpeg` 0.6.0 sous `/tmp/geca-video-tools`. Aucune dépendance du site ou installation système ajoutée. Conserver l’original pour la reprise sur un autre ordinateur ; les deux dérivés suffisent au lecteur public.
+
+## Fonctionnement
+
+`PresentationVideo`, textes FR/EN dans `site.ts`, chemins fermés dans `home-video.json`. Cadre clair bordé, coins arrondis, ombre discrète, largeur maximale 960 px, ratio 16:9. Bouton circulaire vert avec triangle blanc et halo statique. Apparition partagée `SiteMotion`, préférences de mouvement respectées.
+
+Lecture au clic, `preload="none"`, commandes natives de pause, volume, progression et plein écran. Pas de lecteur tiers ni de suivi ajouté. Focus transféré au lecteur après activation au clavier. Commandes natives sans JavaScript ; message et lien direct en cas d’erreur. Ce média public ne donne aucun accès au back-office.
+
+Après le signalement « le son ne marche pas » : le bouton principal réactive explicitement le son et règle le lecteur à 100 %, puis commande visible « Couper le son / Activer le son », synchronisée avec les commandes natives. Le volume système n’est pas modifié. Les 30 premières secondes contiennent bien un signal audio : moyenne source -21,4 dB, dérivé -21,5 dB (FFmpeg). Le signal audio décodé par Chrome a aussi été mesuré : AudioContext actif, amplitude maximale 0,171, lecteur non muet, volume 1. Gassama confirme ensuite que le son fonctionne dans Chrome et que le problème concerne seulement l’aperçu VS Code. Aucun réglage système ou VS Code modifié.
+
+Sous-titres/transcription non fournis : aucun texte inventé. Les contrôles automatiques ne prouvent pas l’accessibilité du contenu sonore. Résolution source limitée sur grand écran.
+
+## Export et prochaine publication
+
+Le build public copie seulement les deux chemins du registre. Les outils de livraison préparés acceptent exactement ce MP4 et son affiche ; MP4 inconnus, fichiers privés et chemins détournés restent refusés. Sauvegardes, empreintes et restauration conservées.
+
+Avant une future publication explicitement demandée : vérifier puis actualiser les outils distants `receive-public.py` et `update-public.py` avec `upgrade-public-delivery.py`. Les anciennes versions peuvent refuser les nouveaux chemins. Seuls des ensembles complets d’empreintes connus sont acceptés, pas un mélange partiel. Aucune action distante, commit ou push effectué par cette demande.
+
+Validation finale consignée dans `BENCHMARK.md`.
+
+L’aperçu statique local prend aussi en charge les requêtes de portions MP4 pour avancer dans le film ; plages invalides refusées. Contrôles finaux : lint, TypeScript, builds locale/publique, 3 tests lecteur local, 14 tests export, 19 tests de livraison isolée réussis. Son confirmé par Gassama dans Chrome.
+
+Gassama autorise ensuite le commit et le push de l’ensemble le 15 octobre 2026. Le contrôle de publication distante reste distinct ; prérequis des outils Bluehost indiqué ci-dessus.

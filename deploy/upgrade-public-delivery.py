@@ -18,9 +18,16 @@ OLD = {
     'update-public.py': 'f60efe37f55ba6a399eda013f7d4d31fae89c24d3385bf2a8b6103a98d146096',
     '.htaccess': '6e613e2ef74e206dbb0b4d60208a943140567c5e76b732e4110c33f46e4f65f9',
 }
-NEW = {
+PREVIOUS = {
     'receive-public.py': '55b90735ab91b798e3ad14563d9e79371b3b9c1a0e850310eb5d918d7cb18ae0',
     'update-public.py': 'fe4af749e25505aac5e87c7de6cbf28adb6b87862b8c2f2369b04d76f25aa5a6',
+    '.htaccess': '36df22233acad5d8deecb93bcb9f6d4389577d7b50c38d2c5ee6e929a7d20540',
+}
+
+
+NEW = {
+    'receive-public.py': 'a922920ec4a638cae9a1428926e92678230517016d1330e575eef552d589e81e',
+    'update-public.py': 'fff16e08de65d655b66964a4c5b5257905eac1646d1b6dc1ad3a3a50ba655b8c',
     '.htaccess': '36df22233acad5d8deecb93bcb9f6d4389577d7b50c38d2c5ee6e929a7d20540',
 }
 
@@ -79,7 +86,8 @@ def upgrade(payload):
         observed = dict(before)
         # cPanel peut conserver CRLF ou une ligne vide finale ; directives inchangées.
         observed['.htaccess'] = observed['.htaccess'].replace(b'\r\n', b'\n').rstrip() + b'\n'
-        require(all(digest(observed[name]) == OLD[name] for name in OLD),
+        require(any(all(digest(observed[name]) == version[name] for name in version)
+                    for version in (OLD, PREVIOUS)),
                 'Version distante inattendue ou partielle : arrêt sans remplacement.')
         backup = Path(tempfile.mkdtemp(prefix='geca-outils-sauvegarde-', dir=HOME))
         backup.chmod(0o700)
@@ -103,7 +111,7 @@ def upgrade(payload):
             require(all(path.read_bytes() == before[name] for name, path in targets.items()),
                     'Retour incomplet : consulter la sauvegarde privée.')
             raise
-        print('Deux outils et cache public mis à jour. Redirection 301 conservée.')
+        print('Outils publics mis à jour. Protections Apache et redirection 301 conservées.')
         print('Sauvegarde privée vérifiée :', backup)
         print('Clé SSH, administration et base de données inchangées.')
 

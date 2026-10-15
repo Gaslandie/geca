@@ -13,6 +13,7 @@ test("livraison : chaque fichier public est servi, styles et images compris", as
     expect(response.status(), file.path).toBe(200);
     expect((await response.body()).length, file.path).toBe(file.bytes);
     if (file.path.endsWith(".webp")) expect(response.headers()["content-type"]).toBe("image/webp");
+    if (file.path.endsWith(".mp4")) expect(response.headers()["content-type"]).toBe("video/mp4");
     if (file.path.endsWith(".css")) expect(response.headers()["content-type"]).toContain("text/css");
   }
 });

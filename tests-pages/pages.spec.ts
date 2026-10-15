@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { locales, routes } from "../src/content/site";
+import { homeContent, locales, routes } from "../src/content/site";
 import { readdir } from "node:fs/promises";
 
 test("export : toutes les pages FR/EN, ressources et entrée du site", async ({ request }) => {
@@ -153,7 +153,23 @@ test("export : newsletter interne sans adresse locale ni fausse inscription", as
     await expect(page.locator(".newsletter-availability")).toContainText(locale === "fr" ? "pas encore disponible" : "not yet available");
     await expect(page.locator("#hero-title")).toHaveText(locale === "fr" ? "AGIR POUR UN AVENIR DURABLE" : "ACTING FOR A SUSTAINABLE FUTURE");
     for (const link of await page.locator("#main-content a").all()) {
-      expect(await link.getAttribute("href")).toMatch(new RegExp(`^/geca/${locale}/`));
+      if (await link.evaluate(element => Boolean(element.closest(".presentation-video video")))) {
+        await expect(link).toHaveAttribute("href", `/geca${homeContent.about.video.src}`);
+      } else {
+        expect(await link.getAttribute("href")).toMatch(new RegExp(`^/geca/${locale}/`));
+      }
     }
   }
+});
+
+test("export : vidéo et affiche préfixées, lecture partielle disponible", async ({ page, request }) => {
+  await page.goto("/geca/fr/");
+  const video = page.locator(".presentation-video video");
+  await expect(video).toHaveAttribute("src", `/geca${homeContent.about.video.src}`);
+  await expect(video).toHaveAttribute("poster", `/geca${homeContent.about.video.poster}`);
+  const response = await request.get(`/geca${homeContent.about.video.src}`, { headers: { Range: "bytes=0-31" } });
+  expect(response.status()).toBe(206);
+  expect(response.headers()["content-type"]).toBe("video/mp4");
+  expect((await response.body()).length).toBe(32);
+  expect((await request.get(`/geca${homeContent.about.video.poster}`)).status()).toBe(200);
 });

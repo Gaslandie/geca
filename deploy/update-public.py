@@ -13,7 +13,7 @@ ROOT = Path('/home2/fnksrwmy/public_html/website_43934bdf')
 HOME = Path('/home2/fnksrwmy')
 ACCOUNT = 'fnksrwmy'
 PUBLIC = {'.htaccess', '404', '404.html', '_next', '_not-found', 'en', 'fr',
-          'icon.svg', 'icon.png', 'images', 'index.html', 'robots.txt', 'sitemap.xml'}
+          'icon.svg', 'icon.png', 'images', 'videos', 'index.html', 'robots.txt', 'sitemap.xml'}
 PRESERVE = {'.well-known', 'cgi-bin'}
 
 
@@ -55,6 +55,10 @@ def update(archive, digest):
             require(not path.is_absolute() and '..' not in path.parts and '\\' not in entry.filename,
                     'Chemin dangereux refusé.')
             require(path.parts and path.parts[0] in PUBLIC and not entry.is_dir(), 'Fichier non public refusé.')
+            if path.parts[0] == 'videos':
+                require(entry.filename in {'videos/geca-presentation-20261015.mp4',
+                                           'videos/geca-presentation-20261015.webp'},
+                        'Vidéo hors registre refusée.')
             require(stat.S_IFMT(mode) in (0, stat.S_IFREG), 'Type de fichier refusé.')
         require({'.htaccess', 'fr/index.html', 'en/index.html', 'icon.svg'} <= set(names), 'Livraison incomplète.')
         require(zipped.testzip() is None, 'Archive corrompue.')

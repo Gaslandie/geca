@@ -199,33 +199,4 @@ for (const [path, selectors] of [
 }
 
 
-test("compteurs impact : progression commune, fin exacte et pas de répétition", async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.goto("/fr");
-  await page.locator(".impact .stats-grid").scrollIntoViewIfNeeded();
-  const values = () => page.locator(".impact .stat-count").evaluateAll(nodes => nodes.map(node => Number(node.textContent?.replace(/\s/g, ""))));
-  await expect.poll(values).not.toEqual([35000, 365000, 150000, 84]);
-  const sample = await values();
-  const targets = [35000, 365000, 150000, 84];
-  const fraction = sample[0] / targets[0];
-  for (let index = 1; index < 4; index++) expect(Math.abs(sample[index] / targets[index] - fraction)).toBeLessThanOrEqual(1 / targets[index] + 1 / targets[0]);
-  await expect(page.locator(".impact .stat-count")).toHaveText(["35 000", "365 000", "150 000", "84"]);
-  await expect(page.locator(".impact .stat-value .sr-only")).toHaveText(["35 000", "365 000", "150 000", "84"]);
-  const card = page.locator(".impact .stat").first();
-  const before = await card.evaluate(element => ({width:element.clientWidth,height:element.clientHeight,shadow:getComputedStyle(element).boxShadow}));
-  await card.hover();
-  await expect.poll(()=>card.evaluate(element=>getComputedStyle(element).boxShadow)).not.toBe(before.shadow);
-  expect(await card.evaluate(element=>({width:element.clientWidth,height:element.clientHeight}))).toEqual({width:before.width,height:before.height});
-  await page.locator(".hero").scrollIntoViewIfNeeded();
-  await page.locator(".impact .stats-grid").scrollIntoViewIfNeeded();
-  expect(await values()).toEqual(targets);
-});
-
-test("compteurs sans JavaScript : les valeurs finales restent lisibles", async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled:false });
-  const page = await context.newPage();
-  await page.goto("http://127.0.0.1:3000/fr");
-  await expect(page.locator(".impact .stat-count")).toHaveText(["35 000", "365 000", "150 000", "84"]);
-  await context.close();
-});
+// Régression des compteurs de la présentation actuelle : results-count.spec.ts.

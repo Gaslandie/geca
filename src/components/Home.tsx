@@ -12,6 +12,7 @@ import { TeamSection } from "./Team";
 import { PartnerCarousel } from "./PartnerCarousel";
 import { PartnerTicker } from "./PartnerTicker";
 import { HeroSlideshow } from "./HeroSlideshow";
+import { PresentationVideo } from "./PresentationVideo";
 
 export function Home({ locale }: { locale: Locale }) {
   const content = getHomeContent(locale);
@@ -49,16 +50,21 @@ export function Home({ locale }: { locale: Locale }) {
       <PartnerTicker names={content.partners.items.map((partner) => partner.name)} label={content.partners.label} />
 
       <section className="about section" aria-labelledby="about-title">
-        <Container className="about-content">
-          <div className="section-heading">
-            <div>
-              <h2 id="about-title">{content.about.title}</h2>
-              <p className="section-description">
-                {content.about.description.split(/(Global EcoAction \(GECA\)|RENASCEDD)/).map((part, index) =>
-                  index % 2 === 1 ? <strong key={index}>{part}</strong> : part,
-                )}
-              </p>
+        <Container>
+          <div className="about-content">
+            <div className="section-heading">
+              <div>
+                <h2 id="about-title">{content.about.title}</h2>
+                <p className="section-description">
+                  {content.about.description.split(/(Global EcoAction \(GECA\)|RENASCEDD)/).map((part, index) =>
+                    index % 2 === 1 ? <strong key={index}>{part}</strong> : part,
+                  )}
+                </p>
+              </div>
             </div>
+          </div>
+          <PresentationVideo video={content.about.video} />
+          <div className="about-video-actions" data-reveal>
             <Button href={href(locale, "a-propos")} variant="text">
               {content.about.cta}
             </Button>
@@ -107,7 +113,7 @@ export function Home({ locale }: { locale: Locale }) {
                 <h2 id="impact-title">{content.impact.title} {content.impact.titleSecondLine}</h2>
               </div>
             </div>
-            <ResultsFigures stats={content.impact.stats} />
+            <ResultsFigures stats={content.impact.stats} countUp />
             <div className="support-results-action">
               <Button href={href(locale, "projets")} variant="text">{content.projects.all}</Button>
             </div>
