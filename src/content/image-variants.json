@@ -1770,5 +1770,105 @@
       "width": 640,
       "src": "/images/optimized/images-brand-global-ecoaction-logo-client-transparent-20261010-640-661b47e0f692.webp"
     }
+  ],
+  "/images/team/daouda-camara.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-team-daouda-camara-192-e9b858aa1bfe.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-team-daouda-camara-320-bb71ad42a94d.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-team-daouda-camara-480-123021358f93.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-team-daouda-camara-640-a1a348809713.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-team-daouda-camara-768-dc1a96566c62.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-team-daouda-camara-960-b73a0f4c4702.webp"
+    },
+    {
+      "width": 1169,
+      "src": "/images/optimized/images-team-daouda-camara-1169-ab1ca87654de.webp"
+    }
+  ],
+  "/images/team/abou-camara.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-team-abou-camara-192-f4d5c26ebdf2.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-team-abou-camara-320-3302732cf26e.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-team-abou-camara-480-f93584e02c2e.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-team-abou-camara-640-6cab95a6220c.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-team-abou-camara-768-d5bdbf6df483.webp"
+    },
+    {
+      "width": 870,
+      "src": "/images/optimized/images-team-abou-camara-870-939abc505008.webp"
+    }
+  ],
+  "/images/team/mamadou-lamarana-diallo.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-team-mamadou-lamarana-diallo-192-a84a8174faac.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-team-mamadou-lamarana-diallo-320-1a92f1c8d78f.webp"
+    },
+    {
+      "width": 480,
+      "src": "/images/optimized/images-team-mamadou-lamarana-diallo-480-c9d9213ba4c7.webp"
+    },
+    {
+      "width": 640,
+      "src": "/images/optimized/images-team-mamadou-lamarana-diallo-640-fbfeae7b9464.webp"
+    },
+    {
+      "width": 768,
+      "src": "/images/optimized/images-team-mamadou-lamarana-diallo-768-f328559542a7.webp"
+    },
+    {
+      "width": 960,
+      "src": "/images/optimized/images-team-mamadou-lamarana-diallo-960-b163ee8da5bf.webp"
+    },
+    {
+      "width": 1040,
+      "src": "/images/optimized/images-team-mamadou-lamarana-diallo-1040-a10254221250.webp"
+    }
+  ],
+  "/images/team/seydouba-sylla.jpg": [
+    {
+      "width": 192,
+      "src": "/images/optimized/images-team-seydouba-sylla-192-7ffd84b576d3.webp"
+    },
+    {
+      "width": 320,
+      "src": "/images/optimized/images-team-seydouba-sylla-320-498b07a4113c.webp"
+    },
+    {
+      "width": 425,
+      "src": "/images/optimized/images-team-seydouba-sylla-425-96d6552b84fa.webp"
+    }
   ]
 }

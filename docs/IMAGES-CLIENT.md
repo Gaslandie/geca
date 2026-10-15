@@ -121,6 +121,26 @@ Source : `WhatsApp Image 2026-10-07 at 00.25.04.jpeg`, transmise par Gassama ave
 Source : `WhatsApp Image 2026-10-07 at 00.25.29.jpeg`, transmise par Gassama avec « Archille DELAMOU, Responsable logistique ». Original JPEG 1086 × 1448 intact dans `assets/source-images/images/team/archille-delamou.jpg`. Variantes WebP locales selon les paramètres communs, sans métadonnées privées, dans le registre fermé. Cadre carré d’affichage vers le haut, sans retouche du visage. Usage accueil et Équipe FR/EN ; crédits partagés. Auteur et licence non précisés, aucune attribution inventée.
 
 
+## Portrait Daouda CAMARA — 15 octobre 2026
+
+Source : `WhatsApp Image 2026-10-14 at 20.29.39.jpeg`, transmise par Gassama avec « Daouda CAMARA, Responsable Administratif et Financier ». Original JPEG 1169 × 1345 intact dans `assets/source-images/images/team/daouda-camara.jpg`. Variantes WebP locales selon les paramètres communs, sans métadonnées privées, dans le registre fermé. Cadre carré d’affichage vers le haut, sans retouche du visage. Usage accueil et Équipe FR/EN ; crédits partagés. Auteur et licence non précisés, aucune attribution inventée.
+
+
+## Portrait Abou CAMARA — 15 octobre 2026
+
+Source : `WhatsApp Image 2026-10-14 at 20.35.16.jpeg`, transmise par Gassama avec le nom et le poste. Original JPEG 870 × 1280 conservé intact hors public dans `assets/source-images/images/team/abou-camara.jpg`. Variantes WebP locales aux paramètres communs, sans métadonnées privées, registre fermé et cadre rond commun. Usage accueil et Équipe FR/EN. Auteur et licence non précisés ; crédits communs conservés, aucune biographie ajoutée.
+
+
+## Portrait Mamadou Lamarana DIALLO — 15 octobre 2026
+
+Source : `WhatsApp Image 2026-10-14 at 20.37.25.jpeg`, transmise par Gassama avec le nom et le poste. Original JPEG 1040 × 1280 conservé intact hors public dans `assets/source-images/images/team/mamadou-lamarana-diallo.jpg`. Variantes WebP locales aux paramètres communs, sans métadonnées privées, registre fermé et cadre rond commun. Usage accueil et Équipe FR/EN. Auteur et licence non précisés ; crédits communs conservés, aucune biographie ajoutée.
+
+
+## Portrait Seydouba SYLLA — 15 octobre 2026
+
+Source : `WhatsApp Image 2026-10-14 at 20.44.24.jpeg`, transmise par Gassama avec le nom et le poste. Original JPEG 425 × 354 conservé intact hors public dans `assets/source-images/images/team/seydouba-sylla.jpg`. Trois variantes WebP locales aux paramètres communs, sans agrandissement ni métadonnées privées, registre fermé et cadre rond commun. Usage accueil et Équipe FR/EN. Auteur et licence non précisés ; crédits communs conservés, aucune biographie ajoutée.
+
+
 ## Fonds du hero — 7 octobre 2026
 
 Priorité demandée aux photos encore inutilisées. Les 63 images du PDF ont été revues en planches ; trois vues sélectionnées contrôlées en taille réelle avec la légende de leur page. Nouveaux fichiers réservés au hero :

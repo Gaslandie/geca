@@ -1270,7 +1270,7 @@ export const interventionContent = {
 } as const;
 
 
-// Portrait et identité fournis par Gassama le 7 octobre 2026.
+// Portraits et identités fournis par Gassama depuis le 7 octobre 2026.
 export const teamMembers = [
   {
     id: "mohamed-makale-kaba",
@@ -1319,6 +1319,30 @@ export const teamMembers = [
     name: "Archille DELAMOU",
     role: { fr: "Responsable logistique", en: "Logistics Manager" },
     photo: { src: "/images/team/archille-delamou.jpg", width: 1086, height: 1448 },
+  },
+  {
+    id: "daouda-camara",
+    name: "Daouda CAMARA",
+    role: { fr: "Responsable Administratif et Financier", en: "Administrative and Finance Manager" },
+    photo: { src: "/images/team/daouda-camara.jpg", width: 1169, height: 1345 },
+  },
+  {
+    id: "abou-camara",
+    name: "Abou CAMARA",
+    role: { fr: "Responsable des formations et du suivi environnemental", en: "Training and Environmental Monitoring Manager" },
+    photo: { src: "/images/team/abou-camara.jpg", width: 870, height: 1280 },
+  },
+  {
+    id: "mamadou-lamarana-diallo",
+    name: "Mamadou Lamarana DIALLO",
+    role: { fr: "Assistant suivi environnemental", en: "Environmental Monitoring Assistant" },
+    photo: { src: "/images/team/mamadou-lamarana-diallo.jpg", width: 1040, height: 1280 },
+  },
+  {
+    id: "seydouba-sylla",
+    name: "Seydouba SYLLA",
+    role: { fr: "Responsable des relations communautaires", en: "Community Relations Manager" },
+    photo: { src: "/images/team/seydouba-sylla.jpg", width: 425, height: 354 },
   },
 ] as const;
 

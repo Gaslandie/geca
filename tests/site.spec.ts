@@ -19,6 +19,14 @@ test("routes connues FR / EN, langues et titres", async ({ request }) => {
         expect(html).toContain("Fodé Baba SYLLA");
         expect(html).toContain("Ibrahima KABA");
         expect(html).toContain("Archille DELAMOU");
+        expect(html).toContain("Daouda CAMARA");
+        expect(html).toContain("Abou CAMARA");
+        expect(html).toContain("Mamadou Lamarana DIALLO");
+        expect(html).toContain("Seydouba SYLLA");
+        expect(html).toContain(locale === "fr" ? "Responsable des relations communautaires" : "Community Relations Manager");
+        expect(html).toContain(locale === "fr" ? "Assistant suivi environnemental" : "Environmental Monitoring Assistant");
+        expect(html).toContain(locale === "fr" ? "Responsable des formations et du suivi environnemental" : "Training and Environmental Monitoring Manager");
+        expect(html).toContain(locale === "fr" ? "Responsable Administratif et Financier" : "Administrative and Finance Manager");
         expect(html).toContain(locale === "fr" ? "Responsable logistique" : "Logistics Manager");
         expect(html).toContain(locale === "fr" ? "Responsable des programmes" : "Programme Manager");
         expect(html).toContain(locale === "fr" ? "Assistant administratif" : "Administrative Assistant");
@@ -80,6 +88,10 @@ test("accès refusés et protections de la maquette", async ({ request }) => {
     "/assets/source-images/images/team/fode-baba-sylla.jpg",
     "/assets/source-images/images/team/ibrahima-kaba.jpg",
     "/assets/source-images/images/team/archille-delamou.jpg",
+    "/assets/source-images/images/team/daouda-camara.jpg",
+    "/assets/source-images/images/team/abou-camara.jpg",
+    "/assets/source-images/images/team/mamadou-lamarana-diallo.jpg",
+    "/assets/source-images/images/team/seydouba-sylla.jpg",
     "/assets/source-images/images/partners/arboria-project.jpg",
     "/fr/ressources",
     "/en/ressources",
@@ -288,7 +300,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     // Impact est centré dans sa colonne de récit ; les autres en-têtes sur la section.
     // Les sept rubriques partagent l’en-tête ; la newsletter est intégrée au footer.
     expect(sectionHeaders).toHaveLength(7);
-    await expect(page.locator(".team-member")).toHaveCount(8);
+    await expect(page.locator(".team-member")).toHaveCount(12);
     await expect(page.locator("#mohamed-makale-kaba")).toContainText("Mohamed Makalé KABA");
     await expect(page.locator("#daouda-toure")).toContainText("Daouda TOURE");
     await expect(page.locator("#salifou-camara")).toContainText("Salifou CAMARA");
@@ -297,6 +309,7 @@ for (const width of [320, 375, 480, 670, 767, 768, 970, 1024, 1440]) {
     await expect(page.locator("#fode-baba-sylla")).toContainText("Fodé Baba SYLLA");
     await expect(page.locator("#ibrahima-kaba")).toContainText("Ibrahima KABA");
     await expect(page.locator("#archille-delamou")).toContainText("Archille DELAMOU");
+    await expect(page.locator("#daouda-camara")).toContainText("Daouda CAMARA");
     expect(sectionHeaders.every(Boolean)).toBe(true);
     const partnerCards = await page.locator(".partner-list li").evaluateAll((cards) =>
       cards.map((card) => {

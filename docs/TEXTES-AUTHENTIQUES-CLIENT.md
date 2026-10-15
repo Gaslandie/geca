@@ -606,6 +606,42 @@ Texte transmis par Gassama avec `WhatsApp Image 2026-10-07 at 00.25.29.jpeg` :
 Nom et poste repris tels quels, y compris l’orthographe « Archille ». Traduction : « Logistics Manager ». Aucun autre fait ajouté.
 
 
+### Neuvième membre — 15 octobre 2026
+
+Texte transmis par Gassama avec la photo `WhatsApp Image 2026-10-14 at 20.29.39.jpeg` :
+
+> Daouda CAMARA, Responsable Administratif et Financier
+
+Nom et poste repris tels quels. Traduction : « Administrative and Finance Manager ». Aucune biographie, qualification ou coordonnée ajoutée.
+
+
+### Dixième membre — 15 octobre 2026
+
+Texte transmis par Gassama avec la photo `WhatsApp Image 2026-10-14 at 20.35.16.jpeg` :
+
+> Abou CAMARA, Responsable des formations et du suivi environnemental
+
+Nom et poste repris tels quels. Traduction : « Training and Environmental Monitoring Manager ». Aucun autre fait ajouté.
+
+
+### Onzième membre — 15 octobre 2026
+
+Texte transmis par Gassama avec la photo `WhatsApp Image 2026-10-14 at 20.37.25.jpeg` :
+
+> Mamadou Lamarana DIALLO, Assistant suivi environnemental
+
+Nom et poste repris tels quels. Traduction : « Environmental Monitoring Assistant ». Aucun autre fait ajouté.
+
+
+### Douzième membre — 15 octobre 2026
+
+Texte transmis par Gassama avec la photo `WhatsApp Image 2026-10-14 at 20.44.24.jpeg` :
+
+> Seydouba SYLLA, Responsable des relations communautaires
+
+Nom et poste repris tels quels. Traduction : « Community Relations Manager ». Aucun autre fait ajouté.
+
+
 ## Partenaire supplémentaire — 7 octobre 2026
 
 Demande de Gassama : « un partenaire supplementaire à ajouter », accompagnée de `WhatsApp Image 2026-10-07 at 00.27.17.jpeg`. Inscription visible du logo : « ARBORIA PROJECT », avec la signature « GROWING OUR FUTURE ». Nom repris : « ARBORIA PROJECT ». La demande confirme l’ajout dans la grille des partenaires ; aucune contribution, activité, financement, adresse ou URL n’est fourni ni déduit.

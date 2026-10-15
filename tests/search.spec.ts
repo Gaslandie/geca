@@ -11,6 +11,11 @@ test("recherche : accents, préfixes, fautes, mots multiples, chiffres et corpus
     expect(searchDocuments(index, query).length, query).toBeGreaterThan(0);
   }
   expect(searchDocuments(index, "daouda toure")[0].document.href).toBe("/fr/equipe#daouda-toure");
+  expect(searchDocuments(index, "daouda camara")[0].document.href).toBe("/fr/equipe#daouda-camara");
+  expect(searchDocuments(index, "abou camara")[0].document.href).toBe("/fr/equipe#abou-camara");
+  expect(searchDocuments(index, "mamadou lamarana diallo")[0].document.href).toBe("/fr/equipe#mamadou-lamarana-diallo");
+  expect(searchDocuments(index, "seydouba sylla")[0].document.href).toBe("/fr/equipe#seydouba-sylla");
+  expect(searchDocuments(prepareSearch(getSearchDocuments("en")), "finance manager")[0].document.href).toBe("/en/equipe#daouda-camara");
   expect(searchDocuments(index, "makale kaba")[0].document.href).toBe("/fr/equipe#mohamed-makale-kaba");
   expect(searchDocuments(prepareSearch(getSearchDocuments("en")), "executive director")[0].document.href).toBe("/en/equipe#mohamed-makale-kaba");
   expect(searchDocuments(index, "agroeco")[0].document.href).toContain("#agroecologie");
