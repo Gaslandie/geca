@@ -53,3 +53,19 @@ Vidéo actuelle : `WhatsApp Video 2026-10-15 at 12.10.11.mp4`, dernier MP4 tél�
 | `public/videos/geca-presentation-20261015.webp` | 33 496 | `3d840f81bd88802a54e4615abe817184bdce53c23903c19e0969670ccaee1e9c` |
 
 Les chemins physiques restent dans le registre fermé déjà autorisé. La révision `c4d3c03005f8` ajoutée aux URL du lecteur et de l’affiche évite de réutiliser une ancienne copie en cache. Bouton mobile corrigé, son, contrôles, textes et quatre vidéos Projets conservés. L’ancien média reste récupérable dans Git et les sauvegardes de publication.
+
+## Remplacement demandé le 16 octobre 2026
+
+Source fournie par Gassama : `/home/mohamed-gassama/Videos/VID-20261013-WA0042.mp4`. Le nom du fichier ne confirme pas une date de tournage. Auteur et licence non précisés ; son utilisation sur l’accueil est demandée par Gassama. Aucun contenu du dossier `Videos` n’est exposé.
+
+La source est verticale, 360 × 640, dure 56,55 secondes et contient une vidéo H.264 ainsi qu’une piste audio AAC mono. Le fichier public conserve les pistes sans perte, retire les métadonnées descriptives et les chapitres, et place l’index MP4 au début. Le décodage complet réussit ; quatre avertissements de temps vidéo dupliqués sont aussi présents dans la source et restent sans erreur bloquante. L’affiche WebP est extraite à 8 secondes, sans image générée ni recadrage.
+
+| Fichier actuel | Octets | SHA-256 |
+| --- | ---: | --- |
+| Original fourni | 6 800 605 | `af29e067a931b5eff2088193092f06002452a79d14dcba8de3c636bc97f50533` |
+| `public/videos/geca-presentation-20261015.mp4` | 6 828 060 | `6d7d967ab130f78f2bee73cf1b3db297786d1681efefb26d17dc6fb735bb10f2` |
+| `public/videos/geca-presentation-20261015.webp` | 103 470 | `336f533acfd821aad649b3c879e3f657377e1122c648927e547a729b3cff340c` |
+
+La révision publique devient `6d7d967ab130`. Le cadre passe automatiquement à une largeur maximale de 420 px et au ratio 9:16 pour cette vidéo verticale. Sur téléphone, il garde toute la largeur disponible. Lecture au clic, son, commandes natives, clavier, repli sans JavaScript, `preload="none"` et lien d’erreur sont conservés. Aucun fait GECA n’est déduit des personnes ou du lieu visibles dans la vidéo. L’ancien média reste récupérable dans Git et les sauvegardes de publication.
+
+Contrôles du 16 octobre : lint, TypeScript, compilation locale, compilation publique, quatre tests du lecteur et dix-neuf tests de l’export réussis. Le rendu téléphone et ordinateur a été examiné. Le serveur local habituel est actualisé ; aucun commit, push ou déploiement distant n’est effectué.

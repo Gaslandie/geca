@@ -777,6 +777,7 @@ p, a, button {
   background: #f4f7f2;
   box-shadow: 0 12px 32px rgb(0 63 27 / 9%);
 }
+.presentation-video--portrait { width: min(100%, 420px); }
 .presentation-video-frame { position: relative; }
 .presentation-video video {
   display: block;
@@ -787,6 +788,7 @@ p, a, button {
   border-radius: 12px;
   background: #101b14;
 }
+.presentation-video--portrait video { aspect-ratio: 9 / 16; }
 .presentation-video-play {
   position: absolute;
   inset: 50% auto auto 50%;

@@ -17,6 +17,7 @@ export function PresentationVideo({ video }: { video: ReturnType<typeof getHomeC
   const [failed, setFailed] = useState(false);
   const [soundOn, setSoundOn] = useState(true);
   const nativeControls = !hydrated || started || failed;
+  const portrait = video.height > video.width;
 
   const play = async () => {
     const element = player.current;
@@ -45,7 +46,7 @@ export function PresentationVideo({ video }: { video: ReturnType<typeof getHomeC
   };
 
   return (
-    <div className="presentation-video" data-reveal>
+    <div className={`presentation-video${portrait ? " presentation-video--portrait" : ""}`} data-reveal>
       <div className="presentation-video-frame">
         <video
           ref={player}

@@ -14,6 +14,7 @@ test("vidéo accueil : placement FR/EN, petit écran, clavier et lecture réelle
       const frame = page.locator(".presentation-video");
       await frame.scrollIntoViewIfNeeded();
       await expect(frame.getByRole("button")).toHaveAccessibleName(locale === "fr" ? "Lire la vidéo de présentation" : "Play the presentation video");
+      await expect(frame).toHaveClass(/presentation-video--portrait/);
       await expect(frame.locator("video")).toHaveJSProperty("controls", false);
       await expect(frame.locator("video")).toHaveAttribute("tabindex", "-1");
       const copy = await page.locator(".about-content").boundingBox();
@@ -34,7 +35,7 @@ test("vidéo accueil : placement FR/EN, petit écran, clavier et lecture réelle
   await page.keyboard.press("Enter");
   await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.paused && element.currentTime > 0), { timeout: 15000 }).toBe(true);
   await expect(video).toBeFocused();
-  expect(await video.evaluate((element: HTMLVideoElement) => element.duration)).toBeCloseTo(299.82, 1);
+  expect(await video.evaluate((element: HTMLVideoElement) => element.duration)).toBeCloseTo(56.55, 1);
   expect(await video.evaluate((element: HTMLVideoElement) => element.controls && !element.muted && !element.autoplay)).toBe(true);
   const sound = page.locator(".presentation-video-controls button");
   await expect(sound).toHaveText("Couper le son");
@@ -46,8 +47,8 @@ test("vidéo accueil : placement FR/EN, petit écran, clavier et lecture réelle
   expect(await video.evaluate((element: HTMLVideoElement) => !element.muted && element.volume === 1)).toBe(true);
   await video.evaluate((element: HTMLVideoElement) => element.pause());
   expect(await video.evaluate((element: HTMLVideoElement) => element.paused)).toBe(true);
-  await video.evaluate((element: HTMLVideoElement) => { element.currentTime = 120; });
-  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.seeking && element.currentTime >= 120)).toBe(true);
+  await video.evaluate((element: HTMLVideoElement) => { element.currentTime = 20; });
+  await expect.poll(() => video.evaluate((element: HTMLVideoElement) => !element.seeking && element.currentTime >= 20)).toBe(true);
   expect((await new AxeBuilder({ page }).include(".about.section").analyze()).violations).toEqual([]);
   expect(errors).toEqual([]);
 });
@@ -59,7 +60,7 @@ test("vidéo accueil : fichier indisponible, repli lisible", async ({ page }) =>
   await expect(page.locator(".presentation-video").getByRole("status")).toContainText("La vidéo n’a pas pu démarrer.");
   await expect(page.locator(".presentation-video video")).toHaveJSProperty("controls", true);
   await expect(page.locator(".presentation-video-play")).toBeHidden();
-  await expect(page.locator(".presentation-video").getByRole("link", { name: "Ouvrir la vidéo" })).toHaveAttribute("href", /\/videos\/geca-presentation-20261015\.mp4\?v=c4d3c03005f8$/);
+  await expect(page.locator(".presentation-video").getByRole("link", { name: "Ouvrir la vidéo" })).toHaveAttribute("href", /\/videos\/geca-presentation-20261015\.mp4\?v=6d7d967ab130$/);
 });
 
 test("vidéo accueil : un seul bouton sur mobile tactile, puis commandes natives", async ({ browser, baseURL }) => {
