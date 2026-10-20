@@ -6,7 +6,6 @@ import re
 import subprocess
 import sys
 import tempfile
-import urllib.request
 
 
 def remote(action, record=None, payload=None):
@@ -55,8 +54,14 @@ def main(action):
         return
     if action == 'complete':
         # Confirmation HTTPS réelle après livraison, pas seulement après compilation.
-        with urllib.request.urlopen('https://globalecoaction.org/fr/?publication='+record['id'],timeout=30) as response:
-            html=response.read(5_000_000).decode()
+        assert re.fullmatch(r'[a-f0-9-]{36}', record['id'])
+        response = subprocess.run(
+            ['curl', '--fail', '--silent', '--show-error', '--proto', '=https',
+             '--max-time', '30', '--max-filesize', '5000000',
+             'https://globalecoaction.org/fr/?publication='+record['id']],
+            capture_output=True, check=True, timeout=35)
+        assert len(response.stdout) <= 5_000_000
+        html = response.stdout.decode()
         assert re.search(r'<meta name="geca-publication" content="'+re.escape(record['id'])+'"',html), 'Version publique non confirmée'
     remote(action,record)
     print('État de publication confirmé : '+action)
