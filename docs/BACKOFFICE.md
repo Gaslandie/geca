@@ -431,6 +431,10 @@ La correction SMTP du formulaire a été livrée avec le test temporaire. Le ret
 
 Retour du compte confirmé par la sortie cPanel transmise par Gassama le 20 octobre : adresse remplacée par `ong.geca@gmail.com`, même mot de passe et mêmes droits, anciens codes et sessions invalidés, sauvegarde privée créée. Vérifications locales du retour : 198 tests PHP (2 448 assertions), Pint et les quatre tests de la commande ciblée (36 assertions) réussis. Réception d’un nouveau code dans la boîte de l’ONG encore à confirmer.
 
+### Limite du formulaire et message affiché — 20 octobre 2026
+
+Le formulaire conserve trois tentatives par heure et par IP, et trente par heure au total. Pendant les essais, un refus 429 sans autorisation CORS apparaissait comme « L’envoi est indisponible » dans le navigateur. La priorité de `PublicContactOrigin` est maintenant fixée avant les limiteurs dans `AppServiceProvider`, sans modifier les limites. Le domaine public autorisé peut ainsi lire le refus et afficher le message d’attente déjà présent. Les origines étrangères restent refusées, les identifiants privés ne sont jamais partagés ; aucune remise à zéro du quota ni modification du SMTP. Voir le benchmark pour le diagnostic, les références et les tests de régression.
+
 # Liaison au site public — préparation du 20 octobre 2026
 
 La nouvelle rubrique **Publier sur le site** relie les brouillons Projets, Actualités et Équipe à une reconstruction de la vitrine. Elle reste réservée aux administrateurs. Les rapports, comptes, notes internes et abonnés restent privés. Cette préparation remplace l’absence de liaison décrite dans les étapes historiques ci-dessous, mais ne prouve pas encore son activation distante. Voir [PUBLICATION.md](PUBLICATION.md) pour l’usage, les tests, l’installation et les limites.

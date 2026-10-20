@@ -143,7 +143,28 @@ class PublicContactTest extends TestCase
         for ($i = 0; $i < 3; $i++) {
             $this->postJson('/contact-public', $this->payload())->assertOk();
         }
-        $this->postJson('/contact-public', $this->payload())->assertStatus(429);
+        $limited = $this->postJson('/contact-public', $this->payload())->assertStatus(429)
+            ->assertHeader('Access-Control-Allow-Origin', 'https://globalecoaction.org')
+            ->assertHeader('Cache-Control', 'no-store, private')
+            ->assertHeaderMissing('Access-Control-Allow-Credentials');
+        $this->assertGreaterThan(0, (int) $limited->headers->get('Retry-After'));
+        $this->withHeaders(['Origin' => 'https://evil.example'])->postJson('/contact-public', [])
+            ->assertForbidden()->assertHeaderMissing('Access-Control-Allow-Origin');
         $this->assertCount(3, $this->transport->messages());
+    }
+
+    public function test_token_limit_remains_readable_only_from_allowed_origin(): void
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $this->withHeaders(['Origin' => 'https://www.globalecoaction.org'])
+                ->getJson('/contact-public/jeton')->assertOk();
+        }
+        $limited = $this->getJson('/contact-public/jeton')->assertStatus(429)
+            ->assertHeader('Access-Control-Allow-Origin', 'https://www.globalecoaction.org')
+            ->assertHeaderMissing('Access-Control-Allow-Credentials');
+        $this->assertGreaterThan(0, (int) $limited->headers->get('Retry-After'));
+        $this->flushHeaders()->getJson('/contact-public/jeton')
+            ->assertForbidden()->assertHeaderMissing('Access-Control-Allow-Origin');
+        $this->assertCount(0, $this->transport->messages());
     }
 }
