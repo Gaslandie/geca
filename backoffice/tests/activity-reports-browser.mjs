@@ -75,7 +75,12 @@ try {
   assert.notEqual(await page.locator('#end_date').getAttribute('required'),null);
   const csrf=await page.locator('main form [name=_token]').first().inputValue();
   assert.equal((await context.request.post(`${origin}/administration/rapports`,{form:{title:'TEST'},maxRedirects:0})).status(),419);
-  await page.getByRole('button',{name:'Ajouter le rapport',exact:true}).click();await page.waitForURL('**/rapports/*/modifier');
+  await page.getByRole('button',{name:'Ajouter le rapport',exact:true}).click();await page.waitForURL('**/administration/rapports');
+  await page.getByRole('status').waitFor();
+  await page.getByRole('link',{name:'Ajouter un rapport',exact:true}).click();
+  for (const field of ['#title','#start_date','#end_date','#description','#document']) assert.equal(await page.locator(field).inputValue(),'');
+  await page.getByRole('link',{name:'Annuler',exact:true}).click();
+  await page.getByRole('link',{name:/^Modifier/}).first().click();await page.waitForURL('**/rapports/*/modifier');
   assert.equal(await page.locator('#start_date').inputValue(),'2025-01-01');
   assert.equal(await page.locator('#end_date').inputValue(),'2025-12-31');
   const editUrl=page.url(), id=editUrl.match(/rapports\/([^/]+)/)[1];
@@ -112,7 +117,8 @@ try {
   await plain.getByLabel('Date de début',{exact:true}).fill('2025-01-01');
   await plain.getByLabel('Date de fin',{exact:true}).fill('2025-12-31');
   await plain.getByLabel('Choisir le rapport PDF',{exact:true}).setInputFiles(pdf);
-  await plain.getByRole('button',{name:'Ajouter le rapport',exact:true}).click();await plain.waitForURL('**/rapports/*/modifier');
+  await plain.getByRole('button',{name:'Ajouter le rapport',exact:true}).click();await plain.waitForURL('**/administration/rapports');
+  await plain.getByRole('link',{name:'Modifier : TEST sans JavaScript',exact:true}).click();
   assert.equal((await nojs.request.get(await plain.getByRole('link',{name:'Télécharger le PDF actuel',exact:true}).getAttribute('href'))).status(),200);
   const anon=await browser.newContext();
   assert.equal((await anon.request.get(fileUrl,{maxRedirects:0})).status(),302);

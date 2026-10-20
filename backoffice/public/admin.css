@@ -133,6 +133,7 @@ html:has(.mobile-navigation[open]) { overflow:hidden; }
 /* Même alignement sur les pages privées : titres et actions centrés,
    textes et champs au début de leur bloc ; une largeur commune aux formulaires. */
 .admin-shell main .heading,.admin-shell main h1,.admin-shell main h2,.admin-shell main h3,.admin-shell main .eyebrow { text-align:center; }
+.admin-shell main .report-entry h2 { text-align:left; }
 .admin-shell main .heading h1 { margin:0 0 12px; }
 .admin-shell main > form.card,.admin-shell main > section.card { width:100%; max-width:var(--form-width); margin-inline:auto; }
 .admin-shell main .actions,.admin-shell main .newsletter-pagination { justify-content:center; }

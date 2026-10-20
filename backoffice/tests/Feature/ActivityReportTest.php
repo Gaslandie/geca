@@ -56,7 +56,10 @@ class ActivityReportTest extends TestCase
     {
         $user = $this->admin();
         $data = $this->data(['id' => Str::uuid(), 'created_by' => 987, 'file_path' => '../../secret', 'sha256' => 'forged']);
-        $this->post('/administration/rapports', $data)->assertSessionHasNoErrors();
+        $this->post('/administration/rapports', $data)->assertSessionHasNoErrors()->assertRedirect(route('reports.index'));
+        $freshForm = $this->get('/administration/rapports/ajouter')->assertOk();
+        $this->assertFalse($freshForm->viewData('report')->exists);
+        $freshForm->assertSee('name="title" maxlength="200" required value=""', false);
         $report = ActivityReport::firstOrFail();
         $this->assertSame($user->id, $report->created_by);
         $this->assertNotSame($data['id'], $report->id);

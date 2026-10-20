@@ -2006,3 +2006,35 @@ Références vérifiées avant adaptation : [MDN, élément vidéo HTML](https:/
 Adaptation GECA : la vidéo fournie est verticale, contrairement à la précédente. Le lecteur garde ses protections et passe automatiquement au ratio 9:16 avec une largeur maximale de 420 px sur ordinateur, tout en restant fluide sur téléphone. Le fichier H.264/AAC est remultiplexé sans perte ni recadrage, sans métadonnées descriptives, avec l’index placé au début ; une nouvelle affiche locale est extraite à 8 secondes. Le chemin public fermé reste identique et seule sa révision change pour éviter l’ancienne copie en cache. Aucun texte, projet, lieu ou identité n’est déduit du film. Aucun compte, droit, donnée privée, service tiers ou dépendance n’est ajouté.
 
 Validation : décodage complet du MP4, lint, TypeScript et compilation locale réussis. Les quatre tests Chrome du lecteur passent : FR/EN, 320/768/1440 px, lecture réelle, durée 56,55 secondes, son actif, pause, déplacement à 20 secondes, clavier, mobile tactile, erreur réseau et fonctionnement sans JavaScript. La compilation publique isolée et ses dix-neuf tests passent aussi, dont lecture par portions HTTP 206 et refus des chemins privés, méthodes et plages invalides. Captures du lecteur examinées à 375 et 1440 px : ratio vertical correct, bouton centré, aucun recadrage ni débordement ; largeur mesurée de 311 px sur téléphone et 420 px sur ordinateur. Accueil, feuille de styles, affiche et MP4 du serveur habituel répondent correctement sur `http://127.0.0.1:3000/fr`. Aucun commit, push ou déploiement distant effectué.
+
+
+## Retour à la liste après ajout d’un rapport — 20 octobre 2026
+
+Comparaison ciblée : [MDN — redirection après formulaire](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/303), consulté ce jour, décrit une lecture GET après un POST réussi ; le code Laravel installé (`Illuminate/Routing/Redirector.php`, méthode `route`) propose une redirection vers une route nommée, avec statut 302 par défaut. La documentation Laravel en ligne a expiré lors de la consultation ; aucune observation de cette page n’est revendiquée. Adaptation GECA : conserver la redirection Laravel existante, mais viser `reports.index` après création. Le message de confirmation reste visible. Une nouvelle ouverture de l’ajout présente les champs vides ; les erreurs de validation conservent la saisie. L’enregistrement d’une modification garde sa destination existante.
+
+Validation : 11 tests PHP / 224 assertions, Pint et parcours navigateur des rapports réussis sur base jetable. Retour à la liste et cinq champs vides vérifiés, ajout sans JavaScript, accès anonymes refusés, CSRF et fichiers invalides toujours contrôlés. Aucun rapport réel de test ajouté, aucune publication ni changement des protections.
+
+
+## Titres de rapports alignés à gauche — 20 octobre 2026
+
+Demande et capture de Gassama : le titre centré dans la colonne descriptive est éloigné du début des lignes période/PDF. Comparaison avec les informations de cette même carte : un bord gauche commun regroupe les données du rapport. La référence externe GOV.UK Typography (https://design-system.service.gov.uk/styles/typography/) était inaccessible lors de la consultation ; aucun résultat externe inventé. Adaptation limitée aux titres des cartes des rapports actifs et retirés, via `report-entry`. Titres principaux et autres cartes conservés. Aucun contenu ni contrôle d’accès modifié.
+
+Vérification navigateur sur le serveur habituel 127.0.0.1:8000 : à 375 et 1440 px, titre et période ont exactement le même bord gauche, sans débordement horizontal. Capture locale conservée dans /tmp/geca-report-title-left.png. Aucun rapport modifié ni déploiement.
+
+
+## Icône Comptes et rôles — 20 octobre 2026
+
+Références consultées : [Lucide users-round](https://lucide.dev/icons/users-round) associe le pictogramme au groupe de personnes ; [Lucide contact-round](https://lucide.dev/icons/contact-round) l’associe à une personne et à une fiche de contact. Adaptation GECA : conserver le groupe pour Équipe et dessiner une petite carte de compte (portrait et lignes) pour Comptes et rôles, avec les dimensions et traits du composant SVG local. Aucune bibliothèque ajoutée ni récupération de fichier externe.
+
+Vérification dans le navigateur local : SVG distincts, libellés accessibles conservés et icônes décoratives masquées aux lecteurs d’écran. Le menu commun couvre ordinateur et mobile. Aucun droit, compte ou destination changé ; aucune publication.
+
+
+## Newsletter : retrait des éléments de test visibles — 20 octobre 2026
+
+Demande de Gassama limitée à la page de gestion : retirer la mention Mode test et le volet Messages de test. Comparaison avec le mode réel existant : celui-ci garde son suivi opérationnel des envois ; le volet de simulation appartient aux outils techniques et peut être absent de la page locale. La référence Nielsen Norman Group sur la divulgation progressive (https://www.nngroup.com/articles/progressive-disclosure/) a expiré lors de la consultation ; aucun résultat externe revendiqué.
+
+Adaptation : retrait de la mention du haut, volet absent en mode preview, état de campagne préparée libellé Préparée. Configuration et service inchangés : aucun envoi réel activé. Les avertissements sur les écrans d’inscription et de préparation restent exacts. Abonnés, campagnes et messages existants conservés. Les essais navigateur sollicitent désormais les routes internes de simulation avec CSRF et lisent les identifiants uniquement dans leur base jetable, sans réintroduire de commande technique dans la page.
+
+Validation : 25 tests Newsletter / 214 assertions réussis, dont mode simulation sans envoi, CSRF, droits et révocation. Page courante vérifiée dans le navigateur sur 127.0.0.1:8000 à 375 et 1440 px : mentions retirées, aucun débordement. Aucun commit, push ni déploiement.
+
+Complément navigateur : parcours newsletter confirmé sur base jetable, de l’inscription à la simulation puis désinscription sans JavaScript. Limite distincte observée dans le build public local : à 375 px, le bouton WhatsApp flottant intercepte le clic sur S’abonner. Le parcours a été soumis au clavier (focus puis Entrée) ; ce chevauchement public reste à corriger et n’a pas été masqué dans le produit.

@@ -13,7 +13,7 @@
 </div>
 <div class="entries">
 @forelse($reports as $report)
-<article class="card entry">
+<article class="card entry report-entry">
 <div><h2>{{ $report->title }}</h2><p><strong>Période :</strong> {{ $report->periodLabel() }}</p><p>PDF · {{ max(1, (int) ceil($report->bytes / 1024)) }} Ko · Ajouté le {{ $report->created_at->format('d/m/Y') }}</p></div>
 @if($archived)
 <form method="post" action="{{ route('reports.restore', $report) }}">@csrf<input type="hidden" name="revision" value="{{ $report->revision }}"><button type="submit" class="secondary">Restaurer<span class="visually-hidden"> : {{ $report->title }}</span></button></form>

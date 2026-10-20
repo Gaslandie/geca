@@ -103,12 +103,15 @@ async function openTrash(page) {
   await page.getByRole('link', {name:'Corbeille', exact:true}).click();
   await page.waitForURL('**/administration/corbeille');
 }
-async function openNewsletterMessages(page) {
-  const details=page.locator('.newsletter-tracking');
-  if(await details.getAttribute('open')===null) {
-    await details.locator('summary').focus();
-    await page.keyboard.press('Enter');
-  }
+async function simulateNewsletter(page) {
+  const token=await page.locator('form [name="_token"]').first().inputValue();
+  const response=await page.request.post('http://127.0.0.1:8001/administration/newsletter/simulation',{form:{_token:token},maxRedirects:0});
+  assert.equal(response.status(),302,'Simulation interne avec CSRF sur base jetable');
+}
+async function openTestDelivery(page,kind) {
+  const result=spawnSync(php,['-r',String.raw`require 'vendor/autoload.php'; $app=require 'bootstrap/app.php'; $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap(); echo App\Models\NewsletterDelivery::where('kind',getenv('GECA_TEST_DELIVERY_KIND'))->latest()->value('id');`],{cwd,env:{...env,GECA_TEST_DELIVERY_KIND:kind},encoding:'utf8'});
+  assert.equal(result.status,0);assert.ok(result.stdout.trim());
+  await page.goto(`http://127.0.0.1:8001/administration/newsletter/messages/${result.stdout.trim()}`);
 }
 run(['artisan','migrate','--no-interaction']);
 run(['artisan','geca:import-reference']);
@@ -183,8 +186,8 @@ try {
   assert.deepEqual(await page.locator('.dashboard-count').allTextContents(),['7','9','8','0']);
   await checkCentralTheme(page);
   await page.goto('http://127.0.0.1:8001/administration/newsletter');
-  assert.equal(await page.locator('.newsletter-mode').textContent(),'Mode test · aucun e-mail envoyé.');
-  assert.equal(await page.locator('.newsletter-tracking').getAttribute('open'),null);
+  assert.equal(await page.locator('.newsletter-mode').count(),0);
+  assert.equal(await page.locator('.newsletter-tracking').count(),0);
   assert.equal(await page.getByRole('button',{name:'Lancer le test',exact:true}).count(),0,'Pas d’action de test inutile sur liste vide');
   assert.equal(await page.getByRole('link',{name:'Voir le formulaire d’inscription',exact:true}).getAttribute('href'),'http://127.0.0.1:8001/newsletter/fr');
   for(const width of [320,375,768,1440]) {
@@ -579,20 +582,16 @@ try {
   // Seule la destination de la page de test change vers le serveur/base jetables.
   await subscriberPage.locator('.newsletter-controls').evaluate(form=>form.action='http://127.0.0.1:8001/newsletter/fr/commencer');
   await subscriberPage.locator('#newsletter-email').fill('newsletter-browser@example.test');
-  await subscriberPage.getByRole('button',{name:'S’abonner',exact:true}).click();
+  await subscriberPage.getByRole('button',{name:'S’abonner',exact:true}).focus();
+  await subscriberPage.keyboard.press('Enter');
   await subscriberPage.getByRole('heading',{name:'Abonnez-vous à notre newsletter'}).waitFor();
   assert.equal(await subscriberPage.locator('#email').inputValue(),'newsletter-browser@example.test');
   await subscriberPage.locator('[name="consent"]').check();
   await subscriberPage.getByRole('button',{name:'S’abonner',exact:true}).click();
   await subscriberPage.getByRole('heading',{name:'Demande de test reçue'}).waitFor();
   await page.goto('http://127.0.0.1:8001/administration/newsletter');
-  await openNewsletterMessages(page);
-  const testResponse=page.waitForResponse(r=>r.url().endsWith('/simulation')&&r.request().method()==='POST');
-  await page.getByRole('button',{name:'Lancer le test',exact:true}).click();
-  assert.equal((await testResponse).status(),302,'Test lancé depuis le volet avec CSRF');
-  await page.getByRole('status').waitFor();
-  await openNewsletterMessages(page);
-  await page.getByRole('link',{name:'Voir le message de test'}).first().click();
+  await simulateNewsletter(page);
+  await openTestDelivery(page,'confirmation');
   const confirmation=await page.getByRole('link',{name:'Ouvrir la confirmation de test'}).getAttribute('href');
   await subscriberPage.goto(confirmation);
   await subscriberPage.getByRole('button',{name:'Confirmer mon inscription'}).click();
@@ -606,12 +605,7 @@ try {
   await page.getByRole('button',{name:'Préparer la simulation'}).click();
   assert.equal((await approvalResponse).status(),302);
   await page.goto('http://127.0.0.1:8001/administration/newsletter');
-  await openNewsletterMessages(page);
-  const campaignTest=page.waitForResponse(r=>r.url().endsWith('/simulation')&&r.request().method()==='POST');
-  await page.getByRole('button',{name:'Lancer le test',exact:true}).click();
-  assert.equal((await campaignTest).status(),302);
-  await page.getByRole('status').waitFor();
-  await openNewsletterMessages(page);
+  await simulateNewsletter(page);
   for(const width of [320,768,1440]) {
     await page.setViewportSize({width,height:1000});
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
@@ -621,13 +615,7 @@ try {
     await checkAccessibility(page);
     await page.screenshot({path:`${cwd}/artifacts/newsletter-${width}.png`,fullPage:true});
   }
-  await page.getByRole('link',{name:'Voir le message de test'}).first().click();
-  const unsubscribeLink=page.getByRole('link',{name:'Ouvrir la désinscription de test'});
-  if(await unsubscribeLink.count()===0) {
-    await page.goto('http://127.0.0.1:8001/administration/newsletter');
-    await openNewsletterMessages(page);
-    await page.getByRole('link',{name:'Voir le message de test'}).nth(1).click();
-  }
+  await openTestDelivery(page,'campaign');
   console.log('Newsletter : campagne simulée vérifiée.');
   await subscriberPage.goto(await page.getByRole('link',{name:'Ouvrir la désinscription de test'}).getAttribute('href'));
   console.log('Newsletter : page de désinscription ouverte.');

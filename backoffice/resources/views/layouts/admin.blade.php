@@ -29,7 +29,7 @@
             ['key' => 'security', 'label' => 'Sécurité du compte', 'icon' => 'security', 'url' => route('security')],
             ['key' => 'team', 'label' => 'Équipe', 'icon' => 'team', 'url' => route('content.index', 'team')],
             ['key' => 'trash', 'label' => 'Corbeille', 'icon' => 'trash', 'url' => route('content.trash-all')],
-            ['key' => 'users', 'label' => 'Comptes et rôles', 'icon' => 'team', 'url' => route('users.index')],
+            ['key' => 'users', 'label' => 'Comptes et rôles', 'icon' => 'accounts', 'url' => route('users.index')],
         ];
         $navigation = array_values(array_filter($navigation, fn ($item) => !in_array($item['key'], ['newsletter', 'users'], true) || auth()->user()->managesAccounts()));
         $navigation = array_values(array_filter($navigation, fn ($item) => $item['key'] !== 'trash' || auth()->user()->editsContent()));

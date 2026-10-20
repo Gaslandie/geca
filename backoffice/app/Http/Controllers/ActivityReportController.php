@@ -152,7 +152,8 @@ class ActivityReportController extends Controller
             throw $error;
         }
 
-        return redirect()->route('reports.edit', $report)->with('status', 'Rapport enregistré dans l’espace privé.');
+        return ($id ? redirect()->route('reports.edit', $report) : redirect()->route('reports.index'))
+            ->with('status', 'Rapport enregistré dans l’espace privé.');
     }
 
     private function locked(callable $operation)
