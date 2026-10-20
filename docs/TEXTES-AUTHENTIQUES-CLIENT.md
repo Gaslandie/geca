@@ -1,5 +1,9 @@
 # Textes authentiques du client — référence GECA
 
+## Retour à l’adresse GECA — Gassama, 20 octobre 2026
+
+Après les ajouts DNS, Gassama confirme avoir reçu l’e-mail sur son adresse de test et demande : « maintenant on peut mettre l'email ong.geca ». Le formulaire et le compte administrateur concerné doivent donc revenir à **ong.geca@gmail.com**, dans la continuité de la publication autorisée. Mot de passe, droits, expéditeur SMTP et adresses des autres comptes conservés. Cette confirmation porte sur la réception du test ; la réception finale dans la boîte de l’ONG reste à vérifier après le retour.
+
 ## Test temporaire de réception — Gassama, 20 octobre 2026
 
 Gassama demande ensuite de remplacer temporairement le destinataire du formulaire et l’adresse du compte client du back-office par **gassma803@gmail.com**, pour tester lui-même les réceptions. Il autorise explicitement commit, push et déploiement. Retour à `ong.geca@gmail.com` après sa prochaine demande ; aucune date de retour automatique inventée. Les coordonnées publiques de l’ONG et l’expéditeur SMTP restent distincts de ce test. Le changement du compte conserve son mot de passe et ses droits, et invalide ses anciens codes et sessions.

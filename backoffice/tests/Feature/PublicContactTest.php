@@ -49,7 +49,7 @@ class PublicContactTest extends TestCase
         $data['recipient'] = 'attacker@example.com';
         $this->postJson('/contact-public', $data)->assertOk()->assertJson(['sent' => true]);
         $message = $this->transport->messages()->sole()->getOriginalMessage();
-        $this->assertSame(['gassma803@gmail.com'], array_map(fn ($address) => $address->getAddress(), $message->getTo()));
+        $this->assertSame(['ong.geca@gmail.com'], array_map(fn ($address) => $address->getAddress(), $message->getTo()));
         $this->assertSame('sender@example.test', $message->getFrom()[0]->getAddress());
         $this->assertSame('sender@example.com', $message->getReplyTo()[0]->getAddress());
         $this->assertSame([], $message->getCc());
