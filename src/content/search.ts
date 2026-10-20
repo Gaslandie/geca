@@ -31,6 +31,6 @@ export function getSearchDocuments(locale: Locale): SearchDocument[] {
   add("contact", contact.title, interfaceText[locale].contact, `${contact.description} ${identity.address[locale]} ${identity.phone} ${identity.email}`);
   add("", `${homeContent.impact.title} ${homeContent.impact.titleSecondLine}`, homeContent.impact.label, `${homeContent.impact.stats.map((stat) => `${stat.value} ${stat.label}`).join(" · ")} ${homeContent.impact.achievements.join(" ")}`, "impact-title");
   add("", homeContent.partners.title, homeContent.partners.label, homeContent.partners.items.map((item) => item.name).join(" "), "partners-title");
-  for (const item of homeContent.news.items) add("", item.title, homeContent.news.label, item.description, "news-title");
+  for (const item of getNewsEntries(locale).slice(0, 2)) add("", item.title, homeContent.news.label, item.description, "news-title");
   return documents;
 }

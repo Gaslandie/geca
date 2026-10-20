@@ -345,7 +345,7 @@ try {
     await page.locator('#source_note').fill('Changements techniques sur base jetable, sans publication.');
     await page.getByRole('button',{name:'Enregistrer les changements'}).click();
     await page.getByRole('status').waitFor();
-    assert.equal((await page.getByRole('status').textContent()).trim(),'Vos changements sont enregistrés.');
+    assert.equal((await page.getByRole('status').textContent()).trim(),'Vos changements sont enregistrés comme brouillon. Un administrateur peut les publier avec « Publier sur le site ».');
     const saved=contentSnapshot(entryId);
     assert.deepEqual(saved.draft,expected,'Tous les champs FR/EN réellement stockés');
     assert.deepEqual(saved.history,expected,'Version enregistrée dans l’historique');

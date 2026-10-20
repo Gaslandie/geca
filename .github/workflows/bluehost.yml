@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: "7,17,27,37,47,57 * * * *"
 
 permissions:
   contents: read
@@ -15,37 +17,83 @@ concurrency:
 jobs:
   publish:
     # Activation seulement après installation et vérification de la connexion.
-    if: vars.BLUEHOST_DEPLOY_ENABLED == 'true'
+    if: vars.BLUEHOST_DEPLOY_ENABLED == 'true' && (github.event_name != 'schedule' || vars.GECA_CONTENT_PUBLICATION_ENABLED == 'true')
     runs-on: ubuntu-latest
     environment: bluehost-production
+    env:
+      GECA_PUBLICATION_INPUT: ${{ vars.GECA_CONTENT_PUBLICATION_ENABLED == 'true' && 'release/publication-input.json' || '' }}
     steps:
       - name: Lire le projet
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
+      - name: Lire la publication autorisée du back-office
+        id: content
+        if: vars.GECA_CONTENT_PUBLICATION_ENABLED == 'true'
+        run: python3 deploy/publication-transport.py fetch
+        env:
+          BLUEHOST_BACKOFFICE_SSH_KEY: ${{ secrets.BLUEHOST_BACKOFFICE_SSH_KEY }}
+          BLUEHOST_KNOWN_HOSTS: ${{ secrets.BLUEHOST_KNOWN_HOSTS }}
+          BLUEHOST_SSH_HOST: ${{ vars.BLUEHOST_SSH_HOST }}
+          BLUEHOST_SSH_PORT: ${{ vars.BLUEHOST_SSH_PORT }}
       - name: Installer Node.js
+        if: github.event_name != 'schedule' || steps.content.outputs.build == 'true'
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '24'
           cache: npm
       - name: Installer les dépendances verrouillées
+        if: github.event_name != 'schedule' || steps.content.outputs.build == 'true'
         run: npm ci
       - name: Vérifier le code
+        if: github.event_name != 'schedule' || steps.content.outputs.build == 'true'
         run: npm run lint
       - name: Construire la vitrine à la racine du domaine
+        if: github.event_name != 'schedule' || steps.content.outputs.build == 'true'
         run: npm run build:public
       - name: Vérifier les types
+        if: github.event_name != 'schedule' || steps.content.outputs.build == 'true'
         run: npm run typecheck
       - name: Installer le navigateur de vérification
+        if: github.event_name != 'schedule' || steps.content.outputs.build == 'true'
         run: npx playwright install --with-deps chromium
       - name: Vérifier les pages et les refus d’accès
+        if: github.event_name != 'schedule' || steps.content.outputs.build == 'true'
         run: npm run test:public
       - name: Préparer l’archive publique vérifiée
+        if: github.event_name != 'schedule' || steps.content.outputs.build == 'true'
         run: npm run package:public
+      - name: Revérifier les droits avant livraison
+        if: vars.GECA_CONTENT_PUBLICATION_ENABLED == 'true' && (github.event_name != 'schedule' || steps.content.outputs.build == 'true')
+        run: python3 deploy/publication-transport.py authorize
+        env:
+          BLUEHOST_BACKOFFICE_SSH_KEY: ${{ secrets.BLUEHOST_BACKOFFICE_SSH_KEY }}
+          BLUEHOST_KNOWN_HOSTS: ${{ secrets.BLUEHOST_KNOWN_HOSTS }}
+          BLUEHOST_SSH_HOST: ${{ vars.BLUEHOST_SSH_HOST }}
+          BLUEHOST_SSH_PORT: ${{ vars.BLUEHOST_SSH_PORT }}
       - name: Publier par la connexion limitée à la vitrine
+        if: github.event_name != 'schedule' || steps.content.outputs.build == 'true'
         run: python3 deploy/send-public.py
         env:
           BLUEHOST_SSH_KEY: ${{ secrets.BLUEHOST_SSH_KEY }}
+          BLUEHOST_KNOWN_HOSTS: ${{ secrets.BLUEHOST_KNOWN_HOSTS }}
+          BLUEHOST_SSH_HOST: ${{ vars.BLUEHOST_SSH_HOST }}
+          BLUEHOST_SSH_PORT: ${{ vars.BLUEHOST_SSH_PORT }}
+      - name: Confirmer la version visible en HTTPS
+        if: vars.GECA_CONTENT_PUBLICATION_ENABLED == 'true' && (github.event_name != 'schedule' || steps.content.outputs.build == 'true')
+        run: |
+          python3 deploy/publication-transport.py complete
+          python3 deploy/publication-transport.py reference
+        env:
+          BLUEHOST_BACKOFFICE_SSH_KEY: ${{ secrets.BLUEHOST_BACKOFFICE_SSH_KEY }}
+          BLUEHOST_KNOWN_HOSTS: ${{ secrets.BLUEHOST_KNOWN_HOSTS }}
+          BLUEHOST_SSH_HOST: ${{ vars.BLUEHOST_SSH_HOST }}
+          BLUEHOST_SSH_PORT: ${{ vars.BLUEHOST_SSH_PORT }}
+      - name: Signaler un échec sans publier les brouillons suivants
+        if: failure() && vars.GECA_CONTENT_PUBLICATION_ENABLED == 'true' && steps.content.outcome == 'success'
+        run: python3 deploy/publication-transport.py fail
+        env:
+          BLUEHOST_BACKOFFICE_SSH_KEY: ${{ secrets.BLUEHOST_BACKOFFICE_SSH_KEY }}
           BLUEHOST_KNOWN_HOSTS: ${{ secrets.BLUEHOST_KNOWN_HOSTS }}
           BLUEHOST_SSH_HOST: ${{ vars.BLUEHOST_SSH_HOST }}
           BLUEHOST_SSH_PORT: ${{ vars.BLUEHOST_SSH_PORT }}

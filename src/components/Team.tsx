@@ -10,14 +10,14 @@ function TeamGrid({ locale }: { locale: Locale }) {
     <div className="team-grid">
       {teamMembers.map((member) => (
         <article className="team-member" id={member.id} key={member.id} data-reveal>
-          <Image
+          {member.photo && <Image
             src={assetPath(member.photo.src)}
             alt={member.name}
             width={member.photo.width}
             height={member.photo.height}
             sizes="220px"
             className="team-portrait"
-          />
+          />}
           <div className="card-content">
             <h3>{member.name}</h3>
             <p className="card-subtitle">{member.role[locale]}</p>

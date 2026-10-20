@@ -1,8 +1,17 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { href, identity, locales, routes, supportActions } from "../src/content/site";
+import { href, identity, locales, supportActions } from "../src/content/site";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+
+async function publicRoutes(): Promise<string[]> {
+  const selected = JSON.parse(await readFile("release/latest.json", "utf8"));
+  const manifest = JSON.parse(await readFile(join(selected.directory, "manifest.json"), "utf8"));
+  return (manifest.files as {path: string}[]).flatMap(file => {
+    const match = /^fr\/(.+)\/index\.html$/.exec(file.path);
+    return match ? [match[1]] : [];
+  });
+}
 
 test("livraison : chaque fichier public est servi, styles et images compris", async ({ request }) => {
   const selected = JSON.parse(await readFile("release/latest.json", "utf8"));
@@ -20,7 +29,7 @@ test("livraison : chaque fichier public est servi, styles et images compris", as
 
 test("livraison : toutes les routes FR/EN et leur référencement", async ({ request }) => {
   for (const locale of locales) {
-    for (const path of ["", ...routes.map(route => route.path)]) {
+    for (const path of ["", ...await publicRoutes()]) {
       const response = await request.get(`${href(locale, path)}/`);
       expect(response.status(), `${locale}/${path}`).toBe(200);
       const html = await response.text();
@@ -82,8 +91,8 @@ for (const width of [320, 375, 768, 1440]) {
       }
       await page.locator(".search-link").click();
       const dialog = page.getByRole("dialog");
-      await dialog.getByRole("searchbox").fill("PROTEMO");
-      await expect(dialog.locator(".search-results a").first()).toHaveAttribute("href", `/${locale}/projets/#projet-protemo`);
+      await dialog.getByRole("searchbox").fill("GECA");
+      await expect(dialog.locator(".search-results a").first()).toBeVisible();
       await page.keyboard.press("Escape");
       await page.addStyleTag({ content: ":root { font-size: 200%; }" });
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -101,7 +110,7 @@ test("livraison : crédits, confidentialité et vrai plan du site", async ({ pag
     await page.goto(`/${locale}/confidentialite/`);
     await expect(page.locator("main")).toContainText("WhatsApp");
     await page.goto(`/${locale}/plan-du-site/`);
-    await expect(page.locator(".site-info li a")).toHaveCount(routes.length + 1);
+    await expect(page.locator(".site-info li a")).toHaveCount((await publicRoutes()).length + 1);
     for (const link of await page.locator(".site-info li a").all()) expect((await request.get((await link.getAttribute("href"))!)).status()).toBe(200);
     expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa"]).analyze()).violations).toEqual([]);
   }

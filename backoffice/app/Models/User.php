@@ -56,7 +56,7 @@ class User extends Authenticatable
         $edit = ['content.create', 'content.store', 'content.edit', 'content.update', 'content.confirm-delete',
             'content.destroy', 'content.restore', 'content.trash', 'content.trash-all', 'reports.create',
             'reports.store', 'reports.edit', 'reports.update', 'reports.archives', 'reports.destroy', 'reports.restore'];
-        $admin = ['users.index', 'users.create', 'users.store', 'users.edit', 'users.update',
+        $admin = ['publication.index', 'publication.store', 'users.index', 'users.create', 'users.store', 'users.edit', 'users.update',
             'newsletter.index', 'newsletter.subscriber.delete', 'newsletter.simulate', 'newsletter.create',
             'newsletter.store', 'newsletter.delivery', 'newsletter.edit', 'newsletter.update', 'newsletter.approve', 'newsletter.cancel'];
 

@@ -34,6 +34,24 @@ def main():
         require(path.resolve() == path and stat.S_ISREG(path.stat().st_mode)
                 and path.stat().st_uid == os.getuid() and stat.S_IMODE(path.stat().st_mode) == 0o600)
     command = os.environ.get('SSH_ORIGINAL_COMMAND', '')
+    publication = re.fullmatch(r'publication-(fetch|reference|authorize|complete|fail)(?: ([a-f0-9-]{36}) ([a-f0-9]{64}))?', command)
+    if publication:
+        action, identifier, digest = publication.groups()
+        require((action in ['fetch', 'reference']) == (identifier is None))
+        root = HOME / 'geca-backoffice'
+        require(not (root / 'storage/framework/down').exists())
+        # Arguments fermés ; pas de chemin, code PHP ni donnée de formulaire reçus.
+        php = shutil.which('php')
+        require(php is not None)
+        args = [php, str(root / 'artisan'), 'geca:publication', action]
+        if identifier:
+            args += [identifier, digest]
+        payload = sys.stdin.buffer.read(5 * 1024 * 1024 + 1) if action == 'reference' else b''
+        require(len(payload) <= 5 * 1024 * 1024)
+        result = subprocess.run(args, input=payload, cwd=root, capture_output=True, check=True, timeout=120)
+        require(len(result.stdout) <= 80 * 1024 * 1024)
+        sys.stdout.buffer.write(result.stdout)
+        return
     if command == 'check-backoffice-connection':
         print('Connexion dédiée au back-office : OK. Aucun changement effectué.')
         return

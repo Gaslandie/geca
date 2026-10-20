@@ -250,7 +250,10 @@ class ContentController extends Controller
             return null;
         }
         $manifest = json_decode(file_get_contents($manifestPath), true, 512, JSON_THROW_ON_ERROR);
-        $variants = $manifest[$source] ?? [];
+        $referenceDisk = Storage::disk('local');
+        $extra = $referenceDisk->exists('publication/reference-images.json')
+            ? json_decode($referenceDisk->get('publication/reference-images.json'), true, 512, JSON_THROW_ON_ERROR) : [];
+        $variants = $manifest[$source] ?? $extra[$source] ?? [];
         $variant = collect($variants)->first(fn ($item) => $item['width'] >= $targetWidth) ?? end($variants);
         $path = $variant['src'] ?? '';
         if (! preg_match('#^/images/optimized/[a-z0-9-]+\.webp$#', $path)) {
@@ -427,6 +430,6 @@ class ContentController extends Controller
         }
 
         return redirect()->route('content.edit', ['kind' => $record->kind, 'entry' => $record->id])
-            ->with('status', $creating ? 'La fiche a été ajoutée au back-office. Elle n’est pas publiée sur le site.' : 'Vos changements sont enregistrés.');
+            ->with('status', $creating ? 'La fiche a été ajoutée comme brouillon. Un administrateur peut maintenant la publier avec « Publier sur le site ».' : 'Vos changements sont enregistrés comme brouillon. Un administrateur peut les publier avec « Publier sur le site ».');
     }
 }

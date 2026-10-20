@@ -1,3 +1,4 @@
+import { publicationId } from "@/content/publication";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
@@ -43,6 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     description: homeMetadata[locale].description,
     applicationName: identity.name,
+    ...(publicationId ? { other: { "geca-publication": publicationId } } : {}),
     robots: { index: publicRelease, follow: publicRelease },
     ...(publicRelease ? { metadataBase: new URL(publicOrigin), alternates: { canonical: `${publicOrigin}/${locale}/`, languages: { fr: `${publicOrigin}/fr/`, en: `${publicOrigin}/en/` } } } : {}),
     referrer: "strict-origin-when-cross-origin",

@@ -419,3 +419,6 @@ Gassama autorise explicitement le commit, le push et le paquet GitHub pour cette
 ## Formulaire public de contact — 13 octobre 2026
 
 Route publique séparée /contact-public/jeton (GET), /contact-public (POST JSON) et OPTIONS pour le domaine public exact. Sans accès à l’administration ni cookie privé ; preuve unique liée à origine/IP et limites anti-abus. Destinataire fixe ong.geca@gmail.com, expéditeur depuis la configuration mail existante, réponse possible vers le Reply-To validé du visiteur. Transport SMTP existant conservé ; aucune migration. La réussite indique que le transport accepte l’envoi, sans garantir la réception en boîte. Réception réelle à vérifier avec un message autorisé. Les tests utilisent Mail::fake et ne contactent aucune boîte réelle.
+# Liaison au site public — préparation du 20 octobre 2026
+
+La nouvelle rubrique **Publier sur le site** relie les brouillons Projets, Actualités et Équipe à une reconstruction de la vitrine. Elle reste réservée aux administrateurs. Les rapports, comptes, notes internes et abonnés restent privés. Cette préparation remplace l’absence de liaison décrite dans les étapes historiques ci-dessous, mais ne prouve pas encore son activation distante. Voir [PUBLICATION.md](PUBLICATION.md) pour l’usage, les tests, l’installation et les limites.

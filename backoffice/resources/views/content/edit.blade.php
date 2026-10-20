@@ -8,7 +8,7 @@
 @csrf
 @if($creating)
 <input type="hidden" name="creation_token" value="{{ $creationToken }}">
-<p>Cette fiche sera enregistrée dans le back-office. Elle ne sera pas publiée sur le site. Saisissez uniquement des informations confirmées par GECA.</p>
+<p>Cette fiche sera enregistrée comme brouillon. Un administrateur pourra ensuite la publier avec « Publier sur le site ». Saisissez uniquement des informations confirmées par GECA.</p>
 @else
 @method('PUT')
 <input type="hidden" name="revision" value="{{ old('revision', $entry->revision) }}">

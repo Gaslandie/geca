@@ -19,7 +19,7 @@
 <a class="skip" href="#contenu">Aller au contenu</a>
 @auth
     @php
-        $activeSection = request()->routeIs('users.*') ? 'users' : (request()->routeIs('reports.*') ? 'reports' : (request()->routeIs('content.trash', 'content.trash-all') ? 'trash' : (request()->routeIs('security*') ? 'security' : (request()->routeIs('newsletter.*') ? 'newsletter' : (request()->routeIs('dashboard') ? 'dashboard' : request()->route('kind'))))));
+        $activeSection = request()->routeIs('publication.*') ? 'publication' : (request()->routeIs('users.*') ? 'users' : (request()->routeIs('reports.*') ? 'reports' : (request()->routeIs('content.trash', 'content.trash-all') ? 'trash' : (request()->routeIs('security*') ? 'security' : (request()->routeIs('newsletter.*') ? 'newsletter' : (request()->routeIs('dashboard') ? 'dashboard' : request()->route('kind')))))));
         $navigation = [
             ['key' => 'dashboard', 'label' => 'Accueil', 'icon' => 'home', 'url' => route('dashboard')],
             ['key' => 'projects', 'label' => 'Projets et programmes', 'icon' => 'projects', 'url' => route('content.index', 'projects')],
@@ -29,9 +29,10 @@
             ['key' => 'security', 'label' => 'Sécurité du compte', 'icon' => 'security', 'url' => route('security')],
             ['key' => 'team', 'label' => 'Équipe', 'icon' => 'team', 'url' => route('content.index', 'team')],
             ['key' => 'trash', 'label' => 'Corbeille', 'icon' => 'trash', 'url' => route('content.trash-all')],
+            ['key' => 'publication', 'label' => 'Publier sur le site', 'icon' => 'external', 'url' => route('publication.index')],
             ['key' => 'users', 'label' => 'Comptes et rôles', 'icon' => 'accounts', 'url' => route('users.index')],
         ];
-        $navigation = array_values(array_filter($navigation, fn ($item) => !in_array($item['key'], ['newsletter', 'users'], true) || auth()->user()->managesAccounts()));
+        $navigation = array_values(array_filter($navigation, fn ($item) => !in_array($item['key'], ['newsletter', 'users', 'publication'], true) || auth()->user()->managesAccounts()));
         $navigation = array_values(array_filter($navigation, fn ($item) => $item['key'] !== 'trash' || auth()->user()->editsContent()));
         $sectionLabel = collect($navigation)->firstWhere('key', $activeSection)['label'] ?? 'Espace de gestion';
     @endphp

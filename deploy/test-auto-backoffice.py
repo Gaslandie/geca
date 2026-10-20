@@ -149,6 +149,25 @@ class Reception(unittest.TestCase):
         self.assertFalse(self.receive('check-backoffice-connection').called)
         self.assertEqual(list(self.home.glob('geca-auto-backoffice-*')), [])
 
+    def test_publication_commands_are_closed_and_only_forward_to_artisan(self):
+        identifier = '11111111-1111-4111-8111-111111111111'
+        for action in ['fetch', 'reference', 'authorize', 'complete', 'fail']:
+            command = 'publication-' + action
+            if action not in ['fetch', 'reference']:
+                command += ' ' + identifier + ' ' + 'a' * 64
+            output = io.BytesIO()
+            with patch.multiple(receiver, HOME=self.home, TOOLS=self.tools), patch('getpass.getuser', return_value='fnksrwmy'), patch.dict(os.environ, {'SSH_ORIGINAL_COMMAND': command}), patch.object(receiver.shutil, 'which', return_value='/usr/bin/php'), patch.object(receiver.sys, 'stdin', type('Input', (), {'buffer': io.BytesIO(b'{}')})()), patch.object(receiver.sys, 'stdout', type('Output', (), {'buffer': output})()), patch.object(receiver.subprocess, 'run') as run:
+                run.return_value.stdout = b'{"ok":true}'
+                receiver.main()
+                args = run.call_args.args[0]
+                self.assertEqual(args[:4], ['/usr/bin/php', str(self.home / 'geca-backoffice/artisan'), 'geca:publication', action])
+                self.assertEqual(run.call_args.kwargs['input'], b'{}' if action == 'reference' else b'')
+                self.assertNotIn('shell', run.call_args.kwargs)
+                self.assertEqual(output.getvalue(), b'{"ok":true}')
+        for command in ['publication-fetch;id', 'publication-authorize', 'publication-fetch '+identifier+' '+'a'*64, 'publication-reference ../private', 'publication-unknown']:
+            with self.subTest(command=command), self.assertRaises(RuntimeError):
+                self.receive(command)
+
     def test_shell_sftp_injection_wrong_digest_refused(self):
         for command in ['sh', 'sftp', 'deploy-public ' + '0' * 64, 'deploy-backoffice ' + '0' * 64 + ';id', 'deploy-backoffice ' + '0' * 64]:
             with self.subTest(command=command), self.assertRaises(RuntimeError): self.receive(command)

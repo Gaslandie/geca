@@ -1,3 +1,5 @@
+import { publicReference } from "./export-public-reference.mjs";
+import { applyPublication } from "./publication-input.mjs";
 import { cp, mkdir, mkdtemp, readFile, readdir, rm, stat, symlink, writeFile, rename } from "node:fs/promises";
 import { resolve, join } from "node:path";
 import { tmpdir } from "node:os";
@@ -56,6 +58,8 @@ try {
     if (!/^\/images\/optimized\/[a-zA-Z0-9_.-]+\.webp$/.test(src)) throw new Error("Média hors registre autorisé.");
     await cp(join(project, "public", src.slice(1)), join(work, "public", src.slice(1)));
   }
+  await writeFile(join(release, "reference.json"), JSON.stringify(await publicReference(work)));
+  const publicationId = await applyPublication(process.env.GECA_PUBLICATION_INPUT, work);
   await run(process.execPath, [join(project, "node_modules", "next", "dist", "bin", "next"), "build", "--webpack"], {
     cwd: work,
     env: { ...process.env, GECA_PUBLIC_RELEASE: "true", GECA_GITHUB_PAGES: "false", NEXT_PUBLIC_BASE_PATH: "", NEXT_TELEMETRY_DISABLED: "1" },
@@ -75,7 +79,7 @@ try {
     }
     manifest.push({ path, bytes: (await stat(join(files, path))).size, sha256: createHash("sha256").update(body).digest("hex") });
   }
-  await writeFile(join(release, "manifest.json"), JSON.stringify({ createdAt: new Date().toISOString(), origin: "https://globalecoaction.org", files: manifest }, null, 2) + "\n");
+  await writeFile(join(release, "manifest.json"), JSON.stringify({ createdAt: new Date().toISOString(), origin: "https://globalecoaction.org", publicationId, files: manifest }, null, 2) + "\n");
   await writeFile(join(releaseRoot, "latest.json"), JSON.stringify({ directory: release, files }, null, 2) + "\n");
   console.log(`Version publique préparée : ${files}`);
   console.log("Tester cette version avant de créer l’archive de livraison.");

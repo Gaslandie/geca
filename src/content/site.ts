@@ -1,3 +1,4 @@
+import { publishedProjects, publishedNews, publishedTeam } from "./publication";
 import homeVideo from "./home-video.json";
 import projectVideos from "./project-videos.json";
 
@@ -462,7 +463,7 @@ export type Project = {
 
 // Références authentiques du 4 octobre 2026 : docs/TEXTES-AUTHENTIQUES-CLIENT.md.
 // Quatre statuts du brief initial conservés ; null signifie aucun statut fourni.
-export const projects: readonly Project[] = [
+const sourceProjects: readonly Project[] = [
   {
     slug: "kounounkan",
     photo: clientPhoto("gorede-saponification"),
@@ -537,6 +538,8 @@ export const projects: readonly Project[] = [
 
 // Message client reçu via « MESSAGE POUR LA PAGE D'ACCUEIL.docx » le 3 octobre 2026.
 // Répartition éditoriale et provenance : docs/CONTENU-CLIENT.md.
+export const projects = publishedProjects(sourceProjects, "fr");
+
 export const homeContent = {
   hero: {
     label: identity.name,
@@ -1218,7 +1221,7 @@ export const territorialExperience = {
 
 export function getPortfolioProjects(locale: Locale): readonly Project[] {
   if (locale === "fr") return projects;
-  return projects.map((project) => {
+  return publishedProjects(sourceProjects.map((project) => {
     const source = Object.values(clientPhotoSources).find((photo) => photo.src === project.photo?.src);
     return {
       ...project,
@@ -1230,7 +1233,7 @@ export function getPortfolioProjects(locale: Locale): readonly Project[] {
         contextLabel: project.photo.contextLabel ? "Thematic illustration" : undefined,
       } : undefined,
     };
-  });
+  }), locale);
 }
 
 // Présentation des huit domaines authentiques, partagés avec l’accueil et À propos.
@@ -1271,7 +1274,7 @@ export const interventionContent = {
 
 
 // Portraits et identités fournis par Gassama depuis le 7 octobre 2026.
-export const teamMembers = [
+const sourceTeamMembers = [
   {
     id: "mohamed-makale-kaba",
     name: "Mohamed Makalé KABA",
@@ -1346,6 +1349,8 @@ export const teamMembers = [
   },
 ] as const;
 
+export const teamMembers = publishedTeam(sourceTeamMembers);
+
 export const teamContent = {
   fr: { label: "Notre équipe", title: "Les femmes et les hommes de GECA", all: "Découvrir l’équipe", pageTitle: "Notre équipe" },
   en: { label: "Our team", title: "The people of GECA", all: "Meet the team", pageTitle: "Our team" },
@@ -1416,7 +1421,7 @@ export function getNewsEntries(locale: Locale): readonly NewsEntry[] {
   const catalog = getPortfolioProjects(locale);
   // Ordre des périodes fournies ; aucune fin ou date de publication déduite.
   const archive = ["kounounkan", "appui-social-nature", "planification-climatique", "protemo", "piscca", "reboisement-communautaire", "droits-communautes"];
-  return [
+  return publishedNews([
     {
       id: "nouvelle-denomination",
       title: locale === "fr" ? "RENASCEDD devient Global EcoAction" : "RENASCEDD becomes Global EcoAction",
@@ -1453,7 +1458,7 @@ export function getNewsEntries(locale: Locale): readonly NewsEntry[] {
       category: text.organization,
       path: "a-propos#notre-histoire",
     },
-  ];
+  ], locale);
 }
 
 
@@ -1562,11 +1567,11 @@ export const pageIntroductions = {
 // English homepage: faithful translations of the current French content.
 // Shared media, project translations and expertise data remain the source of truth.
 export function getHomeContent(locale: Locale) {
+  const newsItems = getNewsEntries(locale).filter(entry => entry.id.startsWith("admin-") || entry.id.startsWith("projet-")).slice(0, 2).map(entry => ({ ...entry, path: newsArticlePath(entry.id) }));
   if (locale === "fr") return {
     ...homeContent,
-    news: { ...homeContent.news, discover: "Découvrir", discoverLabel: "Découvrir les actualités" },
+    news: { ...homeContent.news, items: newsItems, discover: "Découvrir", discoverLabel: "Découvrir les actualités" },
   };
-  const translatedProjects = getPortfolioProjects(locale);
   return {
     ...homeContent,
     hero: {
@@ -1645,11 +1650,7 @@ export function getHomeContent(locale: Locale) {
       cta: "View all news",
       discover: "Explore",
       discoverLabel: "Explore the news",
-      items: translatedProjects.slice(0, 2).map((project) => ({
-        title: project.title, description: project.description,
-        path: `actualites/projet-${project.slug}`, category: "Projects & programmes",
-        period: project.period, photo: project.photo,
-      })),
+      items: newsItems,
     },
     partners: {
       ...homeContent.partners,

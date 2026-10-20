@@ -2038,3 +2038,12 @@ Adaptation : retrait de la mention du haut, volet absent en mode preview, état 
 Validation : 25 tests Newsletter / 214 assertions réussis, dont mode simulation sans envoi, CSRF, droits et révocation. Page courante vérifiée dans le navigateur sur 127.0.0.1:8000 à 375 et 1440 px : mentions retirées, aucun débordement. Aucun commit, push ni déploiement.
 
 Complément navigateur : parcours newsletter confirmé sur base jetable, de l’inscription à la simulation puis désinscription sans JavaScript. Limite distincte observée dans le build public local : à 375 px, le bouton WhatsApp flottant intercepte le clic sur S’abonner. Le parcours a été soumis au clavier (focus puis Entrée) ; ce chevauchement public reste à corriger et n’a pas été masqué dans le produit.
+# Liaison de publication — 20 octobre 2026
+
+Références consultées pour cette liaison :
+
+- [WordPress : états de publication](https://wordpress.org/documentation/article/post-status/) : séparation entre brouillon et publication, avec droits associés. Adaptation GECA : enregistrement privé puis confirmation explicite d’un administrateur ; aucune publication au simple enregistrement.
+- [GitHub Actions : exécutions programmées](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule) : les horaires peuvent être retardés, notamment en période de charge. Adaptation : contrôle toutes les dix minutes décalé du début d’heure, état consultable et aucun délai exact promis.
+- [Next.js : export statique](https://nextjs.org/docs/app/guides/static-exports), complété par le guide installé de Next.js 16.3.8 : le contenu HTML est calculé à la construction. Adaptation : reconstruction d’une copie publique fermée, plutôt qu’une dépendance du navigateur à la base privée.
+
+Choix propre à GECA : transport SSH déjà limité, copie immuable, contrôle des droits avant livraison, confirmation HTTPS, conservation de la dernière publication lors des mises à jour de code et import uniquement additif des références manquantes. Les références servent au fonctionnement, jamais à inventer des faits GECA. Procédure et limites dans [PUBLICATION.md](PUBLICATION.md).

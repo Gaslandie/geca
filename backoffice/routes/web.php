@@ -8,6 +8,7 @@ use App\Http\Controllers\LocalAccessController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NewsletterAdminController;
 use App\Http\Controllers\NewsletterPublicController;
+use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\PublicContactController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TwoFactorController;
@@ -37,6 +38,8 @@ Route::middleware(['guest', 'pending-mfa'])->prefix('connexion/double-verificati
 });
 Route::post('/deconnexion', [SessionController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::middleware(['auth', 'admin', 'auth.session'])->group(function () {
+    Route::get('/administration/publication', [PublicationController::class, 'index'])->name('publication.index');
+    Route::post('/administration/publication', [PublicationController::class, 'store'])->middleware('throttle:6,1')->block(120, 10)->name('publication.store');
     Route::prefix('administration/comptes')->name('users.')->group(function () {
         Route::get('/', [UserManagementController::class, 'index'])->name('index');
         Route::get('/ajouter', [UserManagementController::class, 'create'])->block(120, 10)->name('create');
