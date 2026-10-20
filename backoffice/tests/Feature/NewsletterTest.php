@@ -333,6 +333,7 @@ class NewsletterTest extends TestCase
         $this->assertCount(1, $message->getTo());
         $this->assertEmpty($message->getCc());
         $this->assertEmpty($message->getBcc());
+        $this->assertSame('ong.geca@gmail.com', $message->getReplyTo()[0]->getAddress());
         $this->assertStringContainsString('/desinscription/', $body);
         $this->assertTrue($message->getHeaders()->has('List-Unsubscribe'));
         $this->assertSame(1, Delivery::where('status', 'handed_off')->count());

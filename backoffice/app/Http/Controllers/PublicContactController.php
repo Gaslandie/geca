@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PublicContactMessage;
+use App\Support\OrganizationEmail;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -54,7 +55,23 @@ class PublicContactController extends Controller
         });
         abort_unless(is_array($proof) && $proof['origin'] === $request->header('Origin') && $proof['ip'] === hash('sha256', $request->ip() ?? '') && now()->timestamp - $proof['issued'] >= 2, 419);
         try {
-            Mail::to('ong.geca@gmail.com')->send(new PublicContactMessage($data));
+            // Le transport par défaut reste une simulation pour les autres modules.
+            // Le contact utilise explicitement le SMTP transactionnel de connexion.
+            $mailer = config('login.mailer');
+            $settings = is_string($mailer) ? config('mail.mailers.'.$mailer) : null;
+            $from = config('login.from');
+            if (! is_array($settings) || ($settings['transport'] ?? null) !== 'smtp'
+                || ($settings['require_tls'] ?? null) !== true
+                || ! in_array($settings['scheme'] ?? null, ['smtp', 'smtps'], true)
+                || empty($settings['host']) || empty($settings['username']) || empty($settings['password'])
+                || ! is_string($from) || ! filter_var($from, FILTER_VALIDATE_EMAIL)) {
+                throw new \RuntimeException('Messagerie de contact indisponible.');
+            }
+            $sent = Mail::mailer($mailer)->to(OrganizationEmail::CONTACT_RECIPIENT)
+                ->send((new PublicContactMessage($data))->from($from, 'Global EcoAction'));
+            if ($sent === null) {
+                throw new \RuntimeException('Message non transmis.');
+            }
         } catch (Throwable) {
             // Aucune saisie personnelle ni erreur SMTP exposée ou journalisée ici.
             return response()->json(['error' => 'delivery'], 503);

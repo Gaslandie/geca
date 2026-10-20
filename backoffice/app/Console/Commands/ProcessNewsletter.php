@@ -6,6 +6,7 @@ use App\Models\NewsletterCampaign;
 use App\Models\NewsletterDelivery;
 use App\Models\NewsletterSubscriber;
 use App\Models\User;
+use App\Support\OrganizationEmail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
@@ -60,7 +61,8 @@ class ProcessNewsletter extends Command
                         $p = $d->payload;
                         $body = $p['body']."\n\n".($d->kind === 'campaign' ? ($s->locale === 'en' ? 'Unsubscribe: ' : 'Se désinscrire : ') : '').$p['link'];
                         Mail::mailer('smtp')->raw($body, function ($message) use ($s, $p, $d) {
-                            $message->to($s->email)->from(config('newsletter.from'), 'Global EcoAction')->subject($p['subject']);
+                            $message->to($s->email)->from(config('newsletter.from'), 'Global EcoAction')
+                                ->replyTo(OrganizationEmail::ADDRESS, 'Global EcoAction')->subject($p['subject']);
                             if ($d->kind === 'campaign') {
                                 $message->getSymfonyMessage()->getHeaders()->addTextHeader('List-Unsubscribe', '<'.$p['link'].'>');
                             }

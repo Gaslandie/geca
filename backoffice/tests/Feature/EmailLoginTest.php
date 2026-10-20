@@ -59,6 +59,12 @@ class EmailLoginTest extends TestCase
         $this->get('/connexion/double-verification/qr')->assertRedirect('/administration');
     }
 
+    public function test_login_code_replies_go_to_geca(): void
+    {
+        $envelope = (new LoginCode('123456'))->envelope();
+        $this->assertSame('ong.geca@gmail.com', $envelope->replyTo[0]->address);
+    }
+
     public function test_code_is_single_use_even_when_old_pending_session_is_restored(): void
     {
         $user = $this->admin();

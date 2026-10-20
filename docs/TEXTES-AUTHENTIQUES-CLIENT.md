@@ -1,5 +1,13 @@
 # Textes authentiques du client — référence GECA
 
+## Test temporaire de réception — Gassama, 20 octobre 2026
+
+Gassama demande ensuite de remplacer temporairement le destinataire du formulaire et l’adresse du compte client du back-office par **gassma803@gmail.com**, pour tester lui-même les réceptions. Il autorise explicitement commit, push et déploiement. Retour à `ong.geca@gmail.com` après sa prochaine demande ; aucune date de retour automatique inventée. Les coordonnées publiques de l’ONG et l’expéditeur SMTP restent distincts de ce test. Le changement du compte conserve son mot de passe et ses droits, et invalide ses anciens codes et sessions.
+
+## Adresse de réception unique — Gassama, 20 octobre 2026
+
+Gassama rapporte que le client ne reçoit pas les e-mails et demande que `ong.geca@gmail.com` soit la seule adresse de réception institutionnelle pour le site et son compte back-office. Cette adresse est déjà celle des coordonnées publiques et du destinataire du formulaire. La demande n’ajoute aucun fait sur les activités de GECA. L’adresse technique du serveur qui expédie les messages a un rôle distinct ; les adresses personnelles des autres comptes et des abonnés ne sont pas remplacées. Réception réelle dans la boîte client à vérifier, sans la déduire des tests locaux.
+
 ## Favicon et précision finale du défilement — 10 octobre 2026
 
 Gassama demande le démarrage local, le favicon correspondant à la partie circulaire du logo (oiseau sur branche), puis autorise explicitement commit, push et déploiement du site. Aucun fait GECA ajouté par cette demande.
