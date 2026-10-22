@@ -63,6 +63,7 @@ class PublicPublication
     {
         $entries = [];
         $media = [];
+        $mediaBytes = 0;
         $rows = ContentEntry::withTrashed()->orderBy('kind')->orderBy('source_key')->get();
         if ($rows->count() > 300) {
             throw ValidationException::withMessages(['publication' => 'Le nombre de fiches dépasse la limite de publication. Contactez le responsable du site.']);
@@ -111,13 +112,41 @@ class PublicPublication
                     throw ValidationException::withMessages(['publication' => 'Une photo ne peut pas être publiée.']);
                 }
                 $hash = hash('sha256', $bytes);
+                if (! isset($media[$hash])) {
+                    $mediaBytes += strlen($bytes);
+                    if ($mediaBytes > 24 * 1024 * 1024) {
+                        throw ValidationException::withMessages(['publication' => 'Les médias dépassent 24 Mo pour une publication. Réduisez les fichiers avant de recommencer.']);
+                    }
+                }
                 $media[$hash] = base64_encode($bytes);
                 $photo = ['sha256' => $hash, 'width' => $size[0], 'height' => $size[1], 'alt' => ['fr' => $asset->alt_fr, 'en' => $asset->alt_en]];
             }
-            if ($patch || $photo || $new) {
+            $video = null;
+            if (isset($draft['video'])) {
+                if ($entry->kind === 'team' || ! Str::isUuid($draft['video']['id'] ?? '')) {
+                    abort(422);
+                }
+                $disk = Storage::disk('local');
+                $path = 'publication-videos/'.$draft['video']['id'].'.mp4';
+                if ($disk->size($path) > 20 * 1024 * 1024 || $mediaBytes + $disk->size($path) > 24 * 1024 * 1024) {
+                    throw ValidationException::withMessages(['publication' => 'Les médias dépassent 24 Mo pour une publication. Réduisez les fichiers avant de recommencer.']);
+                }
+                $prepared = app(PrepareVideo::class)->inspect($disk->get($path));
+                $hash = hash('sha256', $prepared['bytes']);
+                if (! isset($media[$hash])) {
+                    $mediaBytes += strlen($prepared['bytes']);
+                }
+                $media[$hash] = base64_encode($prepared['bytes']);
+                unset($prepared['bytes']);
+                $video = ['sha256' => $hash, 'width' => $prepared['width'], 'height' => $prepared['height']];
+            }
+            if ($patch || $photo || $new || array_key_exists('video', $draft)) {
                 $item = ['kind' => $entry->kind, 'key' => $key, 'deleted' => false, 'new' => $new, 'texts' => $patch];
                 if ($photo) {
                     $item['photo'] = $photo;
+                }
+                if (array_key_exists('video', $draft)) {
+                    $item['video'] = $video;
                 }
                 $entries[] = $item;
             }

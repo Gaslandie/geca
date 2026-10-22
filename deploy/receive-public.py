@@ -73,6 +73,7 @@ def main():
                 r'|images/brand/global-ecoaction-logo-client-transparent-20261010\.webp'
                 r'|images/brand/geca-share-20261010\.jpg'
                 r'|videos/(?:geca-presentation-20261015|geca-projets-20261015-[1-4])\.(?:mp4|webp)'
+                r'|videos/publication-[a-f0-9]{64}\.mp4'
             )
             with zipfile.ZipFile(archive) as zipped:
                 require(zipped.read('.htaccess') == (public_root / '.htaccess').read_bytes(),

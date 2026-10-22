@@ -58,6 +58,18 @@
 <p>L’ajout de photos est indisponible pour le moment.</p>
 @endif
 </fieldset>
+@if($entry->kind !== 'team')
+<fieldset><legend>Vidéo</legend>
+@if(!$creating && !empty($entry->draft_payload['video']))
+<video class="entry-photo" controls playsinline preload="none" aria-label="Vidéo de la fiche" src="{{ route('content.video', ['kind' => $entry->kind, 'entry' => $entry->id]) }}"></video>
+<label class="checkbox"><input type="checkbox" name="remove_video" value="1" @checked(old('remove_video'))> Retirer la vidéo de cette fiche</label>
+@endif
+<label for="video">Ajouter ou remplacer la vidéo (facultatif)</label>
+<p id="video-help">MP4 avec vidéo H.264 et son AAC facultatif · 20 Mo maximum. La photo est conservée. La vidéo reste en brouillon jusqu’à la publication.</p>
+<input type="file" id="video" name="video" accept="video/mp4,.mp4" aria-describedby="video-help">
+<p>Utilisez une vidéo autorisée à être rendue publique. Pour les paroles, prévoyez leur transcription dans le texte de la publication.</p>
+</fieldset>
+@endif
 <label for="source_note">{{ $creating ? 'D’où viennent ces informations ?' : 'Qu’avez-vous changé ?' }}</label>
 <p id="source_help">{{ $creating ? 'Indiquez le document ou la personne de GECA qui a confirmé ces informations.' : 'Exemple : « J’ai corrigé le lieu du projet à la demande de GECA. »' }} Cette note reste ici. Elle n’apparaît pas sur le site. Ne mettez pas de mot de passe ni d’information privée.</p>
 <textarea id="source_note" name="source_note" required minlength="10" maxlength="2000" aria-describedby="source_help" placeholder="{{ $creating ? 'Document ou personne ayant confirmé les informations…' : 'J’ai corrigé…' }}">{{ old('source_note') }}</textarea>

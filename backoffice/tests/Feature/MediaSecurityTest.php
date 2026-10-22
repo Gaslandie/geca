@@ -183,7 +183,7 @@ class MediaSecurityTest extends TestCase
     {
         $this->signIn();
         config(['geca.media_uploads_enabled' => false]);
-        $this->get($this->editUrl())->assertSee('L’ajout de photos est indisponible')->assertDontSee('type="file"', false);
+        $this->get($this->editUrl())->assertSee('L’ajout de photos est indisponible')->assertDontSee('name="photo"', false)->assertSee('name="video"', false);
         $this->upload($this->data())->assertSessionHasErrors('photo');
         $this->assertDatabaseCount('media_assets', 0);
     }

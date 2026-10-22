@@ -2,6 +2,7 @@
 import getpass
 import hashlib
 import os
+import re
 from pathlib import Path, PurePosixPath
 import shutil
 import stat
@@ -59,7 +60,8 @@ def update(archive, digest):
                 require(entry.filename in {'videos/geca-presentation-20261015.mp4',
                                            'videos/geca-presentation-20261015.webp'} |
                         {f'videos/geca-projets-20261015-{i}.{extension}'
-                         for i in range(1, 5) for extension in ('mp4', 'webp')},
+                         for i in range(1, 5) for extension in ('mp4', 'webp')}
+                        or re.fullmatch(r'videos/publication-[a-f0-9]{64}\.mp4', entry.filename) is not None,
                         'Vidéo hors registre refusée.')
             require(stat.S_IFMT(mode) in (0, stat.S_IFREG), 'Type de fichier refusé.')
         require({'.htaccess', 'fr/index.html', 'en/index.html', 'icon.svg'} <= set(names), 'Livraison incomplète.')

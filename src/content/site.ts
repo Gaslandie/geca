@@ -450,7 +450,10 @@ export const contactContent = {
   },
 } as const;
 
+export type PublicationVideoData = { src: string; width: number; height: number };
+
 export type Project = {
+  video?: PublicationVideoData;
   slug: string;
   title: string;
   zone: string;
@@ -1404,6 +1407,7 @@ export const newsContent = {
 } as const;
 
 export type NewsEntry = {
+  video?: PublicationVideoData;
   id: string;
   zone?: string;
   title: string;
@@ -1443,6 +1447,7 @@ export function getNewsEntries(locale: Locale): readonly NewsEntry[] {
         category: text.project,
         path: `projets#projet-${project.slug}`,
         photo: project.photo,
+        video: project.video,
         partner: project.partner,
         zone: project.zone,
       }] : [];

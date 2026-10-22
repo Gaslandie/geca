@@ -1,3 +1,4 @@
+import { PublicationVideo } from "./PublicationVideo";
 import { PageHero } from "./PageHero";
 import { ProjectVideos } from "./ProjectVideos";
 import Link from "next/link";
@@ -42,6 +43,7 @@ export function ProjectPortfolio({ locale }: { locale: Locale }) {
                 <h3 id={`title-${project.slug}`}>{project.title}</h3>
                 <p className="portfolio-objective-label">{text.objective}</p>
                 <p className="portfolio-description">{project.description}</p>
+                <PublicationVideo video={project.video} title={project.title} locale={locale} />
                 <dl className="portfolio-facts">
                   <div><dt>{text.region}</dt><dd>{project.zone}</dd></div>
                   <div><dt>{text.period}</dt><dd>{project.period}</dd></div>

@@ -1,3 +1,4 @@
+import { PublicationVideo } from "./PublicationVideo";
 import { PageHero } from "./PageHero";
 import Link from "next/link";
 import { getNewsEntries, href, interfaceText, newsArticlePath, newsContent, type Locale, type NewsEntry } from "@/content/site";
@@ -38,6 +39,7 @@ export function NewsArticle({ locale, entry }: { locale: Locale; entry: NewsEntr
           <Container>
             <div className="news-article-body" data-reveal>
               {entry.description.split("\n\n").slice(1).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              <PublicationVideo video={entry.video} title={entry.title} locale={locale} />
               {(entry.zone || entry.partner) && <dl className="news-article-facts">
                 {entry.zone && <div><dt>{text.zone}</dt><dd>{entry.zone}</dd></div>}
                 {entry.partner && <div><dt>{text.partner}</dt><dd>{entry.partner}</dd></div>}

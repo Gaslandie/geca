@@ -60,6 +60,8 @@ try {
   }
   await writeFile(join(release, "reference.json"), JSON.stringify(await publicReference(work)));
   const publicationId = await applyPublication(process.env.GECA_PUBLICATION_INPUT, work);
+  const published = JSON.parse(await readFile(join(work, 'src/content/publication.json'), 'utf8'));
+  for (const entry of published.entries) if (entry.video) videoFiles.add(`videos/publication-${entry.video.sha256}.mp4`);
   await run(process.execPath, [join(project, "node_modules", "next", "dist", "bin", "next"), "build", "--webpack"], {
     cwd: work,
     env: { ...process.env, GECA_PUBLIC_RELEASE: "true", GECA_GITHUB_PAGES: "false", NEXT_PUBLIC_BASE_PATH: "", NEXT_TELEMETRY_DISABLED: "1" },

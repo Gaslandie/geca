@@ -6,6 +6,7 @@ use App\Models\ContentEntry;
 use App\Models\MediaAsset;
 use App\Services\BackofficeAuthorization;
 use App\Services\PreparePhoto;
+use App\Services\PrepareVideo;
 use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -278,6 +279,18 @@ class ContentController extends Controller
         return response()->file($path, ['Content-Type' => 'image/webp']);
     }
 
+    public function video(string $kind, string $entry)
+    {
+        $record = $this->entry($kind, $entry);
+        $id = $record->draft_payload['video']['id'] ?? null;
+        abort_unless($kind !== 'team' && is_string($id) && Str::isUuid($id), 404);
+        $disk = Storage::disk('local');
+        $path = 'publication-videos/'.$id.'.mp4';
+        abort_unless($disk->exists($path), 404);
+
+        return response()->file($disk->path($path), ['Content-Type' => 'video/mp4', 'Content-Disposition' => 'inline; filename="video.mp4"']);
+    }
+
     public function edit(string $kind, string $entry)
     {
         $record = $this->entry($kind, $entry);
@@ -313,6 +326,8 @@ class ContentController extends Controller
             'source_note' => ['required', 'string', 'min:10', 'max:2000'],
             'payload' => ['required', 'array:fr,en'],
             'photo' => ['nullable', 'file', 'max:6144'],
+            'video' => $record->kind === 'team' ? ['prohibited'] : ['nullable', 'file', 'max:20480'],
+            'remove_video' => $record->kind === 'team' ? ['prohibited'] : ['sometimes', 'boolean'],
         ];
         foreach (['fr', 'en'] as $locale) {
             $rules["payload.$locale"] = [$locale === 'fr' ? 'required' : 'sometimes', 'array:'.implode(',', $fields)];
@@ -330,9 +345,14 @@ class ContentController extends Controller
         }
         $data = $request->validate($rules, [], $attributes);
         $photo = $request->hasFile('photo') ? $processor->prepare($request->file('photo')) : null;
+        $video = $request->hasFile('video') ? app(PrepareVideo::class)->prepare($request->file('video')) : null;
+        if ($video && $request->boolean('remove_video')) {
+            throw ValidationException::withMessages(['video' => 'Choisissez soit une nouvelle vidéo, soit son retrait.']);
+        }
+        $newVideoId = null;
         $newMediaId = null;
-        $save = function () use ($record, $data, $request, $fields, $photo, $creating, &$newMediaId) {
-            DB::transaction(function () use ($record, $data, $request, $fields, $photo, $creating, &$newMediaId) {
+        $save = function () use ($record, $data, $request, $fields, $photo, $video, $creating, &$newMediaId, &$newVideoId) {
+            DB::transaction(function () use ($record, $data, $request, $fields, $photo, $video, $creating, &$newMediaId, &$newVideoId) {
                 app(BackofficeAuthorization::class)->writer($request);
                 // Même ordre que la suppression/restauration : projet, puis actualité liée.
                 $project = $this->linkedProject($record);
@@ -400,6 +420,27 @@ class ContentController extends Controller
                     $asset->save();
                     $payload['photo_id'] = $newMediaId;
                 }
+                if (array_key_exists('video', $current->draft_payload ?? [])) {
+                    $payload['video'] = $current->draft_payload['video'];
+                }
+                if ($request->boolean('remove_video')) {
+                    $payload['video'] = null;
+                }
+                if ($video) {
+                    $disk = Storage::disk('local');
+                    $bytes = 0;
+                    foreach ($disk->allFiles('publication-videos') as $path) {
+                        $bytes += $disk->size($path);
+                    }
+                    if ($bytes + strlen($video['bytes']) > 200 * 1024 * 1024) {
+                        throw ValidationException::withMessages(['video' => 'L’espace des vidéos est plein. Contactez le responsable du site.']);
+                    }
+                    $newVideoId = (string) Str::uuid();
+                    if (! $disk->put('publication-videos/'.$newVideoId.'.mp4', $video['bytes'], ['visibility' => 'private'])) {
+                        throw new \RuntimeException('Enregistrement de la vidéo impossible.');
+                    }
+                    $payload['video'] = ['id' => $newVideoId, 'width' => $video['width'], 'height' => $video['height']];
+                }
                 $current->draft_payload = $payload;
                 if ($creating) {
                     $current->source_payload = $payload + ['origin' => 'admin', 'source_note' => $data['source_note']];
@@ -414,12 +455,15 @@ class ContentController extends Controller
             });
         };
         try {
-            if ($photo) {
+            if ($photo || $video) {
                 Cache::lock('geca-media-upload', 60)->block(5, $save);
             } else {
                 $save();
             }
         } catch (\Throwable $exception) {
+            if ($newVideoId) {
+                Storage::disk('local')->delete('publication-videos/'.$newVideoId.'.mp4');
+            }
             if ($newMediaId && ! MediaAsset::whereKey($newMediaId)->exists()) {
                 Storage::disk('media')->deleteDirectory($newMediaId);
             }

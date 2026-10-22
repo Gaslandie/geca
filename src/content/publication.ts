@@ -2,7 +2,7 @@ import data from "./publication.json";
 import type { Locale, LocalPhoto, NewsEntry, Project } from "./site";
 
 type PublishedPhoto = { sha256: string; width: number; height: number; alt: Record<Locale, string> };
-type Patch = { kind: "projects" | "news" | "team"; key: string; deleted: boolean; new?: boolean; texts?: Partial<Record<Locale, Record<string, string>>>; photo?: PublishedPhoto };
+type Patch = { kind: "projects" | "news" | "team"; key: string; deleted: boolean; new?: boolean; texts?: Partial<Record<Locale, Record<string, string>>>; photo?: PublishedPhoto; video?: { sha256: string; width: number; height: number } | null };
 // Le fichier est contrôlé par publication-input.mjs avant toute compilation.
 const changes = data.entries as unknown as Patch[];
 export const publicationId: string | null = data.id;
@@ -10,6 +10,7 @@ const photo = (item: Patch, locale: Locale): LocalPhoto | undefined => item.phot
   src: `/images/optimized/publication-${item.photo.sha256}.webp`, alt: item.photo.alt[locale],
   contextLabel: locale === "fr" ? "Illustration du thème" : "Thematic illustration",
 } : undefined;
+const video = (item: Patch) => item.video ? { src: `/videos/publication-${item.video.sha256}.mp4`, width: item.video.width, height: item.video.height } : undefined;
 // L'anglais non fourni utilise le texte français, sans traduction inventée.
 const texts = (item: Patch, locale: Locale) => Object.fromEntries(Object.entries(item.texts?.[locale] ?? {}).map(([key, value]) => [key, value || (locale === "en" ? item.texts?.fr?.[key] ?? "" : "")]));
 
@@ -20,7 +21,7 @@ export function publishedProjects(base: readonly Project[], locale: Locale): Pro
     if (item.deleted) { if (index >= 0) result.splice(index, 1); continue; }
     if (index < 0 && !item.new) throw new Error("Référence projet absente du site.");
     const previous: Project = result[index] ?? { slug: item.key, title: "", description: "", zone: "", period: "", partner: "", status: null };
-    const entry = { ...previous, ...(item.new && locale === "en" ? item.texts?.fr : {}), ...texts(item, locale), ...(item.photo ? { photo: photo(item, locale) } : {}) };
+    const entry = { ...previous, ...(item.new && locale === "en" ? item.texts?.fr : {}), ...texts(item, locale), ...(item.photo ? { photo: photo(item, locale) } : {}), ...(item.video !== undefined ? { video: video(item) } : {}) };
     if (index >= 0) result[index] = entry; else result.push(entry);
   }
   return result;
@@ -50,7 +51,7 @@ export function publishedNews(base: readonly NewsEntry[], locale: Locale): NewsE
     if (index < 0 && item.key.startsWith("projet-")) continue;
     if (index < 0 && !item.new) throw new Error("Référence actualité absente du site.");
     const previous: NewsEntry = result[index] ?? { id: item.key, title: "", description: "", period: "", category: locale === "fr" ? "Actualité" : "News", path: `actualites/${item.key}` };
-    const entry = { ...previous, ...(item.new && locale === "en" ? item.texts?.fr : {}), ...texts(item, locale), ...(item.photo ? { photo: photo(item, locale) } : {}) };
+    const entry = { ...previous, ...(item.new && locale === "en" ? item.texts?.fr : {}), ...texts(item, locale), ...(item.photo ? { photo: photo(item, locale) } : {}), ...(item.video !== undefined ? { video: video(item) } : {}) };
     if (item.texts?.[locale]?.period !== undefined) delete entry.dateTime;
     if (index >= 0) result[index] = entry; else result.unshift(entry);
   }

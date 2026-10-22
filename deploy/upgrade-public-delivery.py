@@ -32,9 +32,15 @@ PREVIOUS_HOME_VIDEO = {
 }
 
 
-NEW = {
+PREVIOUS_PROJECT_VIDEOS = {
     'receive-public.py': '63811df2249dc340e2b90528bb439e596302b859c212327dfcc636ee276fc89d',
     'update-public.py': '5f6b4bed38caa3bcda7aaa3105d9c03372c22ee74b8ca49f468664a3b632558b',
+    '.htaccess': '36df22233acad5d8deecb93bcb9f6d4389577d7b50c38d2c5ee6e929a7d20540',
+}
+
+NEW = {
+    'receive-public.py': '95b54e8ca45ea51d65c4408da60ef43f649e727c046a2129505db5146d5cb701',
+    'update-public.py': '658b8d040e2c34a63318b783585d46613d7a7736dbabe96e50eae19aff4b16b7',
     '.htaccess': '36df22233acad5d8deecb93bcb9f6d4389577d7b50c38d2c5ee6e929a7d20540',
 }
 
@@ -94,7 +100,7 @@ def upgrade(payload):
         # cPanel peut conserver CRLF ou une ligne vide finale ; directives inchangées.
         observed['.htaccess'] = observed['.htaccess'].replace(b'\r\n', b'\n').rstrip() + b'\n'
         require(any(all(digest(observed[name]) == version[name] for name in version)
-                    for version in (OLD, PREVIOUS, PREVIOUS_HOME_VIDEO)),
+                    for version in (OLD, PREVIOUS, PREVIOUS_HOME_VIDEO, PREVIOUS_PROJECT_VIDEOS)),
                 'Version distante inattendue ou partielle : arrêt sans remplacement.')
         backup = Path(tempfile.mkdtemp(prefix='geca-outils-sauvegarde-', dir=HOME))
         backup.chmod(0o700)

@@ -2,7 +2,7 @@
 @section('title', 'Publier sur le site')
 @section('content')
 <x-admin-back :href="route('dashboard')" />
-<header class="heading"><h1>Publier sur le site</h1><p>Publiez les projets, actualités, membres et photos que vous avez préparés. Les rapports, comptes, abonnés et notes internes restent privés.</p></header>
+<header class="heading"><h1>Publier sur le site</h1><p>Publiez les projets, actualités, membres, photos et vidéos que vous avez préparés. Les rapports, comptes, abonnés et notes internes restent privés.</p></header>
 <section class="card">
 <h2>État de la publication</h2>
 @php($current = $state['current'])
@@ -19,6 +19,7 @@
 @forelse($candidate['entries'] as $item)
 <li>{{ ['projects'=>'Projet', 'news'=>'Actualité', 'team'=>'Membre'][$item['kind']] }} — {{ $item['texts']['fr']['title'] ?? $item['texts']['fr']['name'] ?? $item['key'] }} : {{ $item['deleted'] ? 'retrait du site' : 'ajout ou modification' }}@if(isset($item['photo'])) · photo incluse
 @endif
+@if(array_key_exists('video', $item)) · {{ $item['video'] ? 'vidéo incluse' : 'vidéo retirée' }}@endif
 @if(!$item['deleted'])
 <details><summary>Relire les textes modifiés</summary>
 @foreach(($item['texts'] ?? []) as $locale => $fields)
@@ -34,7 +35,7 @@
 @elseif(!in_array($current['status'] ?? '', ['queued', 'building'], true))
 <form method="post" action="{{ route('publication.store') }}">@csrf
 <input type="hidden" name="fingerprint" value="{{ $fingerprint }}">
-<label class="checkbox"><input type="checkbox" name="confirm" value="1" required>J’ai vérifié ces changements et j’autorise leur publication avec les photos associées.</label>
+<label class="checkbox"><input type="checkbox" name="confirm" value="1" required>J’ai vérifié ces changements et j’autorise leur publication avec les photos et vidéos associées.</label>
 <button type="submit">Publier sur le site</button>
 </form>
 @endif

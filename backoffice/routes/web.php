@@ -73,6 +73,7 @@ Route::middleware(['auth', 'admin', 'auth.session'])->group(function () {
     Route::get('/administration/{kind}/{entry}/supprimer', [ContentController::class, 'confirmDelete'])->whereIn('kind', ['projects', 'news', 'team'])->whereNumber('entry')->name('content.confirm-delete');
     Route::delete('/administration/{kind}/{entry}', [ContentController::class, 'destroy'])->whereIn('kind', ['projects', 'news', 'team'])->whereNumber('entry')->middleware('throttle:content-removal')->name('content.destroy');
     Route::post('/administration/{kind}/{entry}/restaurer', [ContentController::class, 'restore'])->whereIn('kind', ['projects', 'news', 'team'])->whereNumber('entry')->middleware('throttle:content-removal')->name('content.restore');
+    Route::get('/administration/{kind}/{entry}/video', [ContentController::class, 'video'])->whereIn('kind', ['projects', 'news'])->whereNumber('entry')->name('content.video');
     Route::get('/administration/{kind}/{entry}/photo', [ContentController::class, 'photo'])->whereIn('kind', ['projects', 'news', 'team'])->name('content.photo');
     Route::get('/administration/{kind}/{entry}/photo/{size}', [ContentController::class, 'photo'])->whereIn('kind', ['projects', 'news', 'team'])->whereNumber('entry')->whereIn('size', ['thumbnail'])->name('content.thumbnail');
     Route::get('/administration/{kind}/{entry}/modifier', [ContentController::class, 'edit'])->whereIn('kind', ['projects', 'news', 'team'])->name('content.edit');

@@ -124,6 +124,15 @@ class PublicationTest(unittest.TestCase):
             self.assertEqual((self.root / name).read_bytes(), body)
         self.assertEqual((self.home / 'geca-backoffice' / '.env').read_bytes(), b'SECRET=fixture')
 
+    def test_hashed_publication_video_allowed_and_invalid_names_refused(self):
+        name = 'videos/publication-' + 'a' * 64 + '.mp4'
+        self.receive(self.archive({name: b'video publique validee en construction'}))
+        self.assertTrue((self.root / name).is_file())
+        for name in ['videos/publication-test.mp4', 'videos/publication-' + 'A' * 64 + '.mp4',
+                     'videos/publication-' + 'a' * 64 + '.php']:
+            with self.subTest(name=name), self.assertRaises(RuntimeError):
+                self.receive(self.archive({name: b'interdit'}))
+
     def test_apache_changes_refused(self):
         with self.assertRaises(RuntimeError):
             self.receive(self.archive(apache=b'Protections supprimees'))

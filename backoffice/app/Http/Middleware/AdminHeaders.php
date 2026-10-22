@@ -28,7 +28,7 @@ class AdminHeaders
             $scriptSources[] = "'nonce-$navigationNonce'";
         }
         $scripts = $scriptSources ? '; script-src '.implode(' ', $scriptSources)."; script-src-attr 'none'" : '';
-        $response->headers->set('Content-Security-Policy', "default-src 'none'; style-src 'self'; img-src $images; font-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'$scripts");
+        $response->headers->set('Content-Security-Policy', "default-src 'none'; style-src 'self'; img-src $images; font-src 'self'; media-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'$scripts");
 
         return $response;
     }

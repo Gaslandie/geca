@@ -3062,3 +3062,6 @@ body:has(.search-dialog[open]) .whatsapp-floating { visibility: hidden; }
 .site-footer { padding-bottom: 90px; }
 
 body:has(.site-header .menu-toggle[aria-expanded="true"]) .whatsapp-floating { visibility: hidden; }
+
+.publication-video { margin: 24px 0; width: 100%; }
+.publication-video video { display: block; width: 100%; max-height: 70vh; height: auto; background: #102f21; object-fit: contain; border-radius: 8px; }

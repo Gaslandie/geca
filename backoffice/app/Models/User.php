@@ -51,7 +51,7 @@ class User extends Authenticatable
             return false;
         }
         $read = ['dashboard', 'security', 'security.password', 'security.logout-all', 'security.regenerate',
-            'media.preview', 'media.thumbnail', 'content.index', 'content.show', 'content.photo', 'content.thumbnail',
+            'media.preview', 'media.thumbnail', 'content.index', 'content.show', 'content.photo', 'content.thumbnail', 'content.video',
             'reports.index', 'reports.download'];
         $edit = ['content.create', 'content.store', 'content.edit', 'content.update', 'content.confirm-delete',
             'content.destroy', 'content.restore', 'content.trash', 'content.trash-all', 'reports.create',
